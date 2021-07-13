@@ -1,6 +1,6 @@
 # Quick Search
 ## Logo
-<img src="/images/icon.png" width="500">
+<img src="/images/logo.png" width="500">
 
 ## Link
 <a target="_blank" href="">View in the Chrome Web Store</a>
