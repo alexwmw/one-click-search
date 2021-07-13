@@ -7,12 +7,12 @@ const providers = [
   {
     name: "Wikipedia",
     url: "https://www.wikipedia.org/",
-    queryKey: "/w/index.php?search=",
+    queryKey: "w/index.php?search=",
   },
   {
     name: "Wiktionary",
     url: "https://www.wiktionary.org/",
-    queryKey: "/w/index.php?search=",
+    queryKey: "w/index.php?search=",
   },
   {
     name: "Amazon",
@@ -94,12 +94,12 @@ function initialiseIcon(provider, parent, hidden = false) {
 }
 
 function setSearchHrefs(searchString) {
-  for (var i = 0; i < defaultProviders.length; i++) {
+  for (var i = 0; i < providers.length; i++) {
     $(".QSicon")
       .eq(i)
       .parent()
       .attr({
-        href: defaultProviders[i].url + defaultProviders[i].queryKey + searchString,
+        href: providers[i].url + providers[i].queryKey + searchString,
       });
   }
 }
@@ -143,7 +143,7 @@ function popupMouseenter(e) {
   showIcons = setTimeout(() => {
     if (hover) {
       $(".QSpopup").css({
-        width: iconWidth * defaultProviders.length,
+        width: iconWidth * providers.length,
       });
       $(".hiddenIcon").fadeIn();
     }
@@ -167,8 +167,8 @@ function popupMouseleave(e) {
 
 setStylsheet("stylesheets/popup.css");
 
-for (var i = 0; i < defaultProviders.length; i++) {
-  initialiseIcon(defaultProviders[i], popup, i > 0);
+for (var i = 0; i < providers.length; i++) {
+  initialiseIcon(providers[i], popup, i > 0);
 }
 
 $("body").mousedown(bodyMousedown).mouseup(bodyMouseup);

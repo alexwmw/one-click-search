@@ -81,6 +81,27 @@ button:active {
   margin: 3px 10px;
 }
 
+/* || Tabs */
+.tab {
+  display: inline-block;
+  width: 50%;
+  background-color: transparent;
+  padding: 5px 0;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: solid 2px lightgrey;
+  margin-left: -2px;
+  font-weight: 300;
+  transition: font-weight 300ms;
+}
+.tab.active {
+  background-color: whitesmoke;
+  font-weight: 700;
+  border-bottom: solid 2px var(--active);
+}
+.tab:hover {
+  font-weight: 700;
+}
 /* || Lists / Items */
 
 ul {
@@ -143,6 +164,7 @@ ul {
   cursor: grabbing;
   pointer-events: none;
   opacity: 0.3 !important;
+  display:none;
 }
 .background-class {
   border: var(--primary-border);
