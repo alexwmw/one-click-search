@@ -1,0 +1,234 @@
+/* || Root */
+
+:root {
+  /* Dimensions */
+  --row-height: 24px;
+  --row-padding: 3px;
+  --row-total-height: calc(var(--row-height) + (var(--row-padding) * 2));
+  --favicon-height: 16px;
+
+  /* Colors */
+  --primary: #7edcce;
+  --active: #32bba6;
+  --accent1: aliceblue;
+  --accent2: #f7e9de;
+  --disabled: whitesmoke;
+  --text-color: black;
+  --text-disabled: grey;
+
+  /* Fonts */
+  --main-font: "Inria Sans";
+
+  /* Borders */
+  --invisible-border: solid 1px transparent;
+  --primary-border: solid 1px var(--primary);
+}
+
+/* || Fonts */
+
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap");
+body,
+input,
+button,
+li,
+h1,
+h2 {
+  font-family: var(--main-font);
+}
+
+/* || Headings */
+
+h1 {
+  font-weight: 700;
+  font-size: 16pt;
+}
+h2 {
+  font-weight: 300;
+  font-size: 14pt;
+}
+
+/* || Buttons and input */
+
+button {
+  background-color: var(--accent1);
+  position: relative;
+  top: 0;
+  border-radius: 12px;
+  height: 32px;
+  width: 80px;
+  padding: 5px;
+  outline: none;
+  border: var(--invisible-border);
+  cursor: pointer;
+  transition: top 200ms, background-color 200ms, border 200ms;
+}
+button:hover {
+  top: -1px;
+  border: var(--primary-border);
+}
+button:active {
+  background-color: var(--primary);
+}
+.add-button {
+  margin: 4px 0px;
+}
+.li-input {
+  border: none;
+  font-size: 8pt;
+  outline: none;
+  height: 18px;
+  width: 160px;
+  margin: 3px 10px;
+}
+
+/* || Lists / Items */
+
+ul {
+  padding-inline-start: 0;
+  min-height: var(--row-height);
+}
+.provider-li {
+  list-style-type: none;
+  list-style-position: inside;
+  height: var(--row-height);
+  padding: var(--row-padding);
+  width: 90%;
+  margin: 3px auto;
+  border-radius: 10px;
+  position: relative;
+  top: 0;
+  transition: border 200ms, height 200ms;
+  cursor: grab;
+  border: var(--invisible-border);
+  overflow: hidden;
+}
+.provider-li:hover {
+  border: var(--primary-border);
+}
+#visible .provider-li {
+  background-color: var(--accent1);
+}
+#hidden .provider-li {
+  background-color: var(--accent2);
+}
+#disabled .provider-li {
+  background-color: var(--disabled);
+}
+.expanded-li {
+  height: 130px;
+}
+
+/* || Row components */
+
+.favicon {
+  height: var(--favicon-height);
+  margin: 4px 10px;
+}
+.provider-name {
+  position: relative;
+  bottom: 8px;
+  left: 8px;
+}
+.input-fields {
+  text-align: right;
+  font-size: 7pt;
+  font-weight: 700;
+}
+
+/* || SortableJS classes */
+
+.drag-class {
+  background-color: grey !important;
+  color: grey;
+  cursor: grabbing;
+  pointer-events: none;
+  opacity: 0.3 !important;
+}
+.background-class {
+  border: var(--primary-border);
+  pointer-events: none;
+}
+#visible .background-class {
+  background-color: rgb(197, 222, 255) !important;
+}
+#hidden .background-class {
+  background-color: peachpuff !important;
+}
+#disabled .background-class {
+  background-color: lightgrey !important;
+}
+
+/* || Icons */
+.fas,
+.far {
+  cursor: pointer;
+  color: grey;
+}
+.edit-icon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+
+  padding: 5px;
+  border-radius: 50%;
+  text-align: center;
+}
+.edit-icon:hover {
+  background-color: white;
+}
+
+.switch {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+  display: inline-block;
+  width: 26px;
+  height: 12px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ddd;
+  transition: 0.4s;
+  border-radius: 17px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #7edcce;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #7edcce;
+}
+
+input:checked + .slider:before {
+  transform: translateX(13px);
+}

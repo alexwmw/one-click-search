@@ -1,0 +1,28 @@
+.QSpopup:not(.QSicon) {
+  all: initial;
+  position: absolute;
+  display: none;
+  height: 26px;
+  width: 26px;
+  background-color: whitesmoke;
+  border-radius: 9px;
+  box-shadow: 0 1px 3px lightgrey;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+.QSicon {
+  all: initial;
+  border-radius: 9px;
+  height: 20px;
+  width: 20px;
+  padding: 3px;
+  opacity: 0.8;
+  cursor: pointer;
+  transition: box-shadow 200ms;
+}
+.QSicon:hover {
+  opacity: 1;
+  box-shadow: 0 1px 2px lightgrey;
+}

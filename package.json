@@ -1,0 +1,14 @@
+{
+  "name": "quick-search",
+  "version": "1.0.0",
+  "description": "<img src=\"/images/icon_lockup.png\" width=\"500\">",
+  "main": "/scripts/content.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sortablejs": "^1.14.0"
+  }
+}
