@@ -10,7 +10,7 @@
   /* Colors */
   --primary: #7edcce;
   --active: #32bba6;
-  --accent1: aliceblue;
+  --accent1: rgb(215, 235, 253);
   --accent2: #f7e9de;
   --disabled: whitesmoke;
   --text-color: black;
@@ -60,7 +60,7 @@ button {
   outline: none;
   border: var(--invisible-border);
   cursor: pointer;
-  transition: top 200ms, background-color 200ms, border 200ms;
+  transition: top 200ms, background-color 200ms, border 200ms, font-weight 200ms;
 }
 button:hover {
   top: -1px;
@@ -80,11 +80,28 @@ button:active {
   width: 160px;
   margin: 3px 10px;
 }
+.li-btn {
+  font-size: 8pt;
+  height: 22px;
+  width: 60px;
+  padding: 2px;
+  margin: 3px 10px 3px 0 !important;
+  background-color: transparent;
+}
+.li-btn:hover {
+  top: 0px;
+  font-weight: 700;
+  border: var(--invisible-border);
+}
+.hidden-btn{
+  display: none;
+}
 
-/* || Tabs */
+/* || Tabs & alerts */
+
 .tab {
   display: inline-block;
-  width: 50%;
+  width: 33%;
   background-color: transparent;
   padding: 5px 0;
   text-align: center;
@@ -92,16 +109,28 @@ button:active {
   border-bottom: solid 2px lightgrey;
   margin-left: -2px;
   font-weight: 300;
-  transition: font-weight 300ms;
+  transition: font-weight 300ms, background-color 300ms, width 300ms;
+  user-select: none;
 }
 .tab.active {
-  background-color: whitesmoke;
+  background-color: rgb(231, 231, 231);
   font-weight: 700;
   border-bottom: solid 2px var(--active);
+  width: 67%;
 }
 .tab:hover {
   font-weight: 700;
+  background-color: rgb(250, 250, 250);
 }
+#saved {
+  position: fixed;
+  margin-left: 260px;
+  top: 570px;
+  z-index: 999;
+  background-color: yellow;
+  padding: 4px;
+}
+
 /* || Lists / Items */
 
 ul {
@@ -164,7 +193,7 @@ ul {
   cursor: grabbing;
   pointer-events: none;
   opacity: 0.3 !important;
-  display:none;
+  display: none;
 }
 .background-class {
   border: var(--primary-border);

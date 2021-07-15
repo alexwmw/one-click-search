@@ -10,6 +10,11 @@
   z-index: 9999;
   top: 0;
   left: 0;
+  user-select: none;
+  outline: none;
+}
+.QSpopup a {
+  outline: none;
 }
 
 .QSicon {
@@ -21,6 +26,8 @@
   opacity: 0.8;
   cursor: pointer;
   transition: box-shadow 200ms;
+  user-select: none;
+  outline: none;
 }
 .QSicon:hover {
   opacity: 1;

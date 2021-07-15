@@ -25,6 +25,7 @@
       "matches": ["https://*/*", "http://*/*"],
       "js": [
         "scripts/jquery/jquery-3.4.1.js",
+        "scripts/defaults.js",
         "scripts/content.js"
       ]
     }

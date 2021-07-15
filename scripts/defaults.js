@@ -1,0 +1,83 @@
+var defaults = {
+  providers: {
+    Google: {
+      name: "Google",
+      url: "https://www.google.com/",
+      queryKey: "search?q=",
+      visibility: "visible",
+      position: 0,
+    },
+    Wikipedia: {
+      name: "Wikipedia",
+      url: "https://www.wikipedia.org/",
+      queryKey: "w/index.php?search=",
+      visibility: "visible",
+      position: 1,
+    },
+    Wiktionary: {
+      name: "Wiktionary",
+      url: "https://www.wiktionary.org/",
+      queryKey: "w/index.php?search=",
+      visibility: "visible",
+      position: 2,
+    },
+    Amazon: {
+      name: "Amazon",
+      url: "https://www.amazon.co.uk/",
+      queryKey: "s?k=",
+      visibility: "hidden",
+      position: 3,
+    },
+    eBay: {
+      name: "eBay",
+      url: "https://www.ebay.co.uk/",
+      queryKey: "sch/i.html?_nkw=",
+      visibility: "hidden",
+      position: 4,
+    },
+    YouTube: {
+      name: "YouTube",
+      url: "https://www.youtube.com/",
+      queryKey: "results?search_query=",
+      faviconUrl:
+        "https://m.youtube.com/static/apple-touch-icon-120x120-precomposed.png",
+      visibility: "hidden",
+      position: 5,
+    },
+    Twitter: {
+      name: "Twitter",
+      url: "https://www.twitter.com/",
+      queryKey: "search?q=",
+      visibility: "disabled",
+      position: 6,
+    },
+    Bing: {
+      name: "Bing",
+      url: "https://www.bing.com/",
+      queryKey: "search?q=",
+      visibility: "disabled",
+      position: 7,
+    },
+    Gmail: {
+      name: "Gmail",
+      url: "https://mail.google.com/",
+      queryKey: "mail/u/0/#search/",
+      visibility: "hidden",
+      position: 8,
+    },
+    Reddit: {
+      name: "Reddit",
+      url: "https://www.reddit.com/",
+      queryKey: "search?q=",
+      visibility: "hidden",
+      position: 9,
+    },
+    Facebook: {
+      name: "Facebook",
+      url: "https://www.facebook.com/",
+      queryKey: "search/top?q=",
+      visibility: "disabled",
+      position: 10,
+    },
+  },
+};

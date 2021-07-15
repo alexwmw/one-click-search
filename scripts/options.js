@@ -1,168 +1,84 @@
-// Icons
-const editIconClass = ["fas", "fa-ellipsis-v", "edit-icon"];
-const maxVisible = 4;
+$(() => {
+  const editIconClassList = ["fas", "fa-ellipsis-v", "edit-icon"],
+    maxVisible = 4,
+    $listsPage = $("#lists-page");
 
-function compare(a, b) {
-  if (a.position < b.position) {
-    return -1;
+  function compare(a, b) {
+    if (a.position < b.position) {
+      return -1;
+    }
+    if (a.position > b.position) {
+      return 1;
+    }
+    return 0;
   }
-  if (a.position > b.position) {
-    return 1;
-  }
-  return 0;
-}
 
-/*var providers = {
-  Google: {
-    name: "Google",
-    url: "https://www.google.com/",
-    queryKey: "search?q=",
-    visibility: "visible",
-    position: 0,
-  },
-  Wikipedia: {
-    name: "Wikipedia",
-    url: "https://www.wikipedia.org/",
-    queryKey: "w/index.php?search=",
-    visibility: "visible",
-    position: 1,
-  },
-  Wiktionary: {
-    name: "Wiktionary",
-    url: "https://www.wiktionary.org/",
-    queryKey: "w/index.php?search=",
-    visibility: "visible",
-    position: 2,
-  },
-  Amazon: {
-    name: "Amazon",
-    url: "https://www.amazon.co.uk/",
-    queryKey: "s?k=",
-    visibility: "hidden",
-    position: 3,
-  },
-  eBay: {
-    name: "eBay",
-    url: "https://www.ebay.co.uk/",
-    queryKey: "sch/i.html?_nkw=",
-    visibility: "hidden",
-    position: 4,
-  },
-  YouTube: {
-    name: "YouTube",
-    url: "https://www.youtube.com/",
-    queryKey: "results?search_query=",
-    faviconUrl:
-      "https://m.youtube.com/static/apple-touch-icon-120x120-precomposed.png",
-    visibility: "hidden",
-    position: 5,
-  },
-  Twitter: {
-    name: "Twitter",
-    url: "https://www.twitter.com/",
-    queryKey: "search?q=",
-    visibility: "disabled",
-    position: 6,
-  },
-  Bing: {
-    name: "Bing",
-    url: "https://www.bing.com/",
-    queryKey: "search?q=",
-    visibility: "disabled",
-    position: 7,
-  },
-  Gmail: {
-    name: "Gmail",
-    url: "https://mail.google.com/",
-    queryKey: "mail/u/0/#search/",
-    visibility: "hidden",
-    position: 8,
-  },
-  Reddit: {
-    name: "Reddit",
-    url: "https://www.reddit.com/",
-    queryKey: "search?q=",
-    visibility: "hidden",
-    position: 9,
-  },
-  Facebook: {
-    name: "Facebook",
-    url: "https://www.facebook.com/",
-    queryKey: "search/top?q=",
-    visibility: "disabled",
-    position: 10,
-  },
-};*/
-
-chrome.storage.sync.get(["providers"], function (r) {
-  var providers = r.providers;
-  $(function () {
-    const sortOptions = {
-      group: "shared",
-      animation: 200,
-      ghostClass: "background-class",
-      dragClass: "drag-class",
-      forceFallback: true,
-      onChoose: function (evt) {
-        $("body").css("cursor", "grabbing");
-      }, // Run when you click
-      onStart: function (evt) {
-        $("body").css("cursor", "grabbing");
-      }, // Dragging started
-      onEnd: function (evt) {
-        $("body").css("cursor", "default");
-        providers[$(evt.item).attr("id")].visibility = $(evt.to).attr("id");
-        $(evt.to)
-          .find("li")
-          .each(function (i, item) {
-            let provider = providers[$(item).attr("id")];
-            provider.position = i;
-            console.log(provider.name, provider.position);
-          });
-        chrome.storage.sync.set({ providers: providers });
-      }, // Dragging ended
-    };
-    const visible = document.createElement("ul");
-    new Sortable(visible, {
-      ...sortOptions,
-      ...{
-        group: {
-          name: "shared",
-          pull: function (to, from) {
-            return from.el.children.length > 2;
-          },
-          put: function (to) {
-            return to.el.children.length < maxVisible;
-          },
+  chrome.storage.sync.get(["providers"], (r) => {
+    const providersObj = r.providers,
+      providersList = Object.values(providersObj).sort(compare),
+      sortOptions = {
+        group: "shared",
+        animation: 200,
+        ghostClass: "background-class",
+        dragClass: "drag-class",
+        forceFallback: true,
+      },
+      sortFunctions = {
+        onChoose: (evt) => $listsPage.css("cursor", "grabbing"), // Run when you click
+        onUnchoose: (evt) => $listsPage.css("cursor", "default"),
+        onEnd: (evt) => {
+          $listsPage.css("cursor", "default");
+          providersObj[$(evt.item).attr("id")].visibility = $(evt.to).attr(
+            "id"
+          );
+          $(evt.to)
+            .find("li")
+            .each((i, item) => {
+              let provider = providersObj[$(item).attr("id")];
+              provider.position = i;
+            });
+          chrome.storage.sync.set({ providers: providersObj });
+        }, // Dragging ended
+      },
+      visibleGroupOptions = {
+        name: "shared",
+        pull: function (to, from) {
+          return from.el.children.length > 2;
+        },
+        put: function (to) {
+          return to.el.children.length < maxVisible;
         },
       },
+      ul = {
+        visible: document.createElement("ul"),
+        hidden: document.createElement("ul"),
+        disabled: document.createElement("ul"),
+      };
+
+    $("<h2 />").html(`Visible (max. ${maxVisible})`).appendTo($listsPage);
+    $(ul.visible).attr("id", "visible").appendTo($listsPage);
+
+    $("<h2>Hidden</h2>").appendTo($listsPage);
+    $(ul.hidden).attr("id", "hidden").appendTo($listsPage);
+
+    $("<h2>Disabled</h2>").appendTo($listsPage);
+    $(ul.disabled).attr("id", "disabled").appendTo($listsPage);
+
+    new Sortable(ul.visible, {
+      ...sortOptions,
+      ...{
+        group: visibleGroupOptions,
+      },
+      ...sortFunctions,
     });
+    new Sortable(ul.hidden, { ...sortOptions, ...sortFunctions });
+    new Sortable(ul.disabled, { ...sortOptions, ...sortFunctions });
 
-    const hidden = document.createElement("ul");
-    new Sortable(hidden, sortOptions);
-
-    const disabled = document.createElement("ul");
-    new Sortable(disabled, sortOptions);
-
-    const lists = { visible: visible, hidden: hidden, disabled: disabled };
-
-    $(`<h2>Visible (max. ${maxVisible})</h2>`).appendTo("body");
-    $(visible).attr("id", "visible").appendTo("body");
-
-    $("<h2>Hidden</h2>").appendTo("body");
-    $(hidden).attr("id", "hidden").appendTo("body");
-
-    $("<h2>Disabled</h2>").appendTo("body");
-    $(disabled).attr("id", "disabled").appendTo("body");
-
-    //$("<button></button").text("Add").addClass("add-button").appendTo("body");
-
-    $.each(Object.values(providers).sort(compare), function (i, provider) {
-      console.log(provider.position);
-      var $inputs = $("<div></div>").addClass("input-fields");
+    $.each(providersList, function (i, provider) {
+      const $inputs = $("<div />").addClass("input-fields");
       $inputs.insertAfter(
-        $("<i></i>")
-          .addClass(editIconClass)
+        $("<i />")
+          .addClass(editIconClassList)
           .insertAfter(
             $(`<span>${provider.name}</span>`)
               .addClass("provider-name")
@@ -174,41 +90,98 @@ chrome.storage.sync.get(["providers"], function (r) {
                     provider.faviconUrl || provider.url + "favicon.ico"
                   )
                   .appendTo(
-                    $("<li></li>")
+                    $("<li />")
                       .addClass("provider-li")
                       .attr({ id: provider.name })
-                      .appendTo(lists[provider.visibility])
+                      .appendTo(ul[provider.visibility])
                   )
               )
           )
       );
+
+      var url = $("<input/>")
+        .attr({ type: "text" })
+        .addClass(["li-input", "provider-url"])
+        .data("key", "url")
+        .val(provider.url);
+      var queryKey = $("<input/>")
+        .attr({ type: "text" })
+        .addClass(["li-input", "provider-queryKey"])
+        .data("key", "queryKey")
+        .val(provider.queryKey);
+      var faviconUrl = $("<input/>")
+        .attr({ type: "text", placeholder: "Default <URL>/favicon.ico" })
+        .addClass(["li-input", "provider-favicon-url"])
+        .data("key", "faviconUrl")
+        .val(provider.faviconUrl);
+      var $restoreBtn = $(
+        "<button><i class='fas fa-undo'> </i> Restore</button>"
+      ).addClass("li-btn restore-btn");
+      var $deleteBtn = $(
+        "<button><i class='fas fa-trash'> </i> Delete</button>"
+      )
+        .addClass("li-btn delete-btn")
+        .addClass(!provider.userAdded ? "hidden-btn" : null);
+
       $inputs
-        .append($("<br><label>URL: </label>"))
-        .append(
-          $("<input/>")
-            .attr({ type: "text" })
-            .addClass("li-input")
-            .val(provider.url)
-        )
+        .append($("<label>URL: </label>"))
+        .append(url)
         .append($("<br><label>QUERY PATH: </label>"))
-        .append(
-          $("<input/>")
-            .attr({ type: "text" })
-            .addClass("li-input")
-            .val(provider.queryKey)
-        )
+        .append(queryKey)
         .append($("<br><label>FAVICON URL: </label>"))
-        .append(
-          $("<input/>")
-            .attr({ type: "text", placeholder: "default (.../favicon.ico)" })
-            .addClass("li-input")
-            .val(provider.faviconUrl)
-        );
+        .append(faviconUrl)
+        .append($deleteBtn)
+        .append($restoreBtn);
+
+      $restoreBtn.click(function (e) {});
+      $deleteBtn.click(function (e) {});
     });
 
-    $(".edit-icon").click(function (e) {
-      $("li").not($(this).closest("li")).removeClass("expanded-li");
-      $(this).closest("li").toggleClass("expanded-li");
+    const $input = $("input"),
+      $tab = $(".tab");
+
+    $input.each(function (i, el) {
+      $(el).attr({ tabindex: "-1" });
+    });
+
+    $input.change(function (e) {
+      var $providerEl = $(this).closest(".provider-li");
+      var $this = $(this);
+      var providerId = $providerEl.attr("id");
+      var key = $(this).data("key");
+      var newValue = $(this).val();
+      providersObj[providerId][key] = newValue;
+      chrome.storage.sync.set({ providers: providersObj }, function () {
+        $providerEl
+          .animate({ width: "95%" }, 150, "swing")
+          .animate({ width: "90%" }, 150, "swing");
+        $("#saved")
+          .animate({ opacity: "1" }, 200, "swing")
+          .animate({ opacity: "0" }, 800, "swing");
+      });
+    });
+
+    $input.click(function (e) {
+      // do something
+    });
+
+    $tab.mousedown(function (e) {
+      $(this).animate({ opacity: "0.6" }, 100, "swing");
+      if (!$(this).hasClass("active")) {
+        $tab.toggleClass("active");
+        $(".page").toggle();
+      }
+    });
+
+    $tab.mouseup(function (e) {
+      $(this).animate({ opacity: "1" }, 100, "swing");
+    });
+
+    $(".edit-icon").mousedown(function (e) {
+      let $closestLi = $(this).closest("li");
+
+      $("li").not($closestLi).removeClass("expanded-li");
+      $closestLi.toggleClass("expanded-li");
     });
   });
 });
