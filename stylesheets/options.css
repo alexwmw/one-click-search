@@ -15,6 +15,7 @@
   --disabled: whitesmoke;
   --text-color: black;
   --text-disabled: grey;
+  --tab-active: rgb(231, 231, 231);
 
   /* Fonts */
   --main-font: "Inria Sans";
@@ -29,6 +30,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap");
 body,
 input,
+select,
 button,
 li,
 h1,
@@ -50,13 +52,13 @@ h2 {
 /* || Buttons and input */
 
 button {
-  background-color: var(--accent1);
+  background-color: var(--tab-active);
   position: relative;
-  top: 0;
-  border-radius: 12px;
-  height: 32px;
-  width: 80px;
-  padding: 5px;
+  border-radius: 6px;
+  height: 30px;
+  width: 85px;
+  padding: 3px;
+  margin: 0 5px 0 0;
   outline: none;
   border: var(--invisible-border);
   cursor: pointer;
@@ -69,8 +71,46 @@ button:hover {
 button:active {
   background-color: var(--primary);
 }
-.add-button {
-  margin: 4px 0px;
+
+input[type="range"] {
+  overflow: visible;
+  position: relative;
+  top: -2px;
+  -webkit-appearance: none;
+  background-color: lightgrey;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: var(--invisible-border);
+  transition: border 200ms;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 5px;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 9px;
+  position: relative;
+  top: -2px;
+  -webkit-appearance: none;
+  height: 10px;
+  cursor: ew-resize;
+  background: var(--active);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+select {
+  width: 100%;
+  border: none;
+  background-color: whitesmoke;
+  transition: border 200ms;
+  border: var(--invisible-border);
+  padding: 2px;
+}
+input:focus,
+select:focus {
+  outline: none;
 }
 .li-input {
   border: none;
@@ -93,8 +133,68 @@ button:active {
   font-weight: 700;
   border: var(--invisible-border);
 }
-.hidden-btn{
+.hidden-btn {
   display: none;
+}
+
+.defaultCursor {
+  cursor: default !important;
+}
+.new-provider-fields {
+  width: 100%;
+  margin: 20px 0 10px 0;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  display: block;
+}
+.new-provider-fields label {
+  display: inline-block;
+  width: 25%;
+  font-size: 8pt;
+  text-align: right;
+}
+.new-provider-fields i {
+  display: inline-block;
+  width: 3%;
+  color: cadetblue;
+  font-size: 10pt;
+  cursor: help;
+  margin: 0 4px;
+}
+.new-provider-fields input {
+  display: inline-block;
+  width: 165px;
+  margin-bottom: 10px;
+}
+.new-provider-fields input:focus::placeholder {
+  color: transparent;
+}
+.new-provider-fields button {
+  margin-top: 10px;
+}
+.spanbtn {
+  font-size: 10pt;
+  font-weight: 700;
+  margin: 15px 0;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: 90%;
+  display: block;
+  cursor: pointer;
+  border: var(--invisible-border);
+  transition: border 200ms, background-color 200ms;
+  user-select: none;
+}
+.spanbtn:hover {
+  top: -1px;
+  border: var(--primary-border);
+}
+.spanbtn:not(#addLink):active {
+  background-color: var(--primary);
+}
+.spanbtn i {
+  margin-right: 10px;
 }
 
 /* || Tabs & alerts */
@@ -113,7 +213,7 @@ button:active {
   user-select: none;
 }
 .tab.active {
-  background-color: rgb(231, 231, 231);
+  background-color: var(--tab-active);
   font-weight: 700;
   border-bottom: solid 2px var(--active);
   width: 67%;
@@ -130,6 +230,41 @@ button:active {
   background-color: yellow;
   padding: 4px;
 }
+.alertPopup {
+  position: fixed;
+  z-index: 9999;
+  top: 30%;
+  left: 12%;
+  background-color: var(--tab-active);
+  width: 70%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.tooltip .text {
+  width: 180px;
+  background-color: var(--active);
+  color: #fff;
+  z-index: 2;
+  top: -60px;
+  left: -60px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  display: none;
+  font-size: 9pt;
+  font-weight: 300;
+  padding: 5px;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.inline-block {
+  display: inline-block;
+}
 
 /* || Lists / Items */
 
@@ -137,6 +272,7 @@ ul {
   padding-inline-start: 0;
   min-height: var(--row-height);
 }
+
 .provider-li {
   list-style-type: none;
   list-style-position: inside;
@@ -173,11 +309,13 @@ ul {
 .favicon {
   height: var(--favicon-height);
   margin: 4px 10px;
+  user-select: none;
 }
 .provider-name {
   position: relative;
   bottom: 8px;
   left: 8px;
+  user-select: none;
 }
 .input-fields {
   text-align: right;
@@ -210,9 +348,9 @@ ul {
 }
 
 /* || Icons */
+
 .fas,
 .far {
-  cursor: pointer;
   color: grey;
 }
 .edit-icon {
@@ -222,8 +360,8 @@ ul {
   display: inline-block;
   width: 10px;
   height: 10px;
-
   padding: 5px;
+  cursor: pointer;
   border-radius: 50%;
   text-align: center;
 }
@@ -231,55 +369,18 @@ ul {
   background-color: white;
 }
 
-.switch {
-  position: absolute;
-  right: 10px;
-  top: 13px;
-  display: inline-block;
-  width: 26px;
-  height: 12px;
+/* || Tables */
+
+#opts-table {
+  margin: 10px 0;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+#opts-table td {
+  padding: 15px 0;
 }
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ddd;
-  transition: 0.4s;
-  border-radius: 17px;
+#opts-table td:first-child {
+  width: 40%;
 }
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  width: 8px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #7edcce;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #7edcce;
-}
-
-input:checked + .slider:before {
-  transform: translateX(13px);
+#opts-table td:nth-child(2) {
+  width: 40%;
 }

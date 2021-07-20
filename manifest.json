@@ -1,8 +1,8 @@
 {
-  "version": "0.1",
+  "version": "1.0",
   "manifest_version": 2,
-  "name": "Mouse Search",
-  "description": "Search at the click of a mouse",
+  "name": "One Click Search",
+  "description": "Search multiple sites with a single click.",
   "permissions": ["storage"],
   "browser_action": {
     "default_icon": {
@@ -12,7 +12,7 @@
       "128": "images/icon128.png"
     },
     "default_title": "Mouse Search",
-    "default_popup": "scripts/options.html"
+    "default_popup": "layouts/options.html"
   },
   "icons": {
     "16": "images/icon16.png",
@@ -29,14 +29,13 @@
         "scripts/content.js"
       ]
     }
-
   ],
   "background": {
-    "scripts": ["scripts/background.js"]
+    "scripts": ["scripts/defaults.js", "scripts/background.js"]
   },
   "web_accessible_resources": [
     "stylesheets/popup.css",
-    "images/icon128.png",
+    "images/copy.ico",
     "scripts/jquery/jquery-3.4.1.js"
   ]
 }

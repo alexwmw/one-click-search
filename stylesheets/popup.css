@@ -14,7 +14,9 @@
   outline: none;
 }
 .QSpopup a {
+  all: initial;
   outline: none;
+  display: inline-block;
 }
 
 .QSicon {
@@ -32,4 +34,8 @@
 .QSicon:hover {
   opacity: 1;
   box-shadow: 0 1px 2px lightgrey;
+}
+
+.hiddenIcon {
+  display: none;
 }

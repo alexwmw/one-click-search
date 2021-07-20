@@ -5,47 +5,54 @@ const $QSpopup = $("<div></div>")
   .appendTo("body");
 
 // background variables
-var providers, // list of search provider objects
-  hover, // bool; if cursor is hovering over element
-  downTarget, // element that was clicked on
-  to_showIcons, // timeout func
-  to_hidePopup, // timeout func
-  nVisible; // int; number of visible icons
+var searchProviders; // list of search provider objects
+var hover; // bool; if cursor is hovering over element
+var downTarget; // element that was clicked on
+var to_showIcons; // timeout func
+var to_hidePopup; // timeout func
+var nVisible; // int; number of visible icons
 
 // settings & params
 const iconWidth = 26;
-var hideDelay = 2;
-var unhideDelay = 0.1;
-var fadeDelay = 4;
-var fadeTime = 3;
+const targetStrLookup = {
+  "New tab": "_blank",
+  "Current tab": "_self",
+};
+const stylesheetPath = "stylesheets/popup.css";
+var hideIconsDelay = 2;
+var showIconsDelay = 0.1;
+var hidePopupFadeDelay = 4;
+var hidePopupFadeTime = 3;
 var hrefTarget = "_blank";
 
 function setStylsheet(url) {
   var style = document.createElement("link");
   style.rel = "stylesheet";
   style.type = "text/css";
-  style.href = chrome.extension.getURL(url);
+  style.href = chrome.runtime.getURL(url);
   (document.head || document.documentElement).appendChild(style);
 }
 
-function initialiseIcon(searchProvider, parentEl) {
+function initialiseIcon(provider, parentEl) {
   var icon = new Image(24);
-  $(icon)
-    .addClass("QSicon")
-    .attr({
-      src: searchProvider.faviconUrl || searchProvider.url + "favicon.ico",
-    }) // The visible icon; src is either a stored URL or default.
-    .appendTo(
-      $("<a />")
-        .attr({
-          href: "",
-          target: hrefTarget,
-        }) // ...wrapped in an anchor.
-        .appendTo(parentEl)
-    );
-  if (searchProvider.visibility != "visible") {
-    $(icon).hide().addClass("hiddenIcon"); // Hide hidden icons.
+  icon.src = provider.faviconUrl || provider.url + "favicon.ico";
+  icon.classList.add("QSicon");
+  var $a = $("<a />").attr({
+    href: "",
+    target: hrefTarget,
+  });
+  if (provider.visibility != "visible") {
+    icon.classList.add("hiddenIcon");
   }
+  if (provider.isFunc) {
+    icon.src = chrome.runtime.getURL(provider.faviconUrl);
+    $a.click(function (e) {
+      e.preventDefault();
+      document.execCommand(provider.execute);
+      $QSpopup.hide().finish();
+    });
+  }
+  $(parentEl).append($a.append(icon));
 }
 
 function setSearchHrefs(searchString, searchProviders) {
@@ -77,129 +84,119 @@ function compare(a, b) {
 }
 
 function hidePopup() {
-  $QSpopup.fadeOut(fadeTime * 1000);
+  $QSpopup.fadeOut(hidePopupFadeTime * 1000);
   if (hover) {
     $QSpopup.finish().animate({ opacity: "100" }).show();
   }
+}
+
+function checkIfSelection() {
+  const selection = window.getSelection();
+  if (selection != "") {
+    const selectionType = selection.focusNode.nodeType;
+    const selectionLength = selection.toString().length;
+    return selectionType == Node.TEXT_NODE && selectionLength <= 1024;
+  }
+  return false;
+}
+
+function updateSearchProvidersList(providersObj) {
+  searchProviders = Object.values(providersObj)
+    .sort(compare)
+    .filter((provider) => provider.visibility != "disabled");
+}
+
+function onProvidersChange(providersObj) {
+  updateSearchProvidersList(providersObj);
+  $(".QSpopup a").remove();
+  $.each(searchProviders, (i, provider) => initialiseIcon(provider, $QSpopup));
+  nVisible = searchProviders.filter(
+    (provider) => provider.visibility == "visible"
+  ).length;
+  $QSpopup.css({
+    width: iconWidth * nVisible,
+  });
 }
 
 function bodyMousedown(e) {
   downTarget = e.target;
 }
 
-function CreateBodyMouseup(e, providers) {
-  var retFunc = function (e) {
-    if ($(downTarget).hasClass("QSicon") || $(downTarget).hasClass("QSpopup")) {
-      return;
-    }
-    if (window.getSelection().toString() != "") {
-      clearTimeout(to_hidePopup);
-      setSearchHrefs(window.getSelection().toString(), providers);
-      $QSpopup
-        .finish()
-        .animate({ opacity: "100" })
-        .show()
-        .css({
-          top: e.pageY - 43,
-          left: e.pageX - 13,
-        });
-      to_hidePopup = setTimeout(hidePopup, 4000);
-    } else {
-      $($QSpopup).finish().animate({ opacity: "100" }).hide();
-    }
-  };
-  return retFunc;
+function bodyMouseup(e) {
+  if ($(downTarget).hasClass("QSicon") || $(downTarget).hasClass("QSpopup")) {
+    return;
+  }
+  if (checkIfSelection()) {
+    clearTimeout(to_hidePopup);
+    setSearchHrefs(window.getSelection().toString(), searchProviders);
+    $QSpopup
+      .finish()
+      .animate({ opacity: "100" })
+      .show()
+      .css({
+        top: e.pageY - 43,
+        left: e.pageX - 13,
+        width: iconWidth * nVisible,
+      });
+    $(".hiddenIcon").hide();
+    to_hidePopup = setTimeout(hidePopup, 4000);
+  } else {
+    $($QSpopup).finish().animate({ opacity: "100" }).hide();
+  }
 }
 
+function popupMouseenter(e) {
+  hover = true;
+  clearTimeout(to_hidePopup);
+  $QSpopup.finish().animate({ opacity: "100" }).show();
+  to_showIcons = setTimeout(() => {
+    if (hover) {
+      $QSpopup.css({
+        width: iconWidth * searchProviders.length + 10,
+      });
+      $(".hiddenIcon").fadeIn();
+    }
+  }, showIconsDelay * 1000);
+}
 
-chrome.storage.onChanged.addListener((changes, area) => {
-  if (changes.providers.newValue) {
-    providers = Object.values(changes.providers.newValue)
-      .sort(compare)
-      .filter((provider) => provider.visibility != "disabled");
-    $(".QSpopup a").remove();
-    $.each(providers, (i, provider) => initialiseIcon(provider, $QSpopup));
+function popupMouseleave(e) {
+  hover = false;
+  clearTimeout(to_showIcons);
+  clearTimeout(to_hidePopup);
+  setTimeout(() => {
+    if (!hover) {
+      $QSpopup.css({
+        width: iconWidth * nVisible,
+      });
+      $(".hiddenIcon").hide();
+    }
+  }, hideIconsDelay * 1000);
+  var greaterDelay =
+    hidePopupFadeDelay > hideIconsDelay ? hidePopupFadeDelay : hideIconsDelay;
+  to_hidePopup = setTimeout(hidePopup, greaterDelay * 1000);
+}
 
-    nVisible = providers.filter(
-      (provider) => provider.visibility == "visible"
-    ).length;
-
-    $QSpopup.css({
-      width: iconWidth * nVisible,
-    });
-  }
-});
-
-chrome.storage.sync.get(defaults, (result) => {
-  chrome.storage.sync.set(result);
-  providers = Object.values(result.providers)
-    .sort(compare)
-    .filter((provider) => provider.visibility != "disabled");
-
-  nVisible = providers.filter(
-    (provider) => provider.visibility == "visible"
-  ).length;
-
-  $QSpopup.css({
-    width: iconWidth * nVisible,
+function addListeners(target, pairs) {
+  Object.entries(pairs).forEach((entry) => {
+    const [event, listener] = entry;
+    target[event](listener);
   });
+}
 
-  function bodyMousedown(e) {
-    downTarget = e.target;
-  }
-
-  function bodyMouseup(e) {
-    if ($(downTarget).hasClass("QSicon") || $(downTarget).hasClass("QSpopup")) {
-      return;
-    }
-    if (window.getSelection().toString() != "") {
-      clearTimeout(to_hidePopup);
-      setSearchHrefs(window.getSelection().toString(), providers);
-      $QSpopup
-        .finish()
-        .animate({ opacity: "100" })
-        .show()
-        .css({
-          top: e.pageY - 43,
-          left: e.pageX - 13,
-        });
-      to_hidePopup = setTimeout(hidePopup, 4000);
-    } else {
-      $($QSpopup).finish().animate({ opacity: "100" }).hide();
-    }
-  }
-
-  function popupMouseenter(e) {
-    hover = true;
-    clearTimeout(to_hidePopup);
-    $QSpopup.finish().animate({ opacity: "100" }).show();
-    to_showIcons = setTimeout(() => {
-      if (hover) {
-        $QSpopup.css({
-          width: iconWidth * providers.length,
-        });
-        $(".hiddenIcon").fadeIn();
-      }
-    }, unhideDelay * 1000);
-  }
-
-  function popupMouseleave(e) {
-    hover = false;
-    clearTimeout(to_showIcons);
-    clearTimeout(to_hidePopup);
-    setTimeout(() => {
-      if (!hover) {
-        $QSpopup.css({
-          width: iconWidth * nVisible,
-        });
-        $(".hiddenIcon").hide();
-      }
-    }, hideDelay * 1000);
-    to_hidePopup = setTimeout(hidePopup, fadeDelay * 1000);
-  }
-
-  setStylsheet("stylesheets/popup.css");
-  $.each(providers, (i, provider) => initialiseIcon(provider, $QSpopup));
-  $("body").mousedown(bodyMousedown).mouseup(bodyMouseup);
-  $QSpopup.mouseenter(popupMouseenter).mouseleave(popupMouseleave);
+chrome.storage.sync.get(["providers", "options"], (result) => {
+  showIconsDelay = result.options["hiddenIcons_showDelay"].value;
+  hidePopupFadeDelay = result.options["popUp_fadeDelay"].value;
+  hidePopupFadeTime = result.options["popUp_fadeOutTime"].value;
+  hrefTarget = targetStrLookup[result.options["hrefTarget"].value];
+  hideIconsDelay = hidePopupFadeDelay < 2 ? hidePopupFadeDelay : 2;
+  onProvidersChange(result.providers);
+  addListeners($("body"), {
+    mousedown: bodyMousedown,
+    mouseup: bodyMouseup,
+  });
+  addListeners($QSpopup, {
+    mouseenter: popupMouseenter,
+    mouseleave: popupMouseleave,
+  });
+  setStylsheet(stylesheetPath);
 });
