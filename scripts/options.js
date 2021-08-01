@@ -18,26 +18,6 @@ $(() => {
     dragClass: "drag-class",
     forceFallback: true,
   };
-  const sortableFuncs = (providersObj) => {
-    return {
-      onChoose: (evt) => $listsPage.css("cursor", "grabbing"), // Run when you click
-      onUnchoose: (evt) => $listsPage.css("cursor", "default"),
-      onEnd: (evt) => {
-        $listsPage.css("cursor", "default");
-        providersObj[$(evt.item).attr("id")].visibility = $(evt.to).attr("id");
-        $(evt.to)
-          .find("li")
-          .each((i, item) => {
-            let provider = providersObj[$(item).attr("id")];
-            provider.position = i;
-            $(item)
-              .find(".delete-btn")
-              .data("providerVisibility", provider.visibility);
-          });
-        chrome.storage.sync.set({ providers: providersObj });
-      }, // Dragging ended
-    };
-  };
   const visibleGrpOpts = {
     name: "shared",
     pull: function (to, from) {
@@ -341,7 +321,26 @@ $(() => {
   chrome.storage.sync.get(["providers", "options"], (r) => {
     var optionsObj = r.options;
     var providersObj = r.providers;
-    const setLists = function () {
+    var sortableFuncs = {
+      onChoose: (evt) => $listsPage.css("cursor", "grabbing"), // Run when you click
+      onUnchoose: (evt) => $listsPage.css("cursor", "default"),
+      onEnd: (evt) => {
+        $listsPage.css("cursor", "default");
+        console.log(providersObj);
+        providersObj[$(evt.item).attr("id")].visibility = $(evt.to).attr("id");
+        $(evt.to)
+          .find("li")
+          .each((i, item) => {
+            let provider = providersObj[$(item).attr("id")];
+            provider.position = i;
+            $(item)
+              .find(".delete-btn")
+              .data("providerVisibility", provider.visibility);
+          });
+        chrome.storage.sync.set({ providers: providersObj });
+      }, // Dragging ended
+    };
+    const setLists = function (providersObj) {
       var providersList = Object.values(providersObj).sort(compare);
       $(".provider-li").remove();
       $.each(providersList, createProviderLi);
@@ -349,26 +348,26 @@ $(() => {
     const resetLists = function () {
       chrome.storage.sync.get(["providers"], function (r) {
         providersObj = r.providers;
-        setLists();
+        setLists(providersObj);
       });
     };
     /// Create Lists Page
-    setLists();
+    setLists(providersObj);
     appendListsToPage();
     new Sortable(listElements.visible, {
       ...sortableOpts,
       ...{
         group: visibleGrpOpts,
       },
-      ...sortableFuncs(providersObj),
+      ...sortableFuncs,
     });
     new Sortable(listElements.hidden, {
       ...sortableOpts,
-      ...sortableFuncs(providersObj),
+      ...sortableFuncs,
     });
     new Sortable(listElements.disabled, {
       ...sortableOpts,
-      ...sortableFuncs(providersObj),
+      ...sortableFuncs,
     });
     $(".input-fields *").attr({ tabindex: "-1" });
 
@@ -484,8 +483,9 @@ $(() => {
         console.log(providersObj);
         chrome.storage.sync.set({ providers: providersObj }, resetLists);
         $(".new-provider-fields").hide().find("input").val("");
-        $("#opts-table").slideDown().find("*").slideDown();
-        $("#restoreLink").slideDown();
+        $("#opts-table").show().find("*").show();
+        $("#restoreLink").show();
+        $("#lists").trigger("mousedown");
       } else {
         askMe(errorCheckResult);
       }

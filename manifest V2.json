@@ -1,10 +1,10 @@
 {
-  "version": "1.1",
-  "manifest_version": 3,
+  "version": "1.0",
+  "manifest_version": 2,
   "name": "One Click Search",
   "description": "Search multiple sites with a single click.",
   "permissions": ["storage"],
-  "action": {
+  "browser_action": {
     "default_icon": {
       "16": "images/icon16.png",
       "32": "images/icon32.png",
@@ -31,16 +31,11 @@
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["scripts/defaults.js", "scripts/background.js"]
   },
   "web_accessible_resources": [
-    {
-      "resources": [
-        "stylesheets/popup.css",
-        "images/copy.ico",
-        "scripts/jquery/jquery-3.4.1.js"
-      ],
-      "matches": ["https://*/*", "http://*/*"]
-    }
+    "stylesheets/popup.css",
+    "images/copy.ico",
+    "scripts/jquery/jquery-3.4.1.js"
   ]
 }

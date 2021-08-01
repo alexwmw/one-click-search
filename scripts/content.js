@@ -7,6 +7,7 @@ const $QSpopup = $("<div></div>")
 // background variables
 var searchProviders; // list of search provider objects
 var hover; // bool; if cursor is hovering over element
+var tabVisible = true; // bool; if page/tab is visible to the user
 var downTarget; // element that was clicked on
 var to_showIcons; // timeout func
 var to_hidePopup; // timeout func
@@ -49,7 +50,7 @@ function initialiseIcon(provider, parentEl) {
     $a.click(function (e) {
       e.preventDefault();
       document.execCommand(provider.execute);
-      $QSpopup.hide().finish();
+      $QSpopup.finish().hide();
     });
   }
   $(parentEl).append($a.append(icon));
@@ -62,7 +63,9 @@ function setSearchHrefs(searchString, searchProviders) {
       .parent()
       .attr({
         href:
-          searchProviders[i].url + searchProviders[i].queryKey + searchString,
+          searchProviders[i].url +
+          searchProviders[i].queryKey +
+          encodeURIComponent(searchString),
       });
   }
 }
@@ -93,9 +96,14 @@ function hidePopup() {
 function checkIfSelection() {
   const selection = window.getSelection();
   if (selection != "") {
-    const selectionType = selection.focusNode.nodeType;
+    const nodeType = selection.focusNode.nodeType;
+    const hasInputChild = $(selection.focusNode).find("input").length;
     const selectionLength = selection.toString().length;
-    return selectionType == Node.TEXT_NODE && selectionLength <= 1024;
+    return (
+      (nodeType == Node.TEXT_NODE || hasInputChild) &&
+      selectionLength > 0 &&
+      selectionLength <= 1024
+    );
   }
   return false;
 }
@@ -124,6 +132,7 @@ function bodyMousedown(e) {
 
 function bodyMouseup(e) {
   if ($(downTarget).hasClass("QSicon") || $(downTarget).hasClass("QSpopup")) {
+    $QSpopup.finish().hide();
     return;
   }
   if (checkIfSelection()) {
@@ -134,14 +143,14 @@ function bodyMouseup(e) {
       .animate({ opacity: "100" })
       .show()
       .css({
-        top: e.pageY - 43,
+        top: e.pageY - 40,
         left: e.pageX - 13,
         width: iconWidth * nVisible,
       });
     $(".hiddenIcon").hide();
     to_hidePopup = setTimeout(hidePopup, 4000);
   } else {
-    $($QSpopup).finish().animate({ opacity: "100" }).hide();
+    $($QSpopup).finish().css({ opacity: "100" }).hide();
   }
 }
 
@@ -150,9 +159,9 @@ function popupMouseenter(e) {
   clearTimeout(to_hidePopup);
   $QSpopup.finish().animate({ opacity: "100" }).show();
   to_showIcons = setTimeout(() => {
-    if (hover) {
+    if (hover && tabVisible) {
       $QSpopup.css({
-        width: iconWidth * searchProviders.length + 10,
+        width: iconWidth * searchProviders.length,
       });
       $(".hiddenIcon").fadeIn();
     }
@@ -164,7 +173,7 @@ function popupMouseleave(e) {
   clearTimeout(to_showIcons);
   clearTimeout(to_hidePopup);
   setTimeout(() => {
-    if (!hover) {
+    if (!hover || !tabVisible) {
       $QSpopup.css({
         width: iconWidth * nVisible,
       });
@@ -190,6 +199,13 @@ chrome.storage.sync.get(["providers", "options"], (result) => {
   hrefTarget = targetStrLookup[result.options["hrefTarget"].value];
   hideIconsDelay = hidePopupFadeDelay < 2 ? hidePopupFadeDelay : 2;
   onProvidersChange(result.providers);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") {
+      tabVisible = true;
+    } else {
+      tabVisible = false;
+    }
+  });
   addListeners($("body"), {
     mousedown: bodyMousedown,
     mouseup: bodyMouseup,
@@ -198,5 +214,12 @@ chrome.storage.sync.get(["providers", "options"], (result) => {
     mouseenter: popupMouseenter,
     mouseleave: popupMouseleave,
   });
+  /*  
+  addListeners($("a"), {
+    click: (e) => {
+      $QSpopup.hide().finish();
+    },
+  });
+  */
   setStylsheet(stylesheetPath);
 });
