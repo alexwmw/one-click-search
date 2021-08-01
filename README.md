@@ -9,7 +9,7 @@
 
 ## Screenshots
 
-<img src="/screenshots/screenshot1.png" width="1000">
-<img src="/screenshots/screenshot2.png" width="1000">
-<img src="/screenshots/screenshot3.png" width="1000">
+<img src="/screenshots/screenshot1.png" width="800">
+<img src="/screenshots/screenshot2.png" width="800">
+<img src="/screenshots/screenshot3.png" width="800">
 
