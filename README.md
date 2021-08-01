@@ -1,9 +1,9 @@
-# Quick Search
+# One Click Search
 ## Logo
-<img src="/images/logo.png" width="500">
+<img src="/images/icon128.png" width="500">
 
 ## Link
-<a target="_blank" href="">View in the Chrome Web Store</a>
+<a target="_blank" href="https://chrome.google.com/webstore/detail/one-click-search/eaafadnjnjkpfeoghedeoadlnebaccbg/">View in the Chrome Web Store</a>
 
 ## Description
 
