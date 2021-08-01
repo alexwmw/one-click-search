@@ -17,7 +17,9 @@ You can even add your own search engines.
 
 ## Screenshots
 
-<img src="/screenshots/screenshot1.png" width="800">
-<img src="/screenshots/screenshot2.png" width="800">
-<img src="/screenshots/screenshot3.png" width="800">
+<kbd><img src="/screenshots/screenshot1.png" width="800"></kbd>
+
+<kbd><img src="/screenshots/screenshot2.png" width="800"></kbd>
+
+<kbd><img src="/screenshots/screenshot3.png" width="800"></kbd>
 
