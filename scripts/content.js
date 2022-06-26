@@ -6,6 +6,7 @@ const $QSpopup = $("<div></div>")
 
 // background variables
 var searchProviders; // list of search provider objects
+var localProviderObject;
 var hover; // bool; if cursor is hovering over element
 var tabVisible = true; // bool; if page/tab is visible to the user
 var downTarget; // element that was clicked on
@@ -56,16 +57,28 @@ function initialiseIcon(provider, parentEl) {
   $(parentEl).append($a.append(icon));
 }
 
+const gotoObj = {
+  GoTo: {
+    name: "GoTo",
+    faviconUrl: chrome.runtime.getURL("/images/goto.ico"),
+    visibility: "disabled",
+    position: -1,
+    url: "",
+    queryKey: "",
+  },
+};
+
 function setSearchHrefs(searchString, searchProviders) {
   for (var i = 0; i < searchProviders.length; i++) {
     $(".QSicon")
       .eq(i)
       .parent()
       .attr({
-        href:
-          searchProviders[i].url +
-          searchProviders[i].queryKey +
-          encodeURIComponent(searchString),
+        href: searchString.startsWith("http")
+          ? searchString
+          : searchProviders[i].url +
+            searchProviders[i].queryKey +
+            encodeURIComponent(searchString),
       });
   }
 }
@@ -115,7 +128,8 @@ function updateSearchProvidersList(providersObj) {
 }
 
 function onProvidersChange(providersObj) {
-  updateSearchProvidersList(providersObj);
+  localProviderObject = { ...providersObj, ...gotoObj };
+  updateSearchProvidersList(localProviderObject);
   $(".QSpopup a").remove();
   $.each(searchProviders, (i, provider) => initialiseIcon(provider, $QSpopup));
   nVisible = searchProviders.filter(
@@ -137,6 +151,12 @@ function bodyMouseup(e) {
   }
   if (checkIfSelection()) {
     clearTimeout(to_hidePopup);
+    if (window.getSelection().toString().startsWith("http")) {
+      gotoObj.GoTo.visibility = "visible";
+    } else {
+      gotoObj.GoTo.visibility = "disabled";
+    }
+    onProvidersChange(localProviderObject);
     setSearchHrefs(window.getSelection().toString(), searchProviders);
     $QSpopup
       .finish()
