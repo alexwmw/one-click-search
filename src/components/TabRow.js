@@ -1,4 +1,3 @@
-import { FlexContainer } from "./basic-components/BasicStyledComponents";
 import Tab from "./Tab";
 
 const TabRow = (props) => {
@@ -13,7 +12,7 @@ const TabRow = (props) => {
   };
 
   return (
-    <FlexContainer direction="row">
+    <div className={"flex-container row"} id={props.id}>
       <Tab
         selected={props.selectedTab == props.tabNames.icons}
         onClick={iconsSelectHandler}
@@ -26,7 +25,7 @@ const TabRow = (props) => {
       >
         {props.tabNames.controls}
       </Tab>
-    </FlexContainer>
+    </div>
   );
 };
 

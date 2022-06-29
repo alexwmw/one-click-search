@@ -1,4 +1,4 @@
-@import "variables.less";
+@import "_variables.less";
 
 @row-height: 24px;
 @row-height_expanded: 130px;
@@ -6,139 +6,78 @@
 @favicon-height: 16px;
 
 #iconsPage {
-  ul {
-    padding-inline-start: 0;
-    min-height: @row-height;
+  .instructions {
+    * {
+      transition: all 0.5s ease;
+    }
 
-    &#visible {
-      li {
-        background-color: @accent1;
+    .fa-chevron-up {
+      transform-style: preserve-3d;
+    }
+
+    .toggleSwitch {
+      cursor: pointer;
+    }
+    .toggleSection {
+      overflow: hidden;
+      margin-inline: 10px;
+    }
+
+    &.visible {
+      .fa-chevron-up {
+        transform: rotateX(180deg);
+      }
+      .toggleSection {
+        height: 120px;
       }
     }
 
-    &#hidden {
-      li {
-        background-color: @accent2;
+    &.hidden {
+      .fa-chevron-up {
+        transform: rotateX(0);
       }
-    }
-
-    &#disabled {
-      li {
-        background-color: @disabled;
+      .toggleSection {
+        height: 0;
       }
     }
   }
 
-  li {
-    position: relative;
-    top: 0;
+  ul {
+    padding-inline-start: 0;
 
-    height: @row-height;
-    width: 90%;
-    margin: 3px auto;
-    padding: @row-padding;
-
-    overflow: hidden;
-
-    border: @invisible-border;
-    border-radius: 10px;
-
-    list-style-type: none;
-    list-style-position: inside;
-
-    transition: border 200ms, height 200ms;
-    cursor: grab;
-
-    &.expanded {
-      height: @row-height_expanded;
-      > .svg-inline--fa {
-        background-color: rgb(255 255 255 / 0.5);
-      }
+    .sortable-drag {
+      opacity: 0;
     }
 
-    &:hover {
-      border: @primary-border;
-    }
+    &#visible {
+      > * {
+        background-color: @accent1;
 
-    > img {
-      height: @favicon-height;
-      margin: 4px 10px;
-      user-select: none;
-    }
-
-    > span {
-      position: relative;
-      bottom: 8px;
-      left: 8px;
-      user-select: none;
-    }
-
-    > .svg-inline--fa {
-      color: grey;
-      position: absolute;
-      right: 4px;
-      top: 4px;
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      padding: 5px;
-      cursor: pointer;
-      border-radius: 50%;
-      text-align: center;
-
-      &:hover {
-        background-color: white;
-        color: @text-color;
-      }
-    }
-
-    > form {
-      text-align: right;
-      font-size: 7pt;
-      font-weight: 700;
-
-      > div {
-        //width: unset;
-
-        &:last-child {
-          margin-block: 0;
+        &.sortable-chosen {
+          background: darken($background-color, 5%);
+          border: @primary-border;
         }
       }
+    }
 
-      label {
-        flex: 0.3;
-        text-transform: uppercase;
-        padding-right: 5px;
-      }
-      input {
-        flex: 0.7;
-        border: none;
-        font-size: 8pt;
-        outline: none;
-        height: 18px;
-        width: 160px;
-        margin: 3px 10px;
-      }
-      button {
-        cursor: pointer;
-        font-size: 8pt;
-        height: 22px;
-        width: 60px;
-        padding: 2px;
-        margin: 3px 10px 3px 0 !important;
-        background-color: transparent;
+    &#hidden {
+      > * {
+        background-color: @accent2;
 
-        color: grey;
-
-        span {
-          color: @text-color;
+        &.sortable-chosen {
+          background: darken($background-color, 5%);
+          border: @primary-border;
         }
+      }
+    }
 
-        &:hover {
-          font-weight: 700;
-        }
-        &.hidden {
-          display: none;
+    &#disabled {
+      > * {
+        background-color: @disabled;
+
+        &.sortable-chosen {
+          background: darken($background-color, 5%);
+          border: @primary-border;
         }
       }
     }

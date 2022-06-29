@@ -1,13 +1,11 @@
-import { FlexTab } from "./basic-components/BasicStyledComponents";
-
 const Tab = (props) => {
   return (
-    <FlexTab
+    <div
       onClick={props.onClick}
-      className={props.selected && "selected active activeTab"}
+      className={`tab ${props.selected && "selected"}`}
     >
       {props.children}
-    </FlexTab>
+    </div>
   );
 };
 

@@ -1,7 +1,5 @@
-import { FlexContainer } from "../basic-components/BasicStyledComponents";
-
 const ControlsPage = () => {
-  return <FlexContainer direction={"column"}>Controls</FlexContainer>;
+  return <div className={"flex-container page"}>Controls</div>;
 };
 
 export default ControlsPage;

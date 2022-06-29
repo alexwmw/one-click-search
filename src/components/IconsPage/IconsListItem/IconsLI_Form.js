@@ -1,30 +1,29 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt as deleteIcon } from "@fortawesome/free-solid-svg-icons";
-import { FlexContainer } from "../../basic-components/BasicStyledComponents";
 
 function IconsLI_Form(props) {
   const isOpen = props.isOpen === "false" && "0";
 
   return (
     <form>
-      <FlexContainer width="unset" direction="row">
+      <div className={"flex-container row center"}>
         <label tabIndex={isOpen}>URL:</label>
         <input type="text" tabIndex={isOpen}></input>
-      </FlexContainer>
-      <FlexContainer width="unset" direction="row">
+      </div>
+      <div className={"flex-container row center"}>
         <label tabIndex={isOpen}>Query path:</label>
         <input type="text" tabIndex={isOpen}></input>
-      </FlexContainer>
-      <FlexContainer width="unset" direction="row">
+      </div>
+      <div className={"flex-container row center"}>
         <label tabIndex={isOpen}>Favicon URL:</label>
         <input type="text" placeholder tabIndex={isOpen}></input>
-      </FlexContainer>
-      <FlexContainer width="unset" alignItems="flex-end">
+      </div>
+      <div className={"flex-container width-100 right"}>
         <button>
           <FontAwesomeIcon icon={deleteIcon}></FontAwesomeIcon>{" "}
           <span>Delete</span>
         </button>
-      </FlexContainer>
+      </div>
     </form>
   );
 }

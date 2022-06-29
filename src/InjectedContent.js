@@ -7,8 +7,8 @@ document.body.insertAdjacentElement("afterend", rootElement);
 
 const root = createRoot(rootElement);
 
-function InjectedContent(props) {
+const InjectedContent = (props) => {
   return <Popup />;
-}
+};
 
 root.render(<InjectedContent />);
