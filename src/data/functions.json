@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Copy",
+    "role": "function",
+    "faviconUrl": "/icons/copy.ico",
+    "visibility": "hidden",
+    "position": 11,
+    "execute": "copy",
+    "function": {
+      "arguments": ["textToCopy"],
+      "body": "return navigator.clipboard.writeText(textToCopy)"
+    }
+  }
+]
