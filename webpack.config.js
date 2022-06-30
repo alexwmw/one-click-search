@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
+    jquery: "jquery",
     content: "./src/InjectedContent.js",
     app: "./src/App.js",
   },

@@ -1,53 +1,43 @@
 import IconsPage_Instructions from "./IconsPage_Intructions";
-import IconsPage_Section from "./IconsPage_Section";
+import IconsPage_Sortable from "./IconsPage_Sortable";
 import "../../less/iconsPage.less";
 
 const IconsPage = ({ listOfProviders }) => {
-  const sectionAttributes = [
+  const IconsPage_Section_props = [
     {
       name: "Visible",
       id: "visible",
-      max: 4,
-      providers: listOfProviders.filter(
+      maxLength: 4,
+      providerList: listOfProviders.filter(
         (provider) => provider.visibility == "visible"
       ),
     },
     {
       name: "Hidden",
       id: "hidden",
-      providers: listOfProviders.filter(
+      providerList: listOfProviders.filter(
         (provider) => provider.visibility == "hidden"
       ),
     },
     {
       name: "Disabled",
       id: "disabled",
-      providers: listOfProviders.filter(
+      providerList: listOfProviders.filter(
         (provider) => provider.visibility == "disabled"
       ),
     },
   ];
 
-  const Sections = sectionAttributes.map((section) => {
-    return (
-      <IconsPage_Section
-        key={section.id}
-        providers={section.providers}
-        sectionName={section.name}
-        listId={section.id}
-        max={section.max}
-      ></IconsPage_Section>
-    );
-  });
-
   return (
     <div
-      className={"flex-container page"}
+      className={`flex-container page`}
       id={"iconsPage"}
       direction={"column"}
     >
       <IconsPage_Instructions />
-      {Sections}
+      {IconsPage_Section_props.map((s) => {
+        return <IconsPage_Sortable key={s.id} {...s}></IconsPage_Sortable>;
+      })}
     </div>
   );
 };

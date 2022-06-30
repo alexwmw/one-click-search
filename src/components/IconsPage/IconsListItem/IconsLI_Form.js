@@ -1,27 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt as deleteIcon } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashAlt as deleteIcon,
+  faFloppyDisk as saveIcon,
+} from "@fortawesome/free-solid-svg-icons";
 
 function IconsLI_Form(props) {
-  const isOpen = props.isOpen === "false" && "0";
+  const tabbabool = (isTrue) => (isTrue ? 0 : -1);
+  const isTabbable = tabbabool(props.isExpanded);
 
   return (
     <form>
       <div className={"flex-container row center"}>
-        <label tabIndex={isOpen}>URL:</label>
-        <input type="text" tabIndex={isOpen}></input>
+        <label tabIndex={-1}>URL:</label>
+        <input type="text" tabIndex={isTabbable} value={props.url}></input>
       </div>
       <div className={"flex-container row center"}>
-        <label tabIndex={isOpen}>Query path:</label>
-        <input type="text" tabIndex={isOpen}></input>
+        <label tabIndex={-1}>Query path:</label>
+        <input type="text" tabIndex={isTabbable} value={props.queryKey}></input>
       </div>
       <div className={"flex-container row center"}>
-        <label tabIndex={isOpen}>Favicon URL:</label>
-        <input type="text" placeholder tabIndex={isOpen}></input>
+        <label tabIndex={-1}>Favicon URL:</label>
+        <input
+          type="text"
+          placeholder={"default: url/favicon.ico"}
+          tabIndex={isTabbable}
+          value={props.faviconUrl}
+        ></input>
       </div>
       <div className={"flex-container width-100 right"}>
-        <button>
+        <button className={"button deleteButton"} tabIndex={isTabbable}>
           <FontAwesomeIcon icon={deleteIcon}></FontAwesomeIcon>{" "}
           <span>Delete</span>
+        </button>
+        <button className={"button saveButton"} tabIndex={isTabbable}>
+          <FontAwesomeIcon icon={saveIcon}></FontAwesomeIcon> <span>Save</span>
         </button>
       </div>
     </form>

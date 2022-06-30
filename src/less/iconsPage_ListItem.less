@@ -37,6 +37,10 @@
       border: @primary-border;
     }
 
+    .button:focus {
+      outline: 1px solid @active;
+    }
+
     > img {
       height: @favicon-height;
       margin: 4px 10px;
@@ -50,7 +54,7 @@
       user-select: none;
     }
 
-    > .svg-inline--fa {
+    > .editButton.fa-icon {
       color: grey;
       position: absolute;
       right: 4px;
