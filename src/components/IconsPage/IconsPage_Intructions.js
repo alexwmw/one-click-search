@@ -19,7 +19,7 @@ function IconsPage_Instructions(props) {
         className="toggleSwitch flex-container row left center"
         onClick={toggleHidden}
       >
-        <h2 style={{ marginRight: "10px" }}>Instructions</h2>
+        <h2 style={{ marginRight: "10px" }}>How to Use</h2>
         <FontAwesomeIcon icon={hideIcon} />
       </div>
       <div className="toggleSection">

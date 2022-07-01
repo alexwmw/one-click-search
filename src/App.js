@@ -3,20 +3,18 @@ import React, { useState, lazy } from "react";
 import "./less/app.less";
 import "./less/_simple.less";
 import OCScontrols from "./data/options.json";
-import OCSproviders from "./data/providers.json";
-import OCSfunctions from "./data/functions.json";
-import TabRow from "./components/TabRow";
-//import Content from "./components/Content";
 
-const Content = lazy(() => import("./components/Content"));
+import TabContainer from "./components/TabContainer";
+import Spinner from "./components/Spinner";
+import PageContainer from "./components/PageContainer";
+
+//const Content = lazy(() => import("./components/PageContainer"));
 
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
 const App = () => {
-  chrome.storage.sync.clear();
-
-  const OCScombinedList = [...OCSproviders, ...OCSfunctions];
+  //chrome.storage.sync.clear();
 
   // Tabs
   const tabNames = { icons: "Icon Order", controls: "Controls" };
@@ -29,19 +27,18 @@ const App = () => {
 
   return (
     <div className={"flex-container height-app width-app column"}>
-      <React.Suspense fallback={"fallback!"}>
-        <TabRow
-          id={"tabRow"}
-          tabNames={tabNames}
-          selectedTab={selectedTab}
-          onTabSelect={tabSelectHandler}
-        />
-        <Content
+      <TabContainer
+        id={"tabRow"}
+        tabNames={tabNames}
+        selectedTab={selectedTab}
+        onTabSelect={tabSelectHandler}
+      />
+      <React.Suspense fallback={<Spinner />}>
+        <PageContainer
           id={"content"}
           className={"content-padding"}
           tabNames={tabNames}
           selectedTab={selectedTab}
-          listOfProviders={OCScombinedList}
         />
       </React.Suspense>
     </div>

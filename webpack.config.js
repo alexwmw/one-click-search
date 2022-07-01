@@ -6,8 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    jquery: "jquery",
-    content: "./src/InjectedContent.js",
+    content: "./src/ContentScript.js",
     app: "./src/App.js",
   },
   devtool: "inline-source-map",
@@ -19,18 +18,19 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "Output Management",
       template: "./src/index.html",
+      chunks: ["app"],
     }),
     new CopyWebpackPlugin({
       patterns: [
         { from: path.resolve(__dirname, "src/manifest.json"), to: "." },
         { from: path.resolve(__dirname, "src/icons"), to: "icons" },
-        { from: path.resolve(__dirname, "src/scripts"), to: "scripts" },
       ],
     }),
   ],
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
+    clean: true, // toggle this
   },
   module: {
     rules: [

@@ -40,6 +40,8 @@ body {
 
       transition: all 300ms ease;
 
+      color: #777;
+
       cursor: pointer;
       user-select: none;
 
@@ -48,6 +50,8 @@ body {
         font-weight: 700;
         background-color: rgb(231, 231, 231);
         border-color: @active;
+        border-bottom-width: 3px;
+        color: @text-color;
       }
       &:hover:not(.selected) {
         font-weight: 700;

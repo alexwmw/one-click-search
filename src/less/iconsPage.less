@@ -11,16 +11,25 @@
   // Children
 
   .instructions {
+    border-bottom: 0.5px solid #32bba6;
+
     * {
       transition: all 0.5s ease;
     }
 
     .fa-chevron-up {
-      transform-style: preserve-3d;
+      //transform-style: preserve-3d;
     }
 
     .toggleSwitch {
+      width: 50%;
       cursor: pointer;
+
+      &:hover {
+        h2 {
+          font-weight: 500;
+        }
+      }
     }
     .toggleSection {
       overflow: hidden;
@@ -29,7 +38,7 @@
 
     &.visible {
       .fa-chevron-up {
-        transform: rotateX(180deg);
+        transform: rotateX(0);
       }
       .toggleSection {
         height: 120px;
@@ -38,7 +47,7 @@
 
     &.hidden {
       .fa-chevron-up {
-        transform: rotateX(0);
+        transform: rotateX(180deg);
       }
       .toggleSection {
         height: 0;

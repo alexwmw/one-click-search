@@ -1,14 +1,13 @@
 import { createRoot } from "react-dom/client";
-import Popup from "./components/Popup/Popup";
 
 const rootElement = document.createElement("div");
-rootElement.classList.add("o-c-s_popup", "container");
+rootElement.classList.add("--shadow--root");
 document.body.insertAdjacentElement("afterend", rootElement);
 
 const root = createRoot(rootElement);
 
-const InjectedContent = (props) => {
-  return <Popup />;
+const OneClickSearch = (props) => {
+  return <div>I AM HERE!!!</div>;
 };
 
-root.render(<InjectedContent />);
+root.render(<OneClickSearch />);
