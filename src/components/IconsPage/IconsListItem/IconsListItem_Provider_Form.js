@@ -16,7 +16,11 @@ function IconsListItem_Provider_Form(props) {
       </div>
       <div className={"flex-container row center"}>
         <label tabIndex={-1}>Query path:</label>
-        <input type="text" tabIndex={isTabbable} value={props.queryKey}></input>
+        <input
+          type="text"
+          tabIndex={isTabbable}
+          value={props.queryPath}
+        ></input>
       </div>
       <div className={"flex-container row center"}>
         <label tabIndex={-1}>Favicon URL:</label>

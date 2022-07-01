@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
+    background: "./src/extension-scripts/background.js",
     content: "./src/extension-scripts/content.js",
     app: "./src/App.js",
   },
@@ -24,13 +25,6 @@ module.exports = {
       patterns: [
         { from: path.resolve(__dirname, "src/manifest.json"), to: "." },
         { from: path.resolve(__dirname, "src/icons"), to: "icons" },
-        {
-          from: path.resolve(
-            __dirname,
-            "src/extension-scripts/background.js"
-          ),
-          to: ".",
-        },
       ],
     }),
   ],

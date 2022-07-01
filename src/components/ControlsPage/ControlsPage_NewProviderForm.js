@@ -33,7 +33,7 @@ function ControlsPage_NewProviderForm(props) {
             The search term wil be appended to this string
           </span>
         </div>
-        <input type="text" id="new-queryKey" placeholder="e.g. search?q=" />
+        <input type="text" id="new-queryPath" placeholder="e.g. search?q=" />
       </div>
       <div>
         <label>FAVICON URL: </label>
