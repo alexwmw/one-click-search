@@ -4,9 +4,9 @@ import {
   faMinus as closeIcon,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import IconsLI_Form from "./IconsLI_Form";
+import IconsListItem_Provider_Form from "./IconsListItem_Provider_Form";
 
-function IconsProviderLI(props) {
+function IconsListItem_Provider(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const clickHandler = (e) => {
     setIsExpanded((expanded) => !expanded);
@@ -26,9 +26,12 @@ function IconsProviderLI(props) {
         className={"fa-icon button editButton"}
         icon={!isExpanded ? editIcon : closeIcon}
       />
-      <IconsLI_Form {...props} isExpanded={isExpanded}></IconsLI_Form>
+      <IconsListItem_Provider_Form
+        {...props}
+        isExpanded={isExpanded}
+      ></IconsListItem_Provider_Form>
     </li>
   );
 }
 
-export default IconsProviderLI;
+export default IconsListItem_Provider;

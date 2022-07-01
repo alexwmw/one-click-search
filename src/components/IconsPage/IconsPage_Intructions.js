@@ -4,7 +4,7 @@ import {
   faEllipsisVertical as editIcon,
   faChevronUp as hideIcon,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../less/iconsPage.less";
+//import "../../less/iconsPage.less";
 
 function IconsPage_Instructions(props) {
   const [isHidden, setIsHidden] = useState(true);

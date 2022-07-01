@@ -1,0 +1,31 @@
+@import "./less/_variables.less";
+
+body {
+  margin: 0;
+  min-height: 200px;
+  width: @app-width;
+}
+#app {
+  font-size: @font-size;
+
+  * {
+    font-family: @font-family;
+  }
+
+  h1 {
+    .h1();
+  }
+  h2 {
+    .h2();
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+  button {
+    border: none;
+  }
+
+}
+

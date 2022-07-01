@@ -1,6 +1,6 @@
 import IconsPage_Instructions from "./IconsPage_Intructions";
 import IconsPage_Sortable from "./IconsPage_Sortable";
-import "../../less/iconsPage.less";
+import "./IconsPage.less";
 
 const IconsPage = ({ listOfProviders }) => {
   const IconsPage_Section_props = [

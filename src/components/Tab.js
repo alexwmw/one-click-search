@@ -1,3 +1,5 @@
+import "./Tab.less";
+
 const Tab = (props) => {
   return (
     <div

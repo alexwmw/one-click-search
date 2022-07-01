@@ -12,7 +12,7 @@ const TabRow = (props) => {
   };
 
   return (
-    <div className={"flex-container row"} id={props.id}>
+    <div id={"tabContainer"} className={"flex-container row"}>
       <Tab
         selected={props.selectedTab == props.tabNames.icons}
         onClick={iconsSelectHandler}

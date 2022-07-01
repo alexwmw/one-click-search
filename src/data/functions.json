@@ -4,11 +4,26 @@
     "role": "function",
     "faviconUrl": "/icons/copy.ico",
     "visibility": "hidden",
-    "position": 11,
-    "execute": "copy",
     "function": {
-      "arguments": ["textToCopy"],
-      "body": "return navigator.clipboard.writeText(textToCopy)"
+      "arguments": ["selectedText"],
+      "body": "return navigator.clipboard.writeText(selectedText)"
+    }
+  },
+  {
+    "name": "GoTo",
+    "role": "function",
+    "faviconUrl": "/icons/goto.ico",
+    "visibility": "none",
+    "position": 0,
+    "execute": "copy",
+    "regex": "",
+    "matchingFunction": {
+      "arguments": ["selectedText, regEx"],
+      "body": "return regEx.text(selectedText)"
+    },
+    "function": {
+      "arguments": ["selectedText"],
+      "body": "window.location.href = selectText"
     }
   }
 ]

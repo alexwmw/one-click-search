@@ -1,4 +1,4 @@
-import "../less/spinner.less";
+import "./Spinner.less";
 
 function Spinner(props) {
   return (

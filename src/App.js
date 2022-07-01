@@ -1,8 +1,7 @@
 import { createRoot } from "react-dom/client";
 import React, { useState, lazy } from "react";
-import "./less/app.less";
-import "./less/_simple.less";
-import OCScontrols from "./data/options.json";
+import "./App.less";
+import "./less/flex.less";
 
 import TabContainer from "./components/TabContainer";
 import Spinner from "./components/Spinner";
@@ -28,18 +27,12 @@ const App = () => {
   return (
     <div className={"flex-container height-app width-app column"}>
       <TabContainer
-        id={"tabRow"}
         tabNames={tabNames}
         selectedTab={selectedTab}
         onTabSelect={tabSelectHandler}
       />
       <React.Suspense fallback={<Spinner />}>
-        <PageContainer
-          id={"content"}
-          className={"content-padding"}
-          tabNames={tabNames}
-          selectedTab={selectedTab}
-        />
+        <PageContainer tabNames={tabNames} selectedTab={selectedTab} />
       </React.Suspense>
     </div>
   );

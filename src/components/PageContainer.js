@@ -6,7 +6,11 @@ import OCSfunctions from "../data/functions.json";
 function PageContainer(props) {
   const listOfProviders = [...OCSproviders, ...OCSfunctions];
   return (
-    <div className={"flex-container content-padding"} id={props.id}>
+    <div
+      style={{ padding: "10px" }}
+      className={"flex-container content-padding"}
+      id="pageContainer"
+    >
       {props.selectedTab == props.tabNames.icons && (
         <IconsPage listOfProviders={listOfProviders}></IconsPage>
       )}

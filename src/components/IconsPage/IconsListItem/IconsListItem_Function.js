@@ -1,4 +1,4 @@
-function IconsFunctionLI(props) {
+function IconsListItem_Function(props) {
   return (
     <li data-id={props.key} data-object={props.obj}>
       <img src={props.faviconUrl}></img>
@@ -7,4 +7,4 @@ function IconsFunctionLI(props) {
   );
 }
 
-export default IconsFunctionLI;
+export default IconsListItem_Function;

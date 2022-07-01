@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
-import IconsLI from "./IconsListItem/IconsLI";
+import IconsListItem from "./IconsListItem/IconsListItem";
 
 function IconsPage_Sortable({ maxLength, providerList, name, id }) {
   const maxStr = maxLength ? `(max. ${maxLength})` : "";
@@ -32,7 +32,11 @@ function IconsPage_Sortable({ maxLength, providerList, name, id }) {
         animation={150}
       >
         {list.map((providerObj) => (
-          <IconsLI {...providerObj} key={providerObj.name} obj={providerObj} />
+          <IconsListItem
+            {...providerObj}
+            key={providerObj.name}
+            obj={providerObj}
+          />
         ))}
       </ReactSortable>
     </div>

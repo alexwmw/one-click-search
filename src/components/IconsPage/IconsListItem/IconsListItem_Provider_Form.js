@@ -4,7 +4,7 @@ import {
   faFloppyDisk as saveIcon,
 } from "@fortawesome/free-solid-svg-icons";
 
-function IconsLI_Form(props) {
+function IconsListItem_Provider_Form(props) {
   const tabbabool = (isTrue) => (isTrue ? 0 : -1);
   const isTabbable = tabbabool(props.isExpanded);
 
@@ -40,4 +40,4 @@ function IconsLI_Form(props) {
   );
 }
 
-export default IconsLI_Form;
+export default IconsListItem_Provider_Form;

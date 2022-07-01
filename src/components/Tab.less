@@ -1,0 +1,33 @@
+@import "../less/_variables.less";
+
+.tab {
+  flex: 1;
+
+  text-align: center;
+  font-family: 300;
+
+  padding: 10px;
+
+  background-color: rgb(231, 231, 231);
+  border-bottom: solid 2px lightgrey;
+
+  transition: all 300ms ease;
+
+  color: #777;
+
+  cursor: pointer;
+  user-select: none;
+
+  &.selected {
+    flex: 2;
+    font-weight: 700;
+    border-color: @active;
+    background-color: #fff;
+    border-bottom-width: 3px;
+    color: @text-color;
+  }
+  &:hover:not(.selected) {
+    font-weight: 700;
+    background-color: rgb(250, 250, 250);
+  }
+}
