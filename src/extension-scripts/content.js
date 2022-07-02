@@ -15,20 +15,21 @@ const OneClickSearch = (props) => {
   const [state, setState] = useState("");
 
   /** useEffect on first render only:
-   *  aync get data from chrome ( (chromeData) => {
+   *  (async) get data from chrome storage ( (chromeData) => {
    *      add mouseup event listener ( (eventData) =>
-   *          setState({chromeData, eventData})
+   *          setState( {chromeData, eventData} )
    *      )})
    */
   useEffect(() => {
     chrome.storage.sync.get({}, (result) => {
+      // Replace with stored data
       const providers = [...OCSproviders, ...OCSfunctions];
 
       document.addEventListener("mouseup", (evt) => {
-        const text = window.getSelection().toString();
-        const OCS = evt.target.classList.contains("OCS");
+        const isOCS = evt.target.closest(".OneClickSearch") !== null;
 
-        if (!OCS) {
+        if (!isOCS) {
+          const text = window.getSelection().toString();
           setState({ text: text, x: evt.pageX, y: evt.pageY, providers });
         }
       });
@@ -39,7 +40,7 @@ const OneClickSearch = (props) => {
     <div>
       {state.text && (
         <div
-          className="OneClickSearch OCS"
+          className="OneClickSearch"
           style={{
             left: state.x,
             top: state.y,

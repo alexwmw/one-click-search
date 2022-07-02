@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/",
+  "title": "Search Provider",
+  "description": "This document records the details of multiple search providers",
+  "type": "array",
+  "properties": {
+    "name": {
+      "description": "A unique name for the provider",
+      "type": "string",
+      "uniqueitem": true
+    },
+    "role": {
+      "description": "The role 'provider' (as opposed to 'function' or some other role)",
+      "type": "string",
+      "enum": ["provider"]
+    },
+    "hostname": {
+      "description": "The hostname/domain of the site that is to be searched, e.g. www.example.com",
+      "type": "string",
+      "format": "hostname"
+    },
+    "queryPath": {
+      "description": "The path that follows the URL which accepts the $TEXT$ query",
+      "type": "string"
+    },
+    "faviconUrl": {
+      "description": "The URL of the website's favicon",
+      "type": "string",
+      "required": false
+    },
+    "visibility": {
+      "description": "The visibility state of the provider's icon in the extension's popup. Accepted states are: visible: immediately visible; hidden: visible after hovering; disabled: never visible; conditional: visible under certain conditions",
+      "type": "string",
+      "enum": ["visible", "hidden", "disabled", "conditional"]
+    }
+  },
+  "required": ["name", "role", "url", "queryPath", "visibility"]
+}

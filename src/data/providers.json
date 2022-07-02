@@ -2,78 +2,78 @@
   {
     "name": "Google",
     "role": "provider",
-    "url": "https://www.google.com/",
-    "queryPath": "search?q=",
+    "hostname": "www.google.com",
+    "queryPath": "search?q=$TEXT$",
     "visibility": "visible"
   },
   {
     "name": "Wikipedia",
     "role": "provider",
-    "url": "https://www.wikipedia.org/",
-    "queryPath": "w/index.php?search=",
+    "hostname": "www.wikipedia.org/",
+    "queryPath": "w/index.php?search=$TEXT$",
     "visibility": "visible"
   },
   {
     "name": "Wiktionary",
     "role": "provider",
-    "url": "https://www.wiktionary.org/",
-    "queryPath": "w/index.php?search=",
+    "hostname": "www.wiktionary.org",
+    "queryPath": "w/index.php?search=$TEXT$",
     "visibility": "hidden"
   },
   {
     "name": "Amazon",
     "role": "provider",
-    "url": "https://www.amazon.co.uk/",
-    "queryPath": "s?k=",
+    "hostname": "www.amazon.co.uk",
+    "queryPath": "s?k=$TEXT$",
     "visibility": "disabled"
   },
   {
     "name": "eBay",
     "role": "provider",
-    "url": "https://www.ebay.co.uk/",
+    "hostname": "www.ebay.co.uk",
     "queryPath": "sch/i.html?_nkw=$TEXT$",
     "visibility": "disabled"
   },
   {
     "name": "YouTube",
     "role": "provider",
-    "url": "https://www.youtube.com/",
+    "hostname": "www.youtube.com",
     "queryPath": "results?search_query=$TEXT$",
-    "faviconUrl": "https://m.youtube.com/static/apple-touch-icon-120x120-precomposed.png",
+    "faviconhostname": "https://m.youtube.com/static/apple-touch-icon-120x120-precomposed.png",
     "visibility": "visible"
   },
   {
     "name": "Twitter",
     "role": "provider",
-    "url": "https://www.twitter.com/",
+    "hostname": "www.twitter.com",
     "queryPath": "search?q=$TEXT$",
     "visibility": "disabled"
   },
   {
     "name": "Bing",
     "role": "provider",
-    "url": "https://www.bing.com/",
+    "hostname": "www.bing.com",
     "queryPath": "search?q=$TEXT$",
     "visibility": "disabled"
   },
   {
     "name": "Gmail",
     "role": "provider",
-    "url": "https://mail.google.com/",
+    "hostname": "mail.google.com",
     "queryPath": "mail/u/0/#search/$TEXT$",
     "visibility": "hidden"
   },
   {
     "name": "Reddit",
     "role": "provider",
-    "url": "https://www.reddit.com/",
+    "hostname": "www.reddit.com",
     "queryPath": "search?q=$TEXT$",
     "visibility": "disabled"
   },
   {
     "name": "Facebook",
     "role": "provider",
-    "url": "https://www.facebook.com/",
+    "hostname": "www.facebook.com",
     "queryPath": "search/top?q=$TEXT$",
     "visibility": "disabled"
   }

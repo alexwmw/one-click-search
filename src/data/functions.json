@@ -3,27 +3,14 @@
     "name": "Copy",
     "role": "function",
     "faviconUrl": "/icons/copy.ico",
-    "visibility": "hidden",
-    "function": {
-      "arguments": ["selectedText"],
-      "body": "return navigator.clipboard.writeText(selectedText)"
-    }
+    "visibility": "hidden"
   },
   {
     "name": "GoTo",
     "role": "function",
     "faviconUrl": "/icons/goto.ico",
-    "visibility": "none",
+    "visibility": "conditional",
     "position": 0,
-    "execute": "copy",
-    "regex": "",
-    "matchingFunction": {
-      "arguments": ["selectedText, regEx"],
-      "body": "return regEx.text(selectedText)"
-    },
-    "function": {
-      "arguments": ["selectedText"],
-      "body": "window.location.href = selectText"
-    }
+    "regex": ""
   }
 ]
