@@ -16,9 +16,11 @@ function IconsListItem_Provider(props) {
     <li
       data-id={props.key}
       data-object={props.obj}
-      className={isExpanded && "expanded"}
+      className={isExpanded ? "expanded" : null}
     >
-      <img src={props.faviconUrl || props.url + "favicon.ico"}></img>
+      <img
+        src={props.faviconUrl || `https://${props.hostname}/favicon.ico`}
+      ></img>
       <span>{props.name}</span>
       <FontAwesomeIcon
         tabIndex={0}
