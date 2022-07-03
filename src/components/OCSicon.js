@@ -6,8 +6,14 @@ function OCSicon({ provider, text }) {
 
   const options = { blankTarget: true };
 
-  if (provider.regex && !regex.test(text)) {
-    return null;
+  // Do not render if regex criteria are not met
+
+  if (provider.regex) {
+    const regExMet = RegExp(provider.regex).test(text);
+
+    if (!regExMet) {
+      return null;
+    }
   }
 
   // Search provider icons are <a> links to search pages for the selected text
