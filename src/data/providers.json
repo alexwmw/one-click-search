@@ -39,7 +39,7 @@
     "role": "provider",
     "hostname": "www.youtube.com",
     "queryPath": "results?search_query=$TEXT$",
-    "faviconhostname": "https://m.youtube.com/static/apple-touch-icon-120x120-precomposed.png",
+    "faviconUrl": "https://m.youtube.com/static/apple-touch-icon-120x120-precomposed.png",
     "visibility": "visible"
   },
   {
