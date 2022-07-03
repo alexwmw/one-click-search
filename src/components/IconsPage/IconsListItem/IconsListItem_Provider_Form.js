@@ -1,45 +1,55 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faTrashAlt as deleteIcon,
   faFloppyDisk as saveIcon,
 } from "@fortawesome/free-solid-svg-icons";
 
 function IconsListItem_Provider_Form(props) {
-  const tabbabool = (isTrue) => (isTrue ? 0 : -1);
-  const isTabbable = tabbabool(props.isExpanded);
+  const saveHandler = () => {};
+  const deleteHandler = () => {};
+
+  const rowAttr = [
+    { label: "Hostname:", value: props.hostname, onChange: () => {} },
+    { label: "Query path:", value: props.queryPath, onChange: () => {} },
+    {
+      label: "Favicon URL:",
+      value: props.faviconUrl,
+      placeholder: "Default: hostname.com/favicon.ico",
+      onChange: () => {},
+    },
+  ];
+
+  const inputRows = rowAttr.map((row) => {
+    return (
+      <div key={row.label} className="flex-container row center">
+        <label>{row.label}</label>
+        <input
+          type={"text"}
+          onChange={row.onChange}
+          value={row.value}
+          placeholder={row.placeholder}
+        />
+      </div>
+    );
+  });
+
+  const buttonRow = (
+    <div className={"flex-container width-100 right"}>
+      <button className={"button deleteButton"}>
+        <Icon onClick={deleteHandler} icon={deleteIcon}></Icon>
+        <span>Delete</span>
+      </button>
+      <button className={"button saveButton"}>
+        <Icon onClick={saveHandler} icon={saveIcon}></Icon>
+        <span>Save</span>
+      </button>
+    </div>
+  );
 
   return (
     <form>
-      <div className={"flex-container row center"}>
-        <label tabIndex={-1}>URL:</label>
-        <input type="text" tabIndex={isTabbable} value={props.url}></input>
-      </div>
-      <div className={"flex-container row center"}>
-        <label tabIndex={-1}>Query path:</label>
-        <input
-          type="text"
-          tabIndex={isTabbable}
-          value={props.queryPath}
-        ></input>
-      </div>
-      <div className={"flex-container row center"}>
-        <label tabIndex={-1}>Favicon URL:</label>
-        <input
-          type="text"
-          placeholder={"default: url/favicon.ico"}
-          tabIndex={isTabbable}
-          value={props.faviconUrl}
-        ></input>
-      </div>
-      <div className={"flex-container width-100 right"}>
-        <button className={"button deleteButton"} tabIndex={isTabbable}>
-          <FontAwesomeIcon icon={deleteIcon}></FontAwesomeIcon>{" "}
-          <span>Delete</span>
-        </button>
-        <button className={"button saveButton"} tabIndex={isTabbable}>
-          <FontAwesomeIcon icon={saveIcon}></FontAwesomeIcon> <span>Save</span>
-        </button>
-      </div>
+      {inputRows}
+      {buttonRow}
     </form>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisVertical as editIcon,
   faChevronUp as hideIcon,
@@ -20,7 +20,7 @@ function IconsPage_Instructions(props) {
         onClick={toggleHidden}
       >
         <h2 style={{ marginRight: "10px" }}>How to Use</h2>
-        <FontAwesomeIcon icon={hideIcon} />
+        <Icon icon={hideIcon} />
       </div>
       <div className="toggleSection">
         <p>
@@ -32,8 +32,8 @@ function IconsPage_Instructions(props) {
           until mouseover, or to <strong>disable</strong> them entirely.
         </p>
         <p>
-          Click the <FontAwesomeIcon icon={editIcon} />{" "}
-          <strong>edit icon</strong> to change the provider's settings.
+          Click the <Icon icon={editIcon} /> <strong>edit icon</strong> to
+          change the provider's settings.
         </p>
       </div>
     </div>
