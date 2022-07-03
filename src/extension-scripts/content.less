@@ -5,11 +5,21 @@
   }
 
   @OCSsize: 20px;
-  @OCSoffset: 25px;
+  @OCSoffsetX: 3px;
+  @OCSoffsetY: 15px;
+
+  @keyframes grow {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
 
   position: absolute;
 
-  padding: 5px;
+  padding: 2px;
 
   display: flex;
   flex-direction: row;
@@ -21,18 +31,21 @@
   box-shadow: 0 1px 3px lightgrey;
   z-index: 9999;
 
-  transform: translate(@OCSoffset, -(@OCSsize + @OCSoffset));
+  transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
 
   user-select: none;
   outline: none;
 
   .OCSicon {
+    animation: 0.15s ease grow;
+    animation-fill-mode: forwards;
     a {
       outline: none;
       display: table;
       margin: 0 auto;
     }
     img {
+      display: block;
       border-radius: 9px;
       height: @OCSsize;
       width: @OCSsize;
@@ -54,6 +67,16 @@
 
     &.disabled {
       display: none;
+    }
+  }
+
+  &.isHovered {
+    .OCSicon {
+      &.hidden {
+        display: block;
+        animation: 0.15s ease grow;
+        animation-fill-mode: forwards;
+      }
     }
   }
 }

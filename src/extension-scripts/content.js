@@ -13,6 +13,8 @@ const root = createRoot(rootElement);
 
 const OneClickSearch = (props) => {
   const [state, setState] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+  const timeouts = {};
 
   /** useEffect on first render only:
    *  (async) get data from chrome storage ( (chromeData) => {
@@ -20,7 +22,7 @@ const OneClickSearch = (props) => {
    *          setState( {chromeData, eventData} )
    *      )})
    */
-  useEffect(() => {
+   useEffect(() => {
     chrome.storage.sync.get({}, (result) => {
       // Replace with stored data
       const providers = [...OCSproviders, ...OCSfunctions];
@@ -36,11 +38,24 @@ const OneClickSearch = (props) => {
     });
   }, []);
 
+  const mouseenter = (evt) => {
+    timeouts.hover = setTimeout(() => {
+      setIsHovered(true);
+    }, 1000);
+  };
+
+  const mouseleave = (evt) => {
+    clearTimeout(timeouts.hover);
+    setIsHovered(false);
+  };
+
   return (
     <div>
       {state.text && (
         <div
-          className="OneClickSearch"
+          className={`OneClickSearch ${isHovered ? "isHovered" : ""}`}
+          onMouseEnter={mouseenter}
+          onMouseLeave={mouseleave}
           style={{
             left: state.x,
             top: state.y,
