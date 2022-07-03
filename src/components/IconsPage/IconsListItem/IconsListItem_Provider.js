@@ -16,12 +16,12 @@ function IconsListItem_Provider(props) {
     props.faviconUrl || `https://${props.hostname}/favicon.ico`;
 
   const expandButton = (
-    <Icon
-      tabIndex={0}
-      onClick={clickHandler}
-      className={"fa-icon button editButton"}
-      icon={!isExpanded ? editIcon : closeIcon}
-    />
+    <button onClick={clickHandler}>
+      <Icon
+        className={"fa-icon"}
+        icon={!isExpanded ? editIcon : closeIcon}
+      />
+    </button>
   );
 
   return (

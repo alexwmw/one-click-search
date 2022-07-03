@@ -37,7 +37,7 @@
       border: @primary-border;
     }
 
-    .button:focus {
+    button:focus {
       outline: 1px solid @active;
     }
 
@@ -54,18 +54,22 @@
       user-select: none;
     }
 
-    > .editButton.fa-icon {
-      color: grey;
+    > button {
       position: absolute;
       right: 4px;
       top: 4px;
-      display: inline-block;
-      width: 12px;
-      height: 12px;
+      display: block;
+      color: grey;
       padding: 5px;
       cursor: pointer;
       border-radius: 50%;
       text-align: center;
+      background-color: transparent;
+      .fa-icon {
+        display: block;
+        width: 12px;
+        height: 12px;
+      }
 
       &:hover {
         background-color: white;
