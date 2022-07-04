@@ -1,17 +1,15 @@
 import IconsPage from "./IconsPage/IconsPage";
 import ControlsPage from "./ControlsPage/ControlsPage";
 
-function PageContainer(props) {
+function PageContainer({ tabNames, selectedTab }) {
   return (
     <div
       style={{ padding: "10px" }}
       className={"flex-container content-padding"}
       id="pageContainer"
     >
-      {props.selectedTab == props.tabNames.icons && <IconsPage></IconsPage>}
-      {props.selectedTab == props.tabNames.controls && (
-        <ControlsPage></ControlsPage>
-      )}
+      {selectedTab == tabNames.icons && <IconsPage />}
+      {selectedTab == tabNames.controls && <ControlsPage />}
     </div>
   );
 }

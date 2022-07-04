@@ -1,8 +1,9 @@
-function IconsListItem_Function(props) {
+
+function IconsListItem_Function({ func, key }) {
   return (
-    <li data-id={props.key} data-object={props.obj} className={"sortableItem"}>
-      <img src={props.faviconUrl}></img>
-      <span>{props.name}</span>
+    <li data-id={key} className={"sortableItem"}>
+      <img src={func.faviconUrl}></img>
+      <span>{func.name}</span>
     </li>
   );
 }

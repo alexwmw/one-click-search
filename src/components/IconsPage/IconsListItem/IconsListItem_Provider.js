@@ -6,14 +6,14 @@ import {
 import { useState } from "react";
 import ProviderForm from "./IconsListItem_Provider_Form";
 
-function IconsListItem_Provider(props) {
+function IconsListItem_Provider({ key, provider }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const clickHandler = (e) => {
     setIsExpanded((expanded) => !expanded);
   };
 
   const faviconUrl =
-    props.faviconUrl || `https://${props.hostname}/favicon.ico`;
+    provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
 
   const expandButton = (
     <button onClick={clickHandler}>
@@ -22,11 +22,14 @@ function IconsListItem_Provider(props) {
   );
 
   return (
-    <li className={`sortableItem ${isExpanded ? "expanded" : ""}`}>
+    <li
+      data-id={key}
+      className={`sortableItem ${isExpanded ? "expanded" : ""}`}
+    >
       <img src={faviconUrl}></img>
-      <span>{props.name}</span>
+      <span>{provider.name}</span>
       {expandButton}
-      {isExpanded && <ProviderForm {...props}></ProviderForm>}
+      {isExpanded && <ProviderForm {...provider}></ProviderForm>}
     </li>
   );
 }
