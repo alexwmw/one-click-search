@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import IconsListItem from "./IconsListItem/IconsListItem";
 
-function IconsPage_Sortable({ maxLength, providerList, name, id }) {
+function IconsPage_Sortable({ maxLength, list, setList, name, id }) {
   const maxStr = maxLength ? `(max. ${maxLength})` : "";
-  const [list, setList] = useState(providerList);
 
   const pullHandler = (to, from) => {
     if (name == "Visible") {
@@ -31,11 +29,11 @@ function IconsPage_Sortable({ maxLength, providerList, name, id }) {
         setList={setList}
         animation={150}
       >
-        {list.map((providerObj) => (
+        {list.map((provider) => (
           <IconsListItem
-            {...providerObj}
-            key={providerObj.name}
-            obj={providerObj}
+            key={provider.name}
+            role={provider.role}
+            provider={provider}
           />
         ))}
       </ReactSortable>

@@ -4,43 +4,84 @@ import "./IconsPage.less";
 
 import OCSproviders from "../../data/providers.json";
 import OCSfunctions from "../../data/functions.json";
+import { useEffect, useState } from "react";
 
 const IconsPage = () => {
-  const listOfProviders = [...OCSproviders, ...OCSfunctions];
+  const [providers, setProviders] = useState({
+    visible: [],
+    hidden: [],
+    disabled: [],
+  });
 
-  const Section_props = [
+  /**
+   * Async get stored providers and re-render
+   */
+  useEffect(() => {
+    chrome.storage.sync.get({}, () => {
+      // Get from storage. Always set. Set in background if unset.
+      const result = [...OCSproviders, ...OCSfunctions];
+
+      setProviders({
+        visible: result.filter((item) => item.visibility == "visible"),
+        hidden: result.filter((item) => item.visibility == "hidden"),
+        disabled: result.filter((item) => item.visibility == "disabled"),
+      });
+    });
+  }, []);
+
+  const sortingIsFinished = (sortableItems) => {
+    return sortableItems.every((item) => item.chosen !== true);
+  };
+
+  /**
+   * Async store providers when providers is updated and move is finished
+   */
+  useEffect(() => {
+    const array = [
+      ...providers.visible,
+      ...providers.hidden,
+      ...providers.disabled,
+    ];
+
+    if (sortingIsFinished(array)) {
+      console.table(array);
+      // chrome.storage.sync.set
+    }
+  }, [providers]);
+
+  const listComponents = [
     {
       name: "Visible",
-      id: "visible",
       maxLength: 4,
-      providerList: listOfProviders.filter(
-        (provider) => provider.visibility == "visible"
-      ),
+      id: "visible",
+      key: "visible",
+      list: providers.visible,
+      setList: (list) =>
+        setProviders((old) => {
+          return { ...old, visible: list };
+        }),
     },
     {
       name: "Hidden",
       id: "hidden",
-      providerList: listOfProviders.filter(
-        (provider) => provider.visibility == "hidden"
-      ),
+      key: "hidden",
+      list: providers.hidden,
+      setList: (list) =>
+        setProviders((old) => {
+          return { ...old, hidden: list };
+        }),
     },
     {
       name: "Disabled",
       id: "disabled",
-      providerList: listOfProviders.filter(
-        (provider) => provider.visibility == "disabled"
-      ),
+      key: "disabled",
+      list: providers.disabled,
+      setList: (list) =>
+        setProviders((old) => {
+          return { ...old, disabled: list };
+        }),
     },
-  ];
-
-  const saveHandler = () => {
-    const items = document.getElementsByClassName("sortableItems");
-    console.log(items.length);
-  };
-
-  const sections = Section_props.map((s) => {
-    return <SortableList onSave={saveHandler} key={s.id} {...s}></SortableList>;
-  });
+  ].map((section) => <SortableList {...section} />);
 
   return (
     <div
@@ -49,7 +90,7 @@ const IconsPage = () => {
       direction={"column"}
     >
       <Instructions />
-      {sections}
+      {listComponents};
     </div>
   );
 };

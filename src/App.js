@@ -21,7 +21,7 @@ const App = () => {
 
   const tabSelectHandler = (tabName) => {
     setSelectedTab(tabName);
-    console.log("tab selection made");
+    // console.log("tab selection made");
   };
 
   return (
