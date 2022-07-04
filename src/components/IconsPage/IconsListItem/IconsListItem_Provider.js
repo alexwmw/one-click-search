@@ -17,15 +17,12 @@ function IconsListItem_Provider(props) {
 
   const expandButton = (
     <button onClick={clickHandler}>
-      <Icon
-        className={"fa-icon"}
-        icon={!isExpanded ? editIcon : closeIcon}
-      />
+      <Icon className={"fa-icon"} icon={!isExpanded ? editIcon : closeIcon} />
     </button>
   );
 
   return (
-    <li className={isExpanded ? "expanded" : null}>
+    <li className={`sortableItem ${isExpanded ? "expanded" : ""}`}>
       <img src={faviconUrl}></img>
       <span>{props.name}</span>
       {expandButton}

@@ -1,9 +1,14 @@
-import IconsPage_Instructions from "./IconsPage_Intructions";
-import IconsPage_Sortable from "./IconsPage_Sortable";
+import Instructions from "./IconsPage_Intructions";
+import SortableList from "./IconsPage_Sortable";
 import "./IconsPage.less";
 
-const IconsPage = ({ listOfProviders }) => {
-  const IconsPage_Section_props = [
+import OCSproviders from "../../data/providers.json";
+import OCSfunctions from "../../data/functions.json";
+
+const IconsPage = () => {
+  const listOfProviders = [...OCSproviders, ...OCSfunctions];
+
+  const Section_props = [
     {
       name: "Visible",
       id: "visible",
@@ -28,16 +33,23 @@ const IconsPage = ({ listOfProviders }) => {
     },
   ];
 
+  const saveHandler = () => {
+    const items = document.getElementsByClassName("sortableItems");
+    console.log(items.length);
+  };
+
+  const sections = Section_props.map((s) => {
+    return <SortableList onSave={saveHandler} key={s.id} {...s}></SortableList>;
+  });
+
   return (
     <div
       className={`flex-container page`}
       id={"iconsPage"}
       direction={"column"}
     >
-      <IconsPage_Instructions />
-      {IconsPage_Section_props.map((s) => {
-        return <IconsPage_Sortable key={s.id} {...s}></IconsPage_Sortable>;
-      })}
+      <Instructions />
+      {sections}
     </div>
   );
 };
