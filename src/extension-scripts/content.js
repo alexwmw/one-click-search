@@ -22,7 +22,7 @@ const OneClickSearch = (props) => {
    *          setState( {chromeData, eventData} )
    *      )})
    */
-   useEffect(() => {
+  useEffect(() => {
     chrome.storage.sync.get({}, (result) => {
       // Replace with stored data
       const providers = [...OCSproviders, ...OCSfunctions];
@@ -39,6 +39,7 @@ const OneClickSearch = (props) => {
   }, []);
 
   const mouseenter = (evt) => {
+    clearTimeout(timeouts.hover);
     timeouts.hover = setTimeout(() => {
       setIsHovered(true);
     }, 1000);
@@ -46,7 +47,9 @@ const OneClickSearch = (props) => {
 
   const mouseleave = (evt) => {
     clearTimeout(timeouts.hover);
-    setIsHovered(false);
+    timeouts.hover = setTimeout(() => {
+      setIsHovered(false);
+    }, 2000);
   };
 
   return (
