@@ -22,7 +22,9 @@ export const ToastProvider = ({ children }) => {
 
   return (
     <ToastStateContext.Provider value={state}>
-      <ToastDispatchContext value={dispatch}>{children}</ToastDispatchContext>
+      <ToastDispatchContext.Provider value={dispatch}>
+        {children}
+      </ToastDispatchContext.Provider>
     </ToastStateContext.Provider>
   );
 };

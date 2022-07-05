@@ -1,5 +1,5 @@
-import IconsPage from "./IconsPage/IconsPage";
-import ControlsPage from "./ControlsPage/ControlsPage";
+import IconsPage from "../IconsPage/IconsPage";
+import ControlsPage from "../ControlsPage/ControlsPage";
 
 function PageContainer({ tabNames, selectedTab }) {
   return (

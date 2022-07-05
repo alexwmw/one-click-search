@@ -2,8 +2,6 @@ import { ReactSortable } from "react-sortablejs";
 import IconsListItem from "./IconsListItem/IconsListItem";
 
 function IconsPage_Sortable({ maxLength, list, setList, id }) {
-  console.log("id: " + id);
-
   const pullHandler = (to, from) => {
     if (name == "Visible") {
       return from.el.children.length > 1;
@@ -22,7 +20,7 @@ function IconsPage_Sortable({ maxLength, list, setList, id }) {
 
   return (
     <div>
-      <h2>{`${name}${maxLength ? `( max. ${maxLength})` : ""}`}</h2>
+      <h2>{`${name}${maxLength ? ` (max. ${maxLength})` : ""}`}</h2>
       <ReactSortable
         id={id}
         group={{ name: "iconsList", put: putHandler, pull: pullHandler }}

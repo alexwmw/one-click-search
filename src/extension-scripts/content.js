@@ -1,82 +1,13 @@
-import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import "./content.less";
-import OCSproviders from "../data/providers.json";
-import OCSfunctions from "../data/functions.json";
-import OCSicon from "../components/OCSicon";
+import OneClickSearch from "../components/OCS/OneClickSearch";
 
 /** Define Root */
 const rootElement = document.createElement("div");
-rootElement.classList.add("OneClickSearch--root");
-document.body.appendChild(rootElement);
 const root = createRoot(rootElement);
+rootElement.classList.add("OneClickSearch--root");
 
-const OneClickSearch = (props) => {
-  const [state, setState] = useState("");
-  const [isHovered, setIsHovered] = useState(false);
-  const timeouts = {};
+/** Append */
+document.body.appendChild(rootElement);
 
-  /** useEffect on first render only:
-   *  (async) get data from chrome storage ( (chromeData) => {
-   *      add mouseup event listener ( (eventData) =>
-   *          setState( {chromeData, eventData} )
-   *      )})
-   */
-  useEffect(() => {
-    chrome.storage.sync.get({}, (result) => {
-      // Replace with stored data
-      const providers = [...OCSproviders, ...OCSfunctions];
-
-      document.addEventListener("mouseup", (evt) => {
-        const isOCS = evt.target.closest(".OneClickSearch") !== null;
-
-        if (!isOCS) {
-          const text = window.getSelection().toString();
-          setState({ text: text, x: evt.pageX, y: evt.pageY, providers });
-        }
-      });
-    });
-  }, []);
-
-  const mouseenter = (evt) => {
-    clearTimeout(timeouts.hover);
-    timeouts.hover = setTimeout(() => {
-      setIsHovered(true);
-    }, 1000);
-  };
-
-  const mouseleave = (evt) => {
-    clearTimeout(timeouts.hover);
-    timeouts.hover = setTimeout(() => {
-      setIsHovered(false);
-    }, 2000);
-  };
-
-  return (
-    <div>
-      {state.text && (
-        <div
-          className={`OneClickSearch ${isHovered ? "isHovered" : ""}`}
-          onMouseEnter={mouseenter}
-          onMouseLeave={mouseleave}
-          style={{
-            left: state.x,
-            top: state.y,
-          }}
-        >
-          {state.providers.map((provider) => {
-            return (
-              <OCSicon
-                key={provider.name}
-                text={state.text}
-                provider={provider}
-              ></OCSicon>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-};
-
+/** Render */
 root.render(<OneClickSearch />);
