@@ -1,22 +1,24 @@
+import { useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisVertical as editIcon,
   faMinus as closeIcon,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+
 import ProviderForm from "./IconsListItem_Provider_Form";
 
 function IconsListItem_Provider({ key, provider }) {
+  /** State and local data */
   const [isExpanded, setIsExpanded] = useState(false);
-  const clickHandler = (e) => {
-    setIsExpanded((expanded) => !expanded);
-  };
-
   const faviconUrl =
     provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
 
-  const expandButton = (
-    <button onClick={clickHandler}>
+  const toggleExpanded = (e) => {
+    setIsExpanded((expanded) => !expanded);
+  };
+
+  const ExpandButton = (
+    <button onClick={toggleExpanded}>
       <Icon className={"fa-icon"} icon={!isExpanded ? editIcon : closeIcon} />
     </button>
   );
@@ -28,7 +30,7 @@ function IconsListItem_Provider({ key, provider }) {
     >
       <img src={faviconUrl}></img>
       <span>{provider.name}</span>
-      {expandButton}
+      {ExpandButton}
       {isExpanded && <ProviderForm {...provider}></ProviderForm>}
     </li>
   );

@@ -1,9 +1,12 @@
 import Toast from "./Toast";
+import { useToastStateContext } from "./contexts/ToastsContext";
+
 import "../../less/flex.less";
 import "./ToastContainer.less";
 
 function ToastContainer(props) {
-  const toasts = [{ id: "x", type: "notification", message: "Saved!" }];
+  const { toasts } = useToastStateContext();
+  // const toasts = [{ id: "x", type: "notification", message: "Saved!" }];
   return (
     <div className="flex-container column center flex-start fixed-toast">
       {toasts &&
