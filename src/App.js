@@ -4,8 +4,9 @@ import "./App.less";
 import "./less/flex.less";
 
 import TabContainer from "./components/TabContainer";
-import Spinner from "./components/Spinner";
+import Spinner from "./components/UX/Spinner";
 import PageContainer from "./components/PageContainer";
+import ToastContainer from "./components/UX/ToastContainer";
 
 //const Content = lazy(() => import("./components/PageContainer"));
 
@@ -26,6 +27,7 @@ const App = () => {
 
   return (
     <div className={"flex-container height-app width-app column"}>
+      <ToastContainer></ToastContainer>
       <TabContainer
         tabNames={tabNames}
         selectedTab={selectedTab}

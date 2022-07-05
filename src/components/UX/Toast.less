@@ -1,0 +1,39 @@
+@import "../../less/_variables.less";
+
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.toast {
+  animation: in 0.6s ease-in-out, out 0.6s ease-in-out forwards;
+  animation-delay: 0s, 4s;
+  width: 50%;
+  height: 30px;
+  background-color: @text-color;
+  color: whitesmoke;
+  box-shadow: 0 3px 5px 0 rgb(0 0 0 / 0.2);
+  border-radius: 12px;
+  padding: 8px;
+  margin: 15px;
+  p {
+    font-size: 1rem;
+  }
+}
