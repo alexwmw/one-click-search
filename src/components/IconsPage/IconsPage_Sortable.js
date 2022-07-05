@@ -1,8 +1,8 @@
 import { ReactSortable } from "react-sortablejs";
 import IconsListItem from "./IconsListItem/IconsListItem";
 
-function IconsPage_Sortable({ maxLength, list, setList, name, id }) {
-  const maxStr = maxLength ? `(max. ${maxLength})` : "";
+function IconsPage_Sortable({ maxLength, list, setList, id }) {
+  console.log("id: " + id);
 
   const pullHandler = (to, from) => {
     if (name == "Visible") {
@@ -18,9 +18,11 @@ function IconsPage_Sortable({ maxLength, list, setList, name, id }) {
     return true;
   };
 
+  const name = id.charAt(0).toUpperCase() + id.slice(1);
+
   return (
     <div>
-      <h2>{`${name} ${maxStr}`}</h2>
+      <h2>{`${name}${maxLength ? `( max. ${maxLength})` : ""}`}</h2>
       <ReactSortable
         id={id}
         group={{ name: "iconsList", put: putHandler, pull: pullHandler }}

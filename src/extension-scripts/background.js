@@ -1,18 +1,13 @@
 import OCSproviders from "../data/providers.json";
 import OCSfunctions from "../data/functions.json";
-
-// Fetch data or load defaults into storage
-
-// Transform any existing data from old version (object) into new format (array)
-
-const storedProviders = {};
+import OCSoptions from "../data/options.json";
 
 function updateProvider(oldProvider) {
   const newProvider = {};
 
   newProvider.name = oldProvider.name;
   newProvider.role = "provider";
-  newProvider.url = oldProvider.url
+  newProvider.hostname = oldProvider.url
     .replace(/http:\/\/|https:\/\//, "")
     .replace(/\//, "");
   newProvider.queryPath = oldProvider.queryKey + "$TEXT$";
@@ -36,9 +31,23 @@ function sortAndConcat(array) {
     } else unsorted.push(element);
   });
 
-  return sorted.sort((a, b) => a.position - b.position).concat(unsorted);
+  sorted.sort((a, b) => a.position - b.position);
+
+  return [...sorted, ...unsorted];
 }
 
-const newProviders = Object.values(storedProviders)
-  .filter((p) => !p.isFunc)
-  .map((old) => updateProvider(old));
+// const newProviders = Object.values(defaultProviders)
+//   .filter((p) => !p.isFunc)
+//   .map((old) => updateProvider(old));
+
+// Get or set
+
+const defaultProviders = sortAndConcat([...OCSproviders, ...OCSfunctions]);
+const defaultOptions = OCSoptions;
+
+chrome.storage.sync.clear();
+
+chrome.storage.sync.get(
+  { providers: defaultProviders, options: defaultOptions },
+  (result) => {}
+);

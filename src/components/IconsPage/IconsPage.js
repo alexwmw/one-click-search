@@ -2,12 +2,9 @@ import Instructions from "./IconsPage_Intructions";
 import SortableList from "./IconsPage_Sortable";
 import "./IconsPage.less";
 
-import OCSproviders from "../../data/providers.json";
-import OCSfunctions from "../../data/functions.json";
 import { useEffect, useState } from "react";
-
 const IconsPage = () => {
-  const [providers, setProviders] = useState({
+  const [state, setState] = useState({
     visible: [],
     hidden: [],
     disabled: [],
@@ -17,71 +14,57 @@ const IconsPage = () => {
    * Async get stored providers and re-render
    */
   useEffect(() => {
-    chrome.storage.sync.get({}, () => {
-      // Get from storage. Always set. Set in background if unset.
-      const result = [...OCSproviders, ...OCSfunctions];
-
-      setProviders({
-        visible: result.filter((item) => item.visibility == "visible"),
-        hidden: result.filter((item) => item.visibility == "hidden"),
-        disabled: result.filter((item) => item.visibility == "disabled"),
+    chrome.storage.sync.get("providers", ({ providers }) => {
+      setState({
+        visible: providers.filter((p) => p.visibility == "visible"),
+        hidden: providers.filter((p) => p.visibility == "hidden"),
+        disabled: providers.filter((p) => p.visibility == "disabled"),
       });
     });
   }, []);
-
-  const sortingIsFinished = (sortableItems) => {
-    return sortableItems.every((item) => item.chosen !== true);
-  };
 
   /**
    * Async store providers when providers is updated and move is finished
    */
   useEffect(() => {
-    const array = [
-      ...providers.visible,
-      ...providers.hidden,
-      ...providers.disabled,
-    ];
-
-    if (sortingIsFinished(array)) {
-      console.table(array);
-      // chrome.storage.sync.set
+    const a = [...state.visible, ...state.hidden, ...state.disabled];
+    const finished = a.every((p) => p.chosen !== true);
+    if (finished) {
+      chrome.storage.sync.set({ providers: a });
     }
-  }, [providers]);
+  }, [state]);
 
   const listComponents = [
     {
-      name: "Visible",
-      maxLength: 4,
       id: "visible",
-      key: "visible",
-      list: providers.visible,
-      setList: (list) =>
-        setProviders((old) => {
-          return { ...old, visible: list };
-        }),
+      maxLength: 4,
+      list: state.visible,
+      setList: (list) => {
+        list.forEach((e, i) => (e.visibility = "visible"));
+        setState((prev) => ({ ...prev, visible: list }));
+      },
     },
     {
-      name: "Hidden",
       id: "hidden",
-      key: "hidden",
-      list: providers.hidden,
-      setList: (list) =>
-        setProviders((old) => {
-          return { ...old, hidden: list };
-        }),
+      list: state.hidden,
+      setList: (list) => {
+        list.forEach((e, i) => (e.visibility = "hidden"));
+        setState((prev) => ({ ...prev, hidden: list }));
+      },
     },
     {
-      name: "Disabled",
       id: "disabled",
-      key: "disabled",
-      list: providers.disabled,
-      setList: (list) =>
-        setProviders((old) => {
-          return { ...old, disabled: list };
-        }),
+      list: state.disabled,
+      setList: (list) => {
+        list.forEach((e, i) => (e.visibility = "disabled"));
+        setState((prev) => ({ ...prev, disabled: list }));
+      },
     },
-  ].map((section) => <SortableList {...section} />);
+  ];
+
+  const Lists = listComponents.map((list) => (
+    <SortableList key={list.id} {...list} />
+  ));
 
   return (
     <div
@@ -90,7 +73,7 @@ const IconsPage = () => {
       direction={"column"}
     >
       <Instructions />
-      {listComponents};
+      {Lists};
     </div>
   );
 };

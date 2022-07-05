@@ -6,7 +6,7 @@
  */
 const TextFunctions = {
   Copy: (text) => {
-    navigator.clipboard.writeText(selectedText);
+    navigator.clipboard.writeText(text);
   },
 
   GoTo: (text) => {
