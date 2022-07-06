@@ -48,7 +48,7 @@ const OneClickSearch = () => {
         setOptions(changes.options.newValue);
       }
     });
-  });
+  }, []);
 
   /** Mouse events */
   const onMouseEnter = (evt) => {

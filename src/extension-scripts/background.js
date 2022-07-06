@@ -8,7 +8,8 @@ const defaultProviders = sortByPosition([...OCSproviders, ...OCSfunctions]);
 const defaultOptions = OCSoptions;
 
 const callback = ({ providers, options }) => {
-  const isLegacy = providers.some((provider) => provider.version !== 2);
+  //const isLegacy = providers.some((provider) => provider.version !== 2);
+  const isLegacy = false;
   let adaptedProviders = providers;
 
   if (isLegacy) {
@@ -19,13 +20,12 @@ const callback = ({ providers, options }) => {
   chrome.storage.sync.set({ adaptedProviders, options });
 };
 
-chrome.storage.sync.get(
-  { providers: defaultProviders, options: defaultOptions },
-  (result) => callback(result)
-);
-
-// chrome.storage.sync.clear();
 // chrome.storage.sync.get(
 //   { providers: defaultProviders, options: defaultOptions },
-//   (result) => chrome.storage.sync.set(result)
+//   (result) => callback(result)
 // );
+// chrome.storage.sync.clear();
+chrome.storage.sync.get(
+  { providers: defaultProviders, options: defaultOptions },
+  (result) => chrome.storage.sync.set(result)
+);

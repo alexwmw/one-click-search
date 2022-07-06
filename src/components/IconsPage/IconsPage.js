@@ -10,7 +10,7 @@ const IconsPage = () => {
     disabled: [],
   });
 
-  /**
+  /** useEffect on first render only
    * Async get stored providers and re-render
    */
   useEffect(() => {
@@ -23,7 +23,26 @@ const IconsPage = () => {
     });
   }, []);
 
-  /**
+  /** useEffect on first render only
+   * Add chrome.storage.onChanged event listener
+   */
+  // useEffect(() => {
+  //   chrome.storage.onChanged.addListener((changes, namespace) => {
+  //     if (
+  //       "providers" in changes &&
+  //       changes.providers.newValue != changes.providers.oldValue
+  //     ) {
+  //       const newP = changes.providers.newValue;
+  //       setState({
+  //         visible: newP.filter((p) => p.visibility == "visible"),
+  //         hidden: newP.filter((p) => p.visibility == "hidden"),
+  //         disabled: newP.filter((p) => p.visibility == "disabled"),
+  //       });
+  //     }
+  //   });
+  // }, []);
+
+  /** useEffect on state change
    * Async store providers when providers is updated and move is finished
    */
   useEffect(() => {
