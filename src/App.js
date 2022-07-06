@@ -23,7 +23,7 @@ const App = ({ storedProviders, storedOptions }) => {
   };
 
   /** Define tabs */
-  const tabNames = { icons: "Icon Order", controls: "Controls" };
+  const tabNames = { icons: "Icon Order", controls: "Settings" };
   const [selectedTab, setSelectedTab] = useState(tabNames.icons);
   const tabSelectHandler = (tabName) => setSelectedTab(tabName);
 

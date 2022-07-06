@@ -1,3 +1,4 @@
+/**  */
 export function adaptLegacyProvider(oldProvider) {
   const newProvider = {};
 
@@ -22,7 +23,8 @@ export function adaptLegacyProvider(oldProvider) {
 
   return oldProvider;
 }
-/** Return an array where each item with a 'position' property 
+
+/** Return an array where each item with a 'position' property
  * is at the front according to its position property */
 export function sortByPosition(array) {
   const hasPosition = [];
@@ -47,6 +49,15 @@ export const splitSortables = (array) => ({
 });
 
 /** Helper function */
+export const splitSortablesGeneric = (array, keys) => {
+  const object = {};
+  keys.forEach((key) => {
+    object[key] = array.filter((item) => item.visibility == key);
+  });
+  return object;
+};
+
+/** Helper function */
 export const mergeSortables = (sortables) => [
   ...sortables.visible,
   ...sortables.hidden,
@@ -55,7 +66,7 @@ export const mergeSortables = (sortables) => [
 
 /** Helper function */
 export const isUpdated = (Old, New) => {
-  // finished: no item in the list is 'chosen', i.e. user has finished a drag/drop
+  // finished: true if no item in the list is 'chosen', i.e. user has finished a drag/drop
   const finished = New.every((provider) => provider.chosen !== true);
   const positionsChanged = New.some(
     (e, i, array) => array[i].name !== Old[i].name

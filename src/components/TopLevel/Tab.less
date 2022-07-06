@@ -2,32 +2,36 @@
 
 .tab {
   flex: 1;
+  padding: 15px 10px;
 
   text-align: center;
   font-family: 300;
+  font-size: 0.9rem;
 
-  padding: 10px;
+  background-color: #f9f9f9;
+  background-color: #fff;
+  border-bottom: solid 5px transparent;
 
-  background-color: rgb(231, 231, 231);
-  border-bottom: solid 2px lightgrey;
-
-  transition: all 300ms ease;
+  // transition: all 300ms ease;
 
   color: #777;
 
   cursor: pointer;
   user-select: none;
 
+  .svg-inline--fa {
+    margin-right: 10px;
+  }
+
   &.selected {
-    flex: 2;
+    // flex: 2;
     font-weight: 700;
     border-color: @active;
     background-color: #fff;
-    border-bottom-width: 3px;
-    color: @text-color;
+    color: @active;
   }
   &:hover:not(.selected) {
-    font-weight: 700;
-    background-color: rgb(250, 250, 250);
+    color: rgb(117, 133, 132);
+    text-shadow: 0 0 8px @accent2;
   }
 }

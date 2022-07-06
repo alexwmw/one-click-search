@@ -32,7 +32,7 @@ function IconsPage_Instructions(props) {
           until mouseover, or to <strong>disable</strong> them entirely.
         </p>
         <p>
-          Click the <Icon icon={editIcon} /> <strong>edit icon</strong> to
+          Click the <Icon icon={editIcon} /> <strong>more</strong> icon to
           change the provider's settings.
         </p>
       </div>
