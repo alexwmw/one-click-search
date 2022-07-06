@@ -1,38 +1,47 @@
 import { createRoot } from "react-dom/client";
 import React, { useState, lazy } from "react";
+import ProvidersContext from "./contexts/ProvidersContext";
 import TabContainer from "./components/TopLevel/TabContainer";
 import PageContainer from "./components/TopLevel/PageContainer";
-import { ToastProvider } from "./contexts/ToastsContext";
 import "./App.less";
 import "./less/flex.less";
 
-//const Content = lazy(() => import("./components/PageContainer"));
-
+/** Define root */
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
-const App = () => {
-  // Tabs
-  const tabNames = { icons: "Icon Order", controls: "Controls" };
-  const [selectedTab, setSelectedTab] = useState(tabNames.icons);
+/** Define App */
+const App = ({ storedProviders, storedOptions }) => {
+  /** State */
+  const [providers, setProviders] = useState(storedProviders);
 
-  const tabSelectHandler = (tabName) => {
-    setSelectedTab(tabName);
-    // console.log("tab selection made");
+  /** Store and set providers in sequence */
+  const storeProviders = (providers) => {
+    chrome.storage.sync.set({ providers: providers }, () => {
+      setProviders(providers);
+    });
   };
 
+  /** Define tabs */
+  const tabNames = { icons: "Icon Order", controls: "Controls" };
+  const [selectedTab, setSelectedTab] = useState(tabNames.icons);
+  const tabSelectHandler = (tabName) => setSelectedTab(tabName);
+
   return (
-    // <ToastProvider>
     <div className={"flex-container height-app width-app column"}>
       <TabContainer
         tabNames={tabNames}
         selectedTab={selectedTab}
         onTabSelect={tabSelectHandler}
       />
-      <PageContainer tabNames={tabNames} selectedTab={selectedTab} />
+      <ProvidersContext.Provider value={{ providers, storeProviders }}>
+        <PageContainer tabNames={tabNames} selectedTab={selectedTab} />
+      </ProvidersContext.Provider>
     </div>
-    //</ToastProvider>
   );
 };
 
-root.render(<App />);
+//** Get data from storage and pass to App for render */
+chrome.storage.sync.get(["providers", "options"], ({ providers, options }) => {
+  root.render(<App storedProviders={providers} storedOptions={options} />);
+});

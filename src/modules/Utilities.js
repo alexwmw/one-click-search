@@ -22,19 +22,43 @@ export function adaptLegacyProvider(oldProvider) {
 
   return oldProvider;
 }
-
+/** Return an array where each item with a 'position' property 
+ * is at the front according to its position property */
 export function sortByPosition(array) {
-  // Reorder based on position
-  const sorted = [];
-  const unsorted = [];
+  const hasPosition = [];
+  const noPosition = [];
 
   array.forEach((element) => {
     if (element.hasOwnProperty("position")) {
-      sorted.push(element);
+      hasPosition.push(element);
     } else {
-      unsorted.push(element);
+      noPosition.push(element);
     }
   });
-  sorted.sort((a, b) => a.position - b.position);
-  return [...sorted, ...unsorted];
+  hasPosition.sort((a, b) => a.position - b.position);
+  return [...hasPosition, ...noPosition];
 }
+
+/** Helper function */
+export const splitSortables = (array) => ({
+  visible: array.filter((item) => item.visibility == "visible"),
+  hidden: array.filter((item) => item.visibility == "hidden"),
+  disabled: array.filter((item) => item.visibility == "disabled"),
+});
+
+/** Helper function */
+export const mergeSortables = (sortables) => [
+  ...sortables.visible,
+  ...sortables.hidden,
+  ...sortables.disabled,
+];
+
+/** Helper function */
+export const isUpdated = (Old, New) => {
+  // finished: no item in the list is 'chosen', i.e. user has finished a drag/drop
+  const finished = New.every((provider) => provider.chosen !== true);
+  const positionsChanged = New.some(
+    (e, i, array) => array[i].name !== Old[i].name
+  );
+  return finished && positionsChanged;
+};

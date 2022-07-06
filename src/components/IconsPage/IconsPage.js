@@ -1,88 +1,62 @@
+import { useContext, useState } from "react";
+import ProvidersContext from "../../contexts/ProvidersContext";
 import Instructions from "./IconsPage_Intructions";
 import SortableList from "./IconsPage_Sortable";
+import {
+  splitSortables,
+  mergeSortables,
+  isUpdated,
+} from "../../modules/Utilities";
 import "./IconsPage.less";
 
-import { useEffect, useState } from "react";
 const IconsPage = () => {
-  const [state, setState] = useState({
-    visible: [],
-    hidden: [],
-    disabled: [],
-  });
+  /** State and contexts */
+  const { providers, storeProviders } = useContext(ProvidersContext);
+  const [sortables, setSortables] = useState(splitSortables(providers));
 
-  /** useEffect on first render only
-   * Async get stored providers and re-render
-   */
-  useEffect(() => {
-    chrome.storage.sync.get("providers", ({ providers }) => {
-      setState({
-        visible: providers.filter((p) => p.visibility == "visible"),
-        hidden: providers.filter((p) => p.visibility == "hidden"),
-        disabled: providers.filter((p) => p.visibility == "disabled"),
-      });
+  /** Wrapper function for setSortables */
+  const setStateFromSortable = (keyValue) => {
+    setSortables((oldObject) => {
+      const newObject = { ...oldObject, ...keyValue };
+      const oldArray = mergeSortables(oldObject);
+      const newArray = mergeSortables(newObject);
+      if (isUpdated(oldArray, newArray)) {
+        storeProviders(newArray);
+      }
+      return newObject;
     });
-  }, []);
+  };
 
-  /** useEffect on first render only
-   * Add chrome.storage.onChanged event listener
-   */
-  // useEffect(() => {
-  //   chrome.storage.onChanged.addListener((changes, namespace) => {
-  //     if (
-  //       "providers" in changes &&
-  //       changes.providers.newValue != changes.providers.oldValue
-  //     ) {
-  //       const newP = changes.providers.newValue;
-  //       setState({
-  //         visible: newP.filter((p) => p.visibility == "visible"),
-  //         hidden: newP.filter((p) => p.visibility == "hidden"),
-  //         disabled: newP.filter((p) => p.visibility == "disabled"),
-  //       });
-  //     }
-  //   });
-  // }, []);
-
-  /** useEffect on state change
-   * Async store providers when providers is updated and move is finished
-   */
-  useEffect(() => {
-    const a = [...state.visible, ...state.hidden, ...state.disabled];
-    const finished = a.every((p) => p.chosen !== true);
-    if (finished) {
-      chrome.storage.sync.set({ providers: a });
-    }
-  }, [state]);
-
-  const listComponents = [
+  const sortableComponents = [
     {
       id: "visible",
       maxLength: 4,
-      list: state.visible,
+      list: sortables.visible,
       setList: (list) => {
         list.forEach((e, i) => (e.visibility = "visible"));
-        setState((prev) => ({ ...prev, visible: list }));
+        setStateFromSortable({ visible: list });
       },
     },
     {
       id: "hidden",
-      list: state.hidden,
+      list: sortables.hidden,
       setList: (list) => {
         list.forEach((e, i) => (e.visibility = "hidden"));
-        setState((prev) => ({ ...prev, hidden: list }));
+        setStateFromSortable({ hidden: list });
       },
     },
     {
       id: "disabled",
-      list: state.disabled,
+      list: sortables.disabled,
       setList: (list) => {
         list.forEach((e, i) => (e.visibility = "disabled"));
-        setState((prev) => ({ ...prev, disabled: list }));
+        setStateFromSortable({ disabled: list });
       },
     },
   ];
 
-  const Lists = listComponents.map((list) => (
-    <SortableList key={list.id} {...list} />
+  const SortableLists = sortableComponents.map((component) => (
+    <SortableList key={component.id} {...component} />
   ));
 
   return (
@@ -92,7 +66,7 @@ const IconsPage = () => {
       direction={"column"}
     >
       <Instructions />
-      {Lists};
+      {SortableLists};
     </div>
   );
 };
