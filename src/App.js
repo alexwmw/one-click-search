@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import React, { useState, lazy } from "react";
+import React, { useState, lazy, useEffect } from "react";
 import ProvidersContext from "./contexts/ProvidersContext";
 import TabContainer from "./components/TopLevel/TabContainer";
 import PageContainer from "./components/TopLevel/PageContainer";
@@ -16,9 +16,9 @@ const App = ({ storedProviders, storedOptions }) => {
   const [providers, setProviders] = useState(storedProviders);
 
   /** Store and set providers in sequence */
-  const storeProviders = (providers) => {
-    chrome.storage.sync.set({ providers: providers }, () => {
-      setProviders(providers);
+  const storeProviders = (newProviders) => {
+    chrome.storage.sync.set({ providers: newProviders }, () => {
+      setProviders(newProviders);
     });
   };
 

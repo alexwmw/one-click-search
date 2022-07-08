@@ -1,93 +1,162 @@
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faTrashAlt as deleteIcon,
   faFloppyDisk as saveIcon,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import ProvidersContext from "../../../contexts/ProvidersContext";
+import SortableListContext from "../../../contexts/SortableListContext";
+import {
+  providerValidation,
+  removeArrayItem,
+  splitSortables,
+  updateArrayItem,
+} from "../../../modules/Utilities";
 
-function IconsListItem_Provider_Form(props) {
-  const [state, setState] = useState({});
+function IconsListItem_Provider_Form({
+  provider,
+  setParentProvider,
+  setIsUnsaved,
+  visibilityList,
+}) {
+  /** State and contexts */
+  const { providers, storeProviders } = useContext(ProvidersContext);
+  const { sortables, setSortables } = useContext(SortableListContext);
+  /** ** Form Fields */
+  const [hostname, setHostname] = useState(provider.hostname);
+  const [queryPath, setQueryPath] = useState(provider.queryPath);
+  const [faviconUrl, setFaviconUrl] = useState(provider.faviconUrl);
+  const [hasChanges, setHasChanges] = useState(false);
 
-  chrome.storage.sync.get("providers", ({ providers }) => {
-    console.table(providers);
-  });
+  /** Helper function */
+  const formatFields = () => {
+    setHostname((value) =>
+      value
+        .trim()
+        .replace(/^.*:\/\/+/g, "")
+        .replace(/\/.*$/g, "")
+        .toLowerCase()
+    );
+    setQueryPath((value) =>
+      value
+        .trim()
+        .replace(/^\/+|\/+$/g, "")
+        .toLowerCase()
+        .replace("$text$", "$TEXT$")
+    );
+    setFaviconUrl((value) =>
+      value
+        .trim()
+        .replace(/^\/+|\/+$/g, "")
+        .toLowerCase()
+    );
+  };
 
+  const changeRoutine = () => {
+    // Update the sortable list (IconsPage via context) so that the it sorts correctly
+    const sortableList = splitSortables(providers)[visibilityList];
+    setSortables((oldObject) => ({
+      ...oldObject,
+      [visibilityList]: sortableList,
+    }));
+    // Tell the parent there are no unsaved changes
+    setHasChanges(false);
+    // store the details in chrome.storage
+    storeProviders(providers);
+  };
+
+  /** Event handlers */
   const saveHandler = (e) => {
     e.preventDefault();
+    const newProvider = {
+      ...provider,
+      hostname: hostname,
+      queryPath: queryPath,
+      faviconUrl: faviconUrl,
+    };
+    const validator = providerValidation(newProvider);
 
-    chrome.storage.sync.get("providers", ({ providers }) => {
-      const newData = [];
-      providers.forEach((p, i) => {
-        newData[i] = p.name == props.name ? { ...p, ...state } : { ...p };
-      });
-      console.table(newData);
-      chrome.storage.sync.set({ providers: newData });
-    });
+    if (validator.decision === true) {
+      // Find the provider in the list of providers and replace it with newProvider
+      // Update the provider in the parent so that this list item re-renders
+      updateArrayItem(providers, newProvider);
+      setParentProvider(newProvider);
 
-    alert("Changes saved!");
+      changeRoutine();
+    } else {
+      alert(validator.messages.join("\n"));
+    }
   };
 
   const deleteHandler = (e) => {
     e.preventDefault();
-
-    const confirmed = confirm("Are you sure?");
-    if (confirmed) {
-      chrome.storage.sync.get("providers", ({ providers }) => {
-        const newData = providers.filter((p) => p.name !== props.name);
-        console.log("Deleting in the form:");
-        console.table(providers);
-        console.table(newData);
-        //chrome.storagesync.set({ providers: newData });
-      });
+    if (visibilityList == "visible" && sortables.visible.length >= 1) {
+      alert("Cannot delete the only visible item.");
+      return;
     }
+    removeArrayItem(providers, provider, true);
+    changeRoutine();
   };
 
-  const rowAttr = [
+  useEffect(() => {
+    setHasChanges(
+      hostname != provider.hostname ||
+        faviconUrl != provider.faviconUrl ||
+        queryPath != provider.queryPath
+    );
+  }, [hostname, faviconUrl, queryPath]);
+
+  useEffect(() => {
+    setIsUnsaved(hasChanges);
+  }, [hasChanges]);
+
+  const fields = [
     {
       label: "Hostname:",
-      value: props.hostname,
+      value: hostname,
       id: `hostname`,
+      setValue: setHostname,
     },
     {
       label: "Query path:",
-      value: props.queryPath,
+      value: queryPath,
       id: `queryPath`,
+      setValue: setQueryPath,
     },
     {
       label: "Favicon URL:",
-      value: props.faviconUrl,
+      value: faviconUrl,
       id: `faviconUrl`,
       placeholder: "Default: hostname.com/favicon.ico",
+      setValue: setFaviconUrl,
     },
   ];
 
-  useEffect(() => {
-    rowAttr.forEach((row) =>
-      setState((oldState) => ({ ...oldState, [row.id]: row.value }))
-    );
-  }, []);
-
-  const inputRows = rowAttr.map((row) => (
-    <div key={row.label} className="flex-container row center">
-      <label>{row.label}</label>
+  const TextInputs = fields.map((field) => (
+    <div key={field.id} className="flex-container row center">
+      <label>{field.label}</label>
       <input
         type={"text"}
-        onChange={(e) =>
-          setState((state) => ({ ...state, [row.id]: e.target.value }))
-        }
-        value={state[row.id]}
-        placeholder={row.placeholder}
+        className={"undraggable"}
+        onChange={(e) => field.setValue(e.target.value)}
+        onBlur={formatFields}
+        onFocus={(e) => e.target.select()}
+        value={field.value}
+        placeholder={field.placeholder}
       />
     </div>
   ));
 
   const buttonRow = (
-    <div className={"flex-container wrow.idth-100 right"}>
+    <div className={"flex-container row width-100 right"}>
       <button onClick={deleteHandler} className={"button deleteButton"}>
         <Icon icon={deleteIcon}></Icon>
         <span>Delete</span>
       </button>
-      <button onClick={saveHandler} className={"button saveButton"}>
+      <button
+        onClick={saveHandler}
+        className={`button saveButton ${hasChanges ? "unsaved" : ""}`}
+      >
         <Icon icon={saveIcon}></Icon>
         <span>Save</span>
       </button>
@@ -96,7 +165,7 @@ function IconsListItem_Provider_Form(props) {
 
   return (
     <form>
-      {inputRows}
+      {TextInputs}
       {buttonRow}
     </form>
   );
