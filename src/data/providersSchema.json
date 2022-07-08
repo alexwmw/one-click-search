@@ -26,8 +26,7 @@
     },
     "faviconUrl": {
       "description": "The URL of the website's favicon",
-      "type": "string",
-      "required": false
+      "type": "string"
     },
     "visibility": {
       "description": "The visibility state of the provider's icon in the extension's popup. Accepted states are: visible: immediately visible; hidden: visible after hovering; disabled: never visible; conditional: visible under certain conditions",
@@ -35,5 +34,5 @@
       "enum": ["visible", "hidden", "disabled", "conditional"]
     }
   },
-  "required": ["name", "role", "url", "queryPath", "visibility"]
+  "required": ["name", "role", "url", "faviconUrl", "queryPath", "visibility"]
 }

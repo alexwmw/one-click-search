@@ -4,13 +4,15 @@
     "role": "provider",
     "hostname": "www.google.com",
     "queryPath": "search?q=$TEXT$",
+    "faviconUrl": "",
     "visibility": "visible"
   },
   {
     "name": "Wikipedia",
     "role": "provider",
-    "hostname": "www.wikipedia.org/",
+    "hostname": "www.wikipedia.org",
     "queryPath": "w/index.php?search=$TEXT$",
+    "faviconUrl": "",
     "visibility": "visible"
   },
   {
@@ -18,6 +20,7 @@
     "role": "provider",
     "hostname": "www.wiktionary.org",
     "queryPath": "w/index.php?search=$TEXT$",
+    "faviconUrl": "",
     "visibility": "hidden"
   },
   {
@@ -25,6 +28,7 @@
     "role": "provider",
     "hostname": "www.amazon.co.uk",
     "queryPath": "s?k=$TEXT$",
+    "faviconUrl": "",
     "visibility": "disabled"
   },
   {
@@ -32,6 +36,7 @@
     "role": "provider",
     "hostname": "www.ebay.co.uk",
     "queryPath": "sch/i.html?_nkw=$TEXT$",
+    "faviconUrl": "",
     "visibility": "disabled"
   },
   {
@@ -47,6 +52,7 @@
     "role": "provider",
     "hostname": "www.twitter.com",
     "queryPath": "search?q=$TEXT$",
+    "faviconUrl": "",
     "visibility": "disabled"
   },
   {
@@ -54,6 +60,7 @@
     "role": "provider",
     "hostname": "www.bing.com",
     "queryPath": "search?q=$TEXT$",
+    "faviconUrl": "",
     "visibility": "disabled"
   },
   {
@@ -61,6 +68,7 @@
     "role": "provider",
     "hostname": "mail.google.com",
     "queryPath": "mail/u/0/#search/$TEXT$",
+    "faviconUrl": "",
     "visibility": "hidden"
   },
   {
@@ -68,6 +76,7 @@
     "role": "provider",
     "hostname": "www.reddit.com",
     "queryPath": "search?q=$TEXT$",
+    "faviconUrl": "",
     "visibility": "disabled"
   },
   {
@@ -75,6 +84,7 @@
     "role": "provider",
     "hostname": "www.facebook.com",
     "queryPath": "search/top?q=$TEXT$",
+    "faviconUrl": "",
     "visibility": "disabled"
   }
 ]

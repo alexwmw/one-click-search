@@ -7,14 +7,21 @@ import {
 
 import ProviderForm from "./IconsListItem_Provider_Form";
 
-function IconsListItem_Provider({ key, provider }) {
+function IconsListItem_Provider({ key, provider, visibilityList }) {
   /** State and local data */
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isUnsaved, setIsUnsaved] = useState(false);
+  const [thisProvider, setProvider] = useState(provider);
   const faviconUrl =
-    provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
+    thisProvider.faviconUrl || `https://${thisProvider.hostname}/favicon.ico`;
 
-  const toggleExpanded = (e) => {
-    setIsExpanded((expanded) => !expanded);
+  const toggleExpanded = () => {
+    if (isUnsaved && confirm("Unsaved changes will be lost")) {
+      setIsExpanded(false);
+      setIsUnsaved(false);
+    } else {
+      setIsExpanded((expanded) => !expanded);
+    }
   };
 
   const ExpandButton = (
@@ -29,9 +36,16 @@ function IconsListItem_Provider({ key, provider }) {
       className={`sortableItem ${isExpanded ? "expanded" : ""}`}
     >
       <img src={faviconUrl}></img>
-      <span>{provider.name}</span>
+      <span>{thisProvider.name}</span>
       {ExpandButton}
-      {isExpanded && <ProviderForm {...provider}></ProviderForm>}
+      {isExpanded && (
+        <ProviderForm
+          provider={thisProvider}
+          visibilityList={visibilityList}
+          setParentProvider={setProvider}
+          setIsUnsaved={setIsUnsaved}
+        ></ProviderForm>
+      )}
     </li>
   );
 }

@@ -2,12 +2,13 @@ import IconsListItem_Function from "./IconsListItem_Function";
 import IconsListItem_Provider from "./IconsListItem_Provider";
 import "./IconsListItem.less";
 
-function IconsListItem({ key, role, provider }) {
+function IconsListItem({ key, role, provider, visibilityList }) {
   if (role == "provider")
     return (
       <IconsListItem_Provider
         key={key}
         provider={provider}
+        visibilityList={visibilityList}
       ></IconsListItem_Provider>
     );
   if (role == "function")

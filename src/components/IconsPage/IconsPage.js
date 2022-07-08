@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import ProvidersContext from "../../contexts/ProvidersContext";
+import SortableListContext from "../../contexts/SortableListContext";
 import Instructions from "./IconsPage_Intructions";
 import SortableList from "./IconsPage_Sortable";
 import {
@@ -56,7 +57,12 @@ const IconsPage = () => {
   ];
 
   const SortableLists = sortableComponents.map((component) => (
-    <SortableList key={component.id} {...component} />
+    <SortableListContext.Provider
+      key={component.id}
+      value={{ sortables, setSortables }}
+    >
+      <SortableList key={component.id} {...component} />
+    </SortableListContext.Provider>
   ));
 
   return (

@@ -28,9 +28,12 @@ function IconsPage_Sortable({ maxLength, list, setList, id }) {
         list={list}
         setList={setList}
         animation={150}
+        filter={".undraggable"}
+        preventOnFilter={false}
       >
         {list.map((provider) => (
           <IconsListItem
+            visibilityList={id}
             key={provider.name}
             role={provider.role}
             provider={provider}

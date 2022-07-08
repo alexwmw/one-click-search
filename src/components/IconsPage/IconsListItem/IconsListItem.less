@@ -38,7 +38,8 @@
     }
 
     button:focus {
-      outline: 1px solid @active;
+      outline: none;
+      background-color: rgb(255 255 255 / 0.2);
     }
 
     > img {
@@ -72,7 +73,7 @@
       }
 
       &:hover {
-        background-color: white;
+        background-color: rgb(255 255 255 / 0.5);
         color: @text-color;
       }
     }
@@ -106,19 +107,36 @@
       }
       button {
         cursor: pointer;
-        font-size: 10pt;
-        height: 22px;
         width: 76px;
-        padding: 8px;
-        margin: 2px !important;
-        background-color: transparent;
+        padding: 6px 4px !important;
+        margin: 3px 10px;
+        border-radius: 6px;
 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: transparent;
+        font-size: 10pt;
         color: grey;
 
         span {
           color: @text-color;
         }
 
+        &.saveButton.unsaved {
+          background-color: rgb(255 255 255 / 0.6);
+          font-weight: 700;
+          color: @active;
+          span {
+            color: @active;
+          }
+          &:hover {
+            span {
+              color: darken(@active, 10%);
+            }
+          }
+        }
         &:hover {
           font-weight: 700;
         }
