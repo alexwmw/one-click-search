@@ -1,3 +1,5 @@
+@import "../../less/_variables.less";
+
 .OneClickSearch {
   all: initial;
   * {
@@ -26,9 +28,10 @@
   align-items: center;
   gap: 5px;
 
-  background-color: whitesmoke;
-  border-radius: 9px;
-  box-shadow: 0 1px 3px lightgrey;
+  background-color: white; //lighten(@active, 25%);
+  border: 1px solid @active;
+  border-radius: 12px;
+  //box-shadow: 0 1px 3px lightgrey;
   z-index: 9999;
 
   transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
@@ -52,12 +55,12 @@
       padding: 3px;
       opacity: 0.8;
       cursor: pointer;
-      transition: box-shadow 200ms;
+      transition: 0.3s outline ease;
       user-select: none;
-      outline: none;
+      outline: 1px solid transparent;
       &:hover {
         opacity: 1;
-        box-shadow: 0 1px 2px lightgrey;
+        outline: 1px solid @accent2;
       }
     }
 

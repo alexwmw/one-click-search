@@ -8,7 +8,7 @@ import ControlsPage_Modal from "./ControlsPage_Modal";
 const ControlsPage = () => {
   return (
     <div className={"flex-container page"}>
-      <ControlsPage_Grid />
+      <ControlsPage_Grid /> 
       <ControlsPage_ResetButton />
       <ControlsPage_AddButton />
       <ControlsPage_Modal />
