@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import React, { useState, lazy, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProvidersContext from "./contexts/ProvidersContext";
 import TabContainer from "./components/TopLevel/TabContainer";
 import PageContainer from "./components/TopLevel/PageContainer";
@@ -15,12 +15,16 @@ const App = ({ storedProviders, storedOptions }) => {
   /** State */
   const [providers, setProviders] = useState(storedProviders);
 
-  /** Store and set providers in sequence */
-  const storeProviders = (newProviders) => {
-    chrome.storage.sync.set({ providers: newProviders }, () => {
-      setProviders(newProviders);
-    });
-  };
+  useEffect(() => {
+    console.log("App received new providers via useEffect!");
+    chrome.storage.sync.set(
+      { providers: providers.filter((p) => p.visibility !== "delete") },
+      () => {
+        console.log("Providers stored in chrome");
+        console.log(providers);
+      }
+    );
+  }, [providers]);
 
   /** Define tabs */
   const tabNames = { icons: "Icon Order", controls: "Settings" };
@@ -34,7 +38,7 @@ const App = ({ storedProviders, storedOptions }) => {
         selectedTab={selectedTab}
         onTabSelect={tabSelectHandler}
       />
-      <ProvidersContext.Provider value={{ providers, storeProviders }}>
+      <ProvidersContext.Provider value={{ providers, setProviders }}>
         <PageContainer tabNames={tabNames} selectedTab={selectedTab} />
       </ProvidersContext.Provider>
     </div>
