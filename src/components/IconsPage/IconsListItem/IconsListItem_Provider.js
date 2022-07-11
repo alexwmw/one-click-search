@@ -1,33 +1,32 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import {
   faEllipsisVertical as editIcon,
   faMinus as closeIcon,
 } from "@fortawesome/free-solid-svg-icons";
 
+import ProvidersContext from "../../../contexts/ProvidersContext";
 import ProviderForm from "./IconsListItem_Provider_Form";
 
-function IconsListItem_Provider({ key, provider, visibilityList }) {
+function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
   /** State and local data */
+  const { providers } = useContext(ProvidersContext);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isUnsaved, setIsUnsaved] = useState(false);
-  const [thisProvider, setProvider] = useState(provider);
-  const faviconUrl =
-    thisProvider.faviconUrl || `https://${thisProvider.hostname}/favicon.ico`;
 
-  const toggleExpanded = () => {
-    if (isUnsaved) {
-      if (confirm("Unsaved changes will be lost")) {
-        setIsExpanded(false);
-        setIsUnsaved(false);
-      } else {
-        setIsExpanded(true);
-      }
-    } else {
-      setIsExpanded((expanded) => !expanded);
-      setIsUnsaved(false);
-    }
+  const faviconUrl = () => {
+    const provider = providers.filter((p) => p.name == name)[0];
+    return provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
   };
+
+  const toggleExpanded = (e) => {
+    setIsExpanded((expanded) => !expanded);
+  };
+
+  useEffect(() => {
+    if (openItem !== name) {
+      setIsExpanded(false);
+    }
+  }, [openItem]);
 
   const ExpandButton = (
     <button onClick={toggleExpanded}>
@@ -37,18 +36,19 @@ function IconsListItem_Provider({ key, provider, visibilityList }) {
 
   return (
     <li
-      data-id={key}
+      key={key}
+      data-id={name}
       className={`sortableItem ${isExpanded ? "expanded" : ""}`}
+      onClick={(e) => setOpenItem(name)}
+      onDragStart={(e) => setOpenItem(null)}
     >
-      <img src={faviconUrl}></img>
-      <span>{thisProvider.name}</span>
+      <img src={faviconUrl()}></img>
+      <span>{name}</span>
       {ExpandButton}
       {isExpanded && (
         <ProviderForm
-          provider={thisProvider}
-          visibilityList={visibilityList}
-          setParentProvider={setProvider}
-          setIsUnsaved={setIsUnsaved}
+          onClick={(e) => e.stopPropagation()}
+          name={name}
         ></ProviderForm>
       )}
     </li>

@@ -8,12 +8,10 @@ import "./TabContainer.less";
 
 const TabRow = (props) => {
   const iconsSelectHandler = () => {
-    console.log("icon clicked");
     props.onTabSelect(props.tabNames.icons);
   };
 
   const controlsSelectHandler = () => {
-    console.log("controls clicked");
     props.onTabSelect(props.tabNames.controls);
   };
 

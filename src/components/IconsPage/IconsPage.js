@@ -1,68 +1,87 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ProvidersContext from "../../contexts/ProvidersContext";
-import SortableListContext from "../../contexts/SortableListContext";
 import Instructions from "./IconsPage_Intructions";
 import SortableList from "./IconsPage_Sortable";
-import {
-  splitSortables,
-  mergeSortables,
-  isUpdated,
-} from "../../modules/Utilities";
 import "./IconsPage.less";
+import { sortByPosition } from "../../modules/Utilities";
 
 const IconsPage = () => {
   /** State and contexts */
-  const { providers, storeProviders } = useContext(ProvidersContext);
-  const [sortables, setSortables] = useState(splitSortables(providers));
+  const { providers, setProviders } = useContext(ProvidersContext);
 
-  /** Wrapper function for setSortables */
-  const setStateFromSortable = (keyValue) => {
-    setSortables((oldObject) => {
-      const newObject = { ...oldObject, ...keyValue };
-      const oldArray = mergeSortables(oldObject);
-      const newArray = mergeSortables(newObject);
-      if (isUpdated(oldArray, newArray)) {
-        storeProviders(newArray);
-      }
-      return newObject;
-    });
-  };
+  const [openItem, setOpenItem] = useState(null);
 
-  const sortableComponents = [
+  const [visible, setVisible] = useState(
+    providers.filter((p) => p.visibility == "visible")
+  );
+  const [hidden, setHidden] = useState(
+    providers.filter((p) => p.visibility == "hidden")
+  );
+  const [disabled, setDisabled] = useState(
+    providers.filter((p) => p.visibility == "disabled")
+  );
+
+  /** Const */
+  const none = providers.filter((p) => p.visibility == "conditional");
+
+  /** Re-render on providers change */
+  useEffect(() => {
+    console.log("Icons page re-rendered due to providers use effect!");
+    setVisible(providers.filter((p) => p.visibility == "visible"));
+    setHidden(providers.filter((p) => p.visibility == "hidden"));
+    setDisabled(providers.filter((p) => p.visibility == "disabled"));
+  }, [providers]);
+
+  /** setProviders when lists are sorted into a different order */
+  useEffect(() => {
+    console.log("Icons page re-rendered due to a list's use effect!");
+    const array = sortByPosition([...none, ...visible, ...hidden, ...disabled]);
+    const sortingIsFinished = array.every((p) => p.chosen !== true);
+    const orderChanged = array.some(
+      (e, i, a) => a[i].name !== providers[i].name
+    );
+    if (sortingIsFinished && orderChanged) {
+      setProviders(array);
+    }
+  }, [visible, hidden, disabled]);
+
+  const sortables = [
     {
+      name: "Visible",
       id: "visible",
       maxLength: 4,
-      list: sortables.visible,
+      list: visible,
       setList: (list) => {
-        list.forEach((e, i) => (e.visibility = "visible"));
-        setStateFromSortable({ visible: list });
+        setVisible(list.map((p) => ({ ...p, visibility: "visible" })));
       },
     },
+
     {
+      name: "Hidden",
       id: "hidden",
-      list: sortables.hidden,
+      list: hidden,
       setList: (list) => {
-        list.forEach((e, i) => (e.visibility = "hidden"));
-        setStateFromSortable({ hidden: list });
+        setHidden(list.map((p) => ({ ...p, visibility: "hidden" })));
       },
     },
+
     {
+      name: "Disabled",
       id: "disabled",
-      list: sortables.disabled,
+      list: disabled,
       setList: (list) => {
-        list.forEach((e, i) => (e.visibility = "disabled"));
-        setStateFromSortable({ disabled: list });
+        setDisabled(list.map((p) => ({ ...p, visibility: "disabled" })));
       },
     },
   ];
 
-  const SortableLists = sortableComponents.map((component) => (
-    <SortableListContext.Provider
-      key={component.id}
-      value={{ sortables, setSortables }}
-    >
-      <SortableList key={component.id} {...component} />
-    </SortableListContext.Provider>
+  const SortableLists = sortables.map((sortable) => (
+    <SortableList
+      openItem={openItem}
+      setOpenItem={setOpenItem}
+      key={sortable.id}
+      {...sortable}
+    />
   ));
 
   return (
@@ -72,7 +91,7 @@ const IconsPage = () => {
       direction={"column"}
     >
       <Instructions />
-      {SortableLists};
+      {SortableLists}
     </div>
   );
 };

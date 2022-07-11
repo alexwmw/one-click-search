@@ -1,9 +1,21 @@
+import { useContext } from "react";
+import ProvidersContext from "../../../contexts/ProvidersContext";
 
-function IconsListItem_Function({ func, key }) {
+function IconsListItem_Function({ name, key, id, setOpenItem }) {
+  const { providers } = useContext(ProvidersContext);
+
+  const faviconUrl = providers.filter((f) => f.name == name)[0].faviconUrl;
+
   return (
-    <li data-id={key} className={"sortableItem"}>
-      <img src={func.faviconUrl}></img>
-      <span>{func.name}</span>
+    <li
+      id={id}
+      key={key}
+      data-id={name}
+      className={"sortableItem"}
+      onClick={(e) => setOpenItem(name)}
+    >
+      <img src={faviconUrl}></img>
+      <span>{name}</span>
     </li>
   );
 }

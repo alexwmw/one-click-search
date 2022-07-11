@@ -2,22 +2,11 @@ import IconsListItem_Function from "./IconsListItem_Function";
 import IconsListItem_Provider from "./IconsListItem_Provider";
 import "./IconsListItem.less";
 
-function IconsListItem({ key, role, provider, visibilityList }) {
-  if (role == "provider")
-    return (
-      <IconsListItem_Provider
-        key={key}
-        provider={provider}
-        visibilityList={visibilityList}
-      ></IconsListItem_Provider>
-    );
-  if (role == "function")
-    return (
-      <IconsListItem_Function
-        key={key}
-        func={provider}
-      ></IconsListItem_Function>
-    );
+function IconsListItem(props) {
+  if (props.role == "provider")
+    return <IconsListItem_Provider {...props}></IconsListItem_Provider>;
+  if (props.role == "function")
+    return <IconsListItem_Function {...props}></IconsListItem_Function>;
 }
 
 export default IconsListItem;
