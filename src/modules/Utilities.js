@@ -22,7 +22,7 @@ export function adaptLegacyProvider(oldProvider) {
 
     //const validator = providerValidation(newProvider);
     //if (provider.decision === true) {
-    if (true) {
+        if (true) {
       return newProvider;
     } else {
       //console.log("Adapt Legacy Provider did not work for " + oldProvider.name);
@@ -69,25 +69,13 @@ export const splitSortablesGeneric = (array, keys) => {
 };
 
 /** Helper function */
-export const updateArrayItem = (parentArray, newItem, returnNew = false) => {
-  const index = parentArray.findIndex((object) => {
+export const updateArrayItem = (arrayToUpdate, newItem) => {
+  const index = arrayToUpdate.findIndex((object) => {
     return object.name === newItem.name;
   });
-  parentArray[index] = newItem;
-  if (returnNew) {
-    return [...parentArray];
-  }
-};
+  arrayToUpdate[index] = newItem;
 
-/** Helper function */
-export const removeArrayItem = (parentArray, target, returnNew = false) => {
-  const index = parentArray.findIndex((object) => {
-    return object.name === target.name;
-  });
-  parentArray.splice(index, 1);
-  if (returnNew) {
-    return [...parentArray];
-  }
+  return [...arrayToUpdate];
 };
 
 /** Helper function */
@@ -100,31 +88,48 @@ export const isValidURL = (url) => {
 };
 
 /** Helper function */
-export const providerValidation = (provider) => {
+export const providerValidation = (provider, providers = null) => {
+  const nameExists =
+    providers &&
+    providers.some((p) => p.name.toLowerCase() == provider.name.toLowerCase());
+
+  const validName = RegExp(schema.properties.name.pattern).test(provider.name);
+  // !nameExists && RegExp(schema.properties.name.pattern).test(provider.name);
+
+  const validRole = schema.properties.role.enum.some(
+    (value) => value == provider.role
+  );
+
+  const validHostname =
+    isValidHostname(provider.hostname) && provider.hostname.indexOf(".") > -1;
+
+  const validQueryPath = provider.queryPath.indexOf("$TEXT$") > -1;
+
+  const validFaviconUrl =
+    provider.faviconUrl === "" || isValidURL(provider.faviconUrl);
+
+  const validVisibility = schema.properties.visibility.enum.some(
+    (value) => value == provider.visibility
+  );
+
   const report = {
-    name: RegExp(schema.properties.name.pattern).test(provider.name)
-      ? true
-      : `\"${provider.name}\" is not a valid name.`,
-    role: schema.properties.role.enum.some((value) => value == provider.role)
-      ? true
-      : `\"${provider.role}\" is not a valid role.`,
+    name:
+      validName ||
+      `\"${provider.name}\" is not a valid name.${
+        nameExists && ` Name already exists. Please use a unique name.`
+      }`,
+    role: validRole || `\"${provider.role}\" is not a valid role.`,
     hostname:
-      isValidHostname(provider.hostname) && provider.hostname.indexOf(".") > -1
-        ? true
-        : `\"${provider.hostname}\" is not a valid hostname.`,
+      validHostname || `\"${provider.hostname}\" is not a valid hostname.`,
     queryPath:
-      provider.queryPath.indexOf("$TEXT$") > -1
-        ? true
-        : `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`,
+      validQueryPath ||
+      `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`,
     faviconUrl:
-      (provider.faviconUrl === "") | isValidURL(provider.faviconUrl)
-        ? true
-        : `\"${provider.faviconUrl}\" is not a valid favicon URL.`,
-    visibility: schema.properties.visibility.enum.some((value) =>
-      value == provider.visibility
-        ? true
-        : `\"${provider.visibility}\" is not a valid visibility.`
-    ),
+      validFaviconUrl ||
+      `\"${provider.faviconUrl}\" is not a valid favicon URL.`,
+    visibility:
+      validVisibility ||
+      `\"${provider.visibility}\" is not a valid visibility.`,
   };
 
   return {
@@ -140,13 +145,3 @@ export const mergeSortables = (sortables) => [
   ...sortables.hidden,
   ...sortables.disabled,
 ];
-
-/** Helper function */
-export const isUpdated = (Old, New) => {
-  // finished: true if no item in the list is 'chosen', i.e. user has finished a drag/drop
-  const finished = New.every((provider) => provider.chosen !== true);
-  const positionsChanged = New.some(
-    (e, i, array) => array[i].name !== Old[i].name
-  );
-  return finished && positionsChanged;
-};
