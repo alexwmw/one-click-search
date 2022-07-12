@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import "./OneClickSearch.less";
 import OCSicon from "./OCSicon";
+import Inner from "./OneClickSearch_Inner";
 
 const OneClickSearch = () => {
   /** State and local data */
-  const [thisClick, setThisClick] = useState({});
-  const [options, setOptions] = useState({});
   const [providers, setProviders] = useState([]);
-  const [isHovered, setIsHovered] = useState(false);
-  const timeouts = {};
+  const [thisClick, setThisClick] = useState({});
+  const [style, setStyle] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
 
   /** useEffect on first render only
    * Get data from storage
@@ -18,7 +18,7 @@ const OneClickSearch = () => {
       ["providers", "options"],
       ({ providers, options }) => {
         setProviders(providers);
-        setOptions(options);
+        //setOptions(options);
       }
     );
   }, []);
@@ -50,41 +50,45 @@ const OneClickSearch = () => {
     });
   }, []);
 
-  /** Mouse events */
-  const onMouseEnter = (evt) => {
-    clearTimeout(timeouts.hover);
-    timeouts.hover = setTimeout(() => {
-      setIsHovered(true);
-    }, 1000);
-  };
+  useEffect(() => {
+    if (thisClick.text) {
+      setIsVisible(true);
+      setStyle({ left: thisClick.x, top: thisClick.y });
+    } else {
+      setIsVisible(false);
+    }
+  }, [thisClick]);
 
-  /** Mouse events */
-  const onMouseLeave = (evt) => {
-    clearTimeout(timeouts.hover);
-    timeouts.hover = setTimeout(() => {
-      setIsHovered(false);
-    }, 2000);
+  /** Action */
+  const closeOCS = (removeSelection = false) => {
+    setIsVisible(false);
+    if (removeSelection) {
+      window.getSelection().removeAllRanges();
+    }
   };
 
   /** Component lists */
-  const Providers = providers.map((provider) => (
-    <OCSicon key={provider.name} text={thisClick.text} provider={provider} />
+  const providerIcons = providers.map((provider) => (
+    <OCSicon
+      closeOCS={closeOCS}
+      key={provider.name}
+      text={thisClick.text}
+      provider={provider}
+    />
   ));
 
+  useEffect;
+
   return (
-    <div>
-      {thisClick.text && (
-        <div
-          className={`OneClickSearch ${isHovered ? "isHovered" : ""}`}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          style={{
-            left: thisClick.x,
-            top: thisClick.y,
-          }}
+    <div style={style} className={"OneClickSearch"}>
+      {isVisible && (
+        <Inner
+          closeOCS={closeOCS}
+          setIsVisible={setIsVisible}
+          thisClick={thisClick}
         >
-          {Providers}
-        </div>
+          {providerIcons}
+        </Inner>
       )}
     </div>
   );

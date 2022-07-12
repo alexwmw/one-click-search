@@ -2,9 +2,6 @@
 
 .OneClickSearch {
   all: initial;
-  * {
-    all: initial;
-  }
 
   @OCSsize: 20px;
   @OCSoffsetX: 3px;
@@ -21,25 +18,48 @@
 
   position: absolute;
 
-  padding: 2px;
+  .inner {
+    all: initial;
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5px;
+    padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
 
-  background-color: white; //lighten(@active, 25%);
-  border: 1px solid @active;
-  border-radius: 12px;
-  //box-shadow: 0 1px 3px lightgrey;
-  z-index: 9999;
+    background-color: white; //lighten(@active, 25%);
+    border: 1px solid @active;
+    border-radius: 12px;
+    //box-shadow: 0 1px 3px lightgrey;
+    z-index: 9999;
 
-  transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
+    transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
+    user-select: none;
+    outline: none;
 
-  user-select: none;
-  outline: none;
+    opacity: 1;
+
+    &.isHovered {
+      .OCSicon {
+        &.hidden {
+          display: block;
+          animation: 0.15s ease grow;
+          animation-fill-mode: forwards;
+        }
+      }
+    }
+    &.isFading {
+      transition: 2s opacity ease;
+      opacity: 0;
+    }
+  }
 
   .OCSicon {
+    all: initial;
+    * {
+      all: initial;
+    }
+
     animation: 0.15s ease grow;
     animation-fill-mode: forwards;
     a {
@@ -70,16 +90,6 @@
 
     &.disabled {
       display: none;
-    }
-  }
-
-  &.isHovered {
-    .OCSicon {
-      &.hidden {
-        display: block;
-        animation: 0.15s ease grow;
-        animation-fill-mode: forwards;
-      }
     }
   }
 }

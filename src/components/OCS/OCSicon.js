@@ -1,7 +1,6 @@
-import { options } from "less";
 import { OCSicon_function, OCSicon_provider } from "./OCSiconTypes";
 
-function OCSicon({ provider, text }) {
+function OCSicon({ provider, text, closeOCS }) {
   /** Local data */
   const $TEXT$ = text;
   // Replace with props options
@@ -19,13 +18,20 @@ function OCSicon({ provider, text }) {
   // Search provider icons are <a> links to search pages for the selected text
   if (provider.role == "provider") {
     return (
-      <OCSicon_provider options={options} provider={provider} text={text} />
+      <OCSicon_provider
+        options={options}
+        provider={provider}
+        text={text}
+        closeOCS={closeOCS}
+      />
     );
   }
 
   // Function icons will execute a function when clicked on (e.preventDefault on <a>)
   if (provider.role == "function") {
-    return <OCSicon_function provider={provider} text={text} />;
+    return (
+      <OCSicon_function provider={provider} text={text} closeOCS={closeOCS} />
+    );
   }
 }
 export default OCSicon;
