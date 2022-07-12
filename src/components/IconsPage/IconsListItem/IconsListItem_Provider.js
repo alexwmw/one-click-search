@@ -49,6 +49,7 @@ function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
         <ProviderForm
           onClick={(e) => e.stopPropagation()}
           name={name}
+          setIsExpanded={setIsExpanded}
         ></ProviderForm>
       )}
     </li>

@@ -12,7 +12,7 @@ import {
   updateArrayItem,
 } from "../../../modules/Utilities";
 
-function IconsListItem_Provider_Form({ name }) {
+function IconsListItem_Provider_Form({ name, setIsExpanded }) {
   /** State and contexts */
   const { providers, setProviders } = useContext(ProvidersContext);
   const [currentProvider, setCurrentProvider] = useState(
@@ -47,6 +47,7 @@ function IconsListItem_Provider_Form({ name }) {
       return;
     }
     setProviders(updateArrayItem(providers, newProvider));
+    setIsExpanded(false);
   };
 
   /** Event handlers */
@@ -89,7 +90,7 @@ function IconsListItem_Provider_Form({ name }) {
           value
             .trim()
             .replace(/^.*:\/\/+/g, "")
-            .replace(/\/.*$/g, "")
+            .replace(/\/$/g, "")
             .toLowerCase()
         ),
     },
