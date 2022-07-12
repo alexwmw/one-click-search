@@ -18,8 +18,13 @@ function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
     return provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
   };
 
-  const toggleExpanded = (e) => {
-    setIsExpanded((expanded) => !expanded);
+  const toggleExpanded = () => {
+    if (isUnsaved && confirm("Unsaved changes will be lost")) {
+      setIsExpanded(false);
+      setIsUnsaved(false);
+    } else {
+      setIsExpanded((expanded) => !expanded);
+    }
   };
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ProvidersContext from "../../contexts/ProvidersContext";
+import SortableListContext from "../../contexts/SortableListContext";
 import Instructions from "./IconsPage_Intructions";
 import SortableList from "./IconsPage_Sortable";
 import "./IconsPage.less";
