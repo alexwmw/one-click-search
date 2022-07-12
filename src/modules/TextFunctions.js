@@ -9,8 +9,14 @@ const TextFunctions = {
     navigator.clipboard.writeText(text);
   },
 
-  GoTo: (text) => {
-    window.location.href = text;
+  GoTo: (text, newtab = true) => {
+    if (text.indexOf("www") == 0) {
+      newtab
+        ? window.open("https://" + text.trim())
+        : (window.location.href = "https://" + text.trim());
+    } else {
+      newtab ? window.open(text.trim()) : (window.location.href = text.trim());
+    }
   },
 };
 export default TextFunctions;
