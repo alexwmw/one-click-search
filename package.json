@@ -40,6 +40,7 @@
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
     "react-sortablejs": "^6.1.4",
+    "react-transition-group": "^4.4.2",
     "sortablejs": "^1.15.0"
   }
 }

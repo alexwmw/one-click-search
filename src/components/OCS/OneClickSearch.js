@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import Transition from "react-transition-group/Transition";
 import "./OneClickSearch.less";
 import OCSicon from "./OCSicon";
 import Inner from "./OneClickSearch_Inner";
+import { isValidSelection } from "../../modules/Utilities";
 
 const OneClickSearch = () => {
   /** State and local data */
   const [providers, setProviders] = useState([]);
   const [thisClick, setThisClick] = useState({});
-  const [style, setStyle] = useState({});
+  const [position, setPosition] = useState({});
   const [isVisible, setIsVisible] = useState(false);
+  const [fade, setFade] = useState(false);
 
   /** useEffect on first render only
    * Get data from storage
@@ -29,9 +32,13 @@ const OneClickSearch = () => {
   useEffect(() => {
     document.addEventListener("mouseup", (evt) => {
       const isOCS = evt.target.closest(".OneClickSearch") !== null;
-      const text = window.getSelection().toString();
-      if (!isOCS) {
+      const selection = window.getSelection();
+      if (!isOCS && isValidSelection(selection)) {
+        const text = selection.toString();
         setThisClick({ text: text, x: evt.pageX, y: evt.pageY });
+      } else {
+        setIsVisible(false);
+        setFade(false);
       }
     });
   }, []);
@@ -51,12 +58,9 @@ const OneClickSearch = () => {
   }, []);
 
   useEffect(() => {
-    if (thisClick.text) {
-      setIsVisible(true);
-      setStyle({ left: thisClick.x, top: thisClick.y });
-    } else {
-      setIsVisible(false);
-    }
+    setIsVisible(true);
+    setFade(true);
+    setPosition({ left: thisClick.x, top: thisClick.y });
   }, [thisClick]);
 
   /** Action */
@@ -77,19 +81,30 @@ const OneClickSearch = () => {
     />
   ));
 
-  useEffect;
-
   return (
-    <div style={style} className={"OneClickSearch"}>
-      {isVisible && (
-        <Inner
-          closeOCS={closeOCS}
-          setIsVisible={setIsVisible}
-          thisClick={thisClick}
-        >
-          {providerIcons}
-        </Inner>
-      )}
+    <div style={position} className={"OneClickSearch"}>
+      <Transition in={isVisible} timeout={fade ? 3000 - 250 : 0}>
+        {(state) => {
+          if (state !== "exited") {
+            return (
+              <Inner
+                style={{
+                  transition:
+                    state === "exiting" && fade
+                      ? `opacity ${3000}ms ease-out`
+                      : "",
+                  opacity: state === "exiting" ? 0 : 1,
+                }}
+                closeOCS={closeOCS}
+                setIsVisible={setIsVisible}
+                thisClick={thisClick}
+              >
+                {providerIcons}
+              </Inner>
+            );
+          }
+        }}
+      </Transition>
     </div>
   );
 };

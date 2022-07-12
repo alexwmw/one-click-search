@@ -1,48 +1,50 @@
 import { useEffect, useState } from "react";
 import useTimeout from "../../hooks/useTimeout";
 
-const OneClickSearch_Inner = ({ closeOCS, setIsVisible, children }) => {
+const OneClickSearch_Inner = ({ setIsVisible, style, fade, children }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [T_hover, setT_hover] = useTimeout();
-  const [T_close, setT_close] = useTimeout();
+  const [showHidden, setShowHidden] = useState(false);
+  const [setT_showHidden, clearT_showHidden] = useTimeout();
+  const [setT_close, clearT_close] = useTimeout();
 
   /** Mouse events */
-  const onMouseLeaveOrMakeVisible = () => {
-    clearTimeout(T_hover);
-    clearTimeout(T_close);
-
-    setT_hover(() => {
-      setIsHovered(false);
-    }, 1000);
-
-    setT_close(() => {
-      closeOCS();
-    }, 5000);
-  };
 
   /** Mouse events */
   const onMouseEnter = (evt) => {
-    clearTimeout(T_hover);
-    clearTimeout(T_close);
-    setT_hover(() => {
-      setIsHovered(true);
-    }, 1000);
+    setIsHovered(true);
   };
 
   /** Mouse events */
   const onMouseLeave = (evt) => {
-    onMouseLeaveOrMakeVisible();
+    setIsHovered(false);
   };
 
   useEffect(() => {
-    onMouseLeaveOrMakeVisible();
+    if (isHovered === true) {
+      setT_close(() => setIsVisible(true), 0);
+      setT_showHidden(() => {
+        setShowHidden(true);
+      }, 1500);
+    } else {
+      setT_close(() => setIsVisible(false), 3000);
+      setT_showHidden(() => {
+        setShowHidden(false);
+      }, 1000);
+    }
+  }, [isHovered]);
+
+  useEffect(() => {
+    setT_close(() => setIsVisible(false), 3000);
+    return () => {
+      clearT_close();
+      clearT_showHidden();
+    };
   }, []);
 
   return (
     <div
-      className={`inner ${isHovered ? "isHovered" : ""} ${
-        isFading ? "isFading" : ""
-      }`}
+      style={style}
+      className={`inner ${showHidden ? "showHidden" : ""}`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

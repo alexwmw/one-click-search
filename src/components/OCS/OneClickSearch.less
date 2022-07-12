@@ -17,6 +17,7 @@
   }
 
   position: absolute;
+  z-index: 9999;
 
   .inner {
     all: initial;
@@ -31,7 +32,6 @@
     border: 1px solid @active;
     border-radius: 12px;
     //box-shadow: 0 1px 3px lightgrey;
-    z-index: 9999;
 
     transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
     user-select: none;
@@ -39,7 +39,7 @@
 
     opacity: 1;
 
-    &.isHovered {
+    &.showHidden {
       .OCSicon {
         &.hidden {
           display: block;
