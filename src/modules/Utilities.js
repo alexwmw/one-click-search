@@ -22,7 +22,7 @@ export function adaptLegacyProvider(oldProvider) {
 
     //const validator = providerValidation(newProvider);
     //if (provider.decision === true) {
-        if (true) {
+    if (true) {
       return newProvider;
     } else {
       //console.log("Adapt Legacy Provider did not work for " + oldProvider.name);
@@ -145,3 +145,12 @@ export const mergeSortables = (sortables) => [
   ...sortables.hidden,
   ...sortables.disabled,
 ];
+
+export const isValidSelection = (selection) => {
+  if (selection != "") {
+    const nodeType = selection.focusNode.nodeType;
+    const selectionLength = selection.toString().length;
+    return nodeType == Node.TEXT_NODE && selectionLength > 0;
+  }
+  return false;
+};

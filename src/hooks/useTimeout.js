@@ -1,9 +1,20 @@
 import { useState } from "react";
 
 function useTimeout(timeout) {
-  const [t, setState] = useState(timeout);
-  const setT = (func, time) => setState(setTimeout(func, time));
-  return [t, setT];
+  const [T, setState] = useState(timeout);
+  const clearT = () =>
+    setState((T) => {
+      clearTimeout(T);
+      return T;
+    });
+  const setT = (func, time) =>
+    setState((T) => {
+      clearTimeout(T);
+      T = setTimeout(func, time);
+      return T;
+    });
+
+  return [setT, clearT];
 }
 
 export default useTimeout;
