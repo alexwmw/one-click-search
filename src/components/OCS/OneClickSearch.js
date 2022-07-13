@@ -3,12 +3,16 @@ import Transition from "react-transition-group/Transition";
 import "./OneClickSearch.less";
 import OCSicon from "./OCSicon";
 import Inner from "./OneClickSearch_Inner";
-import { isValidSelection } from "../../modules/Utilities";
+import {
+  isOcsElement,
+  isValidSelection,
+  isValidText,
+} from "../../modules/Utilities";
 
 const OneClickSearch = () => {
   /** State and local data */
   const [providers, setProviders] = useState([]);
-  const [thisClick, setThisClick] = useState({});
+  const [clickProps, setClickProps] = useState({});
   const [position, setPosition] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [fade, setFade] = useState(false);
@@ -31,15 +35,24 @@ const OneClickSearch = () => {
    */
   useEffect(() => {
     document.addEventListener("mouseup", (evt) => {
-      const isOCS = evt.target.closest(".OneClickSearch") !== null;
       const selection = window.getSelection();
-      if (!isOCS && isValidSelection(selection)) {
-        const text = selection.toString();
-        setThisClick({ text: text, x: evt.pageX, y: evt.pageY });
-      } else {
-        setIsVisible(false);
-        setFade(false);
+      if (!isOcsElement(evt) && isValidSelection(selection)) {
+        setClickProps({
+          text: selection.toString(),
+          x: evt.pageX,
+          y: evt.pageY,
+        });
       }
+    });
+  }, []);
+
+  /** useEffect on first render only
+   * Add mousedown event listener
+   */
+  useEffect(() => {
+    document.addEventListener("mousedown", (evt) => {
+      setIsVisible(isOcsElement(evt));
+      setFade(isOcsElement(evt));
     });
   }, []);
 
@@ -58,17 +71,17 @@ const OneClickSearch = () => {
   }, []);
 
   useEffect(() => {
-    setIsVisible(true);
-    setFade(true);
-    setPosition({ left: thisClick.x, top: thisClick.y });
-  }, [thisClick]);
+    const validity = isValidText(clickProps.text);
+    setIsVisible(validity);
+    setFade(validity);
+    validity && setPosition({ left: clickProps.x, top: clickProps.y });
+  }, [clickProps]);
 
   /** Action */
   const closeOCS = (removeSelection = false) => {
     setIsVisible(false);
-    if (removeSelection) {
-      window.getSelection().removeAllRanges();
-    }
+    setFade(false);
+    removeSelection && window.getSelection().removeAllRanges();
   };
 
   /** Component lists */
@@ -76,34 +89,31 @@ const OneClickSearch = () => {
     <OCSicon
       closeOCS={closeOCS}
       key={provider.name}
-      text={thisClick.text}
+      text={clickProps.text}
       provider={provider}
     />
   ));
 
+  const styleByState = (state) => ({
+    transition: state === "exiting" && fade ? `opacity ${3000}ms ease-out` : "",
+    opacity: state === "exiting" ? 0 : 1,
+  });
+
   return (
     <div style={position} className={"OneClickSearch"}>
       <Transition in={isVisible} timeout={fade ? 3000 - 250 : 0}>
-        {(state) => {
-          if (state !== "exited") {
-            return (
-              <Inner
-                style={{
-                  transition:
-                    state === "exiting" && fade
-                      ? `opacity ${3000}ms ease-out`
-                      : "",
-                  opacity: state === "exiting" ? 0 : 1,
-                }}
-                closeOCS={closeOCS}
-                setIsVisible={setIsVisible}
-                thisClick={thisClick}
-              >
-                {providerIcons}
-              </Inner>
-            );
-          }
-        }}
+        {(state) =>
+          state !== "exited" && (
+            <Inner
+              style={styleByState(state)}
+              closeOCS={closeOCS}
+              setIsVisible={setIsVisible}
+              thisClick={clickProps}
+            >
+              {providerIcons}
+            </Inner>
+          )
+        }
       </Transition>
     </div>
   );
