@@ -19,7 +19,7 @@ export function adaptLegacyProvider(oldProvider) {
     } else {
       newProvider.faviconUrl = "";
     }
-
+    //todo: use the validator
     //const validator = providerValidation(newProvider);
     //if (provider.decision === true) {
     if (true) {
@@ -203,4 +203,12 @@ export const isValidSelection = (selection) => {
     return nodeType == Node.TEXT_NODE && selectionLength > 0;
   }
   return false;
+};
+
+export const isOcsElement = (evt) =>
+  evt.target.closest(".OneClickSearch") !== null;
+
+export const isValidText = (text) => {
+  const invalidStrings = ["", " "];
+  return text && text !== "" && text !== " ";
 };
