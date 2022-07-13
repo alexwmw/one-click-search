@@ -23,7 +23,10 @@ const IconsPage = () => {
   );
 
   /** Const */
-  const none = providers.filter((p) => p.visibility == "conditional");
+  const listNames = ["visible", "hidden", "disabled"];
+  const none = providers.filter((p) =>
+    listNames.every((name) => name !== p.visibility)
+  );
 
   /** Re-render on providers change */
   useEffect(() => {
