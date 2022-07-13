@@ -5,7 +5,7 @@ const OneClickSearch_Inner = ({ setIsVisible, style, fade, children }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showHidden, setShowHidden] = useState(false);
   const [setT_showHidden, clearT_showHidden] = useTimeout();
-  const [setT_close, clearT_close] = useTimeout();
+  const [setT_visible, clearT_visible] = useTimeout();
 
   /** Mouse events */
 
@@ -20,23 +20,21 @@ const OneClickSearch_Inner = ({ setIsVisible, style, fade, children }) => {
   };
 
   useEffect(() => {
-    if (isHovered === true) {
-      setT_close(() => setIsVisible(true), 0);
-      setT_showHidden(() => {
-        setShowHidden(true);
-      }, 1500);
-    } else {
-      setT_close(() => setIsVisible(false), 3000);
-      setT_showHidden(() => {
-        setShowHidden(false);
-      }, 1000);
-    }
+    const delay = isHovered ? 0 : 3000;
+    setT_visible(() => setIsVisible(isHovered), delay);
   }, [isHovered]);
 
   useEffect(() => {
-    setT_close(() => setIsVisible(false), 3000);
+    const delay = isHovered ? 1500 : 1000;
+    setT_showHidden(() => {
+      setShowHidden(isHovered);
+    }, delay);
+  }, [isHovered]);
+
+  useEffect(() => {
+    setT_visible(() => setIsVisible(false), 3000);
     return () => {
-      clearT_close();
+      clearT_visible();
       clearT_showHidden();
     };
   }, []);
