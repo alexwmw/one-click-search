@@ -30,7 +30,6 @@ const IconsPage = () => {
 
   /** Re-render on providers change */
   useEffect(() => {
-    console.log("Icons page re-rendered due to providers use effect!");
     setVisible(providers.filter((p) => p.visibility == "visible"));
     setHidden(providers.filter((p) => p.visibility == "hidden"));
     setDisabled(providers.filter((p) => p.visibility == "disabled"));
@@ -38,13 +37,14 @@ const IconsPage = () => {
 
   /** setProviders when lists are sorted into a different order */
   useEffect(() => {
-    console.log("Icons page re-rendered due to a list's use effect!");
     const array = sortByPosition([...none, ...visible, ...hidden, ...disabled]);
     const sortingIsFinished = array.every((p) => p.chosen !== true);
-    const orderChanged = array.some(
-      (e, i, a) => a[i].name !== providers[i].name
+    const isRearranged = array.some(
+      (e, i, a) =>
+        a[i].name !== providers[i].name ||
+        a[i].visibility !== providers[i].visibility
     );
-    if (sortingIsFinished && orderChanged) {
+    if (sortingIsFinished && isRearranged) {
       setProviders(array);
     }
   }, [visible, hidden, disabled]);
