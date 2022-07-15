@@ -5,6 +5,7 @@ import TabContainer from "./components/TopLevel/TabContainer";
 import PageContainer from "./components/TopLevel/PageContainer";
 import "./App.less";
 import "./less/flex.less";
+import SettingsContext from "./contexts/SettingsContext";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -14,6 +15,7 @@ const root = createRoot(rootElement);
 const App = ({ storedProviders, storedOptions }) => {
   /** State */
   const [providers, setProviders] = useState(storedProviders);
+  const [settings, setSettings] = useState(storedOptions);
 
   useEffect(() => {
     console.log("App received new providers via useEffect!");
@@ -26,21 +28,31 @@ const App = ({ storedProviders, storedOptions }) => {
     );
   }, [providers]);
 
+  useEffect(() => {
+    console.log("App received new options via useEffect!");
+    chrome.storage.sync.set({ options: settings }, () => {
+      console.log("Options stored in chrome");
+      console.log(settings);
+    });
+  }, [settings]);
+
   /** Define tabs */
   const tabNames = { icons: "Icon Order", controls: "Settings" };
-  const [selectedTab, setSelectedTab] = useState(tabNames.icons);
+  const [selectedTab, setSelectedTab] = useState(tabNames.controls);
   const tabSelectHandler = (tabName) => setSelectedTab(tabName);
 
   return (
     <div className={"flex-container height-app width-app column"}>
-      <TabContainer
-        tabNames={tabNames}
-        selectedTab={selectedTab}
-        onTabSelect={tabSelectHandler}
-      />
-      <ProvidersContext.Provider value={{ providers, setProviders }}>
-        <PageContainer tabNames={tabNames} selectedTab={selectedTab} />
-      </ProvidersContext.Provider>
+      <SettingsContext.Provider value={{ settings, setSettings }}>
+        <TabContainer
+          tabNames={tabNames}
+          selectedTab={selectedTab}
+          onTabSelect={tabSelectHandler}
+        />
+        <ProvidersContext.Provider value={{ providers, setProviders }}>
+          <PageContainer tabNames={tabNames} selectedTab={selectedTab} />
+        </ProvidersContext.Provider>
+      </SettingsContext.Provider>
     </div>
   );
 };

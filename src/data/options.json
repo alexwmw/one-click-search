@@ -1,53 +1,69 @@
-[
-  {
-    "name": "popUp_fadeOutTime",
-    "label": "Number of seconds to fade-out the pop-up",
-    "value": "5",
-    "type": "input",
-    "classList": ["options-input"],
-    "attr": {
-      "type": "range",
-      "min": 0,
-      "max": 10,
-      "step": 0.5,
-      "id": "popUp_fadeOutTime"
-    }
-  },
-  {
-    "name": "popUp_fadeDelay",
-    "label": "Number of seconds of inactivity before fade-out begins",
-    "value": "5",
-    "type": "input",
-    "classList": ["options-input"],
-    "attr": {
-      "type": "range",
-      "min": 0,
-      "max": 10,
-      "step": 0.5,
-      "id": "popUp_fadeDelay"
-    }
-  },
-  {
-    "name": "hiddenIcons_showDelay",
-    "label": "Number of seconds to hover before showing hidden icons",
+{
+  "size": {
+    "id": "size",
+    "label": "Size",
+    "description": "Size of the popup",
     "value": "1",
-    "type": "input",
-    "classList": ["options-input"],
-    "attr": {
-      "type": "range",
-      "min": 0,
-      "max": 10,
-      "step": 0.5,
-      "id": "hiddenIcons_showDelay"
-    }
+    "type": "slider"
   },
-  {
-    "name": "hrefTarget",
-    "value": "New tab",
+  "fadeOutTime": {
+    "id": "fadeOutTime",
+    "label": "Fade-out duration",
+    "description": "Number of seconds to fade-out the pop-up",
+    "value": "5",
+    "type": "slider"
+  },
+  "fadeDelay": {
+    "id": "fadeDelay",
+    "label": "Fade-out delay",
+    "description": "Number of seconds of inactivity before fade-out begins",
+    "value": "5",
+    "type": "slider"
+  },
+  "showDelay": {
+    "id": "showDelay",
+    "label": "Hover delay",
+    "description": "Number of seconds to hover before showing hidden icons",
+    "value": "1",
+    "type": "slider"
+  },
+  "linkTarget": {
+    "id": "linkTarget",
     "label": "Open search in...",
+    "description": "Open search in a new tab or the current tab",
+    "value": "New tab",
     "type": "select",
-    "classList": ["options-input"],
-    "valList": ["New tab", "Current tab"],
-    "attr": { "type": "select", "id": "hrefTarget" }
+    "options": ["New tab", "Current tab"],
+    "dictionary": { "New tab": "_blank", "Current tab": "_self" }
+  },
+  "colour": {
+    "id": "colour",
+    "label": "Popup colour",
+    "description": "Select from light or dark mode or choose custom.",
+    "value": "Light",
+    "type": "select",
+    "options": ["Light", "Dark", "Custom"],
+    "customValues": { "backgroundColor": "#ffffff", "borderColor": "#000000" }
+  },
+  "animations": {
+    "id": "animations",
+    "label": "Enable animations",
+    "description": "Enable animations in the popup",
+    "value": true,
+    "type": "switch"
+  },
+  "enableCopy": {
+    "id": "enableCopy",
+    "label": "Enable copy function:",
+    "description": "Enable copy function",
+    "value": true,
+    "type": "switch"
+  },
+  "enableGoto": {
+    "id": "enableGoto",
+    "label": "Enable GoTo function:",
+    "description": "Enable GoTo function",
+    "value": true,
+    "type": "switch"
   }
-]
+}
