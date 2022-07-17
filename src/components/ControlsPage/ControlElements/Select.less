@@ -1,0 +1,78 @@
+@import "../../../less/_variables.less";
+
+.real-select {
+  display: none;
+}
+
+.pseudo-select {
+  //align-self: start;
+  position: relative;
+  &-visible,
+  &-hidden {
+    z-index: 5;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid 1px lightgrey;
+    border-radius: 6px;
+    background-color: whitesmoke;
+    padding: 0;
+    margin-block: 2px;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:focus {
+      background-color: @accent2;
+    }
+    &.active {
+      transition: 0.4s;
+    }
+  }
+  &-visible {
+    &:after {
+      content: "";
+      display: block;
+      height: 0;
+      width: 0;
+      border: 5px solid transparent;
+      border-left-width: 7px;
+      border-right-width: 7px;
+      border-top-color: @text-color;
+      //transition: 0.4s;
+      position: absolute;
+      right: 7px;
+      top: 7px;
+      transform: translateY(3px) rotateX(0);
+    }
+    &.active {
+      &:after {
+        transform: translateY(-3px) rotateX(180deg);
+      }
+    }
+  }
+  &-hidden {
+    border: @primary-border;
+    position: absolute;
+    width: 100% - 2px;
+    z-index: 6666;
+    transform: translateY(-50%) scale3d(1, 0, 1);
+    &.active {
+      transform: translateY(0) scale3d(1, 1, 1);
+    }
+    .pseudo-option {
+      &:hover {
+        background-color: @accent2;
+      }
+    }
+  }
+}
+
+.pseudo-option {
+  margin: 0 6px 0 0;
+  list-style: none;
+  padding-block: 5px;
+  width: 100%;
+}

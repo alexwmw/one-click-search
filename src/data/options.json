@@ -3,29 +3,45 @@
     "id": "size",
     "label": "Size",
     "description": "Size of the popup",
-    "value": "1",
-    "type": "slider"
+    "value": "0",
+    "type": "slider",
+    "unit": "x",
+    "min": 0.5,
+    "max": 10,
+    "step": 0.5
   },
   "fadeOutTime": {
     "id": "fadeOutTime",
     "label": "Fade-out duration",
     "description": "Number of seconds to fade-out the pop-up",
     "value": "5",
-    "type": "slider"
+    "type": "slider",
+    "unit": "s",
+    "min": 1,
+    "max": 10,
+    "step": 0.5
   },
   "fadeDelay": {
     "id": "fadeDelay",
     "label": "Fade-out delay",
     "description": "Number of seconds of inactivity before fade-out begins",
     "value": "5",
-    "type": "slider"
+    "type": "slider",
+    "unit": "s",
+    "min": 1,
+    "max": 10,
+    "step": 0.5
   },
   "showDelay": {
     "id": "showDelay",
     "label": "Hover delay",
     "description": "Number of seconds to hover before showing hidden icons",
     "value": "1",
-    "type": "slider"
+    "type": "slider",
+    "unit": "s",
+    "min": 1,
+    "max": 5,
+    "step": 0.5
   },
   "linkTarget": {
     "id": "linkTarget",

@@ -4,8 +4,8 @@
   all: initial;
 
   @OCSsize: 20px;
-  @OCSoffsetX: 3px;
-  @OCSoffsetY: 15px;
+  @OCSoffsetX: -10px;
+  @OCSoffsetY: 26px;
 
   @keyframes grow {
     from {
@@ -28,8 +28,8 @@
     align-items: center;
     gap: 5px;
 
-    background-color: white; //lighten(@active, 25%);
-    border: 1px solid @active;
+    background-color: rgb(228, 228, 233); //lighten(@active, 25%);
+    //border: 1px solid @active;
     border-radius: 12px;
     //box-shadow: 0 1px 3px lightgrey;
 
@@ -62,6 +62,7 @@
 
     animation: 0.15s ease grow;
     animation-fill-mode: forwards;
+    transition: 0.3s all ease;
     a {
       outline: none;
       display: table;
@@ -73,14 +74,18 @@
       height: @OCSsize;
       width: @OCSsize;
       padding: 3px;
-      opacity: 0.8;
+      opacity: 0.9;
       cursor: pointer;
-      transition: 0.3s outline ease;
+      transition: 0.3s all ease;
       user-select: none;
       outline: 1px solid transparent;
-      &:hover {
+    }
+    &:hover {
+      img {
+        background-color: whitesmoke;
         opacity: 1;
         outline: 1px solid @accent2;
+        transform: scale(1.1);
       }
     }
 

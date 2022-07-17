@@ -18,8 +18,13 @@
 
   text-align: center;
   color: white;
-  background-color: @text-color;
+  background-color: @accent2;
   cursor: pointer;
+
+  &:hover {
+    transition: all 200ms ease;
+    background-color: #32bba6;
+  }
 
   > * {
     margin-inline: auto;
@@ -33,6 +38,7 @@
   p,
   span,
   label {
-    text-decoration: dotted;
+    text-decoration: underline;
+    text-decoration-style: dotted;
   }
 }

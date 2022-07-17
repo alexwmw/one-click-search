@@ -1,0 +1,44 @@
+@import "../../../less/_variables.less";
+
+.slider {
+  align-self: center;
+  overflow: visible;
+  position: relative;
+  top: -2px;
+  -webkit-appearance: none;
+  background-color: lightgrey;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: @invisible-border;
+  transition: border 200ms;
+
+  transition: all 0.25s ease;
+
+  &:active {
+    background-color: @accent2;
+    transform: scale(1.05);
+  }
+
+  &::-webkit-slider-runnable-track {
+    height: 5px;
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    position: relative;
+    top: -4px;
+    height: 12px;
+    width: 22px;
+    border-radius: 8px;
+    background-color: @primary;
+    cursor: ew-resize;
+
+    transition: transform 0.25s ease;
+
+    &:active {
+      transform: scale(1.25);
+      background-color: @active;
+    }
+  }
+}

@@ -6,39 +6,31 @@ import PageContainer from "./components/TopLevel/PageContainer";
 import "./App.less";
 import "./less/flex.less";
 import SettingsContext from "./contexts/SettingsContext";
+import useStorage from "./hooks/useStorage";
 
 /** Define root */
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
+const tabNames = { icons: "Icon Order", controls: "Settings" };
+
 /** Define App */
 const App = ({ storedProviders, storedOptions }) => {
-  /** State */
+  /** Context States */
   const [providers, setProviders] = useState(storedProviders);
   const [settings, setSettings] = useState(storedOptions);
 
-  useEffect(() => {
-    console.log("App received new providers via useEffect!");
-    chrome.storage.sync.set(
-      { providers: providers.filter((p) => p.visibility !== "delete") },
-      () => {
-        console.log("Providers stored in chrome");
-        console.log(providers);
-      }
-    );
-  }, [providers]);
-
-  useEffect(() => {
-    console.log("App received new options via useEffect!");
-    chrome.storage.sync.set({ options: settings }, () => {
-      console.log("Options stored in chrome");
-      console.log(settings);
-    });
-  }, [settings]);
+  useStorage(
+    {
+      providers: providers,
+      options: settings,
+    },
+    ["log"]
+  );
 
   /** Define tabs */
-  const tabNames = { icons: "Icon Order", controls: "Settings" };
-  const [selectedTab, setSelectedTab] = useState(tabNames.controls);
+  const defaultTab = tabNames.controls;
+  const [selectedTab, setSelectedTab] = useState(defaultTab);
   const tabSelectHandler = (tabName) => setSelectedTab(tabName);
 
   return (
