@@ -1,92 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import ProvidersContext from "../../contexts/ProvidersContext";
-import SortableListContext from "../../contexts/SortableListContext";
+import SortablesReducer from "../../reducers/SortablesReducer";
 import Instructions from "./IconsPage_Intructions";
-import SortableList from "./IconsPage_Sortable";
+import SortableList from "./SortableList";
 import "./IconsPage.less";
-import { sortByPosition } from "../../modules/Utilities";
+import useOnSortCompletion from "../../hooks/useOnSortCompletion";
 
 const IconsPage = () => {
   /** State and contexts */
   const { providers, setProviders } = useContext(ProvidersContext);
-
   const [openItem, setOpenItem] = useState(null);
-
-  const [visible, setVisible] = useState(
-    providers.filter((p) => p.visibility == "visible")
-  );
-  const [hidden, setHidden] = useState(
-    providers.filter((p) => p.visibility == "hidden")
-  );
-  const [disabled, setDisabled] = useState(
-    providers.filter((p) => p.visibility == "disabled")
-  );
-
-  /** Const */
-  const listNames = ["visible", "hidden", "disabled"];
-  const none = providers.filter((p) =>
-    listNames.every((name) => name !== p.visibility)
-  );
-
-  /** Re-render on providers change */
-  useEffect(() => {
-    setVisible(providers.filter((p) => p.visibility == "visible"));
-    setHidden(providers.filter((p) => p.visibility == "hidden"));
-    setDisabled(providers.filter((p) => p.visibility == "disabled"));
-  }, [providers]);
+  const [sortables, sortablesDispatch] = useReducer(SortablesReducer, {
+    visible: providers.filter((p) => p.visibility == "visible"),
+    hidden: providers.filter((p) => p.visibility == "hidden"),
+    disabled: providers.filter((p) => p.visibility == "disabled"),
+    none: providers.filter((p) =>
+      ["visible", "hidden", "disabled"].every((str) => str !== p.visibility)
+    ),
+  });
 
   /** setProviders when lists are sorted into a different order */
-  useEffect(() => {
-    const array = sortByPosition([...none, ...visible, ...hidden, ...disabled]);
-    const sortingIsFinished = array.every((p) => p.chosen !== true);
-    const isRearranged = array.some(
-      (e, i, a) =>
-        a[i].name !== providers[i].name ||
-        a[i].visibility !== providers[i].visibility
-    );
-    if (sortingIsFinished && isRearranged) {
-      setProviders(array);
-    }
-  }, [visible, hidden, disabled]);
+  useOnSortCompletion(sortables);
 
-  const sortables = [
-    {
-      name: "Visible",
-      id: "visible",
-      maxLength: 4,
-      list: visible,
-      setList: (list) => {
-        setVisible(list.map((p) => ({ ...p, visibility: "visible" })));
-      },
-    },
-
-    {
-      name: "Hidden",
-      id: "hidden",
-      list: hidden,
-      setList: (list) => {
-        setHidden(list.map((p) => ({ ...p, visibility: "hidden" })));
-      },
-    },
-
-    {
-      name: "Disabled",
-      id: "disabled",
-      list: disabled,
-      setList: (list) => {
-        setDisabled(list.map((p) => ({ ...p, visibility: "disabled" })));
-      },
-    },
-  ];
-
-  const SortableLists = sortables.map((sortable) => (
-    <SortableList
-      openItem={openItem}
-      setOpenItem={setOpenItem}
-      key={sortable.id}
-      {...sortable}
-    />
-  ));
+  /** Re-set lists on providers change */
+  useEffect(
+    () => sortablesDispatch({ type: "SET_ALL_LISTS", providers: providers }),
+    [providers]
+  );
 
   return (
     <div
@@ -95,7 +35,37 @@ const IconsPage = () => {
       direction={"column"}
     >
       <Instructions />
-      {SortableLists}
+      <SortableList
+        openItem={openItem}
+        setOpenItem={setOpenItem}
+        id={"visible"}
+        name={"Visible"}
+        maxLength={4}
+        list={sortables.visible}
+        setList={(list) =>
+          sortablesDispatch({ type: "SET_VISIBLE", list: list })
+        }
+      />
+      <SortableList
+        openItem={openItem}
+        setOpenItem={setOpenItem}
+        id={"hidden"}
+        name={"Hidden"}
+        list={sortables.hidden}
+        setList={(list) =>
+          sortablesDispatch({ type: "SET_HIDDEN", list: list })
+        }
+      />
+      <SortableList
+        openItem={openItem}
+        setOpenItem={setOpenItem}
+        id={"disabled"}
+        name={"Disabled"}
+        list={sortables.disabled}
+        setList={(list) =>
+          sortablesDispatch({ type: "SET_DISABLED", list: list })
+        }
+      />
     </div>
   );
 };

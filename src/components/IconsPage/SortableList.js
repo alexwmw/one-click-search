@@ -3,7 +3,7 @@ import { ReactSortable } from "react-sortablejs";
 import ProvidersContext from "../../contexts/ProvidersContext";
 import IconsListItem from "./IconsListItem/IconsListItem";
 
-function IconsPage_Sortable({
+function SortableList({
   name,
   id,
   maxLength,
@@ -57,4 +57,4 @@ function IconsPage_Sortable({
   );
 }
 
-export default IconsPage_Sortable;
+export default SortableList;

@@ -52,21 +52,6 @@ export function sortByPosition(array) {
   return [...hasPosition, ...noPosition];
 }
 
-/** Helper function */
-export const splitSortables = (array) => ({
-  visible: array.filter((item) => item.visibility == "visible"),
-  hidden: array.filter((item) => item.visibility == "hidden"),
-  disabled: array.filter((item) => item.visibility == "disabled"),
-});
-
-/** Helper function */
-export const splitSortablesGeneric = (array, keys) => {
-  const object = {};
-  keys.forEach((key) => {
-    object[key] = array.filter((item) => item.visibility == key);
-  });
-  return object;
-};
 
 /** Helper function */
 <<<<<<< HEAD
@@ -188,13 +173,6 @@ export const providerValidation = (provider) => {
     messages: Object.values(report).filter((value) => value !== true),
   };
 };
-
-/** Helper function */
-export const mergeSortables = (sortables) => [
-  ...sortables.visible,
-  ...sortables.hidden,
-  ...sortables.disabled,
-];
 
 export const isValidSelection = (selection) => {
   if (selection != "") {

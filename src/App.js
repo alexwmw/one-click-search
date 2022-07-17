@@ -29,7 +29,7 @@ const App = ({ storedProviders, storedOptions }) => {
   );
 
   /** Define tabs */
-  const defaultTab = tabNames.controls;
+  const defaultTab = tabNames.icons;
   const [selectedTab, setSelectedTab] = useState(defaultTab);
   const tabSelectHandler = (tabName) => setSelectedTab(tabName);
 
