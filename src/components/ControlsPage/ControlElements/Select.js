@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import SettingsContext from "../../../contexts/SettingsContext";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 import "./Select.less";
 
 const Select = ({ settingId, icon, condition, children }) => {
@@ -8,11 +9,10 @@ const Select = ({ settingId, icon, condition, children }) => {
   const [value, setValue] = useState(settings[settingId].value);
   const [active, setActive] = useState(false);
 
-  const changeHandler = (value) => {
-    setActive(false);
-    setValue(value);
-  };
+  /** Mouse event */
+  const ref = useOutsideClick(() => setActive(false));
 
+  /** Update settings on value change */
   useEffect(
     () =>
       setSettings((allSettings) => {
@@ -21,6 +21,11 @@ const Select = ({ settingId, icon, condition, children }) => {
       }),
     [value]
   );
+
+  const changeHandler = (value) => {
+    setActive(false);
+    setValue(value);
+  };
 
   return (
     <>
@@ -34,7 +39,10 @@ const Select = ({ settingId, icon, condition, children }) => {
         >
           <li className={"pseudo-option selected"}>{value}</li>
         </ul>
-        <ul className={`pseudo-select-hidden ${active ? "active" : ""}`}>
+        <ul
+          ref={ref}
+          className={`pseudo-select-hidden ${active ? "active" : ""}`}
+        >
           {options.map((opt) => (
             <li
               onClick={() => {

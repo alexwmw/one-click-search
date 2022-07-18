@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import Transition from "react-transition-group/Transition";
 import "./OneClickSearch.less";
 import OCSicon from "./OCSicon";
@@ -34,31 +34,26 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   };
 
   /** useEffect on first render only: Add mouseup/down event listeners to document */
-  useEffect(() => {
-    document.addEventListener("mouseup", setClickProperties);
-    document.addEventListener(
-      "mousedown",
-      (evt) => !isOcsElement(evt) && dispatch({ type: "CLICK_OFF_OCS" })
-    );
-  }, []);
+  useEffect(() => document.addEventListener("mouseup", setClickProperties), []);
 
   /** useEffect on first render only: Add chrome.storage.onChanged event listener */
-  useEffect(() => {
-    chrome.storage.onChanged.addListener((changes, namespace) => {
-      if ("providers" in changes) {
-        setProviders(changes.providers.newValue);
-      }
-      if ("options" in changes) {
-        setOptions(changes.options.newValue);
-      }
-    });
-  }, []);
+  useEffect(
+    () =>
+      chrome.storage.onChanged.addListener((changes, namespace) => {
+        if ("providers" in changes) {
+          setProviders(changes.providers.newValue);
+        }
+        if ("options" in changes) {
+          setOptions(changes.options.newValue);
+        }
+      }),
+    []
+  );
 
-  useEffect(() => {
-    console.log("isValidText:");
-    console.log(isValidText(text));
-    dispatch({ type: isValidText(text) ? "DISPLAY_OCS" : "HIDE_OCS" });
-  }, [text, x, y]);
+  useEffect(
+    () => dispatch({ type: isValidText(text) ? "DISPLAY_OCS" : "HIDE_OCS" }),
+    [text, x, y]
+  );
 
   const styleByState = (state) => ({
     transition: state === "exiting" && fade ? `opacity ${3000}ms ease-out` : "",
@@ -78,18 +73,16 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   return (
     <div className={"OneClickSearch"}>
-      <Transition in={isVisible} timeout={fade ? 3000 - 250 : 0}>
-        {(state) =>
-          state !== "exited" && (
-            <PopUp
-              style={{ ...position, ...styleByState(state) }}
-              dispatch={dispatch}
-              showHidden={showHidden}
-            >
-              {providerIcons}
-            </PopUp>
-          )
-        }
+      <Transition in={isVisible} timeout={fade ? 3000 - 250 : 0} unmountOnExit>
+        {(state) => (
+          <PopUp
+            style={{ ...position, ...styleByState(state) }}
+            dispatch={dispatch}
+            showHidden={showHidden}
+          >
+            {providerIcons}
+          </PopUp>
+        )}
       </Transition>
     </div>
   );

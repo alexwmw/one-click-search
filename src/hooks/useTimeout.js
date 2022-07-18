@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function useTimeout(timeout) {
-  const [T, setState] = useState(timeout);
+  const [state, setState] = useState(timeout);
   const clearT = () =>
     setState((T) => {
       clearTimeout(T);
