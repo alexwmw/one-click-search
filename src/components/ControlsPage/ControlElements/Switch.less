@@ -1,12 +1,12 @@
 @import "../../../less/_variables.less";
 
-@transition_time: 400ms;
+@transition_time: 250ms;
 
 /* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
+  width: 47px;
   height: 20px;
   justify-self: center;
   z-index: 0;
@@ -18,15 +18,15 @@
     height: 0;
 
     &:checked + .handle {
-      background-color: @accent2;
+      background-color: @control-bg;
+      outline: 1px solid @control-bg;
     }
-
     &:checked + .handle:before {
-      background-color: @active;
+      background-color: @control;
+      transform: translateX(22px);
     }
-
-    &:checked + .handle:before {
-      transform: translateX(35px);
+    &:hover + .handle:before {
+      background-color: @control-hover;
     }
   }
 
@@ -38,9 +38,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: lightgrey;
+    background-color: transparent; //@control-bg;
+    outline: 1px solid @control-bg;
     transition: @transition_time;
     border-radius: 34px;
+
+    &:hover {
+      box-shadow: 0 0 2px @A1;
+    }
   }
 
   .handle:before {
@@ -49,7 +54,7 @@
     height: 12px;
     width: 22px;
     border-radius: 8px;
-    background-color: @primary;
+    background-color: @control-off;
     left: 4px;
     bottom: 4px;
     transition: @transition_time;

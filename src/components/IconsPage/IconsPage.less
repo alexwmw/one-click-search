@@ -11,7 +11,7 @@
   // Children
 
   .instructions {
-    border-bottom: 0.5px solid #32bba6;
+    border-bottom: 0.5px solid @P2;
 
     * {
       transition: all 0.5s ease;
@@ -21,10 +21,10 @@
       width: 50%;
       cursor: pointer;
       transform: 0.2s ease;
-
+      color: @text-color;
       &:hover {
         h2 {
-          color: #777;
+          color: @D1;
         }
       }
     }
@@ -58,28 +58,29 @@
     // SortableJS
     > .sortable-drag {
       opacity: 0;
+
     }
 
     > .sortable-ghost {
-      border: @primary-border;
+      border: @accent-border;
     }
 
     &#visible {
       > * {
-        background-color: @accent1;
+        background-color: @L3;
 
         &.sortable-ghost {
-          background: darken($background-color, 5%);
+          background: @L2;
         }
       }
     }
 
     &#hidden {
       > * {
-        background-color: @accent2;
+        background-color: @L3;
 
         &.sortable-ghost {
-          background: darken($background-color, 5%);
+          background: @L2;
         }
       }
     }
@@ -89,7 +90,7 @@
         background-color: @disabled;
 
         &.sortable-ghost {
-          background: darken($background-color, 5%);
+          background: @L2;
         }
       }
     }

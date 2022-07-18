@@ -5,7 +5,7 @@ body {
   min-height: 200px;
   width: @app-width;
 }
-#app {
+.app {
   font-size: @font-size;
 
   * {
@@ -17,6 +17,15 @@ body {
   }
   h2 {
     .h2();
+  }
+
+  label,
+  p,
+  h1,
+  li,
+  input,
+  h2 {
+    color: @text-color;
   }
 
   input:focus,

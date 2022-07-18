@@ -34,15 +34,13 @@ const Select = ({ settingId, icon, condition, children }) => {
 
       <div className={"pseudo-select"}>
         <ul
+          ref={ref}
           onClick={() => setActive((active) => !active)}
           className={`pseudo-select-visible ${active ? "active" : ""}`}
         >
-          <li className={"pseudo-option selected"}>{value}</li>
+          <li className={"pseudo-option selected"}><span>{value}</span></li>
         </ul>
-        <ul
-          ref={ref}
-          className={`pseudo-select-hidden ${active ? "active" : ""}`}
-        >
+        <ul className={`pseudo-select-hidden ${active ? "active" : ""}`}>
           {options.map((opt) => (
             <li
               onClick={() => {
@@ -52,7 +50,7 @@ const Select = ({ settingId, icon, condition, children }) => {
               key={opt}
               value={opt}
             >
-              {opt}
+              <span>{opt}</span>
             </li>
           ))}
         </ul>

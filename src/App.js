@@ -12,7 +12,11 @@ import useSetStorageEffect from "./hooks/useSetStorageEffect";
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
-const tabNames = { icons: "Icon Order", controls: "Settings" };
+const tabNames = {
+  icons: "Icon Order",
+  controls: "Settings",
+  color: "color demo",
+};
 
 /** Define App */
 const App = ({ storedProviders, storedOptions }) => {
@@ -34,7 +38,7 @@ const App = ({ storedProviders, storedOptions }) => {
   const tabSelectHandler = (tabName) => setSelectedTab(tabName);
 
   return (
-    <div className={"flex-container height-app width-app column"}>
+    <div className={"app flex-container height-app width-app column"}>
       <SettingsContext.Provider value={{ settings, setSettings }}>
         <TabContainer
           tabNames={tabNames}

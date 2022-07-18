@@ -44,7 +44,7 @@ const TooltipProvider = ({ children }) => {
           onMouseOver={() => setTooltipVisible(id, true)}
           onMouseOut={() => setTooltipVisible(id, false)}
         >
-          <span>i</span>
+          <span>?</span>
           <Tooltip
             isVisible={isVisible}
             description={settings[id].description}

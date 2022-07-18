@@ -16,22 +16,25 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: solid 1px lightgrey;
+    border: solid 1px @control-bg;
     border-radius: 6px;
-    background-color: whitesmoke;
+    background-color: #f8f8f8;
     padding: 0;
     margin-block: 2px;
     cursor: pointer;
     overflow: hidden;
 
-    &:focus {
-      background-color: @accent2;
-    }
+    // &:focus {
+    //   background-color: #f8f8f8;
+    // }
     &.active {
-      transition: 0.4s;
+      transition: 0.25s;
     }
   }
   &-visible {
+    &:hover {
+      box-shadow: 0 0 1px @A1;
+    }
     &:after {
       content: "";
       display: block;
@@ -40,8 +43,7 @@
       border: 5px solid transparent;
       border-left-width: 7px;
       border-right-width: 7px;
-      border-top-color: @text-color;
-      //transition: 0.4s;
+      border-top-color: @P2;
       position: absolute;
       right: 7px;
       top: 7px;
@@ -54,7 +56,7 @@
     }
   }
   &-hidden {
-    border: @primary-border;
+    border: @accent-border;
     position: absolute;
     width: 100% - 2px;
     z-index: 6666;
@@ -64,7 +66,8 @@
     }
     .pseudo-option {
       &:hover {
-        background-color: @accent2;
+        background-color: @A1;
+        color: white;
       }
     }
   }

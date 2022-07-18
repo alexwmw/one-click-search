@@ -1,5 +1,8 @@
 @import "../../less/_variables.less";
 
+@padding: 2px;
+@br: 12px;
+
 .OneClickSearch {
   .popup {
     all: initial;
@@ -21,17 +24,17 @@
     position: absolute;
     z-index: 9999;
 
-    padding: 2px;
+    padding: @padding;
 
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 5px;
 
-    background-color: rgb(228, 228, 233); //lighten(@active, 25%);
-    //border: 1px solid @active;
-    border-radius: 12px;
-    //box-shadow: 0 1px 3px lightgrey;
+    background-color: @L3;
+    //border: @accent-border
+    border-radius: @br;
+    box-shadow: 0 1px 4px rgba(100, 100, 100, 0.4);
 
     transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
     user-select: none;
@@ -69,21 +72,23 @@
       }
       img {
         display: block;
-        border-radius: 9px;
+        border-radius: @br;
         height: @OCSsize;
         width: @OCSsize;
         padding: 3px;
+        margin-inline: (@padding / 2) - 1px;
         opacity: 0.9;
         cursor: pointer;
         transition: 0.3s all ease;
         user-select: none;
         outline: 1px solid transparent;
+        object-fit: contain;
       }
       &:hover {
         img {
-          background-color: whitesmoke;
+          background-color: lighten(@L2, 5%);
           opacity: 1;
-          outline: 1px solid @accent2;
+          //outline: 1px solid @P1;
           transform: scale(1.1);
         }
       }

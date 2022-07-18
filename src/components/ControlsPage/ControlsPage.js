@@ -10,14 +10,9 @@ const ControlsPage = () => {
   return (
     <div className={"flex-container page"}>
       <Grid header={"Appearance"}>
-        <Slider
-          settingId={settings.size.id}
-          overrides={{
-            min: 1,
-            max: 3,
-            step: 1,
-          }}
-        />
+        <Slider settingId={settings.padding.id} />
+        <Slider settingId={settings.borderRadius.id} />
+        <Switch settingId={settings.shadow.id} />
         <Select condition="Custom" settingId={settings.colour.id}>
           <button style={{ cursor: "pointer" }} onClick={() => {}}>
             Choose

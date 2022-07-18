@@ -1,6 +1,6 @@
 @import "../../../less/_variables.less";
 
-@icon-size: 0.8rem;
+@icon-size: 0.85rem;
 
 .iconContainer {
   display: inline-block;
@@ -17,13 +17,22 @@
   border-radius: 50%;
 
   text-align: center;
-  color: white;
-  background-color: @accent2;
+  border: @accent-border;
+  background-color: @A3;
+
+  //transition: all 200ms ease;
+
+  span {
+    color: @A1;
+  }
+
+  //background-color: @Info;
+  opacity: 0.75;
   cursor: pointer;
 
   &:hover {
-    transition: all 200ms ease;
-    background-color: #32bba6;
+    opacity: 1;
+    //background-color: @P1;
   }
 
   > * {

@@ -1,14 +1,25 @@
 {
-  "size": {
-    "id": "size",
-    "label": "Size",
-    "description": "Size of the popup",
+  "padding": {
+    "id": "padding",
+    "label": "Padding",
+    "description": "Space around the popup icons",
+    "value": "2",
+    "type": "slider",
+    "unit": "px",
+    "min": 1,
+    "max": 4,
+    "step": 1
+  },
+  "borderRadius": {
+    "id": "borderRadius",
+    "label": "Border radius",
+    "description": "Curvature of the poup's edges",
     "value": "0",
     "type": "slider",
-    "unit": "x",
-    "min": 0.5,
-    "max": 10,
-    "step": 0.5
+    "unit": "px",
+    "min": 5,
+    "max": 15,
+    "step": 1
   },
   "fadeOutTime": {
     "id": "fadeOutTime",
@@ -60,6 +71,13 @@
     "type": "select",
     "options": ["Light", "Dark", "Custom"],
     "customValues": { "backgroundColor": "#ffffff", "borderColor": "#000000" }
+  },
+  "shadow": {
+    "id": "shadow",
+    "label": "Popup shadow",
+    "description": "Add a subtle shadow behind the popup.",
+    "value": true,
+    "type": "switch"
   },
   "animations": {
     "id": "animations",

@@ -17,7 +17,7 @@
 
     overflow: hidden;
 
-    border: @invisible-border;
+    border: solid 1px @P3;
     border-radius: 10px;
 
     list-style-type: none;
@@ -34,7 +34,7 @@
     }
 
     &:hover {
-      border: @primary-border;
+      border: @accent-border;
     }
 
     button:focus {
@@ -60,7 +60,7 @@
       right: 4px;
       top: 4px;
       display: block;
-      color: grey;
+      color: @D1;
       padding: 5px;
       cursor: pointer;
       border-radius: 50%;
@@ -73,7 +73,7 @@
       }
 
       &:hover {
-        background-color: rgb(255 255 255 / 0.5);
+        background-color: white;
         color: @text-color;
       }
     }
@@ -111,6 +111,7 @@
         padding: 6px 4px !important;
         margin: 3px 10px;
         border-radius: 6px;
+        border: @invisible-border;
 
         display: flex;
         align-items: center;
@@ -118,31 +119,37 @@
 
         background-color: transparent;
         font-size: 10pt;
-        color: grey;
+        .svg-inline--fa {
+          color: @D1;
+        }
 
         span {
           color: @text-color;
         }
 
         &.saveButton.unsaved {
-          background-color: rgb(255 255 255 / 0.6);
+          background-color: #f8f8f8;
           font-weight: 700;
-          color: @active;
-<<<<<<< HEAD
-          .svg-inline--fa {
-=======
+
           span {
->>>>>>> 3722ec5cc4534d68dfa53cac1a7bf3951a7d83f6
-            color: @active;
+            color: @A1;
+          }
+          .svg-inline--fa {
+            color: @A1;
           }
           &:hover {
-            span {
-              color: darken(@active, 10%);
+            span,
+            .svg-inline--fa {
+              color: @A2;
             }
           }
         }
         &:hover {
           font-weight: 700;
+          background-color: #f8f8f8;
+        }
+        &:active {
+          border: @accent-border;
         }
         &.hidden {
           display: none;

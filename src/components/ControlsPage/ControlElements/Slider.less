@@ -6,7 +6,7 @@
   position: relative;
   top: -2px;
   -webkit-appearance: none;
-  background-color: lightgrey;
+  background-color: @control-bg;
   margin-right: 10px;
   border-radius: 10px;
   border: @invisible-border;
@@ -15,8 +15,7 @@
   transition: all 0.25s ease;
 
   &:active {
-    background-color: @accent2;
-    transform: scale(1.05);
+    // background-color: @L2;
   }
 
   &::-webkit-slider-runnable-track {
@@ -31,14 +30,18 @@
     height: 12px;
     width: 22px;
     border-radius: 8px;
-    background-color: @primary;
+    background-color: @control;
     cursor: ew-resize;
 
-    transition: transform 0.25s ease;
+    transition: all 0.25s ease, outline 0s ease;
 
+    &:hover {
+      background-color: @control-hover;
+      box-shadow: 0 0 1px @A1;
+    }
     &:active {
-      transform: scale(1.25);
-      background-color: @active;
+      transform: scale(1.1);
+      background-color: @control-active;
     }
   }
 }
