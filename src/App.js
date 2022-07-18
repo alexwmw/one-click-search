@@ -6,7 +6,7 @@ import PageContainer from "./components/TopLevel/PageContainer";
 import "./App.less";
 import "./less/flex.less";
 import SettingsContext from "./contexts/SettingsContext";
-import useStorage from "./hooks/useStorage";
+import useSetStorageEffect from "./hooks/useSetStorageEffect";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -20,7 +20,7 @@ const App = ({ storedProviders, storedOptions }) => {
   const [providers, setProviders] = useState(storedProviders);
   const [settings, setSettings] = useState(storedOptions);
 
-  useStorage(
+  useSetStorageEffect(
     {
       providers: providers,
       options: settings,

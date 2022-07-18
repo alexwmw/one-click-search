@@ -1,28 +1,28 @@
 @import "../../less/_variables.less";
 
 .OneClickSearch {
-  all: initial;
-
-  @OCSsize: 20px;
-  @OCSoffsetX: -10px;
-  @OCSoffsetY: 26px;
-
-  @keyframes grow {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-
-  position: absolute;
-  z-index: 9999;
-
-  .inner {
+  .popup {
     all: initial;
 
+    @OCSsize: 20px;
+    @OCSoffsetX: -10px;
+    @OCSoffsetY: 26px;
+
+    @keyframes grow {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+    all: initial;
+
+    position: absolute;
+    z-index: 9999;
+
     padding: 2px;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -52,49 +52,49 @@
       transition: 2s opacity ease;
       opacity: 0;
     }
-  }
 
-  .OCSicon {
-    all: initial;
-    * {
+    .OCSicon {
       all: initial;
-    }
-
-    animation: 0.15s ease grow;
-    animation-fill-mode: forwards;
-    transition: 0.3s all ease;
-    a {
-      outline: none;
-      display: table;
-      margin: 0 auto;
-    }
-    img {
-      display: block;
-      border-radius: 9px;
-      height: @OCSsize;
-      width: @OCSsize;
-      padding: 3px;
-      opacity: 0.9;
-      cursor: pointer;
-      transition: 0.3s all ease;
-      user-select: none;
-      outline: 1px solid transparent;
-    }
-    &:hover {
-      img {
-        background-color: whitesmoke;
-        opacity: 1;
-        outline: 1px solid @accent2;
-        transform: scale(1.1);
+      * {
+        all: initial;
       }
-    }
 
-    &.hidden {
-      display: none;
-    }
+      animation: 0.15s ease grow;
+      animation-fill-mode: forwards;
+      transition: 0.3s all ease;
+      a {
+        outline: none;
+        display: table;
+        margin: 0 auto;
+      }
+      img {
+        display: block;
+        border-radius: 9px;
+        height: @OCSsize;
+        width: @OCSsize;
+        padding: 3px;
+        opacity: 0.9;
+        cursor: pointer;
+        transition: 0.3s all ease;
+        user-select: none;
+        outline: 1px solid transparent;
+      }
+      &:hover {
+        img {
+          background-color: whitesmoke;
+          opacity: 1;
+          outline: 1px solid @accent2;
+          transform: scale(1.1);
+        }
+      }
 
-    &.disabled {
-      display: none;
+      &.hidden {
+        display: none;
+      }
+
+      &.disabled {
+        display: none;
+      }
     }
   }
 }

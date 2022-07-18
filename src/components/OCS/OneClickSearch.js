@@ -1,64 +1,48 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import Transition from "react-transition-group/Transition";
 import "./OneClickSearch.less";
 import OCSicon from "./OCSicon";
-import Inner from "./OneClickSearch_Inner";
+import PopUp from "./OCSPopUp";
 import {
   isOcsElement,
   isValidSelection,
   isValidText,
 } from "../../modules/Utilities";
+import OCSReducer from "../../reducers/OCSReducer";
 
-const OneClickSearch = () => {
+const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** State and local data */
-  const [providers, setProviders] = useState([]);
-  const [clickProps, setClickProps] = useState({});
-  const [position, setPosition] = useState({});
-  const [isVisible, setIsVisible] = useState(false);
-  const [fade, setFade] = useState(false);
+  const [providers, setProviders] = useState(storedProviders);
+  const [options, setOptions] = useState(storedProviders);
+  const [{ text, x, y, position, isVisible, showHidden, fade }, dispatch] =
+    useReducer(OCSReducer, {
+      isVisible: false,
+      fade: false,
+      isHovered: false,
+    });
 
-  /** useEffect on first render only
-   * Get data from storage
-   */
+  const setClickProperties = (evt) => {
+    const selection = window.getSelection();
+    if (!isOcsElement(evt) && isValidSelection(selection)) {
+      dispatch({
+        type: "SET_CLICK_PROPERTIES",
+        text: selection.toString(),
+        x: evt.pageX,
+        y: evt.pageY,
+      });
+    }
+  };
+
+  /** useEffect on first render only: Add mouseup/down event listeners to document */
   useEffect(() => {
-    chrome.storage.sync.get(
-      ["providers", "options"],
-      ({ providers, options }) => {
-        setProviders(providers);
-        //setOptions(options);
-      }
+    document.addEventListener("mouseup", setClickProperties);
+    document.addEventListener(
+      "mousedown",
+      (evt) => !isOcsElement(evt) && dispatch({ type: "CLICK_OFF_OCS" })
     );
   }, []);
 
-  /** useEffect on first render only
-   * Add mouseup event listener
-   */
-  useEffect(() => {
-    document.addEventListener("mouseup", (evt) => {
-      const selection = window.getSelection();
-      if (!isOcsElement(evt) && isValidSelection(selection)) {
-        setClickProps({
-          text: selection.toString(),
-          x: evt.pageX,
-          y: evt.pageY,
-        });
-      }
-    });
-  }, []);
-
-  /** useEffect on first render only
-   * Add mousedown event listener
-   */
-  useEffect(() => {
-    document.addEventListener("mousedown", (evt) => {
-      setIsVisible(isOcsElement(evt));
-      setFade(isOcsElement(evt));
-    });
-  }, []);
-
-  /** useEffect on first render only
-   * Add chrome.storage.onChanged event listener
-   */
+  /** useEffect on first render only: Add chrome.storage.onChanged event listener */
   useEffect(() => {
     chrome.storage.onChanged.addListener((changes, namespace) => {
       if ("providers" in changes) {
@@ -71,47 +55,39 @@ const OneClickSearch = () => {
   }, []);
 
   useEffect(() => {
-    const validity = isValidText(clickProps.text);
-    setIsVisible(validity);
-    setFade(validity);
-    validity && setPosition({ left: clickProps.x, top: clickProps.y });
-  }, [clickProps]);
-
-  /** Action */
-  const closeOCS = (removeSelection = false) => {
-    setIsVisible(false);
-    setFade(false);
-    removeSelection && window.getSelection().removeAllRanges();
-  };
-
-  /** Component lists */
-  const providerIcons = providers.map((provider) => (
-    <OCSicon
-      closeOCS={closeOCS}
-      key={provider.name}
-      text={clickProps.text}
-      provider={provider}
-    />
-  ));
+    console.log("isValidText:");
+    console.log(isValidText(text));
+    dispatch({ type: isValidText(text) ? "DISPLAY_OCS" : "HIDE_OCS" });
+  }, [text, x, y]);
 
   const styleByState = (state) => ({
     transition: state === "exiting" && fade ? `opacity ${3000}ms ease-out` : "",
     opacity: state === "exiting" ? 0 : 1,
   });
 
+  /** Component lists */
+  const providerIcons = providers.map((provider) => (
+    <OCSicon
+      onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
+      key={provider.name}
+      text={text}
+      provider={provider}
+      visibility={provider.visibility}
+    />
+  ));
+
   return (
-    <div style={position} className={"OneClickSearch"}>
+    <div className={"OneClickSearch"}>
       <Transition in={isVisible} timeout={fade ? 3000 - 250 : 0}>
         {(state) =>
           state !== "exited" && (
-            <Inner
-              style={styleByState(state)}
-              closeOCS={closeOCS}
-              setIsVisible={setIsVisible}
-              thisClick={clickProps}
+            <PopUp
+              style={{ ...position, ...styleByState(state) }}
+              dispatch={dispatch}
+              showHidden={showHidden}
             >
               {providerIcons}
-            </Inner>
+            </PopUp>
           )
         }
       </Transition>

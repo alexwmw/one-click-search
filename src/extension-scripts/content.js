@@ -10,4 +10,9 @@ rootElement.classList.add("OneClickSearch--root");
 document.body.appendChild(rootElement);
 
 /** Render */
-root.render(<OneClickSearch />);
+//root.render(<OneClickSearch />);
+
+//** Get data from storage and pass to OneClickSearch for render */
+chrome.storage.sync.get(["providers", "options"], ({ providers, options }) => {
+  root.render(<OneClickSearch storedProviders={providers} storedOptions={options} />);
+});

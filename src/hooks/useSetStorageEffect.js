@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const data = { providers: {}, options: {} };
 
-function useStorage(object, args = []) {
+function useSetStorageEffect(object, args = []) {
   const callback = () => {
     if (args.some((arg) => arg == "log")) {
       console.log(`Stored in chrome:`);
@@ -14,4 +14,4 @@ function useStorage(object, args = []) {
   }, Object.values(object));
 }
 
-export default useStorage;
+export default useSetStorageEffect;

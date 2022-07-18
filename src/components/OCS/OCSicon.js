@@ -1,37 +1,32 @@
-import { OCSicon_function, OCSicon_provider } from "./OCSiconTypes";
+import OCSFunctionIcon from "./OCSFunctionIcon";
+import OCSProviderIcon from "./OCSProviderIcon";
 
-function OCSicon({ provider, text, closeOCS }) {
-  /** Local data */
-  const $TEXT$ = text;
-  // Replace with props options
+function OCSIcon({ provider, text, onIconClick }) {
+  // Replace with props options or context options
   const options = { blankTarget: true };
 
-  /** Do not render if regex criteria are not met (return null) */
-  if (provider.regex) {
-    const regExMet = RegExp(provider.regex).test(text);
-
-    if (!regExMet) {
-      return null;
-    }
+  /** Do not render if regex criteria are not met */
+  if (provider.regex && !RegExp(provider.regex).test(text)) {
+    return null;
   }
-
-  // Search provider icons are <a> links to search pages for the selected text
-  if (provider.role == "provider") {
-    return (
-      <OCSicon_provider
-        options={options}
-        provider={provider}
-        text={text}
-        closeOCS={closeOCS}
-      />
-    );
-  }
-
-  // Function icons will execute a function when clicked on (e.preventDefault on <a>)
-  if (provider.role == "function") {
-    return (
-      <OCSicon_function provider={provider} text={text} closeOCS={closeOCS} />
-    );
-  }
+  return (
+    <>
+      {provider.role == "provider" && (
+        <OCSProviderIcon
+          options={options}
+          provider={provider}
+          text={text}
+          onIconClick={onIconClick}
+        />
+      )}
+      {provider.role == "function" && (
+        <OCSFunctionIcon
+          provider={provider}
+          text={text}
+          onIconClick={onIconClick}
+        />
+      )}
+    </>
+  );
 }
-export default OCSicon;
+export default OCSIcon;
