@@ -1,0 +1,33 @@
+@import "../../less/_variables.less";
+
+.Button {
+  margin-left: 60px;
+  margin-right: 30px;
+  margin-block: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: white;
+  background-color: @control;
+  transition: @control-transition;
+
+  display: flex;
+  gap: 15px;
+  justify-content: space-evenly;
+
+  cursor: pointer;
+
+  svg {
+    margin-right: auto;
+    font-size: 20px;
+  }
+
+  &:hover {
+    background-color: @control-hover;
+  }
+  &:active {
+    background-color: @control-active;
+    transition: unset;
+    outline: @accent-border;
+  }
+}

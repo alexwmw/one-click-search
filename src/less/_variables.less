@@ -62,12 +62,22 @@
 @text-disabled: @L1;
 
 @disabled: @L3;
+.disabled() {
+  color: @text-disabled;
+  * {
+    color: @text-disabled;
+  }
+  background-color: @disabled;
+}
 
-@control: @P1;
+@control: @P2;
 @control-active: @A1;
-@control-hover: @A1;
+@control-hover: @P1;
 @control-off: @L1;
 @control-bg: @L3;
+@control-border: solid 1px @L2;
+@control-shadow: 0 0 3px @L1;
+@control-transition: 100ms all ease;
 
 /* Borders */
 @invisible-border: solid 1px transparent;

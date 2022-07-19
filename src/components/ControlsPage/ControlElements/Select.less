@@ -16,9 +16,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    border: solid 1px @control-bg;
+    border: @control-border;
     border-radius: 6px;
-    background-color: #f8f8f8;
+    background-color: @control-bg;
     padding: 0;
     margin-block: 2px;
     cursor: pointer;
@@ -28,12 +28,12 @@
     //   background-color: #f8f8f8;
     // }
     &.active {
-      transition: 0.25s;
+      transition: @control-transition;
     }
   }
   &-visible {
     &:hover {
-      box-shadow: 0 0 1px @A1;
+      box-shadow: @control-shadow;
     }
     &:after {
       content: "";

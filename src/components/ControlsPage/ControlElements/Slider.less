@@ -10,9 +10,8 @@
   margin-right: 10px;
   border-radius: 10px;
   border: @invisible-border;
-  transition: border 200ms;
 
-  transition: all 0.25s ease;
+  transition: @control-transition;
 
   &:active {
     // background-color: @L2;
@@ -33,11 +32,11 @@
     background-color: @control;
     cursor: ew-resize;
 
-    transition: all 0.25s ease, outline 0s ease;
+    transition: @control-transition, outline 0s ease;
 
-    &:hover {
+    &:hover:not(:active) {
       background-color: @control-hover;
-      box-shadow: 0 0 1px @A1;
+      box-shadow: @control-shadow;
     }
     &:active {
       transform: scale(1.1);

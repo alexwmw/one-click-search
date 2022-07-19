@@ -1,6 +1,6 @@
 @import "../../less/_variables.less";
 
-.ControlsGrid {
+.ControlsSection {
   display: grid;
   grid-template-columns: 8fr 1fr 6fr 2fr;
   grid-auto-rows: 50px;
@@ -8,20 +8,8 @@
   align-items: center;
   color: @text-color;
 
-  label {
-    font-size: 0.85rem;
-    padding-left: 6px;
-  }
-
   .header {
-    grid-column: 1/5;
     border-top: solid whitesmoke 1px;
     padding-top: 10px;
-  }
-  .indicator {
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-align: center;
-    align-self: center;
   }
 }

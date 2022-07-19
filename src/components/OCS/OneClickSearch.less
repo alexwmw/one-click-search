@@ -3,103 +3,124 @@
 @padding: 2px;
 @br: 12px;
 
-.OneClickSearch {
-  .popup {
-    all: initial;
+.popup {
+  @OCSsize: 20px;
+  @OCSoffsetX: -10px;
+  @OCSoffsetY: 26px;
 
-    @OCSsize: 20px;
-    @OCSoffsetX: -10px;
-    @OCSoffsetY: 26px;
-
-    @keyframes grow {
-      from {
-        transform: scale(0);
-      }
-      to {
-        transform: scale(1);
-      }
+  @keyframes grow {
+    from {
+      transform: scale(0);
     }
-    all: initial;
-
-    position: absolute;
-    z-index: 9999;
-
-    padding: @padding;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-
-    background-color: @L3;
-    //border: @accent-border
-    border-radius: @br;
-    box-shadow: 0 1px 4px rgba(100, 100, 100, 0.4);
-
-    transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
-    user-select: none;
-    outline: none;
-
-    opacity: 1;
-
-    &.showHidden {
-      .OCSicon {
-        &.hidden {
-          display: block;
-          animation: 0.15s ease grow;
-          animation-fill-mode: forwards;
-        }
-      }
+    to {
+      transform: scale(1);
     }
-    &.isFading {
-      transition: 2s opacity ease;
-      opacity: 0;
-    }
+  }
 
-    .OCSicon {
-      all: initial;
-      * {
-        all: initial;
-      }
+  all: initial;
 
-      animation: 0.15s ease grow;
-      animation-fill-mode: forwards;
-      transition: 0.3s all ease;
-      a {
-        outline: none;
-        display: table;
-        margin: 0 auto;
-      }
+  position: absolute;
+  z-index: 9999;
+
+  //padding: @padding;
+  //border-radius: @br;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+
+  background-color: @L3;
+  outline: none;
+
+  user-select: none;
+
+  opacity: 1;
+
+  transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
+
+  &.showHidden .OCSicon.hidden {
+    display: block;
+    animation: 0.15s ease grow;
+    animation-fill-mode: forwards;
+  }
+  &.isFading {
+    transition: 2s opacity ease;
+    opacity: 0;
+  }
+
+  &.animations .OCSicon {
+    transition: 0.3s all ease;
+    animation: 0.15s ease grow;
+    animation-fill-mode: forwards;
+    &:hover {
       img {
-        display: block;
-        border-radius: @br;
-        height: @OCSsize;
-        width: @OCSsize;
-        padding: 3px;
-        margin-inline: (@padding / 2) - 1px;
-        opacity: 0.9;
-        cursor: pointer;
-        transition: 0.3s all ease;
-        user-select: none;
-        outline: 1px solid transparent;
-        object-fit: contain;
-      }
-      &:hover {
-        img {
-          background-color: lighten(@L2, 5%);
-          opacity: 1;
-          //outline: 1px solid @P1;
-          transform: scale(1.1);
-        }
-      }
-
-      &.hidden {
-        display: none;
-      }
-
-      &.disabled {
-        display: none;
+        transform: scale(1.1);
       }
     }
   }
+
+  &.shadow {
+    box-shadow: 0 1px 4px rgba(100, 100, 100, 0.4);
+  }
+
+  & .OCSicon {
+    all: initial;
+    * {
+      all: initial;
+    }
+
+    transition: 0.3s background-color ease;
+
+    a {
+      outline: none;
+      display: table;
+      margin: 0 auto;
+    }
+    img {
+      display: block;
+      //border-radius: @br;
+      height: @OCSsize;
+      width: @OCSsize;
+      padding: 3px;
+      //margin-inline: (@padding / 2) - 1px;
+      opacity: 0.9;
+      cursor: pointer;
+      transition: 0.3s all ease;
+      user-select: none;
+      outline: 1px solid transparent;
+      object-fit: contain;
+    }
+    &:hover img {
+      background-color: lighten(@L2, 5%);
+      opacity: 1;
+      //outline: 1px solid @P1;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    &.disabled {
+      display: none;
+    }
+  }
+
+  // Looped classes
+  each(range(10), {
+    &.pad-@{value} {
+      padding: @value * 1px;
+    }
+    &.pad-@{index} img {
+      margin-inline: ((@value * 1px) / 2) - 1px;
+    }
+  });
+  each(range(30), {
+    &.br-@{value} {
+      border-radius: @value * 1px;
+    }
+    &.br-@{index} img {
+      border-radius: @value * 1px;
+    }
+  });
 }

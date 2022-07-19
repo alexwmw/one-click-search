@@ -19,7 +19,6 @@
 
     &:checked + .handle {
       background-color: @control-bg;
-      outline: 1px solid @control-bg;
     }
     &:checked + .handle:before {
       background-color: @control;
@@ -39,12 +38,12 @@
     right: 0;
     bottom: 0;
     background-color: transparent; //@control-bg;
-    outline: 1px solid @control-bg;
+    outline: @control-border;
     transition: @transition_time;
     border-radius: 34px;
 
     &:hover {
-      box-shadow: 0 0 2px @A1;
+      box-shadow: @control-shadow;
     }
   }
 
