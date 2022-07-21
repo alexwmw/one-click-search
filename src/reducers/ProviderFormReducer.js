@@ -1,4 +1,8 @@
 const ProviderFormReducer = (state, action) => {
+  console.log(state);
+
+  const formatN = (str) => str.trim();
+
   const formatHN = (str) =>
     str
       .trim()
@@ -20,12 +24,16 @@ const ProviderFormReducer = (state, action) => {
       .toLowerCase();
 
   switch (action.type) {
+    case "SET_NAME":
+      return { ...state, name: action.value };
     case "SET_HOSTNAME":
       return { ...state, hostname: action.value };
     case "SET_QUERYPATH":
       return { ...state, queryPath: action.value };
     case "SET_FAVICONURL":
       return { ...state, faviconUrl: action.value };
+    case "FORMAT_NAME":
+      return { ...state, name: formatN(state.name) };
     case "FORMAT_HOSTNAME":
       return { ...state, hostname: formatHN(state.hostname) };
     case "FORMAT_QUERYPATH":

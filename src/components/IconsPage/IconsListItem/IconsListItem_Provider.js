@@ -4,9 +4,9 @@ import {
   faEllipsisVertical as editIcon,
   faMinus as closeIcon,
 } from "@fortawesome/free-solid-svg-icons";
-
 import ProvidersContext from "../../../contexts/ProvidersContext";
-import ProviderForm from "./IconsListItem_Provider_Form";
+import ProviderForm from "../../ProviderForm/ProviderForm";
+// import ProviderForm from "./IconsListItem_Provider_Form";
 
 function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
   /** State and local data */
@@ -52,9 +52,9 @@ function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
       {ExpandButton}
       {isExpanded && (
         <ProviderForm
-          onClick={(e) => e.stopPropagation()}
-          name={name}
-          setIsExpanded={setIsExpanded}
+          nameRef={name}
+          closeForm={() => setIsExpanded(false)}
+          // setIsExpanded={setIsExpanded}
         ></ProviderForm>
       )}
     </li>

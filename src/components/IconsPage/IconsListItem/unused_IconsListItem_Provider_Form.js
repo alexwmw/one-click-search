@@ -1,10 +1,6 @@
 import { useContext, useEffect, useMemo, useReducer, useState } from "react";
-import {
-  faTrashAlt as deleteIcon,
-  faFloppyDisk as saveIcon,
-} from "@fortawesome/free-solid-svg-icons";
-import FormField from "./IconsListItem_Provider_FormField";
-import FormButton from "./IconsListItem_Provider_FormButton";
+import FormField from "./unusued_IconsListItem_Provider_FormField";
+import FormButton from "./unused_IconsListItem_Provider_FormButton";
 import ProvidersContext from "../../../contexts/ProvidersContext";
 import { compareObjs, mergeWithNewItem } from "../../../modules/Utilities";
 import useNewProvider from "../../../hooks/useNewProvider";
@@ -16,12 +12,6 @@ function IconsListItem_Provider_Form({ name, setIsExpanded }) {
 
   const currentProvider = useMemo(
     () => providers.filter((p) => p.name == name)[0]
-  );
-
-  const onlyOneVisible = useMemo(
-    () =>
-      currentProvider.visibility == "visible" &&
-      providers.filter((p) => p.visibility == "visible").length <= 1
   );
 
   const [{ hostname, queryPath, faviconUrl }, dispatch] = useReducer(

@@ -121,6 +121,9 @@ export const isValidSelection = (selection) => {
   }
   return false;
 };
+export const visible = (obj) => obj.visibility === "visible";
+export const hidden = (obj) => obj.visibility === "hidden";
+export const disabled = (obj) => obj.visibility === "disabled";
 
 export const isValidText = (text) => {
   const invalidStrings = ["", " "];

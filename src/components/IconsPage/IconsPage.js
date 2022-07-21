@@ -5,18 +5,17 @@ import Instructions from "./IconsPage_Intructions";
 import SortableList from "./SortableList";
 import "./IconsPage.less";
 import useOnSortCompletionEffect from "../../hooks/useOnSortCompletionEffect";
+import { disabled, hidden, visible } from "../../modules/Utilities";
 
 const IconsPage = () => {
   /** State and contexts */
   const { providers, setProviders } = useContext(ProvidersContext);
   const [openItem, setOpenItem] = useState(null);
   const [sortables, sortablesDispatch] = useReducer(SortablesReducer, {
-    visible: providers.filter((p) => p.visibility == "visible"),
-    hidden: providers.filter((p) => p.visibility == "hidden"),
-    disabled: providers.filter((p) => p.visibility == "disabled"),
-    none: providers.filter((p) =>
-      ["visible", "hidden", "disabled"].every((str) => str !== p.visibility)
-    ),
+    visible: providers.filter((p) => visible(p)),
+    hidden: providers.filter((p) => hidden(p)),
+    disabled: providers.filter((p) => disabled(p)),
+    none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
   });
 
   /** setProviders when lists are sorted into a different order */

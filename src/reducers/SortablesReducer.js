@@ -1,13 +1,15 @@
+import { disabled, hidden, visible } from "../modules/Utilities";
+
 const SortablesReducer = (state, action) => {
   switch (action.type) {
     case "SET_ALL_LISTS":
       return {
         ...state,
-        visible: action.providers.filter((p) => p.visibility == "visible"),
-        hidden: action.providers.filter((p) => p.visibility == "hidden"),
-        disabled: action.providers.filter((p) => p.visibility == "disabled"),
-        none: action.providers.filter((p) =>
-          ["visible", "hidden", "disabled"].every((str) => str !== p.visibility)
+        visible: action.providers.filter((p) => visible(p)),
+        hidden: action.providers.filter((p) => hidden(p)),
+        disabled: action.providers.filter((p) => disabled(p)),
+        none: action.providers.filter(
+          (p) => !visible(p) && !hidden(p) && !disabled(p)
         ),
       };
     case "SET_VISIBLE":

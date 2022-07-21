@@ -7,11 +7,13 @@ import { FontAwesomeIcon as FAIcon } from "@fortawesome/react-fontawesome";
 
 import Grid from "./ControlsPage_Grid";
 import Select from "./ControlElements/Select";
-import Slider from "./ControlElements/Slider";
+import Slider from "./ControlElements/Slider";IconsListItem_Provider
 import Switch from "./ControlElements/Switch";
 import SettingsContext from "../../contexts/SettingsContext";
 import Section from "./ControlsPage_Section";
 import Button from "./Button";
+import ProviderForm from "../ProviderForm/ProviderForm";
+import IconsListItem_Provider from "../IconsPage/IconsListItem/IconsListItem_Provider";
 
 const ControlsPage = () => {
   const { settings, setSettings } = useContext(SettingsContext);
@@ -45,6 +47,7 @@ const ControlsPage = () => {
         Add a new provider:<Button icon={PlusIcon}>Add provider</Button>
         Reset providers to defaults:{" "}
         <Button icon={RestoreIcon}>Restore defaults</Button>
+        <ProviderForm addNew />
       </Section>
     </div>
   );
