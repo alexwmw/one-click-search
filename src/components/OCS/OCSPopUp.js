@@ -12,7 +12,6 @@ const OCSPopUp = ({
   const [setT_showHidden, clearT_showHidden] = useTimeout();
   const [setT_fadePopup, clearT_fadePopup] = useTimeout();
 
-  console.log({ fadeDelay, showDelay });
   /** Mouse events */
   const ref = useOutsideClick(() => dispatch({ type: "CLICK_OFF_OCS" }));
 

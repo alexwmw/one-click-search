@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { useContext, useEffect, useMemo, useReducer, useState } from "react";
 import {
   faTrashAlt as deleteIcon,
   faFloppyDisk as saveIcon,
@@ -7,48 +6,59 @@ import {
 import FormField from "./IconsListItem_Provider_FormField";
 import FormButton from "./IconsListItem_Provider_FormButton";
 import ProvidersContext from "../../../contexts/ProvidersContext";
-import {
-  providerValidation,
-  updateArrayItem,
-} from "../../../modules/Utilities";
+import { compareObjs, mergeWithNewItem } from "../../../modules/Utilities";
+import useNewProvider from "../../../hooks/useNewProvider";
+import ProviderFormReducer from "../../../reducers/ProviderFormReducer";
 
 function IconsListItem_Provider_Form({ name, setIsExpanded }) {
-  /** State and contexts */
   const { providers, setProviders } = useContext(ProvidersContext);
-  const [currentProvider, setCurrentProvider] = useState(
-    providers.filter((p) => p.name == name)[0]
-  );
-  const [hostname, setHostname] = useState(currentProvider.hostname);
-  const [queryPath, setQueryPath] = useState(currentProvider.queryPath);
-  const [faviconUrl, setFaviconUrl] = useState(currentProvider.faviconUrl);
   const [hasChanges, setHasChanges] = useState(false);
 
-  const constructNewProvider = () => {
-    const newP = {
-      ...currentProvider,
-      hostname: hostname,
-      queryPath: queryPath,
-      faviconUrl: faviconUrl ? faviconUrl : "",
-    };
-    return [newP, providerValidation(newP)];
-  };
+  const currentProvider = useMemo(
+    () => providers.filter((p) => p.name == name)[0]
+  );
 
-  const onlyOneVisible =
-    currentProvider.visibility == "visible" &&
-    providers.filter((p) => p.visibility == "visible").length <= 1;
+  const onlyOneVisible = useMemo(
+    () =>
+      currentProvider.visibility == "visible" &&
+      providers.filter((p) => p.visibility == "visible").length <= 1
+  );
+
+  const [{ hostname, queryPath, faviconUrl }, dispatch] = useReducer(
+    ProviderFormReducer,
+    {
+      hostname: currentProvider.hostname,
+      queryPath: currentProvider.queryPath,
+      faviconUrl: currentProvider.faviconUrl,
+    }
+  );
 
   /** Event handlers */
   const saveHandler = (e) => {
     e.preventDefault();
-    const [newProvider, validator] = constructNewProvider();
-    if (validator.decision !== true) {
-      alert(validator.messages.join("\n"));
-      console.table(validator.report);
-      return;
-    }
-    setProviders(updateArrayItem(providers, newProvider));
-    setIsExpanded(false);
+    const [newProvider, validator] = useNewProvider(currentProvider, {
+      hostname,
+      queryPath,
+      faviconUrl,
+    });
+    validator.postMessages(() => {
+      const newState = mergeWithNewItem(providers, newProvider);
+      setProviders(newState);
+      setIsExpanded(false);
+    });
   };
+
+  useEffect(() => {
+    const areDifferent = compareObjs(
+      currentProvider,
+      {
+        ...currentProvider,
+        ...{ hostname, queryPath, faviconUrl },
+      },
+      "different"
+    );
+    setHasChanges(areDifferent);
+  }, [hostname, queryPath, faviconUrl]);
 
   /** Event handlers */
   const deleteHandler = (e) => {
@@ -57,70 +67,41 @@ function IconsListItem_Provider_Form({ name, setIsExpanded }) {
       alert("Cannot delete the only visible item.");
       return;
     }
-    setProviders(
-      updateArrayItem(providers, {
-        ...currentProvider,
-        visibility: "delete",
-      })
-    );
+    const newState = mergeWithNewItem(providers, {
+      ...currentProvider,
+      delete: true,
+    });
+    setProviders(newState);
   };
-
-  /** useEffects */
-  useEffect(() => {
-    setHasChanges(
-      hostname != currentProvider.hostname ||
-        faviconUrl != currentProvider.faviconUrl ||
-        queryPath != currentProvider.queryPath
-    );
-  }, [hostname, faviconUrl, queryPath, currentProvider]);
-
-  /** useEffects */
-  useEffect(() => {
-    setCurrentProvider(providers.filter((p) => p.name == name)[0]);
-  }, [providers]);
 
   const fields = [
     {
       label: "Hostname:",
       value: hostname,
       id: `hostname`,
-      setValue: setHostname,
+      setValue: (value) => dispatch({ type: "SET_HOSTNAME", value: value }),
       formatFields: () =>
-        setHostname((value) =>
-          value
-            .trim()
-            .replace(/^.*:\/\/+/g, "")
-            .replace(/\/$/g, "")
-            .toLowerCase()
-        ),
+        dispatch({ type: "FORMAT_HOSTNAME", old: currentProvider.hostname }),
     },
     {
       label: "Query path:",
       value: queryPath,
       id: `queryPath`,
-      setValue: setQueryPath,
+      setValue: (value) => dispatch({ type: "SET_QUERYPATH", value: value }),
       formatFields: () =>
-        setQueryPath((value) =>
-          value
-            .trim()
-            .replace(/^\/+|\/+$/g, "")
-            .toLowerCase()
-            .replace("$text$", "$TEXT$")
-        ),
+        dispatch({ type: "FORMAT_QUERYPATH", old: currentProvider.queryPath }),
     },
     {
       label: "Favicon URL:",
       value: faviconUrl,
       id: `faviconUrl`,
       placeholder: "Default",
-      setValue: setFaviconUrl,
+      setValue: (value) => dispatch({ type: "SET_FAVICONURL", value: value }),
       formatFields: () =>
-        setFaviconUrl((value) =>
-          value
-            .trim()
-            .replace(/^\/+|\/+$/g, "")
-            .toLowerCase()
-        ),
+        dispatch({
+          type: "FORMAT_FAVICONURL",
+          old: currentProvider.faviconUrl,
+        }),
     },
   ];
 

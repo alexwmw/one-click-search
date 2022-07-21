@@ -4,7 +4,7 @@ import SortablesReducer from "../../reducers/SortablesReducer";
 import Instructions from "./IconsPage_Intructions";
 import SortableList from "./SortableList";
 import "./IconsPage.less";
-import useOnSortCompletion from "../../hooks/useOnSortCompletion";
+import useOnSortCompletionEffect from "../../hooks/useOnSortCompletionEffect";
 
 const IconsPage = () => {
   /** State and contexts */
@@ -20,13 +20,15 @@ const IconsPage = () => {
   });
 
   /** setProviders when lists are sorted into a different order */
-  useOnSortCompletion(sortables);
+  useOnSortCompletionEffect(sortables);
 
   /** Re-set lists on providers change */
-  useEffect(
-    () => sortablesDispatch({ type: "SET_ALL_LISTS", providers: providers }),
-    [providers]
-  );
+  useEffect(() => {
+    sortablesDispatch({
+      type: "SET_ALL_LISTS",
+      providers: providers.filter((p) => !p.delete),
+    });
+  }, [providers]);
 
   return (
     <div

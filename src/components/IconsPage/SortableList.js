@@ -1,6 +1,4 @@
-import { useContext, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
-import ProvidersContext from "../../contexts/ProvidersContext";
 import IconsListItem from "./IconsListItem/IconsListItem";
 
 function SortableList({
@@ -12,8 +10,6 @@ function SortableList({
   openItem,
   setOpenItem,
 }) {
-  const { providers, storeProviders } = useContext(ProvidersContext);
-
   /** Visible list must be at least 1 item */
   const pullHandler = (to, from) => {
     if (id == "visible") {

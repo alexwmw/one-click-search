@@ -1,6 +1,3 @@
-import schema from "../data/providersSchema.json";
-import isValidHostname from "is-valid-hostname";
-
 /**  */
 export function adaptLegacyProvider(oldProvider) {
   const newProvider = {};
@@ -19,15 +16,8 @@ export function adaptLegacyProvider(oldProvider) {
     } else {
       newProvider.faviconUrl = "";
     }
-    //todo: use the validator
-    //const validator = providerValidation(newProvider);
-    //if (provider.decision === true) {
-    if (true) {
-      return newProvider;
-    } else {
-      //console.log("Adapt Legacy Provider did not work for " + oldProvider.name);
-      //console.table(validator.messages);
-    }
+    //todo: use the validator before returning the provider
+    return newProvider;
   } catch (e) {
     console.log("Adapt Legacy Provider did not work for " + oldProvider.name);
     console.table(e);
@@ -52,37 +42,14 @@ export function sortByPosition(array) {
   return [...hasPosition, ...noPosition];
 }
 
-
 /** Helper function */
-<<<<<<< HEAD
-export const updateArrayItem = (arrayToUpdate, newItem) => {
+export const mergeWithNewItem = (arrayToUpdate, newItem) => {
   const index = arrayToUpdate.findIndex((object) => {
     return object.name === newItem.name;
   });
   arrayToUpdate[index] = newItem;
 
   return [...arrayToUpdate];
-=======
-export const updateArrayItem = (parentArray, newItem, returnNew = false) => {
-  const index = parentArray.findIndex((object) => {
-    return object.name === newItem.name;
-  });
-  parentArray[index] = newItem;
-  if (returnNew) {
-    return [...parentArray];
-  }
-};
-
-/** Helper function */
-export const removeArrayItem = (parentArray, target, returnNew = false) => {
-  const index = parentArray.findIndex((object) => {
-    return object.name === target.name;
-  });
-  parentArray.splice(index, 1);
-  if (returnNew) {
-    return [...parentArray];
-  }
->>>>>>> 3722ec5cc4534d68dfa53cac1a7bf3951a7d83f6
 };
 
 /** Helper function */
@@ -95,7 +62,6 @@ export const isValidURL = (url) => {
 };
 
 /** Helper function */
-<<<<<<< HEAD
 export const providerValidation = (provider, providers = null) => {
   const nameExists =
     providers &&
@@ -138,33 +104,6 @@ export const providerValidation = (provider, providers = null) => {
     visibility:
       validVisibility ||
       `\"${provider.visibility}\" is not a valid visibility.`,
-=======
-export const providerValidation = (provider) => {
-  const report = {
-    name: RegExp(schema.properties.name.pattern).test(provider.name)
-      ? true
-      : `\"${provider.name}\" is not a valid name.`,
-    role: schema.properties.role.enum.some((value) => value == provider.role)
-      ? true
-      : `\"${provider.role}\" is not a valid role.`,
-    hostname:
-      isValidHostname(provider.hostname) && provider.hostname.indexOf(".") > -1
-        ? true
-        : `\"${provider.hostname}\" is not a valid hostname.`,
-    queryPath:
-      provider.queryPath.indexOf("$TEXT$") > -1
-        ? true
-        : `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`,
-    faviconUrl:
-      (provider.faviconUrl === "") | isValidURL(provider.faviconUrl)
-        ? true
-        : `\"${provider.faviconUrl}\" is not a valid favicon URL.`,
-    visibility: schema.properties.visibility.enum.some((value) =>
-      value == provider.visibility
-        ? true
-        : `\"${provider.visibility}\" is not a valid visibility.`
-    ),
->>>>>>> 3722ec5cc4534d68dfa53cac1a7bf3951a7d83f6
   };
 
   return {
@@ -183,10 +122,19 @@ export const isValidSelection = (selection) => {
   return false;
 };
 
-export const isOcsElement = (evt) =>
-  evt.target.closest(".OneClickSearch") !== null;
-
 export const isValidText = (text) => {
   const invalidStrings = ["", " "];
   return text && text !== "" && text !== " ";
+};
+
+export const compareObjs = (A, B, type = "same") => {
+  const aKeys = Object.keys(A);
+  const bKeys = Object.keys(B);
+
+  const evaluateWith = {
+    same: (keys) => keys.every((key) => A[key] === B[key]),
+    different: (keys) => keys.some((key) => A[key] !== B[key]),
+  }[type];
+
+  return aKeys.length === bKeys.length && evaluateWith(aKeys);
 };

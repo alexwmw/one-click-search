@@ -2,10 +2,9 @@ import { useContext, useEffect } from "react";
 import ProvidersContext from "../contexts/ProvidersContext";
 import { sortByPosition } from "../modules/Utilities";
 
-const useOnSortCompletion = (lists) => {
+const useOnSortCompletionEffect = (lists) => {
   const { providers, setProviders } = useContext(ProvidersContext);
   useEffect(() => {
-    console.log(lists);
     const array = sortByPosition([
       ...lists.none,
       ...lists.visible,
@@ -24,4 +23,4 @@ const useOnSortCompletion = (lists) => {
   }, [lists]);
 };
 
-export default useOnSortCompletion;
+export default useOnSortCompletionEffect;

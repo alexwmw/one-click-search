@@ -6,7 +6,6 @@ import "./Tooltip.less";
 const Tooltip = ({ description, isVisible }) => (
   <Transition in={isVisible} timeout={400}>
     {(state) => {
-      console.log(state);
       const style = {
         transition: "opacity 200ms ease",
         opacity: state == "entered" ? 1 : 0,
