@@ -40,6 +40,8 @@ const ProviderFormReducer = (state, action) => {
       return { ...state, queryPath: formatQP(state.queryPath) };
     case "FORMAT_FAVICONURL":
       return { ...state, faviconUrl: formatFU(state.faviconUrl) };
+    case "CLEAR_FORM":
+      return action.defaults;
   }
 };
 

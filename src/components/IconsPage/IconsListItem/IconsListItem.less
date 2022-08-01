@@ -15,7 +15,7 @@
     margin: 3px auto;
     padding: @row-padding;
 
-    overflow: hidden;
+    //overflow: hidden;
 
     border: solid 1px @P3;
     border-radius: 10px;
@@ -26,6 +26,8 @@
     transition: border 200ms, height 200ms;
     cursor: grab;
 
+    background-color: @L3;
+
     &.expanded {
       height: @row-height_expanded;
       > .svg-inline--fa {
@@ -35,6 +37,37 @@
 
     &:hover {
       border: @accent-border;
+      .sortIcon {
+        color: @L2;
+      }
+    }
+
+    // SortableJS
+
+    &.sortable-drag {
+      opacity: 0;
+    }
+
+    &.sortable-ghost {
+      border: @accent-border;
+      background: @L2;
+      box-shadow: 0 0 3px @L1;
+    }
+
+    &.sortable-chosen,
+    &.sortable-ghost {
+      .sortIcon {
+        display: block;
+        color: @A2;
+      }
+    }
+
+    .sortIcon {
+      color: @L3;
+      position: absolute;
+      font-size: 20px;
+      left: -20px;
+      transition: all 200ms;
     }
 
     button:focus {

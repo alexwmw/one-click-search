@@ -9,8 +9,8 @@ const ProviderValidator = (provider, providers = null) => {
     providers &&
     providers.some((p) => p.name.toLowerCase() == provider.name.toLowerCase());
 
-  const validName = RegExp(schema.properties.name.pattern).test(provider.name);
-  // !nameExists && RegExp(schema.properties.name.pattern).test(provider.name);
+  const validName =
+    !nameExists && RegExp(schema.properties.name.pattern).test(provider.name);
 
   const validRole = schema.properties.role.enum.some(
     (value) => value == provider.role
@@ -28,35 +28,43 @@ const ProviderValidator = (provider, providers = null) => {
     (value) => value == provider.visibility
   );
 
-  /** report: object: 'true' or error message for each property */
-  const report = {
-    name:
-      validName ||
-      `\"${provider.name}\" is not a valid name.${
-        nameExists && ` Name already exists. Please use a unique name.`
-      }`,
-    role: validRole || `\"${provider.role}\" is not a valid role.`,
-    hostname:
-      validHostname || `\"${provider.hostname}\" is not a valid hostname.`,
-    queryPath:
-      validQueryPath ||
-      `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`,
-    faviconUrl:
-      validFaviconUrl ||
-      `\"${provider.faviconUrl}\" is not a valid favicon URL.`,
-    visibility:
-      validVisibility ||
-      `\"${provider.visibility}\" is not a valid visibility.`,
-  };
+  /** report: object values set to 'true' or error message for each property */
+  const report = {};
+
+  report.name =
+    validName ||
+    `\"${provider.name}\" is not a valid name.${
+      nameExists && ` Name already exists. Please use a unique name.`
+    }`;
+
+  report.role = validRole || `\"${provider.role}\" is not a valid role.`;
+
+  report.hostname =
+    validHostname || `\"${provider.hostname}\" is not a valid hostname.`;
+
+  report.queryPath =
+    validQueryPath ||
+    `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`;
+
+  report.faviconUrl =
+    validFaviconUrl || `\"${provider.faviconUrl}\" is not a valid favicon URL.`;
+
+  report.visibility =
+    validVisibility || `\"${provider.visibility}\" is not a valid visibility.`;
 
   const decision = Object.values(report).every((value) => value === true);
+
   const messages = Object.values(report).filter((value) => value !== true);
-  const postMessages = (callback, alerter = alert) => {
+
+  const defaultMessenger = (messages) => alert(messages.join("\n"));
+
+  const validateWithMessages = (messenger = defaultMessenger) => {
     if (decision) {
-      callback();
+      return true;
     } else {
-      alerter(messages.join("\n"));
+      messenger(messages);
       console.table(report);
+      return false;
     }
   };
 
@@ -64,7 +72,7 @@ const ProviderValidator = (provider, providers = null) => {
     report,
     decision,
     messages,
-    postMessages,
+    validateWithMessages,
   };
 };
 

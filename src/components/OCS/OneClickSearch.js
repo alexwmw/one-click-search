@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import Transition from "react-transition-group/Transition";
-import "./OneClickSearch.less";
+
 import OCSicon from "./OCSicon";
 import PopUp from "./OCSPopUp";
 import { isValidSelection, isValidText } from "../../modules/Utilities";
@@ -21,7 +21,11 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     const selection = window.getSelection();
     const OCS = document.getElementById("OneClickSearch"); //check this, otherwise !isOCS(event.target)
 
-    if (!OCS.contains(evt.target) && isValidSelection(selection)) {
+    if (
+      !OCS.contains(evt.target) &&
+      isValidSelection(selection) &&
+      selection.toString().length <= options.maxChars.value
+    ) {
       dispatch({
         type: "SET_CLICK_PROPERTIES",
         text: selection.toString(),

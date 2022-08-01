@@ -47,7 +47,11 @@ export const mergeWithNewItem = (arrayToUpdate, newItem) => {
   const index = arrayToUpdate.findIndex((object) => {
     return object.name === newItem.name;
   });
-  arrayToUpdate[index] = newItem;
+  if (index > -1) {
+    arrayToUpdate[index] = newItem;
+  } else {
+    arrayToUpdate.push(newItem);
+  }
 
   return [...arrayToUpdate];
 };

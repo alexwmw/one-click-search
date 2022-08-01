@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import SettingsContext from "../../../contexts/SettingsContext";
 import useOutsideClick from "../../../hooks/useOutsideClick";
+import useSetSettingsEffect from "../../../hooks/useSetSettingsEffect";
 import "./Select.less";
 
 const Select = ({ settingId, icon, condition, children }) => {
@@ -13,14 +14,8 @@ const Select = ({ settingId, icon, condition, children }) => {
   const ref = useOutsideClick(() => setActive(false));
 
   /** Update settings on value change */
-  useEffect(
-    () =>
-      setSettings((allSettings) => {
-        allSettings[settingId].value = value;
-        return { ...allSettings };
-      }),
-    [value]
-  );
+  useSetSettingsEffect(settingId, value);
+
 
   const changeHandler = (value) => {
     setActive(false);

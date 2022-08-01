@@ -1,8 +1,16 @@
 import ProviderValidator from "../modules/ProviderValidator";
 
-const useNewProvider = (providerData, newData = {}) => {
-  const newProvider = { ...providerData, ...newData };
-  const validator = ProviderValidator(newProvider);
+const useNewProvider = (data) => {
+  let newProvider, validator;
+
+  if (data.updateExisting) {
+    newProvider = { ...data.oldData, ...data.newData };
+    validator = ProviderValidator(newProvider);
+  } else {
+    newProvider = data.newData;
+    validator = ProviderValidator(newProvider, data.providers);
+  }
+
   return [newProvider, validator];
 };
 

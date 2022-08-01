@@ -14,7 +14,7 @@
     "id": "borderRadius",
     "label": "Border radius",
     "description": "Curvature of the poup's edges",
-    "value": "0",
+    "value": "6",
     "type": "slider",
     "unit": "px",
     "min": 5,
@@ -62,6 +62,13 @@
     "type": "select",
     "options": ["New tab", "Current tab"],
     "dictionary": { "New tab": "_blank", "Current tab": "_self" }
+  },
+  "maxChars": {
+    "id": "maxChars",
+    "label": "Max. characters",
+    "description": "Maximum number of characters that will trigger the popup when selected. Set to 0 for unlimited.",
+    "value": "1000",
+    "type": "number"
   },
   "colour": {
     "id": "colour",

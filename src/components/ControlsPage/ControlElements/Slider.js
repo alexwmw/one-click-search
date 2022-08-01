@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import SettingsContext from "../../../contexts/SettingsContext";
+import useSetSettingsEffect from "../../../hooks/useSetSettingsEffect";
 import "./Slider.less";
 
 const Slider = ({ settingId, icon, overrides = {} }) => {
@@ -11,15 +12,9 @@ const Slider = ({ settingId, icon, overrides = {} }) => {
     setValue(e.target.value);
   };
 
-  /** todo: Update setting on mouseup */
-  useEffect(
-    () =>
-      setSettings((allSettings) => {
-        allSettings[settingId].value = value;
-        return { ...allSettings };
-      }),
-    [value]
-  );
+  /** todo: ? Update setting on mouseup */
+  /** Update settings on value change */
+  useSetSettingsEffect(settingId, value);
 
   return (
     <>

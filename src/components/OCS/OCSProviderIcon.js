@@ -1,3 +1,5 @@
+import styles from "./OneClickSearch.modules.less";
+
 const OCSProviderIcon = ({ provider, text, options, onIconClick }) => {
   // Construct URL
   const encodedText = encodeURIComponent(text);
@@ -6,7 +8,7 @@ const OCSProviderIcon = ({ provider, text, options, onIconClick }) => {
   const searchUrl = url + queryPath;
 
   return (
-    <div className={`OCSicon ${provider.visibility}`}>
+    <div className={[styles.OCSicon, styles[provider.visibility]].join(" ")}>
       <a
         onClick={(e) => onIconClick()}
         target={options.blankTarget && "_blank"}

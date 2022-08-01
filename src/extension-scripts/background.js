@@ -20,6 +20,7 @@ const adaptForLegacy = ({ providers, options }, callback) => {
   callback({ adaptedProviders, options });
 };
 
+//todo: adapt for legacy
 // chrome.storage.sync.get(
 //   { providers: defaultProviders, options: defaultOptions },
 //   (result) =>

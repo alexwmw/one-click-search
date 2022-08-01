@@ -14,36 +14,52 @@ function ProviderForm(props) {
   const { nameRef = "", closeForm = () => {}, addNew = false } = props;
 
   const { providers, setProviders } = useContext(ProvidersContext);
+
   const [hasChanges, setHasChanges] = useState(false);
+
   const thisProv = useMemo(
     () => providers.filter((p) => p.name == nameRef)[0] || {}
   );
-  const [{ name, hostname, queryPath, faviconUrl }, dispatch] = useReducer(
-    ProviderFormReducer,
-    {
-      name: thisProv.name || "",
-      hostname: thisProv.hostname || "",
-      queryPath: thisProv.queryPath || "",
-      faviconUrl: thisProv.faviconUrl || "",
-    }
-  );
+
+  const defaults = useMemo(() => ({
+    name: "",
+    hostname: "",
+    queryPath: "",
+    faviconUrl: "",
+    role: "provider",
+    visibility: "hidden",
+    ...thisProv,
+  }));
+
+  const [
+    { name, hostname, queryPath, faviconUrl, role, visibility },
+    dispatch,
+  ] = useReducer(ProviderFormReducer, defaults);
 
   /** Event handlers */
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const [newProvider, validator] = useNewProvider(thisProv, {
-      name,
-      hostname,
-      queryPath,
-      faviconUrl,
+    const [newProvider, validator] = useNewProvider({
+      oldData: thisProv,
+      newData: {
+        name,
+        role,
+        hostname,
+        queryPath,
+        faviconUrl,
+        visibility,
+      },
+      updateExisting: !addNew,
+      providers: providers,
     });
 
-    validator.postMessages(() => {
+    if (validator.validateWithMessages()) {
       const newState = mergeWithNewItem(providers, newProvider);
       setProviders(newState);
-      setIsExpanded(false);
-    });
+      dispatch({ type: "CLEAR_FORM", defaults: defaults });
+      closeForm();
+    }
   };
 
   const deleteHandler = (e) => {
@@ -99,30 +115,30 @@ function ProviderForm(props) {
     >
       {addNew && (
         <FormField
-          classes={["undraggable"]}
           label={"Name"}
+          classes={["undraggable"]}
           value={name}
           setValue={(value) => dispatch({ type: "SET_NAME", value: value })}
           formatField={() => dispatch({ type: "FORMAT_NAME" })}
         />
       )}
       <FormField
-        classes={["undraggable"]}
         label={"Hostname"}
+        classes={["undraggable"]}
         value={hostname}
         setValue={(value) => dispatch({ type: "SET_HOSTNAME", value: value })}
         formatField={() => dispatch({ type: "FORMAT_HOSTNAME" })}
       />
       <FormField
-        classes={["undraggable"]}
         label={"Query path"}
+        classes={["undraggable"]}
         value={queryPath}
         setValue={(value) => dispatch({ type: "SET_QUERYPATH", value: value })}
         formatField={() => dispatch({ type: "FORMAT_QUERYPATH" })}
       />
       <FormField
-        classes={["undraggable"]}
         label={"Favicon URL"}
+        classes={["undraggable"]}
         value={faviconUrl}
         placeholder={"Default"}
         setValue={(value) => dispatch({ type: "SET_FAVICONURL", value: value })}

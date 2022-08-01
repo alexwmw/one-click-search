@@ -1,8 +1,8 @@
 import "./Button.less";
 
-function Button({ icon, children }) {
+function Button({ icon, children, onClick }) {
   return (
-    <button className="Button">
+    <button onClick={onClick} className="Button">
       {icon}
       {children}
     </button>

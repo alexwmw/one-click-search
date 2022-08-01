@@ -26,10 +26,13 @@ function IconsListItem_Provider_Form({ name, setIsExpanded }) {
   /** Event handlers */
   const saveHandler = (e) => {
     e.preventDefault();
-    const [newProvider, validator] = useNewProvider(currentProvider, {
-      hostname,
-      queryPath,
-      faviconUrl,
+    const [newProvider, validator] = useNewProvider({
+      oldData: currentProvider,
+      newData: {
+        hostname,
+        queryPath,
+        faviconUrl,
+      },
     });
     validator.postMessages(() => {
       const newState = mergeWithNewItem(providers, newProvider);

@@ -55,44 +55,31 @@
   ul {
     padding-inline-start: 0;
 
-    // SortableJS
-    > .sortable-drag {
-      opacity: 0;
+    // &#visible {
+    //   > * {
+    //     &.sortable-ghost {
+    //     }
+    //   }
+    // }
 
-    }
+    // &#hidden {
+    //   > * {
+    //     background-color: @L3;
 
-    > .sortable-ghost {
-      border: @accent-border;
-    }
+    //     &.sortable-ghost {
+    //       background: @L2;
+    //     }
+    //   }
+    // }
 
-    &#visible {
-      > * {
-        background-color: @L3;
+    // &#disabled {
+    //   > * {
+    //     background-color: @disabled;
 
-        &.sortable-ghost {
-          background: @L2;
-        }
-      }
-    }
-
-    &#hidden {
-      > * {
-        background-color: @L3;
-
-        &.sortable-ghost {
-          background: @L2;
-        }
-      }
-    }
-
-    &#disabled {
-      > * {
-        background-color: @disabled;
-
-        &.sortable-ghost {
-          background: @L2;
-        }
-      }
-    }
+    //     &.sortable-ghost {
+    //       background: @L2;
+    //     }
+    //   }
+    // }
   }
 }

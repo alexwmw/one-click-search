@@ -8,7 +8,14 @@ import ProvidersContext from "../../../contexts/ProvidersContext";
 import ProviderForm from "../../ProviderForm/ProviderForm";
 // import ProviderForm from "./IconsListItem_Provider_Form";
 
-function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
+function IconsListItem_Provider({
+  sortIcon,
+  name,
+  key,
+  id,
+  openItem,
+  setOpenItem,
+}) {
   /** State and local data */
   const { providers } = useContext(ProvidersContext);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,6 +54,7 @@ function IconsListItem_Provider({ name, key, id, openItem, setOpenItem }) {
       onClick={(e) => setOpenItem(name)}
       onDragStart={(e) => setOpenItem(null)}
     >
+      {sortIcon}
       <img src={faviconUrl()}></img>
       <span>{name}</span>
       {ExpandButton}

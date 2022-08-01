@@ -41,8 +41,6 @@
 
   &.showHidden .OCSicon.hidden {
     display: block;
-    animation: 0.15s ease grow;
-    animation-fill-mode: forwards;
   }
   &.isFading {
     transition: 2s opacity ease;
@@ -53,6 +51,10 @@
     transition: 0.3s all ease;
     animation: 0.15s ease grow;
     animation-fill-mode: forwards;
+    // &.hidden {
+    //   animation: 0.15s ease grow;
+    //   animation-fill-mode: forwards;
+    // }
     &:hover {
       img {
         transform: scale(1.1);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useTimeout from "../../hooks/useTimeout";
+import styles from "./OneClickSearch.modules.less";
 
 const OCSPopUp = ({
   options: { borderRadius, padding, shadow, fadeDelay, showDelay, animations },
@@ -62,11 +63,14 @@ const OCSPopUp = ({
       style={style}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`popup br-${borderRadius.value} pad-${padding.value} ${
-        showHidden ? "showHidden" : ""
-      } ${shadow.value ? "shadow" : ""} ${
-        animations.value ? "animations" : ""
-      }`}
+      className={[
+        styles.popup,
+        styles[`br-${borderRadius.value}`],
+        styles[`pad-${padding.value}`],
+        showHidden && styles.showHidden,
+        shadow.value && styles.shadow,
+        animations.value && styles.animations,
+      ].join(" ")}
     >
       {children}
     </div>

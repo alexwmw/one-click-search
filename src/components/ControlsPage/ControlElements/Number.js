@@ -1,31 +1,39 @@
 import { useContext, useState } from "react";
 import SettingsContext from "../../../contexts/SettingsContext";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 import useSetSettingsEffect from "../../../hooks/useSetSettingsEffect";
-import "./Switch.less";
+import "./Number.less";
 
-const Switch = ({ settingId, icon }) => {
+const Number = ({ settingId, icon }) => {
   const { settings, setSettings } = useContext(SettingsContext);
   const { label } = settings[settingId];
   const [value, setValue] = useState(settings[settingId].value);
 
-  const changeHandler = (e) => {
-    setValue(e.target.checked);
-  };
+  /** Mouse event */
+  const ref = useOutsideClick(() => setActive(false));
 
   /** Update settings on value change */
   useSetSettingsEffect(settingId, value);
+
+  const changeHandler = (e) => {
+    setValue(e.target.value);
+  };
 
   return (
     <>
       <label>{label}</label>
       {icon}
-      <label className="switch">
-        <input type={"checkbox"} checked={value} onChange={changeHandler} />
-        <span className="handle" />
-      </label>
-      <span>{value}</span>
+
+      <input
+        type={"number"}
+        className={"number"}
+        value={value}
+        onChange={changeHandler}
+      ></input>
+
+      <span></span>
     </>
   );
 };
 
-export default Switch;
+export default Number;
