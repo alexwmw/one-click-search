@@ -69,6 +69,7 @@ export const splitSortablesGeneric = (array, keys) => {
 };
 
 /** Helper function */
+<<<<<<< HEAD
 export const updateArrayItem = (arrayToUpdate, newItem) => {
   const index = arrayToUpdate.findIndex((object) => {
     return object.name === newItem.name;
@@ -76,6 +77,27 @@ export const updateArrayItem = (arrayToUpdate, newItem) => {
   arrayToUpdate[index] = newItem;
 
   return [...arrayToUpdate];
+=======
+export const updateArrayItem = (parentArray, newItem, returnNew = false) => {
+  const index = parentArray.findIndex((object) => {
+    return object.name === newItem.name;
+  });
+  parentArray[index] = newItem;
+  if (returnNew) {
+    return [...parentArray];
+  }
+};
+
+/** Helper function */
+export const removeArrayItem = (parentArray, target, returnNew = false) => {
+  const index = parentArray.findIndex((object) => {
+    return object.name === target.name;
+  });
+  parentArray.splice(index, 1);
+  if (returnNew) {
+    return [...parentArray];
+  }
+>>>>>>> 3722ec5cc4534d68dfa53cac1a7bf3951a7d83f6
 };
 
 /** Helper function */
@@ -88,6 +110,7 @@ export const isValidURL = (url) => {
 };
 
 /** Helper function */
+<<<<<<< HEAD
 export const providerValidation = (provider, providers = null) => {
   const nameExists =
     providers &&
@@ -130,6 +153,33 @@ export const providerValidation = (provider, providers = null) => {
     visibility:
       validVisibility ||
       `\"${provider.visibility}\" is not a valid visibility.`,
+=======
+export const providerValidation = (provider) => {
+  const report = {
+    name: RegExp(schema.properties.name.pattern).test(provider.name)
+      ? true
+      : `\"${provider.name}\" is not a valid name.`,
+    role: schema.properties.role.enum.some((value) => value == provider.role)
+      ? true
+      : `\"${provider.role}\" is not a valid role.`,
+    hostname:
+      isValidHostname(provider.hostname) && provider.hostname.indexOf(".") > -1
+        ? true
+        : `\"${provider.hostname}\" is not a valid hostname.`,
+    queryPath:
+      provider.queryPath.indexOf("$TEXT$") > -1
+        ? true
+        : `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`,
+    faviconUrl:
+      (provider.faviconUrl === "") | isValidURL(provider.faviconUrl)
+        ? true
+        : `\"${provider.faviconUrl}\" is not a valid favicon URL.`,
+    visibility: schema.properties.visibility.enum.some((value) =>
+      value == provider.visibility
+        ? true
+        : `\"${provider.visibility}\" is not a valid visibility.`
+    ),
+>>>>>>> 3722ec5cc4534d68dfa53cac1a7bf3951a7d83f6
   };
 
   return {
