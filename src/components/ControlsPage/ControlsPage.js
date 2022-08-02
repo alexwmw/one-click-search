@@ -5,9 +5,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon as FAIcon } from "@fortawesome/react-fontawesome";
 
-import Grid from "./ControlsPage_Grid";
+import Grid from "../Grid/Grid";
 import Section from "./ControlsPage_Section";
-import Button from "./Button";
+import Button from "./ControlElements/Button";
 import Select from "./ControlElements/Select";
 import Slider from "./ControlElements/Slider";
 import Switch from "./ControlElements/Switch";

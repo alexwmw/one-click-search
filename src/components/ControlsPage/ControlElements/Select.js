@@ -16,11 +16,11 @@ const Select = ({ settingId, icon, condition, children }) => {
   /** Update settings on value change */
   useSetSettingsEffect(settingId, value);
 
-
   const changeHandler = (value) => {
     setActive(false);
     setValue(value);
   };
+
 
   return (
     <>
@@ -33,7 +33,9 @@ const Select = ({ settingId, icon, condition, children }) => {
           onClick={() => setActive((active) => !active)}
           className={`pseudo-select-visible ${active ? "active" : ""}`}
         >
-          <li className={"pseudo-option selected"}><span>{value}</span></li>
+          <li className={"pseudo-option selected"}>
+            <span>{value}</span>
+          </li>
         </ul>
         <ul className={`pseudo-select-hidden ${active ? "active" : ""}`}>
           {options.map((opt) => (
@@ -50,8 +52,7 @@ const Select = ({ settingId, icon, condition, children }) => {
           ))}
         </ul>
       </div>
-
-      <div>{condition == value && children}</div>
+      <div></div>
     </>
   );
 };

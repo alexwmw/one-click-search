@@ -30,6 +30,7 @@
   "background": {
     "service_worker": "background.bundle.js"
   },
+  "options_page": "options.html",
   "web_accessible_resources": [
     {
       "resources": ["icons/*"],

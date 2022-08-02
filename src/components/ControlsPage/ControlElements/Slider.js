@@ -12,7 +12,6 @@ const Slider = ({ settingId, icon, overrides = {} }) => {
     setValue(e.target.value);
   };
 
-  /** todo: ? Update setting on mouseup */
   /** Update settings on value change */
   useSetSettingsEffect(settingId, value);
 

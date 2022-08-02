@@ -1,0 +1,43 @@
+@import "./less/_variables.less";
+
+body {
+  margin: 0;
+  padding: 50px;
+  min-height: 200px;
+  //width: @app-width;
+}
+.app {
+  font-size: @font-size;
+
+  * {
+    font-family: @font-family;
+  }
+
+  h1 {
+    .h1();
+  }
+  h2 {
+    .h2();
+  }
+
+  label,
+  p,
+  h1,
+  li,
+  input,
+  h2 {
+    color: @text-color;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+  button {
+    border: none;
+  }
+
+  #optionsContainer {
+    padding: 15px;
+  }
+}

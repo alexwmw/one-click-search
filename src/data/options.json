@@ -1,5 +1,6 @@
 {
   "padding": {
+    "class": "appearance",
     "id": "padding",
     "label": "Padding",
     "description": "Space around the popup icons",
@@ -11,6 +12,7 @@
     "step": 1
   },
   "borderRadius": {
+    "class": "appearance",
     "id": "borderRadius",
     "label": "Border radius",
     "description": "Curvature of the poup's edges",
@@ -22,6 +24,7 @@
     "step": 1
   },
   "fadeOutTime": {
+    "class": "behaviour",
     "id": "fadeOutTime",
     "label": "Fade-out duration",
     "description": "Number of seconds to fade-out the pop-up",
@@ -33,6 +36,7 @@
     "step": 0.5
   },
   "fadeDelay": {
+    "class": "behaviour",
     "id": "fadeDelay",
     "label": "Fade-out delay",
     "description": "Number of seconds of inactivity before fade-out begins",
@@ -44,6 +48,7 @@
     "step": 0.5
   },
   "showDelay": {
+    "class": "behaviour",
     "id": "showDelay",
     "label": "Hover delay",
     "description": "Number of seconds to hover before showing hidden icons",
@@ -55,6 +60,7 @@
     "step": 0.5
   },
   "linkTarget": {
+    "class": "behaviour",
     "id": "linkTarget",
     "label": "Open search in...",
     "description": "Open search in a new tab or the current tab",
@@ -64,6 +70,7 @@
     "dictionary": { "New tab": "_blank", "Current tab": "_self" }
   },
   "maxChars": {
+    "class": "behaviour",
     "id": "maxChars",
     "label": "Max. characters",
     "description": "Maximum number of characters that will trigger the popup when selected. Set to 0 for unlimited.",
@@ -71,6 +78,7 @@
     "type": "number"
   },
   "colour": {
+    "class": "appearance",
     "id": "colour",
     "label": "Popup colour",
     "description": "Select from light or dark mode or choose custom.",
@@ -80,6 +88,7 @@
     "customValues": { "backgroundColor": "#ffffff", "borderColor": "#000000" }
   },
   "shadow": {
+    "class": "appearance",
     "id": "shadow",
     "label": "Popup shadow",
     "description": "Add a subtle shadow behind the popup.",
@@ -87,6 +96,7 @@
     "type": "switch"
   },
   "animations": {
+    "class": "behaviour",
     "id": "animations",
     "label": "Enable animations",
     "description": "Enable animations in the popup",
@@ -94,6 +104,7 @@
     "type": "switch"
   },
   "enableCopy": {
+    "class": "function",
     "id": "enableCopy",
     "label": "Enable copy function:",
     "description": "Enable copy function",
@@ -101,6 +112,7 @@
     "type": "switch"
   },
   "enableGoto": {
+    "class": "function",
     "id": "enableGoto",
     "label": "Enable GoTo function:",
     "description": "Enable GoTo function",

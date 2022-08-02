@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     background: "./src/extension-scripts/background.js",
     content: "./src/extension-scripts/content.js",
+    options: "./src/Options.js",
     app: "./src/App.js",
   },
   devtool: "inline-source-map",
@@ -18,8 +19,14 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "Output Management",
-      template: "./src/index.html",
+      template: "./src/app.html",
       chunks: ["app"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Options",
+      template: "./src/options.html",
+      filename: "options.html",
+      chunks: ["options"],
     }),
     new CopyWebpackPlugin({
       patterns: [

@@ -1,54 +1,29 @@
 import Tab from "./Tab";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faList as iconsIcon,
-  faCog as controlsIcon,
-  faPaintBrush as colorIcon,
-} from "@fortawesome/free-solid-svg-icons";
+
 import "./TabContainer.less";
 
-const TabRow = (props) => {
-  const iconsSelectHandler = () => {
-    props.onTabSelect(props.tabNames.icons);
+const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
+  const tabClickHandler = (tabId) => {
+    onTabSelect(tabs[tabId]);
   };
 
-  const controlsSelectHandler = () => {
-    props.onTabSelect(props.tabNames.controls);
-  };
-
-  const colorsSelectHandler = () => {
-    props.onTabSelect(props.tabNames.color);
-  };
-
-  const IconsIcon = <FontAwesomeIcon icon={iconsIcon} />;
-  const ControlsIcon = <FontAwesomeIcon icon={controlsIcon} />;
-  const ColorsIcon = <FontAwesomeIcon icon={colorIcon} />;
+  const Tabs = Object.keys(tabs).map((tabId) => (
+    <Tab
+      key={tabId}
+      selected={selectedTab == tabs[tabId]}
+      onClick={() => tabClickHandler(tabId)}
+    >
+      <FontAwesomeIcon icon={tabs[tabId].icon} />
+      {tabs[tabId].name}
+    </Tab>
+  ));
 
   return (
     <div id={"tabContainer"} className={"flex-container row"}>
-      <Tab
-        selected={props.selectedTab == props.tabNames.icons}
-        onClick={iconsSelectHandler}
-      >
-        {IconsIcon}
-        {props.tabNames.icons}
-      </Tab>
-      <Tab
-        selected={props.selectedTab == props.tabNames.controls}
-        onClick={controlsSelectHandler}
-      >
-        {ControlsIcon}
-        {props.tabNames.controls}
-      </Tab>
-      <Tab
-        selected={props.selectedTab == props.tabNames.color}
-        onClick={colorsSelectHandler}
-      >
-        {ColorsIcon}
-        {props.tabNames.color}
-      </Tab>
+      {Tabs}
     </div>
   );
 };
 
-export default TabRow;
+export default TabContainer;

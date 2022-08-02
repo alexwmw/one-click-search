@@ -15,6 +15,8 @@ const Switch = ({ settingId, icon }) => {
   /** Update settings on value change */
   useSetSettingsEffect(settingId, value);
 
+  const isOn = value ? "On" : "Off";
+
   return (
     <>
       <label>{label}</label>
@@ -23,7 +25,7 @@ const Switch = ({ settingId, icon }) => {
         <input type={"checkbox"} checked={value} onChange={changeHandler} />
         <span className="handle" />
       </label>
-      <span>{value}</span>
+      <span className="indicator">{isOn}</span>
     </>
   );
 };
