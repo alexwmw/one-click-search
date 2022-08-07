@@ -10,8 +10,6 @@ import TabContainer from "./components/Tabs/TabContainer";
 import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
 import Card from "./components/Cards/Card";
 import Button from "./components/Buttons/Button";
-import AddProviderModal from "./components/Modals/AddProviderModal";
-
 import tabs from "./data/tabs";
 
 import "./App.less";
@@ -42,8 +40,6 @@ const Options = ({ storedProviders, storedOptions }) => {
 
   return (
     <div className={"options flex-container column"}>
-      <AddProviderModal />
-
       <div className="header">
         <img src={"/icons/icon16.png"}></img>
         <h1>One Click Search</h1>

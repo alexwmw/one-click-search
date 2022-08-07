@@ -4,7 +4,7 @@ import Button from "../Buttons/Button";
 function Modal(props) {
   const {
     type = "alert",
-    open,
+    isOpen,
     title,
     body,
     onProceed = () => null,
@@ -12,7 +12,6 @@ function Modal(props) {
     children,
   } = props;
 
-  const [isOpen, setIsOpen] = useState(true);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -25,15 +24,11 @@ function Modal(props) {
     }
   }, [isOpen]);
 
-  const closeModal = () => {
-    onClose() && setIsOpen(false);
-  };
-
   const proceedAndClose = () => {
-    onProceed() && closeModal();
+    onProceed() && onClose();
   };
 
-  const closeBtn = (label) => <Button onClick={closeModal}>{label}</Button>;
+  const closeBtn = (label) => <Button onClick={onClose}>{label}</Button>;
   const proceedBtn = (label) => (
     <Button onClick={proceedAndClose}>{label}</Button>
   );
@@ -56,7 +51,7 @@ function Modal(props) {
   }[type];
 
   return (
-    <dialog ref={ref} onCancel={onClose} onClick={onClose}>
+    <dialog ref={ref} onCancel={onClose}>
       <div className={"title-area"}>
         <h2>{title}</h2>
       </div>

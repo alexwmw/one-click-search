@@ -138,10 +138,14 @@ export const compareObjs = (A, B, type = "same") => {
   const aKeys = Object.keys(A);
   const bKeys = Object.keys(B);
 
+  if (aKeys.length !== bKeys.length) {
+    return false;
+  }
+
   const evaluateWith = {
     same: (keys) => keys.every((key) => A[key] === B[key]),
     different: (keys) => keys.some((key) => A[key] !== B[key]),
   }[type];
 
-  return aKeys.length === bKeys.length && evaluateWith(aKeys);
+  return evaluateWith(aKeys);
 };

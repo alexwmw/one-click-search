@@ -6,7 +6,7 @@ import { compareObjs, mergeWithNewItem, visible } from "/src/modules/Utilities";
 import ProviderFormFields from "../Forms/ProviderFormFields";
 import Modal from "./Modal";
 
-function AddProviderModal() {
+function AddProviderModal({ isOpen, setIsOpen }) {
   const { providers, setProviders } = useContext(ProvidersContext);
   const [hasChanges, setHasChanges] = useState(false);
 
@@ -27,7 +27,6 @@ function AddProviderModal() {
   });
 
   const onSubmit = () => {
-    alert();
     if (validator.validateWithMessages()) {
       const newState = mergeWithNewItem(providers, newProvider);
       setProviders(newState);
@@ -37,11 +36,14 @@ function AddProviderModal() {
   };
 
   const onClose = () => {
-    return !hasChanges || confirm("Your changes will be lost");
+    if (!hasChanges || confirm("Your changes will be lost")) {
+      setIsOpen(false);
+      dispatch({ type: "CLEAR_FORM", defaults: defaults });
+    }
   };
 
   useEffect(() => {
-    const areDifferent = compareObjs({}, formValues, "different");
+    const areDifferent = compareObjs(defaults, formValues, "different");
     setHasChanges(areDifferent);
   }, [
     formValues.name,
@@ -56,12 +58,14 @@ function AddProviderModal() {
       title={"Add New Provider"}
       onClose={onClose}
       onProceed={onSubmit}
+      isOpen={isOpen}
     >
       <ProviderFormFields
         addNew={true}
         dispatch={dispatch}
         values={formValues}
         tooltips={true}
+        setHasChanges={setHasChanges}
       />
     </Modal>
   );
