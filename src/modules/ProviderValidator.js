@@ -1,6 +1,6 @@
 import isValidHostname from "is-valid-hostname";
 import { isValidURL } from "./Utilities";
-import schema from "../data/providersSchema.json";
+import schema from "/src/data/providersSchema.json";
 
 const ProviderValidator = (provider, providers = null) => {
   /** Validate each of the providers properties */

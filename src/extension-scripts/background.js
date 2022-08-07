@@ -1,7 +1,7 @@
-import OCSproviders from "../data/providers.json";
-import OCSfunctions from "../data/functions.json";
-import OCSoptions from "../data/options.json";
-import { sortByPosition, adaptLegacyProvider } from "../modules/Utilities";
+import OCSproviders from "/src/data/providers.json";
+import OCSfunctions from "/src/data/functions.json";
+import OCSoptions from "/src/data/options.json";
+import { sortByPosition, adaptLegacyProvider } from "/src/modules/Utilities";
 
 const defaultProviders = sortByPosition([...OCSproviders, ...OCSfunctions]);
 

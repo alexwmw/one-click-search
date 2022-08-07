@@ -6,10 +6,10 @@ import useSetStorageEffect from "./hooks/useSetStorageEffect";
 import ProvidersContext from "./contexts/ProvidersContext";
 import SettingsContext from "./contexts/SettingsContext";
 
-import TabContainer from "./components/TopLevel/TabContainer";
-import OptionsContainer from "./components/TopLevel/OptionsContainer";
-import Card from "./components/BasicComponents/Card";
-import Button from "./components/BasicComponents/Button";
+import TabContainer from "./components/Tabs/TabContainer";
+import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
+import Card from "./components/Cards/Card";
+import Button from "./components/Buttons/Button";
 
 import tabs from "./data/tabs";
 
@@ -41,6 +41,10 @@ const Options = ({ storedProviders, storedOptions }) => {
 
   return (
     <div className={"options flex-container column"}>
+      <dialog open className="dialog">
+        This is a dialog
+      </dialog>
+
       <div className="header">
         <img src={"/icons/icon16.png"}></img>
         <h1>One Click Search</h1>

@@ -7,13 +7,13 @@ import { FontAwesomeIcon as FAIcon } from "@fortawesome/react-fontawesome";
 
 import Grid from "../Grid/Grid";
 import Section from "./ControlsPage_Section";
-import Button from "../BasicComponents/Button";
-import Select from "./ControlElements/Select";
-import Slider from "./ControlElements/Slider";
-import Switch from "./ControlElements/Switch";
-import Number from "./ControlElements/Number";
+import Button from "../Buttons/Button";
+import Select from "../Inputs/Select";
+import Slider from "../Inputs/Slider";
+import Switch from "../Inputs/Switch";
+import Number from "../Inputs/Number";
 
-import ProviderForm from "../ProviderForm/ProviderForm";
+import ProviderForm from "../Forms/ProviderForm";
 
 import SettingsContext from "../../contexts/SettingsContext";
 import ProvidersContext from "../../contexts/ProvidersContext";

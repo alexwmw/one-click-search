@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import useOutsideClick from "../../hooks/useOutsideClick";
-import useTimeout from "../../hooks/useTimeout";
+import useOutsideClick from "/src/hooks/useOutsideClick";
+import useTimeout from "/src/hooks/useTimeout";
 import styles from "./OneClickSearch.modules.less";
 
 const OCSPopUp = ({

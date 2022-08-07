@@ -1,4 +1,4 @@
-import ProviderValidator from "../modules/ProviderValidator";
+import ProviderValidator from "/src/modules/ProviderValidator";
 
 const useNewProvider = (data) => {
   let newProvider, validator;

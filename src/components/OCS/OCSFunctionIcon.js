@@ -1,4 +1,4 @@
-import Functions from "../../modules/TextFunctions";
+import Functions from "/src/modules/TextFunctions";
 import styles from "./OneClickSearch.modules.less";
 
 const OCSFunctionIcon = ({ provider, text, onIconClick }) => {

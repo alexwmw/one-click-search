@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
-import ProvidersContext from "../contexts/ProvidersContext";
-import { sortByPosition } from "../modules/Utilities";
+import ProvidersContext from "/src/contexts/ProvidersContext";
+import { sortByPosition } from "/src/modules/Utilities";
 
 const useOnSortCompletionEffect = (lists) => {
   const { providers, setProviders } = useContext(ProvidersContext);

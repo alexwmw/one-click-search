@@ -1,4 +1,4 @@
-import { disabled, hidden, visible } from "../modules/Utilities";
+import { disabled, hidden, visible } from "/src/modules/Utilities";
 
 const SortablesReducer = (state, action) => {
   switch (action.type) {

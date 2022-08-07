@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import OneClickSearch from "../components/OCS/OneClickSearch";
+import OneClickSearch from "/src/components/OCS/OneClickSearch";
 
 /** Define Root */
 const rootElement = document.createElement("div");

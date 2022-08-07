@@ -1,12 +1,11 @@
 import { createRoot } from "react-dom/client";
-import React, { useEffect, useState } from "react";
-import ProvidersContext from "./contexts/ProvidersContext";
-import TabContainer from "./components/TopLevel/TabContainer";
-import PageContainer from "./components/TopLevel/PageContainer";
+import React, { useState } from "react";
+import ProvidersContext from "/src/contexts/ProvidersContext";
 import "./App.less";
-import "./less/flex.less";
-import SettingsContext from "./contexts/SettingsContext";
-import useSetStorageEffect from "./hooks/useSetStorageEffect";
+import "/src/less/flex.less";
+import SettingsContext from "/src/contexts/SettingsContext";
+import useSetStorageEffect from "/src/hooks/useSetStorageEffect";
+import ProvidersPage from "/src/pages/ProvidersPage/ProvidersPage";
 
 import {
   faListDots as iconsIcon,
@@ -17,12 +16,6 @@ import {
 /** Define root */
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
-
-const tabs = {
-  icons: { name: "Icon Order", icon: iconsIcon },
-  controls: { name: "Settings", icon: controlsIcon },
-  color: { name: "color demo", icon: colorIcon },
-};
 
 /** Define App */
 const App = ({ storedProviders, storedOptions }) => {
@@ -38,20 +31,11 @@ const App = ({ storedProviders, storedOptions }) => {
     ["log"]
   );
 
-  /** Define tabs */
-  const defaultTab = tabs.icons;
-  const [selectedTab, setSelectedTab] = useState(defaultTab);
-
   return (
     <div className={"app flex-container height-app width-app row"}>
       <SettingsContext.Provider value={{ settings, setSettings }}>
-        <TabContainer
-          tabs={tabs}
-          selectedTab={selectedTab}
-          onTabSelect={setSelectedTab}
-        />
         <ProvidersContext.Provider value={{ providers, setProviders }}>
-          <PageContainer tabNames={tabs} selectedTab={selectedTab} />
+          <ProvidersPage />
         </ProvidersContext.Provider>
       </SettingsContext.Provider>
     </div>

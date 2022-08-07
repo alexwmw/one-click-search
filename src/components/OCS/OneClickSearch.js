@@ -3,8 +3,8 @@ import Transition from "react-transition-group/Transition";
 
 import OCSicon from "./OCSicon";
 import PopUp from "./OCSPopUp";
-import { isValidSelection, isValidText } from "../../modules/Utilities";
-import OCSReducer from "../../reducers/OCSReducer";
+import { isValidSelection, isValidText } from "/src/modules/Utilities";
+import OCSReducer from "/src/reducers/OCSReducer";
 
 const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** State and local data */
