@@ -51,7 +51,6 @@ function SortableItem_Provider(props) {
         <ProviderForm
           nameRef={name}
           closeForm={() => setIsExpanded(false)}
-          // setIsExpanded={setIsExpanded}
         ></ProviderForm>
       )}
     </li>

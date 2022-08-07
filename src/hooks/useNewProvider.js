@@ -3,7 +3,7 @@ import ProviderValidator from "/src/modules/ProviderValidator";
 const useNewProvider = (data) => {
   let newProvider, validator;
 
-  if (data.updateExisting) {
+  if (data.oldData) {
     newProvider = { ...data.oldData, ...data.newData };
     validator = ProviderValidator(newProvider);
   } else {
