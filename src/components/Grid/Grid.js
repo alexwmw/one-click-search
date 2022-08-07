@@ -1,13 +1,13 @@
-import TooltipProvider from "../ControlsPage/ControlElements/TooltipProvider";
-import "./ControlsPage_Grid.less";
+import "./Grid.less";
 const Grid = ({ header, colTemplate, children }) => {
+  const n = colTemplate.split(" ").length;
   return (
     <div
       style={colTemplate && { gridTemplateColumns: colTemplate }}
-      className="ControlsGrid"
+      className="Grid"
     >
       <h2 className={"header"}>{header}</h2>
-      {children && <TooltipProvider>{children}</TooltipProvider>}
+      {children}
     </div>
   );
 };

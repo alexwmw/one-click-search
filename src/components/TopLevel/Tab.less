@@ -1,19 +1,24 @@
 @import "../../less/_variables.less";
 
 .tab {
-  flex: 1;
-  padding: 15px 10px;
-
-  text-align: center;
-  font-family: 300;
-  font-size: 0.9rem;
-
   background-color: #fff;
-  border-bottom: solid 5px transparent;
+
+  &.right {
+    border-right: solid 5px transparent;
+  }
+  &.bottom {
+    border-bottom: solid 5px transparent;
+  }
+  &.left {
+    border-left: solid 5px transparent;
+  }
+  &.top {
+    border-top: solid 5px transparent;
+  }
 
   // transition: all 300ms ease;
 
-  color: #777;
+  color: @D1;
 
   cursor: pointer;
   user-select: none;
@@ -26,10 +31,11 @@
     // flex: 2;
     font-weight: 700;
     border-color: @P1;
-    background-color: #fff;
+    background-color: @L3;
     color: @P1;
   }
   &:hover:not(.selected) {
-    color: @D1;
+    color: @D2;
+    background-color: @L4;
   }
 }

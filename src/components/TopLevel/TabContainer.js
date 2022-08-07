@@ -13,6 +13,7 @@ const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
       key={tabId}
       selected={selectedTab == tabs[tabId]}
       onClick={() => tabClickHandler(tabId)}
+      border={"left"}
     >
       <FontAwesomeIcon icon={tabs[tabId].icon} />
       {tabs[tabId].name}
@@ -20,7 +21,10 @@ const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
   ));
 
   return (
-    <div id={"tabContainer"} className={"flex-container row"}>
+    <div
+      id={"tabContainer"}
+      className={"tab-container flex-container column left"}
+    >
       {Tabs}
     </div>
   );

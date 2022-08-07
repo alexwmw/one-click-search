@@ -7,7 +7,7 @@ import { FontAwesomeIcon as FAIcon } from "@fortawesome/react-fontawesome";
 
 import Grid from "../Grid/Grid";
 import Section from "./ControlsPage_Section";
-import Button from "./ControlElements/Button";
+import Button from "../BasicComponents/Button";
 import Select from "./ControlElements/Select";
 import Slider from "./ControlElements/Slider";
 import Switch from "./ControlElements/Switch";

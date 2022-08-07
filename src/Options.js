@@ -1,35 +1,25 @@
 import { createRoot } from "react-dom/client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { faListUl as editIcon } from "@fortawesome/free-solid-svg-icons";
+
+import useSetStorageEffect from "./hooks/useSetStorageEffect";
 import ProvidersContext from "./contexts/ProvidersContext";
+import SettingsContext from "./contexts/SettingsContext";
+
 import TabContainer from "./components/TopLevel/TabContainer";
-import PageContainer from "./components/TopLevel/PageContainer";
+import OptionsContainer from "./components/TopLevel/OptionsContainer";
+import Card from "./components/BasicComponents/Card";
+import Button from "./components/BasicComponents/Button";
+
+import tabs from "./data/tabs";
+
+import "./App.less";
 import "./Options.less";
 import "./less/flex.less";
-import SettingsContext from "./contexts/SettingsContext";
-import useSetStorageEffect from "./hooks/useSetStorageEffect";
-
-import {
-  faEye as appearanceIcon,
-  faSliders as behaviourIcon,
-  faPlug as functionIcon,
-  faPlusMinus as managementIcon,
-} from "@fortawesome/free-solid-svg-icons";
-import OptionsContainer from "./components/TopLevel/OptionsContainer";
 
 /** Define root */
 const rootElement = document.getElementById("options");
 const root = createRoot(rootElement);
-
-const tabs = {
-  appearance: { id: "appearance", name: "Appearance", icon: appearanceIcon },
-  behaviour: { id: "behaviour", name: "Behaviour", icon: behaviourIcon },
-  function: { id: "function", name: "Function", icon: functionIcon },
-  management: {
-    id: "management",
-    name: "Manage providers",
-    icon: managementIcon,
-  },
-};
 
 /** Define App */
 const Options = ({ storedProviders, storedOptions }) => {
@@ -50,21 +40,32 @@ const Options = ({ storedProviders, storedOptions }) => {
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
   return (
-    <>
-      <h1>Settings</h1>
-      <div className={"app flex-container column"}>
-        <TabContainer
-          tabs={tabs}
-          selectedTab={selectedTab}
-          onTabSelect={setSelectedTab}
-        />
-        <SettingsContext.Provider value={{ settings, setSettings }}>
-          <ProvidersContext.Provider value={{ providers, setProviders }}>
-            <OptionsContainer selectedTab={selectedTab} />
-          </ProvidersContext.Provider>
-        </SettingsContext.Provider>
+    <div className={"options flex-container column"}>
+      <div className="header">
+        <img src={"/icons/icon16.png"}></img>
+        <h1>One Click Search</h1>
+        <Button icon={editIcon}>Manage providers</Button>
       </div>
-    </>
+      <div className="main-content flex-container row">
+        <div className="tabs-column">
+          <h1>Options</h1>
+          <Card>
+            <TabContainer
+              tabs={tabs}
+              selectedTab={selectedTab}
+              onTabSelect={setSelectedTab}
+            />
+          </Card>
+        </div>
+        <div className="main-column">
+          <SettingsContext.Provider value={{ settings, setSettings }}>
+            <ProvidersContext.Provider value={{ providers, setProviders }}>
+              <OptionsContainer selectedTab={selectedTab} tabs={tabs} />
+            </ProvidersContext.Provider>
+          </SettingsContext.Provider>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -9,7 +9,8 @@
     "unit": "px",
     "min": 1,
     "max": 4,
-    "step": 1
+    "step": 1,
+    "pos": 0
   },
   "borderRadius": {
     "class": "appearance",
@@ -21,7 +22,17 @@
     "unit": "px",
     "min": 5,
     "max": 15,
-    "step": 1
+    "step": 1,
+    "pos": 1
+  },
+  "shadow": {
+    "class": "appearance",
+    "id": "shadow",
+    "label": "Popup shadow",
+    "description": "Add a subtle shadow behind the popup.",
+    "value": true,
+    "type": "switch",
+    "pos": 2
   },
   "fadeOutTime": {
     "class": "behaviour",
@@ -33,7 +44,8 @@
     "unit": "s",
     "min": 1,
     "max": 10,
-    "step": 0.5
+    "step": 0.5,
+    "pos": 0
   },
   "fadeDelay": {
     "class": "behaviour",
@@ -45,7 +57,8 @@
     "unit": "s",
     "min": 1,
     "max": 10,
-    "step": 0.5
+    "step": 0.5,
+    "pos": 1
   },
   "showDelay": {
     "class": "behaviour",
@@ -57,7 +70,8 @@
     "unit": "s",
     "min": 1,
     "max": 5,
-    "step": 0.5
+    "step": 0.5,
+    "pos": 2
   },
   "linkTarget": {
     "class": "behaviour",
@@ -67,49 +81,36 @@
     "value": "New tab",
     "type": "select",
     "options": ["New tab", "Current tab"],
-    "dictionary": { "New tab": "_blank", "Current tab": "_self" }
+    "dictionary": { "New tab": "_blank", "Current tab": "_self" },
+    "pos": 3
   },
   "maxChars": {
-    "class": "behaviour",
+    "class": "advanced",
     "id": "maxChars",
     "label": "Max. characters",
     "description": "Maximum number of characters that will trigger the popup when selected. Set to 0 for unlimited.",
     "value": "1000",
-    "type": "number"
+    "type": "number",
+    "pos": 0
   },
-  "colour": {
-    "class": "appearance",
-    "id": "colour",
-    "label": "Popup colour",
-    "description": "Select from light or dark mode or choose custom.",
-    "value": "Light",
-    "type": "select",
-    "options": ["Light", "Dark", "Custom"],
-    "customValues": { "backgroundColor": "#ffffff", "borderColor": "#000000" }
-  },
-  "shadow": {
-    "class": "appearance",
-    "id": "shadow",
-    "label": "Popup shadow",
-    "description": "Add a subtle shadow behind the popup.",
-    "value": true,
-    "type": "switch"
-  },
+
   "animations": {
     "class": "behaviour",
     "id": "animations",
     "label": "Enable animations",
     "description": "Enable animations in the popup",
     "value": true,
-    "type": "switch"
+    "type": "switch",
+    "pos": 4
   },
   "enableCopy": {
     "class": "function",
     "id": "enableCopy",
-    "label": "Enable copy function:",
-    "description": "Enable copy function",
+    "label": "Enable Copy function:",
+    "description": "Enable Copy function",
     "value": true,
-    "type": "switch"
+    "type": "switch",
+    "pos": 0
   },
   "enableGoto": {
     "class": "function",
@@ -117,6 +118,7 @@
     "label": "Enable GoTo function:",
     "description": "Enable GoTo function",
     "value": true,
-    "type": "switch"
+    "type": "switch",
+    "pos": 1
   }
 }

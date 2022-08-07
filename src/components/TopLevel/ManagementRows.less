@@ -1,0 +1,35 @@
+.management-rows {
+  .options-row-container {
+    margin-bottom: 30px;
+    h3 {
+      margin-bottom: 5px;
+    }
+  }
+
+  .options-row {
+    display: flex;
+    align-items: center;
+
+    .row-label {
+      width: 180px;
+    }
+    .control {
+      flex: 0.7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 20px;
+      > .slider,
+      > .number,
+      > .pseudo-select,
+      > .Button {
+        width: 100%;
+        flex: 1;
+      }
+    }
+    .indicator {
+      display: block;
+      padding-inline: 20px;
+    }
+  }
+}

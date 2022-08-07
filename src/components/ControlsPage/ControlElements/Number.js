@@ -3,11 +3,9 @@ import SettingsContext from "../../../contexts/SettingsContext";
 import useSetSettingsEffect from "../../../hooks/useSetSettingsEffect";
 import "./Number.less";
 
-const Number = ({ settingId, icon }) => {
-  const { settings, setSettings } = useContext(SettingsContext);
-  const { label } = settings[settingId];
+const Number = ({ settingId }) => {
+  const { settings } = useContext(SettingsContext);
   const [value, setValue] = useState(settings[settingId].value);
-
 
   /** Update settings on value change */
   useSetSettingsEffect(settingId, value);
@@ -17,19 +15,12 @@ const Number = ({ settingId, icon }) => {
   };
 
   return (
-    <>
-      <label>{label}</label>
-      {icon}
-
-      <input
-        type={"number"}
-        className={"number"}
-        value={value}
-        onChange={changeHandler}
-      ></input>
-
-      <span></span>
-    </>
+    <input
+      type={"number"}
+      className={"number"}
+      value={value}
+      onChange={changeHandler}
+    ></input>
   );
 };
 

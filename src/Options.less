@@ -1,43 +1,95 @@
 @import "./less/_variables.less";
 
-body {
+.main-content {
   margin: 0;
-  padding: 50px;
-  min-height: 200px;
-  //width: @app-width;
+  &.flex-container.row {
+    flex-direction: column;
+  }
+  .main-column {
+    width: 100%;
+  }
+  .tabs-column {
+    max-width: unset;
+    .tab {
+      width: 100%;
+    }
+  }
 }
-.app {
-  font-size: @font-size;
 
-  * {
-    font-family: @font-family;
-  }
+@media only screen and (min-width: 600px) {
+  .main-content {
+    margin: auto;
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;
 
-  h1 {
-    .h1();
+    &.flex-container.row {
+      flex-direction: row;
+    }
+    .main-column {
+      width: 460px;
+    }
+    .tabs-column {
+      flex: 1;
+      min-width: 170px;
+      max-width: 300px;
+    }
   }
-  h2 {
-    .h2();
-  }
+}
 
-  label,
-  p,
-  h1,
-  li,
-  input,
-  h2 {
-    color: @text-color;
-  }
+@padding: 15px;
+html,
+body,
+#options {
+  width: 100%;
+  height: 100%;
+}
+body {
+  background-color: @L4;
+}
 
-  input:focus,
-  select:focus {
-    outline: none;
-  }
-  button {
-    border: none;
-  }
+#options {
+  .options {
+    height: 100%;
 
-  #optionsContainer {
-    padding: 15px;
+    > .header {
+      display: flex;
+      align-items: center;
+      //box-shadow: 0 0 10px 0px #809b9e;
+      border-bottom: 1px solid @L1;
+      padding: 0 @padding;
+      background-color: @L3;
+      gap: 10px;
+      img {
+        height: 26px;
+      }
+      h1 {
+        color: @A2;
+      }
+      button {
+        margin-left: auto;
+        padding: 8px;
+      }
+    }
+
+    .main-content {
+      height: 100%;
+      flex: 1;
+
+      > div {
+        //height: 100%;
+        padding: @padding @padding * 3;
+      }
+      .tabs-column {
+        h1 {
+          margin-bottom: 30px;
+          color: @D1;
+        }
+      }
+      .main-column {
+        background: white;
+        overflow: scroll;
+      }
+    }
   }
 }

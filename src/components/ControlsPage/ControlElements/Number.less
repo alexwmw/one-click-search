@@ -32,23 +32,4 @@
   &:hover {
     box-shadow: @control-shadow;
   }
-  &:after {
-    content: "";
-    display: block;
-    height: 0;
-    width: 0;
-    border: 5px solid transparent;
-    border-left-width: 7px;
-    border-right-width: 7px;
-    border-top-color: @P2;
-    position: absolute;
-    right: 7px;
-    top: 7px;
-    transform: translateY(3px) rotateX(0);
-  }
-  &.active {
-    &:after {
-      transform: translateY(-3px) rotateX(180deg);
-    }
-  }
 }
