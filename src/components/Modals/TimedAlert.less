@@ -1,0 +1,30 @@
+@import "/src/less/_variables.less";
+
+.timed {
+  min-width: 100px;
+  margin-block: 24px;
+  padding: 5px 10px;
+
+  .title-area {
+    h2 {
+      text-align: center;
+    }
+  }
+
+  // Transition & State
+  transition: 0.5s all ease;
+
+  opacity: 0;
+  transform: translateY(20px);
+
+  &.entering,
+  &.entered {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &.exiting {
+    transition: 0.5s all ease-in;
+    //opacity: 0;
+    transform: translateY(-20px);
+  }
+}

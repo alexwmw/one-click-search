@@ -26,29 +26,65 @@
 /* Semantic colors */
 @Danger: hsl(350, 75%, 33%);
 @DangerLight: desaturate(lighten(@Danger, 60%), 15%);
-.Danger() {
-  color: @Danger;
+.Danger,
+.danger {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Danger;
+  }
   background-color: @DangerLight;
   .border(@Danger);
 }
 @Warning: hsl(50, 75%, 33%);
 @WarningLight: desaturate(lighten(@Warning, 60%), 15%);
-.Warning() {
-  color: @Warning;
+.Warning,
+.warning {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Warning;
+  }
   background-color: @WarningLight;
   .border(@Warning);
 }
 @Success: hsl(150, 75%, 33%);
 @SuccessLight: desaturate(lighten(@Success, 60%), 15%);
-.Success() {
-  color: @Success;
+.Success,
+.success {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Success;
+  }
   background-color: @SuccessLight;
   .border(@Success);
 }
 @Info: hsl(190, 75%, 33%);
 @InfoLight: desaturate(lighten(@Info, 60%), 15%);
-.Info() {
-  color: @Info;
+.Info,
+.info {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Info;
+  }
   background-color: @InfoLight;
   .border(@Info);
 }
@@ -99,6 +135,19 @@
 .h2 {
   font-weight: 700;
   font-size: 1.1rem;
+}
+
+/* Keyframes */
+
+@keyframes modalUpOnEntry {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 //========================
