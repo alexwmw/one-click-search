@@ -1,0 +1,44 @@
+@import "/src/less/_variables.less";
+
+.Modal {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px grey;
+
+  .title-area {
+    h2 {
+      .icon {
+        padding-right: 10px;
+      }
+    }
+  }
+
+  .btn-area {
+    gap: 10px;
+    margin-block: 20px 10px;
+    button {
+      flex-basis: 25%;
+      padding: 9px;
+    }
+  }
+}
+
+.modal {
+  .title-area {
+    h2 {
+      width: 100%;
+      margin-top: -12px;
+      margin-left: -12px;
+      padding: 12px 12px 10px 12px;
+      background-color: @P1;
+      color: white;
+    }
+  }
+
+  .body-area {
+    padding-inline: 10px;
+    p {
+      font-size: 1rem;
+    }
+  }
+}
