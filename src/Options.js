@@ -15,6 +15,8 @@ import tabs from "./data/tabs";
 import "./App.less";
 import "./Options.less";
 import "./less/flex.less";
+import Alert from "./components/Modals/Alert";
+import TimedAlert from "./components/Modals/TimedAlert";
 
 /** Define root */
 const rootElement = document.getElementById("options");
@@ -40,6 +42,7 @@ const Options = ({ storedProviders, storedOptions }) => {
 
   return (
     <div className={"options flex-container column"}>
+      <TimedAlert title="alert" body="body" isOpen={true} />
       <div className="header">
         <img src={"/icons/icon16.png"}></img>
         <h1>One Click Search</h1>

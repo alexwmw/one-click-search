@@ -3,14 +3,14 @@
 /** COLORS */
 
 /* Primary colors */
-@P1: #0077ff;
-@P2: #1d599d;
-@P3: rgb(199, 220, 246);
+@P1: hsl(212, 100%, 50%);
+@P2: hsl(212, 75%, 33%);
+@P3: hsl(212, 75%, 90%);
 
 /* Accent color */
-@A1: #ea526f;
-@A2: #ff375b;
-@A3: rgb(246, 228, 231);
+@A1: hsl(350, 75%, 60%);
+@A2: hsl(350, 100%, 60%);
+@A3: hsl(350, 75%, 90%);
 
 /* Dark neutrals */
 @D1: desaturate(darken(@P1, 20%), 80%);
@@ -24,28 +24,28 @@
 @L4: desaturate(lighten(@P1, 49%), 80%);
 
 /* Semantic colors */
-@Danger: #9d1d1d;
+@Danger: hsl(350, 75%, 33%);
 @DangerLight: desaturate(lighten(@Danger, 60%), 15%);
 .Danger() {
   color: @Danger;
   background-color: @DangerLight;
   .border(@Danger);
 }
-@Warning: #9d8e1d;
+@Warning: hsl(50, 75%, 33%);
 @WarningLight: desaturate(lighten(@Warning, 60%), 15%);
 .Warning() {
   color: @Warning;
   background-color: @WarningLight;
   .border(@Warning);
 }
-@Success: #1d9d59;
+@Success: hsl(150, 75%, 33%);
 @SuccessLight: desaturate(lighten(@Success, 60%), 15%);
 .Success() {
   color: @Success;
   background-color: @SuccessLight;
   .border(@Success);
 }
-@Info: #1d8a9d;
+@Info: hsl(190, 75%, 33%);
 @InfoLight: desaturate(lighten(@Info, 60%), 15%);
 .Info() {
   color: @Info;

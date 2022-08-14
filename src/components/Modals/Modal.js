@@ -10,14 +10,17 @@ function Modal(props) {
     onProceed = () => null,
     onClose = () => null,
     children,
+    isModal = true,
   } = props;
 
   const ref = useRef(null);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isModal) {
       ref.current?.showModal();
-      document.body.classList.add("modal-open"); // prevent bg scroll
+      document.body.classList.add("modal-open");
+    } else if (isOpen && !isModal) {
+      ref.current?.show();
     } else {
       ref.current?.close();
       document.body.classList.remove("modal-open");
