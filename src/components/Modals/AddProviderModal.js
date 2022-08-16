@@ -5,10 +5,14 @@ import ProvidersContext from "/src/contexts/ProvidersContext";
 import { compareObjs, mergeWithNewItem, visible } from "/src/modules/Utilities";
 import ProviderFormFields from "../Forms/ProviderFormFields";
 import Modal from "./Modal";
+import "./AddProviderModal.less";
+import Alert from "./Alert";
 
 function AddProviderModal({ isOpen, setIsOpen }) {
   const { providers, setProviders } = useContext(ProvidersContext);
   const [hasChanges, setHasChanges] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [messages, setMessages] = useState("No messages found");
 
   const defaults = useMemo(() => ({
     name: "",
@@ -54,6 +58,7 @@ function AddProviderModal({ isOpen, setIsOpen }) {
 
   return (
     <Modal
+      classes={["new-provider-modal"]}
       type={"form"}
       title={"Add New Provider"}
       onClose={onClose}

@@ -9,3 +9,4 @@
 - Link to the popup from options
 - Create a help / FAQ section
 - Use and test `adaptLegacyProvider`
+- Implement Reset to Defaults button

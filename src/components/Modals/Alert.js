@@ -1,8 +1,26 @@
 import Modal from "./Modal";
 import "./Alert.less";
+import { useState } from "react";
 
 function Alert(props) {
-  return <Modal type={"alert"} {...props}></Modal>;
+  let isOpen, setIsOpen, onClose;
+
+  if (!props.hasOwnProperty(isOpen)) {
+    [isOpen, setIsOpen] = useState(true);
+    onClose = () => setIsOpen(false);
+  } else {
+    isOpen = props.isOpen
+    onClose = props.onClose
+  }
+
+  return (
+    <Modal
+      {...props}
+      type={"alert"}
+      isOpen={isOpen}
+      onClose={onClose}
+    ></Modal>
+  );
 }
 
 export default Alert;

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useEffect } from "react";
 import Button from "../Buttons/Button";
+import Alert from "./Alert";
 import "./Modal.less";
 
 function Modal(props) {
@@ -59,42 +60,45 @@ function Modal(props) {
       ),
     }[type] || null;
 
+  const classString = [
+    "Modal",
+    isModal ? "modal" : "",
+    state,
+    type,
+    category,
+    ...classes,
+  ].join(" ");
+
+  const iconSpan = icon && (
+    <span className="icon">
+      <FontAwesomeIcon icon={icon} />
+    </span>
+  );
+
+  const buttonsDiv = buttons && (
+    <div className="btn-area flex-container row right">{buttons}</div>
+  );
+
+  const bodyDiv = (body || children) && (
+    <div className="body-area">
+      {typeof body === "string" && <p>{body}</p>}
+      {typeof body === "object" && body.map((para, i) => <p key={i}>{para}</p>)}
+      {children && <div>{children}</div>}
+    </div>
+  );
+
   return (
     <>
       {isOpen && (
-        <dialog
-          className={[
-            "Modal",
-            isModal ? "modal" : "",
-            state,
-            type,
-            category,
-            ...classes,
-          ].join(" ")}
-          ref={ref}
-          onCancel={onClose}
-        >
+        <dialog className={classString} ref={ref} onCancel={onClose}>
           <div className={"title-area"}>
             <h2>
-              {icon && (
-                <span className="icon">
-                  <FontAwesomeIcon icon={icon} />
-                </span>
-              )}
+              {iconSpan}
               {title}
             </h2>
           </div>
-          {(body || children) && (
-            <div className="body-area">
-              {typeof body === "string" && <p>{body}</p>}
-              {typeof body === "object" &&
-                body.map((para, i) => <p key={i}>{para}</p>)}
-              {children && <div>{children}</div>}
-            </div>
-          )}
-          {buttons && (
-            <div className="btn-area flex-container row right">{buttons}</div>
-          )}
+          {bodyDiv}
+          {buttonsDiv}
         </dialog>
       )}
     </>
