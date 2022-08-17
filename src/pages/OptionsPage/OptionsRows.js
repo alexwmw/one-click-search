@@ -19,7 +19,6 @@ const OptionRows = ({ selectedTab }) => {
     });
 
   const getControlOfType = (type, id) => {
-    console.log(id);
     switch (type) {
       case "switch":
         return <Switch settingId={id} />;

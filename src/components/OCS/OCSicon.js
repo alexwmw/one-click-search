@@ -1,10 +1,7 @@
 import OCSFunctionIcon from "./OCSFunctionIcon";
 import OCSProviderIcon from "./OCSProviderIcon";
 
-function OCSIcon({ provider, text, onIconClick }) {
-  // Replace with props options or context options
-  const options = { blankTarget: true };
-
+function OCSIcon({ provider, text, onIconClick, linkTarget }) {
   /** Do not render if regex criteria are not met */
   if (provider.regex && !RegExp(provider.regex).test(text)) {
     return null;
@@ -13,10 +10,10 @@ function OCSIcon({ provider, text, onIconClick }) {
     <>
       {provider.role == "provider" && (
         <OCSProviderIcon
-          options={options}
           provider={provider}
           text={text}
           onIconClick={onIconClick}
+          linkTarget={linkTarget}
         />
       )}
       {provider.role == "function" && (

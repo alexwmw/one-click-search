@@ -49,8 +49,11 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   );
 
   useEffect(() => {
-    const showOrHide = isValidText(text) ? "DISPLAY_OCS" : "HIDE_OCS";
-    dispatch({ type: showOrHide });
+    if (isValidText(text)) {
+      dispatch({ type: "DISPLAY_OCS" });
+    } else {
+      dispatch({ type: "HIDE_OCS" });
+    }
   }, [text, x, y]);
 
   const styleByState = (state) => {
@@ -64,16 +67,27 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     };
   };
 
+  const filterFuncs = (func) => {
+    if (func.role == "function") {
+      const key = `enable${func.name}`;
+      return options[key].value;
+    }
+    return true;
+  };
+
   /** Component lists */
-  const providerIcons = providers.map((provider) => (
-    <OCSicon
-      onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
-      key={provider.name}
-      text={text}
-      provider={provider}
-      visibility={provider.visibility}
-    />
-  ));
+  const providerIcons = providers.filter(filterFuncs).map((provider) => {
+    return (
+      <OCSicon
+        onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
+        key={provider.name}
+        text={text}
+        provider={provider}
+        visibility={provider.visibility}
+        linkTarget={options.linkTarget.dictionary[options.linkTarget.value]}
+      />
+    );
+  });
 
   return (
     <div id={"OneClickSearch"} className={"OneClickSearch"}>

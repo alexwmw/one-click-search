@@ -1,6 +1,6 @@
 import styles from "./OneClickSearch.modules.less";
 
-const OCSProviderIcon = ({ provider, text, options, onIconClick }) => {
+const OCSProviderIcon = ({ provider, text, linkTarget, onIconClick }) => {
   // Construct URL
   const encodedText = encodeURIComponent(text);
   const url = `http://${provider.hostname}/`;
@@ -9,11 +9,7 @@ const OCSProviderIcon = ({ provider, text, options, onIconClick }) => {
 
   return (
     <div className={[styles.OCSicon, styles[provider.visibility]].join(" ")}>
-      <a
-        onClick={(e) => onIconClick()}
-        target={options.blankTarget && "_blank"}
-        href={searchUrl}
-      >
+      <a onClick={(e) => onIconClick()} target={linkTarget} href={searchUrl}>
         <img src={provider.faviconUrl || url + "favicon.ico"}></img>
       </a>
     </div>

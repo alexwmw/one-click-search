@@ -112,9 +112,9 @@
     "type": "switch",
     "pos": 0
   },
-  "enableGoto": {
+  "enableGoTo": {
     "class": "function",
-    "id": "enableGoto",
+    "id": "enableGoTo",
     "label": "Enable GoTo function:",
     "description": "Enable GoTo function",
     "value": true,

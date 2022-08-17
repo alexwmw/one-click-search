@@ -1,6 +1,5 @@
 # To-do list
 
-- Format form in the new provider form modal
 - Show alerts on save and delete
 - Show alerts when errors occur during saving
 - Show warnings before deleting
@@ -10,3 +9,4 @@
 - Create a help / FAQ section
 - Use and test `adaptLegacyProvider`
 - Implement Reset to Defaults button
+- Make sure function switches work
