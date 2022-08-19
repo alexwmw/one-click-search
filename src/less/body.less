@@ -1,0 +1,38 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  width: @app-width;
+  height: @app-height;
+  //overflow: hidden;
+
+  * {
+    font-family: @font-family;
+  }
+
+  h1 {
+    .h1();
+  }
+  h2 {
+    .h2();
+  }
+
+  label,
+  p,
+  li,
+  input,
+  h1,
+  h2 {
+    color: @text-color;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+  button {
+    border: none;
+  }
+}

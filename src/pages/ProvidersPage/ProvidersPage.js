@@ -6,7 +6,6 @@ import useOnSortCompletionEffect from "/src/hooks/useOnSortCompletionEffect";
 import { disabled, hidden, visible } from "/src/modules/Utilities";
 
 import "./ProvidersPage.less";
-import Instructions from "./Intructions";
 import SortableSection from "./SortableSection";
 
 const ProvidersPage = () => {
@@ -37,7 +36,6 @@ const ProvidersPage = () => {
       id={"providersPage"}
       direction={"column"}
     >
-      <Instructions />
       <SortableSection
         openItem={openItem}
         setOpenItem={setOpenItem}

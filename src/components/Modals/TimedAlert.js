@@ -35,7 +35,7 @@ function TimedAlert(props) {
             title={props.title}
             isOpen={props.isOpen}
             isModal={props.isModal || false}
-          ></Modal>
+          />
         );
       }}
     </Transition>

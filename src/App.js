@@ -6,12 +6,9 @@ import "/src/less/flex.less";
 import SettingsContext from "/src/contexts/SettingsContext";
 import useSetStorageEffect from "/src/hooks/useSetStorageEffect";
 import ProvidersPage from "/src/pages/ProvidersPage/ProvidersPage";
-
-import {
-  faListDots as iconsIcon,
-  faSliders as controlsIcon,
-  faPalette as colorIcon,
-} from "@fortawesome/free-solid-svg-icons";
+import Icon from "./components/Icons/Icon";
+import Modal from "./components/Modals/Modal";
+import help from "./data/help";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -23,6 +20,8 @@ const App = ({ storedProviders, storedOptions }) => {
   const [providers, setProviders] = useState(storedProviders);
   const [settings, setSettings] = useState(storedOptions);
 
+  const [showHelp, setShowHelp] = useState(false);
+
   useSetStorageEffect(
     {
       providers: providers.filter((p) => !p.delete),
@@ -32,13 +31,37 @@ const App = ({ storedProviders, storedOptions }) => {
   );
 
   return (
-    <div className={"app flex-container height-app width-app row"}>
-      <SettingsContext.Provider value={{ settings, setSettings }}>
-        <ProvidersContext.Provider value={{ providers, setProviders }}>
-          <ProvidersPage />
-        </ProvidersContext.Provider>
-      </SettingsContext.Provider>
-    </div>
+    <SettingsContext.Provider value={{ settings, setSettings }}>
+      <ProvidersContext.Provider value={{ providers, setProviders }}>
+        <div className={"app flex-container height-app row"}>
+          <div className="flex-container width-100 column">
+            <div className="title-bar flex-container row space-between center">
+              <div className="flex-container row center">
+                <img src={"/icons/icon16.png"}></img>
+                <h2>One Click Search</h2>
+              </div>
+              <div className="flex-container row center">
+                <Icon onClick={() => setShowHelp(true)} type={"help"} />
+                <Icon href={"options.html"} newTab type={"settings"} />
+              </div>
+            </div>
+            <div className="page-container">
+              <div className="flex-container width-100 right">
+                <Modal
+                  isOpen={showHelp}
+                  title={help.title}
+                  onClose={() => setShowHelp(false)}
+                  closable={true}
+                >
+                  {help.body}
+                </Modal>
+              </div>
+              <ProvidersPage />
+            </div>
+          </div>
+        </div>
+      </ProvidersContext.Provider>
+    </SettingsContext.Provider>
   );
 };
 

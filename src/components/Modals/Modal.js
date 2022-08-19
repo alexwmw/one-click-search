@@ -1,7 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef, useEffect } from "react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 import Button from "../Buttons/Button";
-import Alert from "./Alert";
+import Icon from "../Icons/Icon";
+import iconMap from "../Icons/iconMap";
 import "./Modal.less";
 
 function Modal(props) {
@@ -11,16 +12,17 @@ function Modal(props) {
     type = "modal",
     state = "none",
     isOpen,
-    icon,
     title,
     body,
     onProceed = () => null,
     onClose = () => null,
     children,
     isModal = true,
+    closable = false,
   } = props;
 
   const ref = useRef(null);
+  const clickRef = isModal && useOutsideClick(onClose, ref.current);
 
   useEffect(() => {
     if (isOpen && isModal) {
@@ -60,20 +62,9 @@ function Modal(props) {
       ),
     }[type] || null;
 
-  const classString = [
-    "Modal",
-    isModal ? "modal" : "",
-    state,
-    type,
-    category,
-    ...classes,
-  ].join(" ");
+  const { iconClass } = iconMap(props.icon);
 
-  const iconSpan = icon && (
-    <span className="icon">
-      <FontAwesomeIcon icon={icon} />
-    </span>
-  );
+  const classString = ["Modal", state, type, category, ...classes].join(" ");
 
   const buttonsDiv = buttons && (
     <div className="btn-area flex-container row right">{buttons}</div>
@@ -82,7 +73,10 @@ function Modal(props) {
   const bodyDiv = (body || children) && (
     <div className="body-area">
       {typeof body === "string" && <p>{body}</p>}
-      {typeof body === "object" && body.map((para, i) => <p key={i}>{para}</p>)}
+      {typeof body === "object" &&
+        body.map((para, i) => {
+          return <p key={i}>{para}</p>;
+        })}
       {children && <div>{children}</div>}
     </div>
   );
@@ -91,14 +85,21 @@ function Modal(props) {
     <>
       {isOpen && (
         <dialog className={classString} ref={ref} onCancel={onClose}>
-          <div className={"title-area"}>
-            <h2>
-              {iconSpan}
-              {title}
-            </h2>
+          <div ref={clickRef}>
+            <div className={"title-area flex-container row space-between"}>
+              <h2>
+                <div>
+                  {iconClass && <Icon icon={iconClass} />}
+                  <span>{title}</span>
+                </div>
+                <div>
+                  {closable && <Icon onClick={onClose} type={"close"} />}
+                </div>
+              </h2>
+            </div>
+            {bodyDiv}
+            {buttonsDiv}
           </div>
-          {bodyDiv}
-          {buttonsDiv}
         </dialog>
       )}
     </>

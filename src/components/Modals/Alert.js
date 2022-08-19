@@ -5,21 +5,18 @@ import { useState } from "react";
 function Alert(props) {
   let isOpen, setIsOpen, onClose;
 
-  if (!props.hasOwnProperty(isOpen)) {
+  if (!props.hasOwnProperty("isOpen")) {
     [isOpen, setIsOpen] = useState(true);
     onClose = () => setIsOpen(false);
   } else {
-    isOpen = props.isOpen
-    onClose = props.onClose
+    isOpen = props.isOpen;
+    onClose = props.onClose;
   }
 
   return (
-    <Modal
-      {...props}
-      type={"alert"}
-      isOpen={isOpen}
-      onClose={onClose}
-    ></Modal>
+    <Modal {...props} type={"alert"} isOpen={isOpen} onClose={onClose}>
+      {props.children}
+    </Modal>
   );
 }
 

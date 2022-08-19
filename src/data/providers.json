@@ -24,10 +24,26 @@
     "visibility": "visible"
   },
   {
+    "name": "Google Translate",
+    "role": "provider",
+    "hostname": "translate.google.com",
+    "queryPath": "?text=$TEXT$",
+    "faviconUrl": "",
+    "visibility": "hidden"
+  },
+  {
     "name": "Wiktionary",
     "role": "provider",
     "hostname": "www.wiktionary.org",
     "queryPath": "w/index.php?search=$TEXT$",
+    "faviconUrl": "",
+    "visibility": "hidden"
+  },
+  {
+    "name": "Gmail",
+    "role": "provider",
+    "hostname": "mail.google.com",
+    "queryPath": "mail/u/0/#search/$TEXT$",
     "faviconUrl": "",
     "visibility": "hidden"
   },
@@ -40,36 +56,12 @@
     "visibility": "disabled"
   },
   {
-    "name": "eBay",
-    "role": "provider",
-    "hostname": "www.ebay.co.uk",
-    "queryPath": "sch/i.html?_nkw=$TEXT$",
-    "faviconUrl": "",
-    "visibility": "disabled"
-  },
-  {
     "name": "Twitter",
     "role": "provider",
     "hostname": "www.twitter.com",
     "queryPath": "search?q=$TEXT$",
     "faviconUrl": "",
     "visibility": "disabled"
-  },
-  {
-    "name": "Bing",
-    "role": "provider",
-    "hostname": "www.bing.com",
-    "queryPath": "search?q=$TEXT$",
-    "faviconUrl": "",
-    "visibility": "disabled"
-  },
-  {
-    "name": "Gmail",
-    "role": "provider",
-    "hostname": "mail.google.com",
-    "queryPath": "mail/u/0/#search/$TEXT$",
-    "faviconUrl": "",
-    "visibility": "hidden"
   },
   {
     "name": "Reddit",
