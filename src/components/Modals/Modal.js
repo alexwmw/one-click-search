@@ -64,7 +64,14 @@ function Modal(props) {
 
   const { iconClass } = iconMap(props.icon);
 
-  const classString = ["Modal", state, type, category, ...classes].join(" ");
+  const classString = [
+    "Modal",
+    isModal && type !== "modal" && "modal",
+    type,
+    state,
+    category,
+    ...classes,
+  ].join(" ");
 
   const buttonsDiv = buttons && (
     <div className="btn-area flex-container row right">{buttons}</div>
