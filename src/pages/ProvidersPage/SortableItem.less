@@ -196,4 +196,29 @@ li.sortableItem {
       }
     }
   }
+
+  #visible & {
+    background-color: @PA;
+
+    .sortIcon {
+      color: @L1;
+    }
+    &:hover {
+      .sortIcon {
+        color: grey;
+      }
+    }
+    &.sortable-ghost {
+      .sortIcon {
+        color: @A2;
+      }
+    }
+  }
+
+  #disabled & {
+    background-color: @L4;
+    img {
+      filter: grayscale(1);
+    }
+  }
 }

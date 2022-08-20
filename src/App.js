@@ -8,7 +8,8 @@ import useSetStorageEffect from "/src/hooks/useSetStorageEffect";
 import ProvidersPage from "/src/pages/ProvidersPage/ProvidersPage";
 import Icon from "./components/Icons/Icon";
 import Modal from "./components/Modals/Modal";
-import help from "./data/help";
+import help from "./content/help";
+import HelpModal from "./components/Modals/HelpModal";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -33,31 +34,22 @@ const App = ({ storedProviders, storedOptions }) => {
   return (
     <SettingsContext.Provider value={{ settings, setSettings }}>
       <ProvidersContext.Provider value={{ providers, setProviders }}>
-        <div className={"app flex-container height-app row"}>
-          <div className="flex-container width-100 column">
-            <div className="title-bar flex-container row space-between center">
-              <div className="flex-container row center">
-                <img src={"/icons/icon16.png"}></img>
-                <h2>One Click Search</h2>
-              </div>
-              <div className="flex-container row center">
-                <Icon onClick={() => setShowHelp(true)} type={"help"} />
-                <Icon href={"options.html"} newTab type={"settings"} />
-              </div>
+        <div className={"app flex-container height-app width-100 column"}>
+          <div className="title-bar flex-container row space-between center">
+            <div className="flex-container row center">
+              <img src={"/icons/icon16.png"}></img>
+              <h2>One Click Search</h2>
             </div>
-            <div className="page-container">
-              <div className="flex-container width-100 right">
-                <Modal
-                  isOpen={showHelp}
-                  title={help.title}
-                  onClose={() => setShowHelp(false)}
-                  closable={true}
-                >
-                  {help.body}
-                </Modal>
-              </div>
-              <ProvidersPage />
+            <div className="flex-container row center">
+              <Icon onClick={() => setShowHelp(true)} type={"help"} />
+              <Icon href={"options.html"} newTab type={"settings"} />
             </div>
+          </div>
+          <div className="page-container">
+            <div className="flex-container width-100 right">
+              <HelpModal show={showHelp} close={() => setShowHelp(false)} />
+            </div>
+            <ProvidersPage />
           </div>
         </div>
       </ProvidersContext.Provider>

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import SettingsContext from "/src/contexts/SettingsContext";
 import useSetSettingsEffect from "/src/hooks/useSetSettingsEffect";
 import "./Switch.less";
+import { useEffect } from "react";
 
 const Switch = ({ settingId }) => {
   const { settings, setSettings } = useContext(SettingsContext);
@@ -9,6 +10,7 @@ const Switch = ({ settingId }) => {
   const [value, setValue] = useState(settings[settingId].value);
 
   const changeHandler = (e) => {
+
     setValue(e.target.checked);
   };
 

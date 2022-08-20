@@ -21,11 +21,14 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     const selection = window.getSelection();
     const OCS = document.getElementById("OneClickSearch"); //check this, otherwise !isOCS(event.target)
 
-    if (
-      !OCS.contains(evt.target) &&
-      isValidSelection(selection) &&
-      selection.toString().length <= options.maxChars.value
-    ) {
+    const checks = [
+      !OCS.contains(evt.target),
+      isValidSelection(selection),
+      options.maxChars.value === 0 ||
+        selection.toString().length <= options.maxChars.value,
+    ];
+
+    if (checks.every((val) => val === true)) {
       dispatch({
         type: "SET_CLICK_PROPERTIES",
         text: selection.toString(),
