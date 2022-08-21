@@ -22,7 +22,9 @@ function Modal(props) {
   } = props;
 
   const ref = useRef(null);
-  const clickRef = isModal && useOutsideClick(onClose, ref.current);
+  const clickRef = closable
+    ? useOutsideClick(onClose, ref.current)
+    : useRef(null);
 
   useEffect(() => {
     if (isOpen && isModal) {
@@ -66,7 +68,7 @@ function Modal(props) {
 
   const classString = [
     "Modal",
-    isModal && type !== "modal" && "modal",
+    isModal && type !== "modal" ? "modal" : "",
     type,
     state,
     category,

@@ -8,6 +8,7 @@ import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
 import OcsHeader from "./pages/OptionsPage/OcsHeader";
 import Card from "./components/Cards/Card";
 import tabs from "./data/tabs";
+import { ToastsContainer, ToastsProvider } from "./reducers/ToastsReducer";
 
 import "./App.less";
 import "./Options.less";
@@ -37,24 +38,27 @@ const Options = ({ storedProviders, storedOptions }) => {
   return (
     <SettingsContext.Provider value={{ settings, setSettings }}>
       <ProvidersContext.Provider value={{ providers, setProviders }}>
-        <div className={"options flex-container column"}>
-          <OcsHeader />
-          <div className="main-content flex-container row">
-            <div className="tabs-column">
-              <h1>Options</h1>
-              <Card>
-                <TabContainer
-                  tabs={tabs}
-                  selectedTab={selectedTab}
-                  onTabSelect={setSelectedTab}
-                />
-              </Card>
-            </div>
-            <div className="main-column">
-              <OptionsContainer selectedTab={selectedTab} tabs={tabs} />
+        <ToastsProvider>
+          <div className={"options flex-container column"}>
+            <ToastsContainer />
+            <OcsHeader />
+            <div className="main-content flex-container row">
+              <div className="tabs-column">
+                <h1>Options</h1>
+                <Card>
+                  <TabContainer
+                    tabs={tabs}
+                    selectedTab={selectedTab}
+                    onTabSelect={setSelectedTab}
+                  />
+                </Card>
+              </div>
+              <div className="main-column">
+                <OptionsContainer selectedTab={selectedTab} tabs={tabs} />
+              </div>
             </div>
           </div>
-        </div>
+        </ToastsProvider>
       </ProvidersContext.Provider>
     </SettingsContext.Provider>
   );

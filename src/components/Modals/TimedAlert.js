@@ -34,7 +34,7 @@ function TimedAlert(props) {
             type={"timed"}
             title={props.title}
             isOpen={props.isOpen}
-            isModal={props.isModal || false}
+            isModal={false}
           />
         );
       }}
