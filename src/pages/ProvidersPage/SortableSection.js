@@ -1,7 +1,5 @@
 import { ReactSortable } from "react-sortablejs";
 import SortableItem from "./SortableItem";
-import SortableItem_Function from "./SortableItem_Function";
-import SortableItem_Provider from "./SortableItem_Provider";
 
 function SortableSection({
   name,
@@ -43,9 +41,8 @@ function SortableSection({
       >
         {list.map((p) => (
           <SortableItem
+            provider={p}
             key={p.name}
-            name={p.name}
-            role={p.role}
             openItem={openItem}
             setOpenItem={setOpenItem}
           ></SortableItem>

@@ -1,25 +1,60 @@
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+import {
+  faEllipsisVertical as editIcon,
+  faMinus as closeIcon,
+} from "@fortawesome/free-solid-svg-icons";
+import ProviderForm from "../../components/Forms/ProviderForm";
 import "./SortableItem.less";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSort as sortIcon } from "@fortawesome/free-solid-svg-icons";
-import SortableItem_Provider from "./SortableItem_Provider";
-import SortableItem_Function from "./SortableItem_Function";
+import Icon from "../../components/Icons/Icon";
+import IconTrigger from "../../components/Icons/IconTrigger";
 
-function SortableItem(props) {
-  const SortIcon = <FontAwesomeIcon className="sortIcon" icon={sortIcon} />;
-  if (props.role == "provider")
-    return (
-      <SortableItem_Provider
-        sortIcon={SortIcon}
-        {...props}
-      ></SortableItem_Provider>
-    );
-  if (props.role == "function")
-    return (
-      <SortableItem_Function
-        sortIcon={SortIcon}
-        {...props}
-      ></SortableItem_Function>
-    );
+function SortableItem({ provider, openItem, setOpenItem }) {
+  /** State and local data */
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const faviconUrl =
+    provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
+
+  const toggleExpanded = () => {
+    setIsExpanded((expanded) => !expanded);
+  };
+
+  useEffect(() => {
+    if (openItem !== provider.name) {
+      setIsExpanded(false);
+    }
+  }, [openItem]);
+
+  return (
+    <li
+      data-id={provider.name}
+      className={clsx("sortableItem", isExpanded && "expanded")}
+      onClick={(e) => setOpenItem(provider.name)}
+      onDragStart={(e) => setOpenItem(null)}
+    >
+      <Icon type={"sort"} />
+      <img src={faviconUrl}></img>
+      <span>{provider.name}</span>
+      {provider.role === "provider" && (
+        <>
+          <div className="more-btn">
+            <IconTrigger
+              onClick={toggleExpanded}
+              icon={!isExpanded ? editIcon : closeIcon}
+            />
+          </div>
+
+          {isExpanded && (
+            <ProviderForm
+              provider={provider}
+              closeForm={() => setIsExpanded(false)}
+            ></ProviderForm>
+          )}
+        </>
+      )}
+    </li>
+  );
 }
 
 export default SortableItem;

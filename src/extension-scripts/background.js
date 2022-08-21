@@ -33,7 +33,8 @@ chrome.storage.sync.get(
   { providers: defaultProviders, options: defaultOptions },
   (result) =>
     chrome.storage.sync.set(result, () => {
-      console.log("Set in bg: " + result.providers);
+      console.log("Set providers in bg: " + result.providers);
+      console.log("Set options in bg: " + result.options);
       console.table(result.providers);
     })
 );

@@ -1,17 +1,17 @@
 import { disabled, hidden, visible } from "/src/modules/Utilities";
 
+const sortablesFromProviders = (providers) => ({
+  visible: providers.filter((p) => visible(p)),
+  hidden: providers.filter((p) => hidden(p)),
+  disabled: providers.filter((p) => disabled(p)),
+  none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
+});
+
 const SortablesReducer = (state, action) => {
   switch (action.type) {
     case "SET_ALL_LISTS":
-      return {
-        ...state,
-        visible: action.providers.filter((p) => visible(p)),
-        hidden: action.providers.filter((p) => hidden(p)),
-        disabled: action.providers.filter((p) => disabled(p)),
-        none: action.providers.filter(
-          (p) => !visible(p) && !hidden(p) && !disabled(p)
-        ),
-      };
+      console.log(sortablesFromProviders(action.providers));
+      return sortablesFromProviders(action.providers);
     case "SET_VISIBLE":
       return {
         ...state,
