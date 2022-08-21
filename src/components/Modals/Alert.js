@@ -1,6 +1,7 @@
 import Modal from "./Modal";
 import "./Alert.less";
 import { useState } from "react";
+import ButtonArea from "../Buttons/ButtonArea";
 
 function Alert(props) {
   let isOpen, setIsOpen, onClose;
@@ -14,8 +15,9 @@ function Alert(props) {
   }
 
   return (
-    <Modal {...props} type={"alert"} isOpen={isOpen} onClose={onClose}>
+    <Modal {...props} isOpen={isOpen} onClose={onClose}>
       {props.children}
+      <ButtonArea onClose={onClose} closeText={"OK"} />
     </Modal>
   );
 }

@@ -1,18 +1,35 @@
 @import "/src/less/_variables.less";
 
-.timed {
+@trans-duration: 0.33s;
+
+.toast-wrapper {
+  transition: height @trans-duration * 2 ease;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+
+  &.exiting {
+    height: 0;
+  }
+}
+
+.toast {
   min-width: 100px;
-  margin-block: 24px;
   padding: 5px 10px;
+  position: relative;
 
   .title-area {
+    height: 34px;
+    justify-content: center;
     h2 {
       text-align: center;
     }
   }
 
   // Transition & State
-  transition: 0.5s all ease;
+  transition: @trans-duration all ease;
 
   opacity: 0;
   transform: translateY(20px);
@@ -23,8 +40,6 @@
     transform: translateY(0);
   }
   &.exiting {
-    transition: 0.5s all ease-in;
-    //opacity: 0;
     transform: translateY(-20px);
   }
 }

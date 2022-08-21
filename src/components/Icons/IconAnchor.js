@@ -2,18 +2,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import "./Icon.less";
 import iconMap from "./iconMap";
-const Icon = (props) => {
+const IconAnchor = (props) => {
   const { iconClass, iconTitle } = iconMap(props.type || props.icon);
 
   return (
-    <span>
+    <a href={props.href} target={props.newTab && "_blank"}>
       <FontAwesomeIcon
         icon={iconClass || props.icon}
         title={iconTitle || props.title}
         className={clsx("icon", "link-icon", props.type)}
       />
-    </span>
+    </a>
   );
 };
 
-export default Icon;
+export default IconAnchor;

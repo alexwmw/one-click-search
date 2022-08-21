@@ -1,35 +1,15 @@
 @import "/src/less/_variables.less";
 
-.Modal {
+.modal {
   border: none;
   border-radius: 12px;
   box-shadow: 0 2px 12px grey;
 
-  .btn-area {
-    gap: 10px;
-    margin-block: 20px 10px;
-    button {
-      flex-basis: 25%;
-      padding: 9px;
-    }
-  }
-}
-
-.modal {
-  min-width: 220px;
   .title-area {
     h2 {
-      width: 100%;
-      margin: -13px;
-      margin-bottom: 12px;
-      padding: 13px 13px 10px 13px;
-      background-color: @P1;
-      color: white;
-
       display: flex;
-      justify-content: space-between;
 
-      > div {
+      > * {
         display: flex;
         gap: 10px;
         align-items: center;
@@ -48,6 +28,38 @@
     }
     li {
       margin-bottom: 10px;
+    }
+
+    .btn-area {
+      gap: 10px;
+      margin-top: 30px;
+      button {
+        flex-basis: 25%;
+        padding: 9px;
+      }
+    }
+  }
+}
+
+.title-bar-modal {
+  .title-area {
+    justify-content: space-between;
+    h2 {
+      width: 100%;
+      margin: -13px;
+      margin-bottom: 12px;
+      padding: 13px 13px 10px 13px;
+      background-color: @P1;
+      color: white;
+
+      display: flex;
+      justify-content: space-between;
+
+      > * {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
     }
   }
 }

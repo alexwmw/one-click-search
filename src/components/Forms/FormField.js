@@ -1,8 +1,15 @@
 const FormField = (props) => {
-  const { value, setValue, label, placeholder, formatField, classes=[] } = props;
+  const {
+    value,
+    setValue,
+    label,
+    placeholder,
+    formatField,
+    classes = [],
+  } = props;
 
   return (
-    <div className="flex-container row center">
+    <div className="flex-container row form-row center">
       <label>{label}</label>
       <input
         type={"text"}
@@ -17,4 +24,4 @@ const FormField = (props) => {
   );
 };
 
-export default FormField
+export default FormField;

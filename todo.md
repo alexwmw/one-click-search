@@ -6,3 +6,4 @@
 - Use and test `adaptLegacyProvider`
 - Implement `Reset to Defaults` button
 - Make sure function switches work
+- Tooltips and descriptions

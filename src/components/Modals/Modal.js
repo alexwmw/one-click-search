@@ -1,36 +1,33 @@
 import { useRef, useEffect } from "react";
+import clsx from "clsx";
 import useOutsideClick from "../../hooks/useOutsideClick";
-import Button from "../Buttons/Button";
 import Icon from "../Icons/Icon";
-import iconMap from "../Icons/iconMap";
+import IconTrigger from "../Icons/IconTrigger";
 import "./Modal.less";
 
 function Modal(props) {
   const {
     classes = [],
-    category,
-    type = "modal",
-    state = "none",
     isOpen,
     title,
     body,
-    onProceed = () => null,
-    onClose = () => null,
+    onClose,
     children,
-    isModal = true,
-    closable = false,
+    openAsModal = true,
+    isClosable,
+    hasTitleBar,
   } = props;
 
   const ref = useRef(null);
-  const clickRef = closable
+  const clickRef = isClosable
     ? useOutsideClick(onClose, ref.current)
     : useRef(null);
 
   useEffect(() => {
-    if (isOpen && isModal) {
+    if (isOpen && openAsModal) {
       ref.current?.showModal();
       document.body.classList.add("modal-open");
-    } else if (isOpen && !isModal) {
+    } else if (isOpen && !openAsModal) {
       ref.current?.show();
     } else {
       ref.current?.close();
@@ -38,76 +35,38 @@ function Modal(props) {
     }
   }, [isOpen]);
 
-  const proceedAndClose = () => {
-    onProceed() && onClose();
-  };
-
-  const closeBtn = (label) => <Button onClick={onClose}>{label}</Button>;
-  const proceedBtn = (label) => (
-    <Button onClick={proceedAndClose}>{label}</Button>
-  );
-
-  const buttons =
-    {
-      alert: <>{closeBtn("OK")}</>,
-      confirm: (
-        <>
-          {closeBtn("Cancel")}
-          {proceedBtn("OK")}
-        </>
-      ),
-      form: (
-        <>
-          {closeBtn("Cancel")}
-          {proceedBtn("Submit")}
-        </>
-      ),
-    }[type] || null;
-
-  const { iconClass } = iconMap(props.icon);
-
-  const classString = [
-    "Modal",
-    isModal && type !== "modal" ? "modal" : "",
-    type,
-    state,
-    category,
-    ...classes,
-  ].join(" ");
-
-  const buttonsDiv = buttons && (
-    <div className="btn-area flex-container row right">{buttons}</div>
-  );
-
-  const bodyDiv = (body || children) && (
-    <div className="body-area">
-      {typeof body === "string" && <p>{body}</p>}
-      {typeof body === "object" &&
-        body.map((para, i) => {
-          return <p key={i}>{para}</p>;
-        })}
-      {children && <div>{children}</div>}
-    </div>
-  );
-
   return (
     <>
       {isOpen && (
-        <dialog className={classString} ref={ref} onCancel={onClose}>
+        <dialog
+          className={clsx(
+            "modal",
+            (hasTitleBar || isClosable) && "title-bar-modal",
+            classes
+          )}
+          ref={ref}
+          onCancel={onClose}
+        >
           <div ref={clickRef}>
-            <div className={"title-area flex-container row space-between"}>
+            <div className={"title-area flex-container row"}>
               <h2>
                 <div>
-                  {iconClass && <Icon icon={iconClass} />}
+                  {props.icon && <Icon icon={props.icon} />}
                   <span>{title}</span>
                 </div>
-                <div>
-                  {closable && <Icon onClick={onClose} type={"close"} />}
-                </div>
+                {isClosable && (
+                  <div>
+                    <IconTrigger onClick={onClose} type={"close"} />
+                  </div>
+                )}
               </h2>
             </div>
-            {bodyDiv}
-            {buttonsDiv}
+            {(body || children) && (
+              <div className="body-area">
+                {body && <p>{body}</p>}
+                {children && <div>{children}</div>}
+              </div>
+            )}
           </div>
         </dialog>
       )}

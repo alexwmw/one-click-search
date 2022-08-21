@@ -6,13 +6,11 @@ import { compareObjs, mergeWithNewItem, visible } from "/src/modules/Utilities";
 import ProviderFormFields from "../Forms/ProviderFormFields";
 import Modal from "./Modal";
 import "./AddProviderModal.less";
-import Alert from "./Alert";
+import ButtonArea from "../Buttons/ButtonArea";
 
 function AddProviderModal({ isOpen, setIsOpen }) {
   const { providers, setProviders } = useContext(ProvidersContext);
   const [hasChanges, setHasChanges] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-  const [messages, setMessages] = useState("No messages found");
 
   const defaults = useMemo(() => ({
     name: "",
@@ -59,8 +57,8 @@ function AddProviderModal({ isOpen, setIsOpen }) {
   return (
     <Modal
       classes={["new-provider-modal"]}
-      type={"form"}
       title={"Add New Provider"}
+      hasTitleBar={true}
       onClose={onClose}
       onProceed={onSubmit}
       isOpen={isOpen}
@@ -71,6 +69,11 @@ function AddProviderModal({ isOpen, setIsOpen }) {
         values={formValues}
         tooltips={true}
         setHasChanges={setHasChanges}
+      />
+      <ButtonArea
+        onClose={onClose}
+        onProceed={onSubmit}
+        proceedText={"Submit"}
       />
     </Modal>
   );

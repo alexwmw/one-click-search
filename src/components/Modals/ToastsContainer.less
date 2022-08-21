@@ -1,0 +1,21 @@
+@import "/src/less/_variables.less";
+
+.toasts-container {
+  position: absolute;
+  z-index: 10;
+  white-space: nowrap;
+
+  &.center {
+    width: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.left {
+    left: 30px;
+  }
+  &.right {
+    right: 30px;
+  }
+}

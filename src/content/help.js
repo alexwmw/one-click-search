@@ -20,7 +20,7 @@ const help = {
         </li>
         <li>
           Items in the <strong>hidden</strong> section will remain hidden until
-          youhover over the pop-up.
+          you hover over the pop-up.
         </li>
         <li>
           Items in the <strong>disabled</strong> section will never be visible.

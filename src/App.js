@@ -10,6 +10,8 @@ import Icon from "./components/Icons/Icon";
 import Modal from "./components/Modals/Modal";
 import help from "./content/help";
 import HelpModal from "./components/Modals/HelpModal";
+import IconTrigger from "./components/Icons/IconTrigger";
+import IconAnchor from "./components/Icons/IconAnchor";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -41,8 +43,8 @@ const App = ({ storedProviders, storedOptions }) => {
               <h2>One Click Search</h2>
             </div>
             <div className="flex-container row center">
-              <Icon onClick={() => setShowHelp(true)} type={"help"} />
-              <Icon href={"options.html"} newTab type={"settings"} />
+              <IconTrigger onClick={() => setShowHelp(true)} type={"help"} />
+              <IconAnchor href={"options.html"} newTab type={"settings"} />
             </div>
           </div>
           <div className="page-container">

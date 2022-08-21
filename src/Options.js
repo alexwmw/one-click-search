@@ -8,7 +8,8 @@ import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
 import OcsHeader from "./pages/OptionsPage/OcsHeader";
 import Card from "./components/Cards/Card";
 import tabs from "./data/tabs";
-import { ToastsContainer, ToastsProvider } from "./reducers/ToastsReducer";
+import { ToastsProvider } from "./reducers/ToastsReducer";
+import ToastsContainer from "./components/Modals/ToastsContainer";
 
 import "./App.less";
 import "./Options.less";

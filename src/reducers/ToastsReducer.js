@@ -1,10 +1,4 @@
-import { useReducer } from "react";
-import { useContext } from "react";
-
-import { createContext } from "react";
-import TimedAlert from "../components/Modals/TimedAlert";
-
-import "./ToastsContainer.less";
+import { useReducer, createContext } from "react";
 
 function ToastsReducer(state, action) {
   switch (action.type) {
@@ -14,7 +8,14 @@ function ToastsReducer(state, action) {
     case "SETTING_SAVED":
     case "ORDER_SAVED":
     case "DEFAULT":
-      return [...state, { title: "saved", category: "success" }];
+      return [
+        ...state,
+        {
+          icon: "check",
+          title: "Changes saved",
+          category: "success",
+        },
+      ];
   }
 }
 
@@ -25,21 +26,7 @@ export const ToastsProvider = ({ children }) => {
 
   return (
     <ToastsContext.Provider value={{ toasts, dispatchToasts }}>
-      {console.log(children)}
       {children}
     </ToastsContext.Provider>
-  );
-};
-
-export const ToastsContainer = () => {
-  const { toasts } = useContext(ToastsContext);
-  console.log(toasts);
-
-  return (
-    <div className="toasts-container flex-container column center width-100">
-      {toasts.map((props, i) => (
-        <TimedAlert key={i} isOpen={true} {...props} />
-      ))}
-    </div>
   );
 };
