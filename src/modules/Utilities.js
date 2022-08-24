@@ -43,17 +43,16 @@ export function sortByPosition(array) {
 }
 
 /** Helper function */
-export const mergeWithNewItem = (arrayToUpdate, newItem) => {
-  const index = arrayToUpdate.findIndex((object) => {
-    return object.name === newItem.name;
-  });
-  if (index > -1) {
-    arrayToUpdate[index] = newItem;
+export const replaceObjectInArray = (array, newObject, matchKey = "name") => {
+  const itemIndex = array.findIndex(
+    (object) => object[matchKey] === newObject[matchKey]
+  );
+  if (itemIndex > -1) {
+    array[itemIndex] = newObject;
+    return [...array];
   } else {
-    arrayToUpdate.push(newItem);
+    throw new ReferenceError("No match not found in array.");
   }
-
-  return [...arrayToUpdate];
 };
 
 /** Helper function */
@@ -63,58 +62,6 @@ export const isValidURL = (url) => {
     x = new URL(url);
   } catch (e) {}
   return !x === false;
-};
-
-/** Helper function */
-export const providerValidation = (provider, providers = null) => {
-  const nameExists =
-    providers &&
-    providers.some((p) => p.name.toLowerCase() == provider.name.toLowerCase());
-
-  const validName = RegExp(schema.properties.name.pattern).test(provider.name);
-  // !nameExists && RegExp(schema.properties.name.pattern).test(provider.name);
-
-  const validRole = schema.properties.role.enum.some(
-    (value) => value == provider.role
-  );
-
-  const validHostname =
-    isValidHostname(provider.hostname) && provider.hostname.indexOf(".") > -1;
-
-  const validQueryPath = provider.queryPath.indexOf("$TEXT$") > -1;
-
-  const validFaviconUrl =
-    provider.faviconUrl === "" || isValidURL(provider.faviconUrl);
-
-  const validVisibility = schema.properties.visibility.enum.some(
-    (value) => value == provider.visibility
-  );
-
-  const report = {
-    name:
-      validName ||
-      `\"${provider.name}\" is not a valid name.${
-        nameExists && ` Name already exists. Please use a unique name.`
-      }`,
-    role: validRole || `\"${provider.role}\" is not a valid role.`,
-    hostname:
-      validHostname || `\"${provider.hostname}\" is not a valid hostname.`,
-    queryPath:
-      validQueryPath ||
-      `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`,
-    faviconUrl:
-      validFaviconUrl ||
-      `\"${provider.faviconUrl}\" is not a valid favicon URL.`,
-    visibility:
-      validVisibility ||
-      `\"${provider.visibility}\" is not a valid visibility.`,
-  };
-
-  return {
-    report: report,
-    decision: Object.values(report).every((value) => value === true),
-    messages: Object.values(report).filter((value) => value !== true),
-  };
 };
 
 export const isValidSelection = (selection) => {
@@ -134,9 +81,18 @@ export const isValidText = (text) => {
   return text && text !== "" && text !== " ";
 };
 
-export const compareObjs = (A, B, type = "same") => {
-  const aKeys = Object.keys(A);
-  const bKeys = Object.keys(B);
+export const compareObjs = (
+  A,
+  B,
+  options = { type: "same", keysOnly: false }
+) => {
+  let aKeys = Object.keys(A);
+  let bKeys = Object.keys(B);
+
+  if (options.keysOnly) {
+    aKeys = aKeys.filter((keyInA) => bKeys.some((keyInB) => keyInB === keyInA));
+    bKeys = bKeys.filter((keyInB) => aKeys.some((keyInA) => keyInA === keyInB));
+  }
 
   if (aKeys.length !== bKeys.length) {
     return false;
@@ -145,7 +101,14 @@ export const compareObjs = (A, B, type = "same") => {
   const evaluateWith = {
     same: (keys) => keys.every((key) => A[key] === B[key]),
     different: (keys) => keys.some((key) => A[key] !== B[key]),
-  }[type];
+  }[options.type];
 
   return evaluateWith(aKeys);
 };
+
+export const sortablesFromProviders = (providers) => ({
+  visible: providers.filter((p) => visible(p)),
+  hidden: providers.filter((p) => hidden(p)),
+  disabled: providers.filter((p) => disabled(p)),
+  none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
+});

@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import ProvidersContext from "../contexts/ProvidersContext";
-import { mergeWithNewItem } from "../modules/Utilities";
+import { replaceObjectInArray } from "../modules/Utilities";
 
 const useDeleteProvider = (provider) => {
   const { providers, setProviders } = useContext(ProvidersContext);
 
   const deleteProviders = () => {
-    const newState = mergeWithNewItem(providers, {
+    const newState = replaceObjectInArray(providers, {
       ...provider,
       delete: true,
     });

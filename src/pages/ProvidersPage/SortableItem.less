@@ -5,7 +5,7 @@
 @row-padding: 2px;
 @favicon-height: 16px;
 
-li.sortableItem {
+li.sortable-item {
   position: relative;
   top: 0;
   overflow: hidden;
@@ -27,25 +27,27 @@ li.sortableItem {
 
   cursor: grab;
 
-  .more-btn :focus {
-    outline: none;
-    background-color: rgb(255 255 255 / 0.2);
+  > span:nth-child(1) {
+    position: relative;
+    bottom: 6px;
+    left: 4px;
+    user-select: none;
+    font-weight: 600;
+    .sort.icon {
+      color: @L2;
+      font-size: 14px;
+      transition: all 200ms;
+      padding-right: 10px;
+    }
   }
 
-  > span .sort.icon {
-    color: @L2;
-    font-size: 12px;
-    transition: all 200ms;
-    padding-right: 10px;
-  }
-
-  > img {
+  > img:nth-child(2) {
     height: @favicon-height;
     margin: 4px 10px;
     user-select: none;
   }
 
-  > span {
+  > span:nth-child(3) {
     position: relative;
     bottom: 8px;
     left: 8px;
@@ -53,7 +55,7 @@ li.sortableItem {
     font-weight: 600;
   }
 
-  > .more-btn {
+  > .more-btn:nth-child(4) {
     position: absolute;
     right: 4px;
     top: 4px;
@@ -77,34 +79,8 @@ li.sortableItem {
 
   &.expanded {
     height: @row-height_expanded;
-    .svg-inline--fa {
+    .more-btn {
       background-color: rgb(255 255 255 / 0.5);
-    }
-  }
-
-  &:hover {
-    border: @accent-border;
-    .sort.icon {
-      color: @L1;
-    }
-
-    // SortableJS
-
-    &.sortable-drag {
-      opacity: 0;
-    }
-
-    &.sortable-ghost {
-      border: @accent-border;
-      background: @L2;
-      box-shadow: 0 0 3px @L1;
-    }
-
-    &.sortable-chosen,
-    &.sortable-ghost {
-      .sort.icon {
-        color: @A2;
-      }
     }
   }
 
@@ -135,7 +111,7 @@ li.sortableItem {
       width: 160px;
       margin: 3px 10px;
     }
-    .more-btn {
+    .btn {
       cursor: pointer;
       width: 76px;
       padding: 6px 4px !important;
@@ -213,6 +189,29 @@ li.sortableItem {
     background-color: @L4;
     img {
       filter: grayscale(1);
+    }
+  }
+  &:hover {
+    border: @accent-border;
+  }
+
+  // SortableJS
+  #visible &,
+  #hidden &,
+  #disabled & {
+    &.sortable-drag {
+      opacity: 0;
+    }
+
+    &.sortable-chosen,
+    &.sortable-ghost {
+      border: @accent-border;
+      background-color: @L2;
+      box-shadow: 0 0 3px @L1;
+
+      .sort.icon {
+        color: @A2;
+      }
     }
   }
 }

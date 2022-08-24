@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useContext, useReducer } from "react";
 import useNewProvider from "/src/hooks/useNewProvider";
 import ProviderFormReducer from "/src/reducers/ProviderFormReducer";
 import ProvidersContext from "/src/contexts/ProvidersContext";
-import { compareObjs, mergeWithNewItem, visible } from "/src/modules/Utilities";
+import { compareObjs, replaceObjectInArray } from "/src/modules/Utilities";
 import ProviderFormFields from "../Forms/ProviderFormFields";
 import Modal from "./Modal";
 import "./AddProviderModal.less";
@@ -29,12 +29,13 @@ function AddProviderModal({ isOpen, setIsOpen }) {
   });
 
   const onSubmit = () => {
-    if (validator.validateWithMessages()) {
-      const newState = mergeWithNewItem(providers, newProvider);
+    if (validator.decision) {
+      const newState = replaceObjectInArray(providers, newProvider);
       setProviders(newState);
       return true;
+    } else {
+      return false;
     }
-    return false;
   };
 
   const onClose = () => {

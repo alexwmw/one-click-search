@@ -2,6 +2,8 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import SortableSection from "./SortableSection";
 import SortablesReducer from "../../reducers/SortablesReducer";
 import ChromeContext from "../../contexts/ChromeContext";
+import { sortablesFromProviders } from "../../modules/Utilities";
+import clsx from "clsx";
 import "./ProvidersPage.less";
 
 const ProvidersPage = () => {
@@ -9,7 +11,11 @@ const ProvidersPage = () => {
   const [openItem, setOpenItem] = useState(null);
   const { chrome } = useContext(ChromeContext);
 
-  const [sortables, dispatchSortables] = useReducer(SortablesReducer);
+  const [sortables, dispatchSortables] = useReducer(
+    SortablesReducer,
+    chrome.providers,
+    sortablesFromProviders
+  );
 
   useEffect(() => {
     dispatchSortables({ type: "SET_ALL_LISTS", providers: chrome.providers });
@@ -17,7 +23,7 @@ const ProvidersPage = () => {
 
   return (
     <div
-      className={`flex-container page`}
+      className={clsx("flex-container", "page")}
       id={"providersPage"}
       direction={"column"}
     >

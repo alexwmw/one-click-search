@@ -29,7 +29,7 @@ function SortableItem({ provider, openItem, setOpenItem }) {
   return (
     <li
       data-id={provider.name}
-      className={clsx("sortableItem", isExpanded && "expanded")}
+      className={clsx("sortable-item", isExpanded && "expanded")}
       onClick={(e) => setOpenItem(provider.name)}
       onDragStart={(e) => setOpenItem(null)}
     >
@@ -38,12 +38,11 @@ function SortableItem({ provider, openItem, setOpenItem }) {
       <span>{provider.name}</span>
       {provider.role === "provider" && (
         <>
-          <div className="more-btn">
-            <IconTrigger
-              onClick={toggleExpanded}
-              icon={!isExpanded ? editIcon : closeIcon}
-            />
-          </div>
+          <IconTrigger
+            className={clsx("more-btn")}
+            onClick={toggleExpanded}
+            icon={!isExpanded ? editIcon : closeIcon}
+          />
 
           {isExpanded && (
             <ProviderForm

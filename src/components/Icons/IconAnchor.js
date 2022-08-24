@@ -6,7 +6,11 @@ const IconAnchor = (props) => {
   const { iconClass, iconTitle } = iconMap(props.type || props.icon);
 
   return (
-    <a href={props.href} target={props.newTab && "_blank"}>
+    <a
+      className={props.className}
+      href={props.href}
+      target={props.newTab && "_blank"}
+    >
       <FontAwesomeIcon
         icon={iconClass || props.icon}
         title={iconTitle || props.title}

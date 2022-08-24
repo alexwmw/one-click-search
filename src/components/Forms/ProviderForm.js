@@ -1,70 +1,73 @@
-import { useState, useEffect, useMemo, useContext, useReducer } from "react";
-import useNewProvider from "/src/hooks/useNewProvider";
+import { useState, useEffect, useContext, useReducer } from "react";
 import GenericForm from "/src/components/Forms/GenericForm";
 import ProviderFormReducer from "/src/reducers/ProviderFormReducer";
-import { compareObjs, mergeWithNewItem, visible } from "/src/modules/Utilities";
 import ProviderFormFields from "./ProviderFormFields";
-import useDeleteProvider from "../../hooks/useDeleteProvider";
 import ChromeContext from "../../contexts/ChromeContext";
+import AlertsContext from "../../contexts/AlertsContext";
+import ProviderValidator from "../../modules/ProviderValidator";
+import { compareObjs, visible } from "../../modules/Utilities";
 
 function ProviderForm({ provider, closeForm }) {
   const { chrome, dispatchChrome } = useContext(ChromeContext);
-
+  const alertHandler = useContext(AlertsContext);
   const [hasChanges, setHasChanges] = useState(false);
-
-  const deleteProvider = useDeleteProvider(provider);
-
-  const [formValues, dispatch] = useReducer(ProviderFormReducer, provider);
-
-  const [newProvider, validator] = useNewProvider({
-    oldData: provider,
-    newData: formValues,
-  });
+  const [formValues, dispatchFormValues] = useReducer(
+    ProviderFormReducer,
+    provider
+  );
 
   /** Event handlers */
   const submitHandler = (e) => {
     e.preventDefault();
-
-    if (validator.validateWithMessages()) {
-      const newState = mergeWithNewItem(chrome.providers, newProvider);
-      setProviders(newState);
+    const newProvider = {
+      ...provider,
+      ...formValues,
+    };
+    const validator = ProviderValidator(newProvider);
+    if (validator.decision) {
+      dispatchChrome({
+        type: "UPDATE_PROVIDER",
+        provider: newProvider,
+      });
       closeForm();
+    } else {
+      alertHandler.error({ title: "x", messages: validator.messages });
     }
   };
 
-  const isOnlyVisibleItem =
-    visible(provider) && chrome.providers.filter((p) => visible(p)).length < 2;
-
   const deleteHandler = (e) => {
     e.preventDefault();
-
+    const isOnlyVisibleItem =
+      visible(provider) &&
+      chrome.providers.filter((p) => visible(p)).length < 2;
     if (isOnlyVisibleItem) {
-      alert("Cannot delete the only visible item.");
+      alertHandler.error({ title: "title", messages: [] });
     } else {
-      confirm("Are you sure you want to delete?") && deleteProvider();
+      alertHandler.confirm({ question: "Are you sure you want to delete?" }) &&
+        dispatchChrome({
+          type: "DELETE_PROVIDER",
+          provider: provider,
+        });
     }
   };
 
   const closeHandler = (e) => {
     e.preventDefault();
-    if (!hasChanges || confirm("Your changes will be lost")) {
+    if (
+      !hasChanges ||
+      alertHandler.confirm({ question: "Your changes will be lost" })
+    ) {
       closeForm();
     }
   };
 
-  const { hostname, queryPath, faviconUrl } = formValues;
-
   useEffect(() => {
-    const areDifferent = compareObjs(
-      provider,
-      {
-        ...provider,
-        ...{ hostname, queryPath, faviconUrl },
-      },
-      "different"
-    );
+    const areDifferent = compareObjs(provider, formValues, {
+      type: "different",
+      keysOnly: true,
+    });
     setHasChanges(areDifferent);
-  }, [hostname, queryPath, faviconUrl]);
+  }, [formValues]);
 
   return (
     <GenericForm
@@ -74,7 +77,7 @@ function ProviderForm({ provider, closeForm }) {
       closeHandler={closeHandler}
       submitHandler={submitHandler}
     >
-      <ProviderFormFields dispatch={dispatch} values={formValues} />
+      <ProviderFormFields dispatch={dispatchFormValues} values={formValues} />
     </GenericForm>
   );
 }

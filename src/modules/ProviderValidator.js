@@ -33,14 +33,19 @@ const ProviderValidator = (provider, providers = null) => {
 
   report.name =
     validName ||
-    `\"${provider.name}\" is not a valid name.${
-      nameExists && ` Name already exists. Please use a unique name.`
-    }`;
+    (provider.name === ""
+      ? "Name cannot be blank."
+      : `\"${provider.name}\" is not a valid name.${
+          nameExists && ` Name already exists. Please use a unique name.`
+        }`);
 
   report.role = validRole || `\"${provider.role}\" is not a valid role.`;
 
   report.hostname =
-    validHostname || `\"${provider.hostname}\" is not a valid hostname.`;
+    validHostname ||
+    (provider.hostname === ""
+      ? "Hostname cannot be blank."
+      : `\"${provider.hostname}\" is not a valid hostname.`);
 
   report.queryPath =
     validQueryPath ||
@@ -56,23 +61,10 @@ const ProviderValidator = (provider, providers = null) => {
 
   const messages = Object.values(report).filter((value) => value !== true);
 
-  const defaultMessenger = (messages) => alert(messages.join("\n"));
-
-  const validateWithMessages = (messenger = defaultMessenger) => {
-    if (decision) {
-      return true;
-    } else {
-      messenger(messages);
-      console.table(report);
-      return false;
-    }
-  };
-
   return {
     report,
     decision,
     messages,
-    validateWithMessages,
   };
 };
 

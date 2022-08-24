@@ -6,7 +6,7 @@ const Icon = (props) => {
   const { iconClass, iconTitle } = iconMap(props.type || props.icon);
 
   return (
-    <span>
+    <span className={props.className}>
       <FontAwesomeIcon
         icon={iconClass || props.icon}
         title={iconTitle || props.title}

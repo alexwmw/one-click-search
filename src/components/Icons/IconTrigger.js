@@ -6,7 +6,7 @@ const IconTrigger = (props) => {
   const { iconClass, iconTitle } = iconMap(props.type);
 
   return (
-    <span onClick={props.onClick}>
+    <span className={props.className} onClick={props.onClick}>
       <FontAwesomeIcon
         icon={iconClass || props.icon}
         title={iconTitle || props.title}

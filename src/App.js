@@ -1,18 +1,15 @@
 import { createRoot } from "react-dom/client";
 import React, { useState } from "react";
-import ProvidersContext from "/src/contexts/ProvidersContext";
 import "./App.less";
 import "/src/less/flex.less";
-import SettingsContext from "/src/contexts/SettingsContext";
-import useSetStorageEffect from "/src/hooks/useSetStorageEffect";
 import ProvidersPage from "/src/pages/ProvidersPage/ProvidersPage";
-
 import HelpModal from "./components/Modals/HelpModal";
 import IconTrigger from "./components/Icons/IconTrigger";
 import IconAnchor from "./components/Icons/IconAnchor";
 import { useReducer } from "react";
 import ChromeReducer from "./reducers/ChromeReducer";
 import ChromeContext from "./contexts/ChromeContext";
+import AlertsContext from "./contexts/AlertsContext";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -34,27 +31,38 @@ const App = ({ storage }) => {
   //   ["log"]
   // );
 
+  const alertHandler = {
+    error: ({ title, messages }) => {
+      alert(title);
+    },
+    confirm: ({ title, question }) => {
+      return confirm(question);
+    },
+  };
+
   return (
-    <ChromeContext.Provider value={{ chrome, dispatchChrome }}>
-      <div className={"app flex-container height-app width-100 column"}>
-        <div className="title-bar flex-container row space-between center">
-          <div className="flex-container row center">
-            <img src={"/icons/icon16.png"}></img>
-            <h2>One Click Search</h2>
-          </div>
-          <div className="flex-container row center">
-            <IconTrigger onClick={() => setShowHelp(true)} type={"help"} />
-            <IconAnchor href={"options.html"} newTab type={"settings"} />
-          </div>
+    <div className={"app flex-container height-app width-100 column"}>
+      <div className="title-bar flex-container row space-between center">
+        <div className="flex-container row center">
+          <img src={"/icons/icon16.png"}></img>
+          <h2>One Click Search</h2>
         </div>
-        <div className="page-container">
-          <div className="flex-container width-100 right">
-            <HelpModal show={showHelp} close={() => setShowHelp(false)} />
-          </div>
-          <ProvidersPage />
+        <div className="flex-container row center">
+          <IconTrigger onClick={() => setShowHelp(true)} type={"help"} />
+          <IconAnchor href={"options.html"} newTab type={"settings"} />
         </div>
       </div>
-    </ChromeContext.Provider>
+      <div className="page-container">
+        <div className="flex-container width-100 right">
+          <HelpModal show={showHelp} close={() => setShowHelp(false)} />
+        </div>
+        <AlertsContext.Provider value={alertHandler}>
+          <ChromeContext.Provider value={{ chrome, dispatchChrome }}>
+            <ProvidersPage />
+          </ChromeContext.Provider>
+        </AlertsContext.Provider>
+      </div>
+    </div>
   );
 };
 
