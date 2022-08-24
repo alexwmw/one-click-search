@@ -1,18 +1,30 @@
 import { replaceObjectInArray } from "../modules/Utilities";
 
 const ChromeReducer = (state, action) => {
+  let newProviders;
   switch (action.type) {
-    case "UPDATE_PROVIDER":
+    case "SET_PROVIDERS":
+      newProviders = action.providers;
+      chrome.storage.sync.set({ providers: newProviders });
       return {
         ...state,
-        providers: replaceObjectInArray(state.providers, action.provider),
+        providers: newProviders,
+      };
+    case "UPDATE_PROVIDER":
+      newProviders = replaceObjectInArray(state.providers, action.provider);
+      chrome.storage.sync.set({ providers: newProviders });
+      return {
+        ...state,
+        providers: newProviders,
       };
     case "DELETE_PROVIDER":
+      newProviders = state.providers.filter(
+        (p) => p.name !== action.provider.name
+      );
+      chrome.storage.sync.set({ providers: newProviders });
       return {
         ...state,
-        providers: state.providers.filter(
-          (p) => p.name !== action.provider.name
-        ),
+        providers: newProviders,
       };
   }
 };

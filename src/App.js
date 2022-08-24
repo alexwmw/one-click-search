@@ -23,14 +23,6 @@ const App = ({ storage }) => {
 
   const [showHelp, setShowHelp] = useState(false);
 
-  // useSetStorageEffect(
-  //   {
-  //     providers: chrome.providers.filter((p) => !p.delete),
-  //     options: chrome.options,
-  //   },
-  //   ["log"]
-  // );
-
   const alertHandler = {
     error: ({ title, messages }) => {
       alert(title);

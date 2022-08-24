@@ -10,7 +10,7 @@ const Icon = (props) => {
       <FontAwesomeIcon
         icon={iconClass || props.icon}
         title={iconTitle || props.title}
-        className={clsx("icon", "link-icon", props.type)}
+        className={clsx("icon", props.type)}
       />
     </span>
   );

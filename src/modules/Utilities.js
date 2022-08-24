@@ -112,3 +112,23 @@ export const sortablesFromProviders = (providers) => ({
   disabled: providers.filter((p) => disabled(p)),
   none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
 });
+
+export const arrayFromSortables = (sortables) => {
+  return sortByPosition([
+    ...sortables.none,
+    ...sortables.visible,
+    ...sortables.hidden,
+    ...sortables.disabled,
+  ]);
+};
+
+export const sortIsFinished = (array) => array.every((p) => p.chosen !== true);
+
+export const placesHaveChanged = (array, providers) =>
+  array.some(
+    (e, i, a) =>
+      a[i].name !== providers[i].name ||
+      a[i].visibility !== providers[i].visibility
+  );
+
+

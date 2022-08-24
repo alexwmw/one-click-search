@@ -2,14 +2,19 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import SortableSection from "./SortableSection";
 import SortablesReducer from "../../reducers/SortablesReducer";
 import ChromeContext from "../../contexts/ChromeContext";
-import { sortablesFromProviders } from "../../modules/Utilities";
+import {
+  arrayFromSortables,
+  placesHaveChanged,
+  sortablesFromProviders,
+  sortIsFinished,
+} from "../../modules/Utilities";
 import clsx from "clsx";
 import "./ProvidersPage.less";
 
 const ProvidersPage = () => {
   /** State and contexts */
   const [openItem, setOpenItem] = useState(null);
-  const { chrome } = useContext(ChromeContext);
+  const { chrome, dispatchChrome } = useContext(ChromeContext);
 
   const [sortables, dispatchSortables] = useReducer(
     SortablesReducer,
@@ -20,6 +25,17 @@ const ProvidersPage = () => {
   useEffect(() => {
     dispatchSortables({ type: "SET_ALL_LISTS", providers: chrome.providers });
   }, [chrome]);
+
+  useEffect(() => {
+    const array = arrayFromSortables(sortables);
+    const finished = sortIsFinished(array);
+    if (finished) {
+      const rearranged = placesHaveChanged(array, chrome.providers);
+      if (rearranged) {
+        dispatchChrome({ type: "SET_PROVIDERS", providers: array });
+      }
+    }
+  }, [sortables]);
 
   return (
     <div
