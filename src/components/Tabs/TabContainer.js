@@ -2,21 +2,18 @@ import Tab from "./Tab";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./TabContainer.less";
+import Icon from "../Icons/Icon";
 
 const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
-  const tabClickHandler = (tabId) => {
-    onTabSelect(tabs[tabId]);
-  };
-
-  const Tabs = Object.keys(tabs).map((tabId) => (
+  const Tabs = Object.values(tabs).map((tab) => (
     <Tab
-      key={tabId}
-      selected={selectedTab == tabs[tabId]}
-      onClick={() => tabClickHandler(tabId)}
+      key={tab.id}
+      selected={selectedTab == tab}
+      onClick={() => onTabSelect(tab.id)}
       border={"left"}
     >
-      <FontAwesomeIcon icon={tabs[tabId].icon} />
-      {tabs[tabId].name}
+      <Icon type={tab.icon} />
+      {tab.name}
     </Tab>
   ));
 

@@ -5,6 +5,10 @@ import {
   faQuestionCircle,
   faSort,
   faTimes,
+  faSliders,
+  faPlug,
+  faPlusMinus,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = (type) => {
@@ -17,6 +21,10 @@ const iconMap = (type) => {
       help: { iconClass: faQuestionCircle, iconTitle: "Help icon" },
       settings: { iconClass: faCog, iconTitle: "Settings icon" },
       sort: { iconClass: faSort, iconTitle: "Sort icon" },
+      appearance: { iconClass: faEye, iconTitle: "Appearance settings icon" },
+      behaviour: { iconClass: faSliders, iconTitle: "Behaviour settings icon" },
+      function: { iconClass: faPlug, iconTitle: "Function settings icon" },
+      advanced: { iconClass: faPlusMinus, iconTitle: "Advanced settings icon" },
     }[type] ?? {}
   );
 };

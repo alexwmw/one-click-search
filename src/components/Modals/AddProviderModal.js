@@ -46,14 +46,11 @@ function AddProviderModal({ isOpen, setIsOpen }) {
   };
 
   useEffect(() => {
-    const areDifferent = compareObjs(defaults, formValues, "different");
+    const areDifferent = compareObjs(defaults, formValues, {
+      type: "different",
+    });
     setHasChanges(areDifferent);
-  }, [
-    formValues.name,
-    formValues.hostname,
-    formValues.queryPath,
-    formValues.faviconUrl,
-  ]);
+  }, [formValues]);
 
   return (
     <Modal

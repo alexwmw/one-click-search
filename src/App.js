@@ -60,6 +60,5 @@ const App = ({ storage }) => {
 
 //** Get data from storage and pass to App for render */
 chrome.storage.sync.get(null, (result) => {
-  console.log(result);
   root.render(<App storage={result} />);
 });
