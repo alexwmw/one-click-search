@@ -1,28 +1,33 @@
-import { useContext, useState } from "react";
-import SettingsContext from "/src/contexts/SettingsContext";
-import useSetSettingsEffect from "/src/hooks/useSetSettingsEffect";
+import { useContext, useState, useEffect } from "react";
+import ChromeContext from "../../contexts/ChromeContext";
 import "./Switch.less";
-import { ToastsContext } from "../../reducers/ToastsReducer";
 
 const Switch = ({ settingId }) => {
-  const { settings } = useContext(SettingsContext);
-  const { dispatchToasts } = useContext(ToastsContext);
-
-  const [value, setValue] = useState(settings[settingId].value);
+  const { chrome, dispatchChrome } = useContext(ChromeContext);
+  const [value, setValue] = useState(chrome.options[settingId].value);
 
   const changeHandler = (e) => {
     setValue(e.target.checked);
-    dispatchToasts({ type: "DEFAULT" });
   };
 
-  /** Update settings on value change */
-  useSetSettingsEffect(settingId, value);
+  useEffect(() => {
+    dispatchChrome({
+      type: "UPDATE_SETTING",
+      settingId: settingId,
+      value: value,
+    });
+  }, [value]);
 
   return (
-    <label className="switch">
-      <input type={"checkbox"} checked={value} onChange={changeHandler} />
-      <span className="handle" />
-    </label>
+    <>
+      <label className="switch">
+        <input type={"checkbox"} checked={value} onChange={changeHandler} />
+        <span className="handle" />
+      </label>
+      <span className={`indicator${value ? " on" : " off"}`}>
+        {value ? "ON" : "OFF"}
+      </span>
+    </>
   );
 };
 

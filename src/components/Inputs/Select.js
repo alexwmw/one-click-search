@@ -1,25 +1,29 @@
-import { useContext, useState } from "react";
-import SettingsContext from "/src/contexts/SettingsContext";
+import { useContext, useState, useEffect } from "react";
 import useOutsideClick from "/src/hooks/useOutsideClick";
-import useSetSettingsEffect from "/src/hooks/useSetSettingsEffect";
+import ChromeContext from "../../contexts/ChromeContext";
 import "./Select.less";
 
 const Select = ({ settingId }) => {
-  const { settings } = useContext(SettingsContext);
-  const { options } = settings[settingId];
-  const [value, setValue] = useState(settings[settingId].value);
+  const { chrome, dispatchChrome } = useContext(ChromeContext);
+  const { options } = chrome.options[settingId];
+  const [value, setValue] = useState(chrome.options[settingId].value);
   const [active, setActive] = useState(false);
 
   /** Mouse event */
   const ref = useOutsideClick(() => setActive(false));
 
-  /** Update settings on value change */
-  useSetSettingsEffect(settingId, value);
-
   const changeHandler = (value) => {
     setActive(false);
     setValue(value);
   };
+
+  useEffect(() => {
+    dispatchChrome({
+      type: "UPDATE_SETTING",
+      settingId: settingId,
+      value: value,
+    });
+  }, [value]);
 
   return (
     <div className={"pseudo-select"}>

@@ -1,6 +1,4 @@
 import Tab from "./Tab";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import "./TabContainer.less";
 import Icon from "../Icons/Icon";
 

@@ -6,6 +6,7 @@ const FormField = (props) => {
     placeholder,
     formatField,
     classes = [],
+    required,
   } = props;
 
   return (
@@ -19,6 +20,7 @@ const FormField = (props) => {
         onFocus={(e) => e.target.select()}
         value={value}
         placeholder={placeholder}
+        required={required}
       />
     </div>
   );

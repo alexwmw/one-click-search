@@ -1,19 +1,17 @@
 import { useContext } from "react";
-import SettingsContext from "/src/contexts/SettingsContext";
 import Number from "/src/components/Inputs/Number";
 import Select from "/src/components/Inputs/Select";
 import Slider from "/src/components/Inputs/Slider";
 import Switch from "/src/components/Inputs/Switch";
 
 import "./OptionsRows.less";
+import ChromeContext from "../../contexts/ChromeContext";
 
 const OptionRows = ({ selectedTab }) => {
-  const { settings } = useContext(SettingsContext);
+  const { chrome } = useContext(ChromeContext);
 
-  const settingClassToDisplay = selectedTab.id;
-
-  const settingsToDisplay = Object.values(settings)
-    .filter((setting) => setting.class == settingClassToDisplay)
+  const settingsToDisplay = Object.values(chrome.options)
+    .filter((setting) => setting.class == selectedTab.id)
     .sort((a, b) => {
       return a.pos - b.pos;
     });
@@ -21,38 +19,29 @@ const OptionRows = ({ selectedTab }) => {
   const getControlOfType = (type, id) => {
     switch (type) {
       case "switch":
-        return <Switch settingId={id} />;
-      case "slider":
-        return <Slider settingId={id} />;
-      case "select":
-        return <Select settingId={id} />;
-      case "number":
-        return <Number settingId={id} />;
-      default:
-        () => console.error("no match");
-        return;
-    }
-  };
-
-  const indicator = (type, value, unit) => {
-    switch (type) {
-      case "switch":
         return (
-          <span className={`indicator${value ? " on" : " off"}`}>
-            {value ? "ON" : "OFF"}
-          </span>
+          <div className="control switch-control">
+            <Switch settingId={id} />
+          </div>
         );
       case "slider":
         return (
-          <span className="indicator">
-            {value}
-            {unit}
-          </span>
+          <div className="control slider-control">
+            <Slider settingId={id} />
+          </div>
         );
       case "select":
-        return <></>;
+        return (
+          <div className="control select-control">
+            <Select settingId={id} />
+          </div>
+        );
       case "number":
-        return <></>;
+        return (
+          <div className="control number-control">
+            <Number settingId={id} />
+          </div>
+        );
       default:
         () => console.error("no match");
         return;
@@ -60,11 +49,9 @@ const OptionRows = ({ selectedTab }) => {
   };
 
   return (
-    <div className={`options-rows ${settingClassToDisplay}`}>
+    <div className={`options-rows ${selectedTab.id}`}>
       {settingsToDisplay.map((setting) => {
-        console.log("pos :" + setting.pos);
         const { id, type, description, label, value, unit } = setting;
-
         const ControlElement = getControlOfType(type, id);
 
         return (
@@ -72,8 +59,7 @@ const OptionRows = ({ selectedTab }) => {
             <h3>{label}</h3>
             <div className={"options-row"}>
               <p className="row-label">{description}</p>
-              <div className="control">{ControlElement}</div>
-              {indicator(type, value, unit)}
+              {ControlElement}
             </div>
           </div>
         );

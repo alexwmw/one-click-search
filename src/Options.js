@@ -1,15 +1,15 @@
 import { createRoot } from "react-dom/client";
-import React, { useState } from "react";
+import { useState, useReducer } from "react";
 import TabContainer from "./components/Tabs/TabContainer";
 import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
 import OcsHeader from "./pages/OptionsPage/OcsHeader";
 import tabs from "./data/tabs.json";
-import { useReducer } from "react";
 import ToastsContainer from "./components/Modals/ToastsContainer";
 import Card from "./components/Cards/Card";
 import ChromeContext from "./contexts/ChromeContext";
-import ChromeReducer from "./reducers/ChromeReducer";
-import { ToastsProvider } from "./reducers/ToastsReducer";
+import useChromeStorage from "./hooks/useChromeStorage";
+import useChromeListener from "./hooks/useChromeListener";
+import { ToastsContext, ToastsReducer } from "./reducers/ToastsReducer";
 
 import "./App.less";
 import "./Options.less";
@@ -20,17 +20,28 @@ const rootElement = document.getElementById("options");
 const root = createRoot(rootElement);
 
 /** Define App */
-const Options = ({ storage }) => {
+const Options = () => {
   /** Context States */
-  const [chrome, dispatchChrome] = useReducer(ChromeReducer, storage);
+  const [chrome, dispatchChrome] = useChromeStorage(["options"]);
+  const [toasts, dispatchToasts] = useReducer(ToastsReducer, []);
 
   /** Define tabs */
   const defaultTab = tabs.appearance;
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
+  useChromeListener(
+    ({ oldValue, newValue }, key) => {
+      dispatchToasts({
+        type: "CUSTOM_SAVED",
+        message: "options changed",
+      });
+    },
+    ["options"]
+  );
+
   return (
     <ChromeContext.Provider value={{ chrome, dispatchChrome }}>
-      <ToastsProvider>
+      <ToastsContext.Provider value={{ toasts, dispatchToasts }}>
         <div className={"options flex-container column"}>
           <ToastsContainer />
           <OcsHeader />
@@ -46,16 +57,16 @@ const Options = ({ storage }) => {
               </Card>
             </div>
             <div className="main-column">
-              {/* <OptionsContainer selectedTab={selectedTab} tabs={tabs} /> */}
+              {chrome && (
+                <OptionsContainer selectedTab={selectedTab} tabs={tabs} />
+              )}
             </div>
           </div>
         </div>
-      </ToastsProvider>
+      </ToastsContext.Provider>
     </ChromeContext.Provider>
   );
 };
 
 //** Get data from storage and pass to App for render */
-chrome.storage.sync.get(null, (result) => {
-  root.render(<Options storage={result} />);
-});
+root.render(<Options />);

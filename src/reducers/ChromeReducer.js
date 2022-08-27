@@ -1,30 +1,53 @@
-import { replaceObjectInArray } from "../modules/Utilities";
+import OCSproviders from "/src/data/providers.json";
+import OCSfunctions from "/src/data/functions.json";
+import { replaceObjectInArray, sortByPosition } from "../modules/Utilities";
 
 const ChromeReducer = (state, action) => {
-  let newProviders;
+  const metaData = { changeOrigin: action.changeOrigin };
   switch (action.type) {
-    case "SET_PROVIDERS":
-      newProviders = action.providers;
-      chrome.storage.sync.set({ providers: newProviders });
+    case "INIT":
+      return { ...metaData, ...action.data };
+    case "UPDATE":
+      return { ...state, ...metaData, ...action.data };
+    case "RESET_PROVIDERS":
       return {
         ...state,
-        providers: newProviders,
+        ...metaData,
+        providers: sortByPosition([...OCSproviders, ...OCSfunctions]),
+      };
+    case "SET_PROVIDERS":
+      return {
+        ...state,
+        ...metaData,
+        providers: action.providers,
       };
     case "UPDATE_PROVIDER":
-      newProviders = replaceObjectInArray(state.providers, action.provider);
-      chrome.storage.sync.set({ providers: newProviders });
       return {
         ...state,
-        providers: newProviders,
+        ...metaData,
+        providers: replaceObjectInArray(state.providers, action.provider),
+      };
+    case "ADD_NEW_PROVIDER":
+      return {
+        ...state,
+        ...metaData,
+        providers: [...state.providers, action.provider],
       };
     case "DELETE_PROVIDER":
-      newProviders = state.providers.filter(
-        (p) => p.name !== action.provider.name
-      );
-      chrome.storage.sync.set({ providers: newProviders });
       return {
         ...state,
-        providers: newProviders,
+        ...metaData,
+        providers: state.providers.filter(
+          (p) => p.name !== action.provider.name
+        ),
+      };
+    case "UPDATE_SETTING":
+      const setting = state.options[action.settingId];
+      setting.value = action.value;
+      return {
+        ...state,
+        ...metaData,
+        options: { ...state.options },
       };
   }
 };

@@ -11,7 +11,8 @@ function ButtonArea(props) {
   } = props;
 
   const proceedAndClose = () => {
-    onProceed() && onClose();
+    onProceed();
+    onClose();
   };
 
   return (

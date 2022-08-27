@@ -8,17 +8,43 @@ import "./ManagementRows.less";
 import OptionRows from "./OptionsRows";
 import AddProviderModal from "../../components/Modals/AddProviderModal";
 import { useState } from "react";
+import { useEffect } from "react";
+import { useContext } from "react";
+import ChromeContext from "../../contexts/ChromeContext";
+import Confirm from "../../components/Modals/Confirm";
 
 const ManagementRows = ({ selectedTab }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [confirmIsOpen, setConfirmIsOpen] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const { dispatchChrome } = useContext(ChromeContext);
 
   const onAddProvClick = () => {
     setModalIsOpen(true);
   };
 
+  const onResetClick = () => {
+    setConfirmIsOpen(true);
+  };
+
+  useEffect(() => {
+    if (confirmReset) {
+      dispatchChrome({ type: "RESET_PROVIDERS" });
+      setConfirmReset(false);
+    }
+  }, [confirmReset]);
+
   return (
     <>
       <AddProviderModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
+      <Confirm
+        isOpen={confirmIsOpen}
+        title={"Are you sure?"}
+        body={"Are you sure?"}
+        onClose={() => setConfirmIsOpen(false)}
+        onProceed={() => setConfirmReset(true)}
+        hasTitleBar={true}
+      />
       <div className="management-rows">
         <OptionRows selectedTab={selectedTab} />
         <div className={`options-rows management`}>
@@ -28,7 +54,9 @@ const ManagementRows = ({ selectedTab }) => {
             <div className={"options-row"}>
               <p className="row-label">{"Room for a description"}</p>
               <div className="control">
-                <Button icon={resetIcon}>Reset to defaults</Button>
+                <Button onClick={onResetClick} icon={resetIcon}>
+                  Reset to defaults
+                </Button>
               </div>
             </div>
           </div>

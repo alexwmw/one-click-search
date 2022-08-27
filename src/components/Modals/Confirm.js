@@ -1,5 +1,6 @@
 import Modal from "./Modal";
 import "./Confirm.less";
+import ButtonArea from "../Buttons/ButtonArea";
 
 function Confirm(props) {
   let isOpen, setIsOpen, onClose;

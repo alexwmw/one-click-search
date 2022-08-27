@@ -1,8 +1,12 @@
+
 import ManagementRows from "./ManagementRows";
 import "./OptionsContainer.less";
 import OptionRows from "./OptionsRows";
 
+
 function OptionsContainer({ selectedTab, tabs }) {
+
+
   return (
     <div className={"flex-container page options-container"}>
       <h2>{selectedTab.name} </h2>

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import FormField from "/src/components/Forms/FormField";
 
 function ProviderFormFields({ addNew, dispatch, values }) {
@@ -11,6 +10,7 @@ function ProviderFormFields({ addNew, dispatch, values }) {
           label={"Name"}
           classes={["undraggable"]}
           value={name}
+          required={true}
           setValue={(value) => dispatch({ type: "SET_NAME", value: value })}
           formatField={() => dispatch({ type: "FORMAT_NAME" })}
         />
@@ -19,6 +19,7 @@ function ProviderFormFields({ addNew, dispatch, values }) {
         label={"Hostname"}
         classes={["undraggable"]}
         value={hostname}
+        required={true}
         setValue={(value) => dispatch({ type: "SET_HOSTNAME", value: value })}
         formatField={() => dispatch({ type: "FORMAT_HOSTNAME" })}
       />
@@ -26,6 +27,7 @@ function ProviderFormFields({ addNew, dispatch, values }) {
         label={"Query path"}
         classes={["undraggable"]}
         value={queryPath}
+        required={true}
         setValue={(value) => dispatch({ type: "SET_QUERYPATH", value: value })}
         formatField={() => dispatch({ type: "FORMAT_QUERYPATH" })}
       />

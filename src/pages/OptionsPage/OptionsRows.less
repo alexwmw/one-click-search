@@ -8,19 +8,26 @@
 .options-row {
   display: flex;
   align-items: center;
-
+  gap: 20px;
   .row-label {
-    width: 200px;
+    width: 210px;
   }
   .control {
     width: 150px;
     display: flex;
-    justify-content: center;
+
     align-items: center;
-    > .slider,
-    > .number,
+    //flex: 1;
+
+    &.switch-control {
+      justify-content: center;
+    }
+
     > .pseudo-select {
-      width: 80%;
+      flex: 1;
+    }
+    .switch {
+      justify-self: center;
     }
   }
   .indicator {

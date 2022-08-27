@@ -6,21 +6,18 @@ import ProvidersPage from "/src/pages/ProvidersPage/ProvidersPage";
 import HelpModal from "./components/Modals/HelpModal";
 import IconTrigger from "./components/Icons/IconTrigger";
 import IconAnchor from "./components/Icons/IconAnchor";
-import { useReducer } from "react";
-import ChromeReducer from "./reducers/ChromeReducer";
 import ChromeContext from "./contexts/ChromeContext";
 import AlertsContext from "./contexts/AlertsContext";
+import useChromeStorage from "./hooks/useChromeStorage";
 
 /** Define root */
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
 /** Define App */
-const App = ({ storage }) => {
+const App = () => {
   /** Context States */
-  const [chrome, dispatchChrome] = useReducer(ChromeReducer, storage);
-  console.log(chrome);
-
+  const [chrome, dispatchChrome] = useChromeStorage(["providers"]);
   const [showHelp, setShowHelp] = useState(false);
 
   const alertHandler = {
@@ -50,7 +47,7 @@ const App = ({ storage }) => {
         </div>
         <AlertsContext.Provider value={alertHandler}>
           <ChromeContext.Provider value={{ chrome, dispatchChrome }}>
-            <ProvidersPage />
+            {chrome && <ProvidersPage />}
           </ChromeContext.Provider>
         </AlertsContext.Provider>
       </div>
@@ -59,6 +56,4 @@ const App = ({ storage }) => {
 };
 
 //** Get data from storage and pass to App for render */
-chrome.storage.sync.get(null, (result) => {
-  root.render(<App storage={result} />);
-});
+root.render(<App />);
