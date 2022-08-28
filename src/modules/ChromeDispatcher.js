@@ -1,11 +1,8 @@
 import OCSproviders from "/src/data/providers.json";
 import OCSfunctions from "/src/data/functions.json";
-import { replaceObjectInArray, sortByPosition } from "./Utilities";
+import { replaceObjectInArray, set, get, sortByPosition } from "./Utilities";
 
 const ChromeDispatcher = (action) => {
-  const set = (obj) => chrome.storage.sync.set(obj);
-  const get = (keys, callback) => chrome.storage.sync.get(keys, callback);
-
   console.log("ChromeDispatcher action: ", action);
 
   switch (action.type) {

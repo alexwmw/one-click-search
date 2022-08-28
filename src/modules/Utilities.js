@@ -131,4 +131,23 @@ export const placesHaveChanged = (array, providers) =>
       a[i].visibility !== providers[i].visibility
   );
 
+export const getChangedSettings = (changes, callback) => {
+  const changedSettings = {};
+  const { oldValue, newValue } = changes["options"] ?? {};
+  if (oldValue && newValue) {
+    for (const setting of Object.keys(newValue)) {
+      if (newValue[setting].value !== oldValue[setting].value) {
+        changedSettings[setting] = {
+          old: oldValue[setting].value,
+          new: newValue[setting].value,
+        };
+      }
+    }
+  }
+  callback(changedSettings);
+};
 
+export const set = (obj, callback) =>
+  chrome.storage.sync.set(obj, callback && callback());
+
+export const get = (keys, callback) => chrome.storage.sync.get(keys, callback);
