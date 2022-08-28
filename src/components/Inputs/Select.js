@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import useOutsideClick from "/src/hooks/useOutsideClick";
 import ChromeContext from "../../contexts/ChromeContext";
 import "./Select.less";
@@ -8,6 +8,7 @@ const Select = ({ settingId }) => {
   const { options: opts } = options[settingId];
   const [value, setValue] = useState(options[settingId].value);
   const [active, setActive] = useState(false);
+  const isMounted = useRef(false);
 
   /** Mouse event */
   const ref = useOutsideClick(() => setActive(false));
@@ -18,11 +19,15 @@ const Select = ({ settingId }) => {
   };
 
   useEffect(() => {
-    dispatchChrome({
-      type: "UPDATE_SETTING",
-      settingId: settingId,
-      value: value,
-    });
+    if (isMounted.current) {
+      dispatchChrome({
+        type: "UPDATE_SETTING",
+        settingId: settingId,
+        value: value,
+      });
+    } else {
+      isMounted.current = true;
+    }
   }, [value]);
 
   return (

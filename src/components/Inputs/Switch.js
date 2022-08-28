@@ -1,21 +1,26 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import ChromeContext from "../../contexts/ChromeContext";
 import "./Switch.less";
 
 const Switch = ({ settingId }) => {
   const { options, dispatchChrome } = useContext(ChromeContext);
   const [value, setValue] = useState(options[settingId].value);
+  const isMounted = useRef(false);
 
   const changeHandler = (e) => {
     setValue(e.target.checked);
   };
 
   useEffect(() => {
-    dispatchChrome({
-      type: "UPDATE_SETTING",
-      settingId: settingId,
-      value: value,
-    });
+    if (isMounted.current) {
+      dispatchChrome({
+        type: "UPDATE_SETTING",
+        settingId: settingId,
+        value: value,
+      });
+    } else {
+      isMounted.current = true;
+    }
   }, [value]);
 
   return (

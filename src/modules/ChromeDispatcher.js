@@ -6,6 +6,8 @@ const ChromeDispatcher = (action) => {
   const set = (obj) => chrome.storage.sync.set(obj);
   const get = (keys, callback) => chrome.storage.sync.get(keys, callback);
 
+  console.log("ChromeDispatcher action: ", action);
+
   switch (action.type) {
     case "SET_PROVIDERS":
       set({

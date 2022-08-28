@@ -1,3 +1,5 @@
+@import '../../less/_variables.less';
+
 .management-rows {
   .options-row-container {
     margin-bottom: 30px;
@@ -25,6 +27,23 @@
       > .Button {
         width: 100%;
         flex: 1;
+      }
+
+      &.number-control {
+        gap: 10px;
+        > .number {
+          flex: 2;
+        }
+        .Button {
+          padding: 5px 0;
+          border-radius: 5px;
+          font-size: 0.85rem;
+          &.unchanged{
+            pointer-events: none;
+            background-color: @L2;
+          }
+
+        }
       }
     }
     .indicator {

@@ -40,6 +40,7 @@ const Options = () => {
 
   useChromeListener(
     ({ oldValue, newValue }) => {
+      setOptions(newValue);
       dispatchToasts({
         type: "CUSTOM_SAVED",
         message: "Changes saved!",

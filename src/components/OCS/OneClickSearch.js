@@ -25,7 +25,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     const checks = [
       !OCS.contains(evt.target),
       isValidSelection(selection),
-      options.maxChars.value === 0 ||
+      options.maxChars.value === "0" ||
         selection.toString().length <= options.maxChars.value,
     ];
 

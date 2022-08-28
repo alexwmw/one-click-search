@@ -11,7 +11,7 @@ const useChromeListener = (callback, keyArray) => {
             Object.keys(changes[key].newValue).length !== 0 &&
             Object.keys(changes[key].oldValue).length !== 0
           ) {
-            console.log("changes[key]", changes[key]);
+            console.log(`ChromeListener on ${key}; changes:`, changes[key]);
             /** callback is called for each key.
              * changes: an object with oldValue and
              * newValue properties, representing changes
