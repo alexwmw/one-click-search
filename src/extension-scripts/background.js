@@ -32,19 +32,24 @@ get(defaults, (result) =>
 );
 
 /** Chrome listeners */
-chrome.storage.onChanged.addListener((changes) =>
-  getChangedSettings(changes, (changedSettings) => {
-    for (const func of OCSfunctions) {
-      const s = `enable${func.name}`;
-      if (changedSettings[s]) {
-        get(["providers"], (result) => {
-          const f = result.providers.filter((p) => p.name == func.name)[0];
-          f.enabled = changedSettings[s].new;
-          set({ providers: result.providers }, () => {
-            console.log(`set ${f.name}.enabled to ${changedSettings[s].new}`);
-          });
+chrome.storage.onChanged.addListener((changes) => {
+  const changedSettings = getChangedSettings(changes);
+
+  for (const func of OCSfunctions) {
+    const enableFunc = `enable${func.name}`;
+
+    if (changedSettings[enableFunc]) {
+      get(["providers"], (result) => {
+        const f = result.providers.filter((p) => p.name == func.name)[0];
+
+        f.enabled = changedSettings[enableFunc].new;
+
+        set({ providers: result.providers }, () => {
+          console.log(
+            `set ${f.name}.enabled to ${changedSettings[enableFunc].new}`
+          );
         });
-      }
+      });
     }
-  })
-);
+  }
+});

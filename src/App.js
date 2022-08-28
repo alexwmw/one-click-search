@@ -9,6 +9,7 @@ import AlertsContext from "./contexts/AlertsContext";
 import ChromeDispatcher from "./modules/ChromeDispatcher";
 import useChromeListener from "./hooks/useChromeListener";
 import useChromeGet from "./hooks/useChromeGet";
+import { filterDisabledFuncs } from "./modules/Utilities";
 import "./App.less";
 import "/src/less/flex.less";
 
@@ -21,6 +22,7 @@ const App = () => {
   /** Context States */
   const [showHelp, setShowHelp] = useState(false);
   const [providers, setProviders] = useState([]);
+  const [options, setOptions] = useState({});
   const dispatchChrome = ChromeDispatcher;
 
   const alertHandler = {
@@ -34,7 +36,7 @@ const App = () => {
 
   useChromeGet(
     (result) => {
-      setProviders(result.providers);
+      setProviders(result.providers.filter(filterDisabledFuncs));
     },
     ["providers"]
   );
@@ -43,8 +45,12 @@ const App = () => {
     ({ oldValue, newValue }) => {
       setProviders(newValue);
     },
-    ["providers"]
+    ["options"]
   );
+
+  useChromeListener(({ oldValue, newValue }) => {
+    setOptions(newValue);
+  });
 
   return (
     <div className={"app flex-container height-app width-100 column"}>

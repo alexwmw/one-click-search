@@ -1,11 +1,14 @@
 import { useEffect, useReducer, useState } from "react";
 import Transition from "react-transition-group/Transition";
-import useChromeListener from "../../hooks/useChromeListener";
-
 import OCSicon from "./OCSicon";
 import PopUp from "./OCSPopUp";
-import { isValidSelection, isValidText } from "/src/modules/Utilities";
-import OCSReducer from "/src/reducers/OCSReducer";
+import useChromeListener from "../../hooks/useChromeListener";
+import OCSReducer from "../../reducers/OCSReducer";
+import {
+  isValidSelection,
+  isValidText,
+  filterDisabledFuncs,
+} from "../../modules/Utilities";
 
 const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** State and local data */
@@ -75,27 +78,21 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     };
   };
 
-  const filterFuncs = (func) => {
-    if (func.role == "function") {
-      const key = `enable${func.name}`;
-      return options[key].value;
-    }
-    return true;
-  };
-
   /** Component lists */
-  const providerIcons = providers.filter(filterFuncs).map((provider) => {
-    return (
-      <OCSicon
-        onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
-        key={provider.name}
-        text={text}
-        provider={provider}
-        visibility={provider.visibility}
-        linkTarget={options.linkTarget.dictionary[options.linkTarget.value]}
-      />
-    );
-  });
+  const providerIcons = providers
+    .filter(filterDisabledFuncs)
+    .map((provider) => {
+      return (
+        <OCSicon
+          onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
+          key={provider.name}
+          text={text}
+          provider={provider}
+          visibility={provider.visibility}
+          linkTarget={options.linkTarget.dictionary[options.linkTarget.value]}
+        />
+      );
+    });
 
   return (
     <div id={"OneClickSearch"} className={"OneClickSearch"}>
