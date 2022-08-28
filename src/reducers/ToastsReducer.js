@@ -11,7 +11,7 @@ export function ToastsReducer(state, action) {
       return [
         ...state,
         {
-          icon: "check",
+          icon: "checkCircle",
           title: action.message,
           category: "success",
         },

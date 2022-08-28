@@ -1,5 +1,6 @@
 import {
   faCheck,
+  faCheckCircle,
   faCog,
   faEllipsisVertical,
   faQuestionCircle,
@@ -15,6 +16,7 @@ const iconMap = (type) => {
   return (
     {
       check: { iconClass: faCheck, iconTitle: "Tick icon" },
+      checkCircle: { iconClass: faCheckCircle, iconTitle: "Tick icon" },
       close: { iconClass: faTimes, iconTitle: "Close icon" },
       edit: { iconClass: faEllipsisVertical, iconTitle: "Edit icon" },
       more: { iconClass: faEllipsisVertical, iconTitle: "More icon" },

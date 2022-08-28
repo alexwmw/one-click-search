@@ -50,9 +50,9 @@ function Modal(props) {
           <div ref={clickRef}>
             <div className={"title-area flex-container row"}>
               <h2>
-                <div>
+                <div className="modal-title">
                   {props.icon && <Icon icon={props.icon} />}
-                  <span>{title}</span>
+                  <span className="modal-title-text">{title}</span>
                 </div>
                 {isClosable && (
                   <div>
