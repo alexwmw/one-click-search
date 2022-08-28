@@ -9,6 +9,7 @@ import Button from "../../components/Buttons/Button";
 import Confirm from "../../components/Modals/Confirm";
 import AddProviderModal from "../../components/Modals/AddProviderModal";
 import ChromeContext from "../../contexts/ChromeContext";
+import { ToastsContext } from "../../reducers/ToastsReducer";
 import "./ManagementRows.less";
 
 const ManagementRows = ({ selectedTab }) => {
@@ -16,6 +17,7 @@ const ManagementRows = ({ selectedTab }) => {
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const { dispatchChrome } = useContext(ChromeContext);
+  const { dispatchToasts } = useContext(ToastsContext);
 
   const onAddProvClick = () => {
     setModalIsOpen(true);
@@ -28,6 +30,7 @@ const ManagementRows = ({ selectedTab }) => {
   useEffect(() => {
     if (confirmReset) {
       dispatchChrome({ type: "RESET_PROVIDERS" });
+      dispatchToasts({ type: "PROVIDERS_RESET" });
       setConfirmReset(false);
     }
   }, [confirmReset]);

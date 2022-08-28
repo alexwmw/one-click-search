@@ -2,17 +2,33 @@ import { useReducer, createContext } from "react";
 
 export function ToastsReducer(state, action) {
   switch (action.type) {
-    case "PROVIDER_SAVED":
-    case "PROVIDER_DELETED":
+    // case "PROVIDER_SAVED":
+    // case "PROVIDER_DELETED":
+    // case "ORDER_SAVED":
     case "PROVIDER_ADDED":
-    case "SETTING_SAVED":
-    case "ORDER_SAVED":
-    case "CUSTOM_SAVED":
       return [
         ...state,
         {
-          icon: "check",
-          title: action.message,
+          icon: "checkCircle",
+          title: "New provider added!",
+          category: "success",
+        },
+      ];
+    case "PROVIDERS_RESET":
+      return [
+        ...state,
+        {
+          icon: "checkCircle",
+          title: "Providers reset!",
+          category: "success",
+        },
+      ];
+    case "SETTING_UPDATED":
+      return [
+        ...state,
+        {
+          icon: "checkCircle",
+          title: "Changes Saved!",
           category: "success",
         },
       ];

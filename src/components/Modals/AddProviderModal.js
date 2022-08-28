@@ -7,10 +7,13 @@ import ProviderValidator from "../../modules/ProviderValidator";
 import ChromeDispatcher from "../../modules/ChromeDispatcher";
 import { compareObjs } from "../../modules/Utilities";
 import "./AddProviderModal.less";
+import { useContext } from "react";
+import { ToastsContext } from "../../reducers/ToastsReducer";
 
 function AddProviderModal({ isOpen, setIsOpen }) {
   //const alertHandler = useContext(AlertsContext);
   const [hasChanges, setHasChanges] = useState(false);
+  const { dispatchToasts } = useContext(ToastsContext);
   const defaults = useMemo(() => ({
     name: "",
     hostname: "",
@@ -36,6 +39,7 @@ function AddProviderModal({ isOpen, setIsOpen }) {
           provider: formValues,
         });
         dispatchFormValues({ type: "CLEAR_FORM", defaults: defaults });
+        dispatchToasts({ type: "PROVIDER_ADDED" });
         setIsOpen(false);
       } else {
         //alertHandler.error({ title: "x", messages: validator.messages });
