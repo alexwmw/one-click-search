@@ -8,9 +8,9 @@ import "./OptionsRows.less";
 import ChromeContext from "../../contexts/ChromeContext";
 
 const OptionRows = ({ selectedTab }) => {
-  const { chrome } = useContext(ChromeContext);
+  const { options } = useContext(ChromeContext);
 
-  const settingsToDisplay = Object.values(chrome.options)
+  const settingsToDisplay = Object.values(options)
     .filter((setting) => setting.class == selectedTab.id)
     .sort((a, b) => {
       return a.pos - b.pos;

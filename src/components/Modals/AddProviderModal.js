@@ -1,17 +1,16 @@
-import { useState, useEffect, useMemo, useContext, useReducer } from "react";
-import useNewProvider from "/src/hooks/useNewProvider";
+import { useState, useEffect, useMemo, useReducer } from "react";
 import ProviderFormReducer from "/src/reducers/ProviderFormReducer";
-import ProvidersContext from "/src/contexts/ProvidersContext";
-import { compareObjs, replaceObjectInArray } from "/src/modules/Utilities";
-import ProviderFormFields from "../Forms/ProviderFormFields";
 import Modal from "./Modal";
-import "./AddProviderModal.less";
 import ButtonArea from "../Buttons/ButtonArea";
+import ProviderFormFields from "../Forms/ProviderFormFields";
+import ProviderValidator from "../../modules/ProviderValidator";
+import ChromeDispatcher from "../../modules/ChromeDispatcher";
+import { compareObjs } from "../../modules/Utilities";
+import "./AddProviderModal.less";
 
 function AddProviderModal({ isOpen, setIsOpen }) {
-  const { providers, setProviders } = useContext(ProvidersContext);
+  //const alertHandler = useContext(AlertsContext);
   const [hasChanges, setHasChanges] = useState(false);
-
   const defaults = useMemo(() => ({
     name: "",
     hostname: "",
@@ -21,27 +20,34 @@ function AddProviderModal({ isOpen, setIsOpen }) {
     visibility: "hidden",
   }));
 
-  const [formValues, dispatch] = useReducer(ProviderFormReducer, defaults);
+  const [formValues, dispatchFormValues] = useReducer(
+    ProviderFormReducer,
+    defaults
+  );
 
-  const [newProvider, validator] = useNewProvider({
-    newData: formValues,
-    providers: providers,
-  });
+  const dispatchChrome = ChromeDispatcher;
 
   const onSubmit = () => {
-    if (validator.decision) {
-      const newState = replaceObjectInArray(providers, newProvider);
-      setProviders(newState);
-      return true;
-    } else {
-      return false;
-    }
+    chrome.storage.sync.get(["providers"], (result) => {
+      const validator = ProviderValidator(formValues, result.providers);
+      if (validator.decision) {
+        dispatchChrome({
+          type: "ADD_NEW_PROVIDER",
+          provider: formValues,
+        });
+        dispatchFormValues({ type: "CLEAR_FORM", defaults: defaults });
+        setIsOpen(false);
+      } else {
+        //alertHandler.error({ title: "x", messages: validator.messages });
+        alert(validator.messages.join("\n"));
+      }
+    });
   };
 
   const onClose = () => {
     if (!hasChanges || confirm("Your changes will be lost")) {
       setIsOpen(false);
-      dispatch({ type: "CLEAR_FORM", defaults: defaults });
+      dispatchFormValues({ type: "CLEAR_FORM", defaults: defaults });
     }
   };
 
@@ -63,15 +69,16 @@ function AddProviderModal({ isOpen, setIsOpen }) {
     >
       <ProviderFormFields
         addNew={true}
-        dispatch={dispatch}
+        dispatch={dispatchFormValues}
         values={formValues}
         tooltips={true}
         setHasChanges={setHasChanges}
       />
       <ButtonArea
         onClose={onClose}
-        onProceed={onSubmit}
+        onProceed={() => onSubmit()}
         proceedText={"Submit"}
+        closeOnSubmit={false}
       />
     </Modal>
   );

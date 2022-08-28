@@ -3,9 +3,9 @@ import ChromeContext from "../../contexts/ChromeContext";
 import "./Slider.less";
 
 const Slider = ({ settingId }) => {
-  const { chrome, dispatchChrome } = useContext(ChromeContext);
-  const { min, max, step, unit } = chrome.options[settingId];
-  const [value, setValue] = useState(chrome.options[settingId].value);
+  const { options, dispatchChrome } = useContext(ChromeContext);
+  const { min, max, step, unit } = options[settingId];
+  const [value, setValue] = useState(options[settingId].value);
 
   const changeHandler = (e) => {
     setValue(e.target.value);

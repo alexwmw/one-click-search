@@ -1,17 +1,15 @@
-import Button from "/src/components/Buttons/Button";
+import { useState, useEffect, useContext } from "react";
 import {
   faPlus as addIcon,
   faRecycle as resetIcon,
 } from "@fortawesome/free-solid-svg-icons";
 
-import "./ManagementRows.less";
 import OptionRows from "./OptionsRows";
-import AddProviderModal from "../../components/Modals/AddProviderModal";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useContext } from "react";
-import ChromeContext from "../../contexts/ChromeContext";
+import Button from "../../components/Buttons/Button";
 import Confirm from "../../components/Modals/Confirm";
+import AddProviderModal from "../../components/Modals/AddProviderModal";
+import ChromeContext from "../../contexts/ChromeContext";
+import "./ManagementRows.less";
 
 const ManagementRows = ({ selectedTab }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);

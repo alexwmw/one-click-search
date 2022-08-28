@@ -14,23 +14,23 @@ import "./ProvidersPage.less";
 const ProvidersPage = () => {
   /** State and contexts */
   const [openItem, setOpenItem] = useState(null);
-  const { chrome, dispatchChrome } = useContext(ChromeContext);
+  const { providers, dispatchChrome } = useContext(ChromeContext);
 
   const [sortables, dispatchSortables] = useReducer(
     SortablesReducer,
-    chrome.providers,
+    providers,
     sortablesFromProviders
   );
 
   useEffect(() => {
-    dispatchSortables({ type: "SET_ALL_LISTS", providers: chrome.providers });
-  }, [chrome]);
+    dispatchSortables({ type: "SET_ALL_LISTS", providers: providers });
+  }, [providers]);
 
   useEffect(() => {
     const array = arrayFromSortables(sortables);
     const finished = sortIsFinished(array);
     if (finished) {
-      const rearranged = placesHaveChanged(array, chrome.providers);
+      const rearranged = placesHaveChanged(array, providers);
       if (rearranged) {
         dispatchChrome({ type: "SET_PROVIDERS", providers: array });
       }

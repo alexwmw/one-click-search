@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
 import Transition from "react-transition-group/Transition";
+import useChromeListener from "../../hooks/useChromeListener";
 
 import OCSicon from "./OCSicon";
 import PopUp from "./OCSPopUp";
@@ -41,14 +42,18 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** useEffect on first render only: Add mouseup/down event listeners to document */
   useEffect(() => document.addEventListener("mouseup", clickHandler), []);
 
-  /** useEffect on first render only: Add chrome.storage.onChanged event listener */
-  useEffect(
-    () =>
-      chrome.storage.onChanged.addListener((changes, namespace) => {
-        "providers" in changes && setProviders(changes.providers.newValue);
-        "options" in changes && setOptions(changes.options.newValue);
-      }),
-    []
+  useChromeListener(
+    ({ newValue }) => {
+      setProviders(newValue);
+    },
+    ["providers"]
+  );
+
+  useChromeListener(
+    ({ newValue }) => {
+      setOptions(newValue);
+    },
+    ["options"]
   );
 
   useEffect(() => {

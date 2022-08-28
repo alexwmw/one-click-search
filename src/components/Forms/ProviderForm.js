@@ -8,7 +8,7 @@ import ProviderValidator from "../../modules/ProviderValidator";
 import { compareObjs, visible } from "../../modules/Utilities";
 
 function ProviderForm({ provider, closeForm }) {
-  const { chrome, dispatchChrome } = useContext(ChromeContext);
+  const { providers, dispatchChrome } = useContext(ChromeContext);
   const alertHandler = useContext(AlertsContext);
   const [hasChanges, setHasChanges] = useState(false);
   const [formValues, dispatchFormValues] = useReducer(
@@ -37,9 +37,10 @@ function ProviderForm({ provider, closeForm }) {
 
   const deleteHandler = (e) => {
     e.preventDefault();
+
     const isOnlyVisibleItem =
-      visible(provider) &&
-      chrome.providers.filter((p) => visible(p)).length < 2;
+      visible(provider) && providers.filter((p) => visible(p)).length < 2;
+
     if (isOnlyVisibleItem) {
       alertHandler.error({ title: "title", messages: [] });
     } else {

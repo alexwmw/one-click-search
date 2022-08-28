@@ -4,9 +4,9 @@ import ChromeContext from "../../contexts/ChromeContext";
 import "./Select.less";
 
 const Select = ({ settingId }) => {
-  const { chrome, dispatchChrome } = useContext(ChromeContext);
-  const { options } = chrome.options[settingId];
-  const [value, setValue] = useState(chrome.options[settingId].value);
+  const { options, dispatchChrome } = useContext(ChromeContext);
+  const { options: opts } = options[settingId];
+  const [value, setValue] = useState(options[settingId].value);
   const [active, setActive] = useState(false);
 
   /** Mouse event */
@@ -37,7 +37,7 @@ const Select = ({ settingId }) => {
         </li>
       </ul>
       <ul className={`pseudo-select-hidden ${active ? "active" : ""}`}>
-        {options.map((opt) => (
+        {opts.map((opt) => (
           <li
             onClick={() => {
               changeHandler(opt);

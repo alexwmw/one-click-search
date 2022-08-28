@@ -1,14 +1,15 @@
 import { createRoot } from "react-dom/client";
 import { useState, useReducer } from "react";
 import TabContainer from "./components/Tabs/TabContainer";
+import ToastsContainer from "./components/Modals/ToastsContainer";
 import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
 import OcsHeader from "./pages/OptionsPage/OcsHeader";
 import tabs from "./data/tabs.json";
-import ToastsContainer from "./components/Modals/ToastsContainer";
 import Card from "./components/Cards/Card";
 import ChromeContext from "./contexts/ChromeContext";
-import useChromeStorage from "./hooks/useChromeStorage";
+import ChromeDispatcher from "./modules/ChromeDispatcher";
 import useChromeListener from "./hooks/useChromeListener";
+import useChromeGet from "./hooks/useChromeGet";
 import { ToastsContext, ToastsReducer } from "./reducers/ToastsReducer";
 
 import "./App.less";
@@ -22,28 +23,36 @@ const root = createRoot(rootElement);
 /** Define App */
 const Options = () => {
   /** Context States */
-  const [chrome, dispatchChrome] = useChromeStorage(["options"]);
+  const [options, setOptions] = useState({});
+  const dispatchChrome = ChromeDispatcher;
   const [toasts, dispatchToasts] = useReducer(ToastsReducer, []);
 
   /** Define tabs */
   const defaultTab = tabs.appearance;
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
+  useChromeGet(
+    (result) => {
+      setOptions(result.options);
+    },
+    ["options"]
+  );
+
   useChromeListener(
-    ({ oldValue, newValue }, key) => {
+    ({ oldValue, newValue }) => {
       dispatchToasts({
         type: "CUSTOM_SAVED",
-        message: "options changed",
+        message: "Changes saved!",
       });
     },
     ["options"]
   );
 
   return (
-    <ChromeContext.Provider value={{ chrome, dispatchChrome }}>
+    <ChromeContext.Provider value={{ options, dispatchChrome }}>
       <ToastsContext.Provider value={{ toasts, dispatchToasts }}>
         <div className={"options flex-container column"}>
-          <ToastsContainer />
+          <ToastsContainer position={"right"} />
           <OcsHeader />
           <div className="main-content flex-container row">
             <div className="tabs-column">
@@ -57,7 +66,7 @@ const Options = () => {
               </Card>
             </div>
             <div className="main-column">
-              {chrome && (
+              {options && (
                 <OptionsContainer selectedTab={selectedTab} tabs={tabs} />
               )}
             </div>

@@ -4,8 +4,8 @@ import ChromeContext from "../../contexts/ChromeContext";
 import useOutsideClick from "../../hooks/useOutsideClick";
 
 const Number = ({ settingId }) => {
-  const { chrome, dispatchChrome } = useContext(ChromeContext);
-  const [value, setValue] = useState(chrome.options[settingId].value);
+  const { options, dispatchChrome } = useContext(ChromeContext);
+  const [value, setValue] = useState(options[settingId].value);
   const [click, setClick] = useState(0);
 
   /** Mouse event */

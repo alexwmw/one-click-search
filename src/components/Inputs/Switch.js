@@ -3,8 +3,8 @@ import ChromeContext from "../../contexts/ChromeContext";
 import "./Switch.less";
 
 const Switch = ({ settingId }) => {
-  const { chrome, dispatchChrome } = useContext(ChromeContext);
-  const [value, setValue] = useState(chrome.options[settingId].value);
+  const { options, dispatchChrome } = useContext(ChromeContext);
+  const [value, setValue] = useState(options[settingId].value);
 
   const changeHandler = (e) => {
     setValue(e.target.checked);
