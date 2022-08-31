@@ -51,9 +51,13 @@ const ManagementRows = ({ selectedTab }) => {
         <div className={`options-rows management`}>
           {/* Reset */}
           <div className={`options-row-container `}>
-            <h3>{"Reset to Defaults"}</h3>
+            <h3>{"Reset to defaults"}</h3>
             <div className={"options-row"}>
-              <p className="row-label">{"Room for a description"}</p>
+              <p className="row-label">
+                {
+                  "Reset the search providers to their default values. Any search providers you have added wil be lost."
+                }
+              </p>
               <div className="control">
                 <Button onClick={onResetClick} icon={resetIcon}>
                   Reset to defaults
@@ -65,7 +69,9 @@ const ManagementRows = ({ selectedTab }) => {
           <div className={`options-row-container `}>
             <h3>{"Add a new provider"}</h3>
             <div className={"options-row"}>
-              <p className="row-label">{"Room for a description"}</p>
+              <p className="row-label">
+                {"Add a new search provider to the pop-up."}
+              </p>
               <div className="control">
                 <Button onClick={onAddProvClick} icon={addIcon}>
                   Add new provider
