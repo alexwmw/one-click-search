@@ -30,7 +30,7 @@
   align-items: center;
   gap: 5px;
 
-  background-color: @L3;
+  background-color: var(--L3);
   outline: none;
 
   user-select: none;
@@ -94,9 +94,9 @@
       object-fit: contain;
     }
     &:hover img {
-      background-color: lighten(@L2, 5%);
+      background-color: var(--L2-5);
       opacity: 1;
-      //outline: 1px solid @P1;
+      //outline: 1px solid var(--P1);
     }
 
     &.hidden {

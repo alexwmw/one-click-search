@@ -29,9 +29,9 @@ const Switch = ({ settingId }) => {
         <input type={"checkbox"} checked={value} onChange={changeHandler} />
         <span className="handle" />
       </label>
-      <span className={`indicator${value ? " on" : " off"}`}>
+      <p className={`indicator${value ? " on" : " off"}`}>
         {value ? "ON" : "OFF"}
-      </span>
+      </p>
     </>
   );
 };

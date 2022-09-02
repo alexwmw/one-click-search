@@ -34,6 +34,25 @@
     "type": "switch",
     "pos": 2
   },
+  "theme": {
+    "class": "appearance",
+    "id": "theme",
+    "label": "Menu theme",
+    "description": "Choose light or dark theme for the extension menus",
+    "value": "Light",
+    "type": "select",
+    "options": ["Light", "Dark"],
+    "pos": 4
+  },
+  "animations": {
+    "class": "appearance",
+    "id": "animations",
+    "label": "Enable animations",
+    "description": "Enable animations in the popup",
+    "value": true,
+    "type": "switch",
+    "pos": 3
+  },
   "fadeOutTime": {
     "class": "behaviour",
     "id": "fadeOutTime",
@@ -92,33 +111,5 @@
     "value": "1000",
     "type": "number",
     "pos": 0
-  },
-
-  "animations": {
-    "class": "behaviour",
-    "id": "animations",
-    "label": "Enable animations",
-    "description": "Enable animations in the popup",
-    "value": true,
-    "type": "switch",
-    "pos": 4
-  },
-  "enableCopy": {
-    "class": "function",
-    "id": "enableCopy",
-    "label": "Enable Copy function:",
-    "description": "Enable Copy function",
-    "value": true,
-    "type": "switch",
-    "pos": 0
-  },
-  "enableGoTo": {
-    "class": "function",
-    "id": "enableGoTo",
-    "label": "Enable GoTo function:",
-    "description": "Enable GoTo function",
-    "value": true,
-    "type": "switch",
-    "pos": 1
   }
 }

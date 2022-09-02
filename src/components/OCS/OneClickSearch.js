@@ -4,11 +4,7 @@ import OCSicon from "./OCSicon";
 import PopUp from "./OCSPopUp";
 import useChromeListener from "../../hooks/useChromeListener";
 import OCSReducer from "../../reducers/OCSReducer";
-import {
-  isValidSelection,
-  isValidText,
-  filterDisabledFuncs,
-} from "../../modules/Utilities";
+import { isValidSelection, isValidText } from "../../modules/Utilities";
 
 const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** State and local data */
@@ -23,11 +19,13 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   const clickHandler = (evt) => {
     const selection = window.getSelection();
-    const OCS = document.getElementById("OneClickSearch"); //check this, otherwise !isOCS(event.target)
-
+    const OCS = document.getElementById("OneClickSearch");
     const checks = [
+      // Check the click was outside of the popup
       !OCS.contains(evt.target),
+      // Check the text selection is a valid one
       isValidSelection(selection),
+      // Check the maximum number of characters is unlimited or has not been exceeded
       options.maxChars.value === "0" ||
         selection.toString().length <= options.maxChars.value,
     ];
@@ -42,23 +40,21 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     }
   };
 
-  /** useEffect on first render only: Add mouseup/down event listeners to document */
-  useEffect(() => document.addEventListener("mouseup", clickHandler), []);
-
+  /** Updated state when stored values change */
   useChromeListener(
-    ({ newValue }) => {
-      setProviders(newValue);
+    ({ newValue }, key) => {
+      key === "providers" && setProviders(newValue);
+      key === "options" && setOptions(newValue);
     },
-    ["providers"]
+    ["providers", "options"]
   );
 
-  useChromeListener(
-    ({ newValue }) => {
-      setOptions(newValue);
-    },
-    ["options"]
-  );
+  /** Add mouseup/down event listeners to document */
+  useEffect(() => {
+    document.addEventListener("mouseup", clickHandler);
+  }, []);
 
+  /** When click data changes, hide or display the popup */
   useEffect(() => {
     if (isValidText(text)) {
       dispatch({ type: "DISPLAY_OCS" });
@@ -67,32 +63,19 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     }
   }, [text, x, y]);
 
-  const styleByState = (state) => {
-    const opac = state === "exiting" ? 0 : 1;
-    const time = options.fadeOutTime.value * 1000;
-    const trans =
-      state === "exiting" && fade ? `opacity ${time}ms ease-out` : "";
-    return {
-      opacity: opac,
-      transition: trans,
-    };
-  };
-
   /** Component lists */
-  const providerIcons = providers
-    .filter(filterDisabledFuncs)
-    .map((provider) => {
-      return (
-        <OCSicon
-          onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
-          key={provider.name}
-          text={text}
-          provider={provider}
-          visibility={provider.visibility}
-          linkTarget={options.linkTarget.dictionary[options.linkTarget.value]}
-        />
-      );
-    });
+  const providerIcons = providers.map((provider) => {
+    return (
+      <OCSicon
+        onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
+        key={provider.name}
+        text={text}
+        provider={provider}
+        visibility={provider.visibility}
+        linkTarget={options.linkTarget.dictionary[options.linkTarget.value]}
+      />
+    );
+  });
 
   return (
     <div id={"OneClickSearch"} className={"OneClickSearch"}>
@@ -103,7 +86,14 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
       >
         {(state) => (
           <PopUp
-            style={{ ...position, ...styleByState(state) }}
+            style={{
+              ...position,
+              opacity: state === "exiting" ? 0 : 1,
+              transition:
+                state === "exiting" && fade
+                  ? `opacity ${options.fadeOutTime.value * 1000}ms ease-out`
+                  : "",
+            }}
             dispatch={dispatch}
             showHidden={showHidden}
             options={options}

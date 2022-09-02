@@ -11,16 +11,16 @@
     "icon": "behaviour",
     "isOptionsTab": true
   },
-  "function": {
-    "id": "function",
-    "name": "Function",
-    "icon": "function",
-    "isOptionsTab": true
-  },
   "advanced": {
     "id": "advanced",
     "name": "Advanced",
     "icon": "advanced",
+    "isOptionsTab": false
+  },
+  "info": {
+    "id": "info",
+    "name": "Information",
+    "icon": "information",
     "isOptionsTab": false
   }
 }

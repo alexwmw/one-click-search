@@ -106,12 +106,14 @@ export const compareObjs = (
   return evaluateWith(aKeys);
 };
 
-export const sortablesFromProviders = (providers) => ({
-  visible: providers.filter((p) => visible(p)),
-  hidden: providers.filter((p) => hidden(p)),
-  disabled: providers.filter((p) => disabled(p)),
-  none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
-});
+export const sortablesFromProviders = (providers) => {
+  return {
+    visible: providers.filter((p) => visible(p)),
+    hidden: providers.filter((p) => hidden(p)),
+    disabled: providers.filter((p) => disabled(p)),
+    none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
+  };
+};
 
 export const arrayFromSortables = (sortables) => {
   return sortByPosition([
@@ -131,32 +133,45 @@ export const placesHaveChanged = (array, providers) =>
       a[i].visibility !== providers[i].visibility
   );
 
-export const getChangedSettings = (changes) => {
-  const changedSettings = {};
-  const { oldValue, newValue } = changes["options"] ?? {};
-  if (oldValue && newValue) {
-    for (const setting of Object.keys(newValue)) {
-      if (newValue[setting].value !== oldValue[setting].value) {
-        changedSettings[setting] = {
-          old: oldValue[setting].value,
-          new: newValue[setting].value,
-        };
-      }
-    }
-  }
-  return changedSettings;
-};
+// export const getChangedSettings = (changes) => {
+//   const changedSettings = {};
+//   const { oldValue, newValue } = changes["options"] ?? {};
+//   if (oldValue && newValue) {
+//     for (const setting of Object.keys(newValue)) {
+//       if (newValue[setting].value !== oldValue[setting].value) {
+//         changedSettings[setting] = {
+//           old: oldValue[setting].value,
+//           new: newValue[setting].value,
+//         };
+//       }
+//     }
+//   }
+//   return changedSettings;
+// };
 
 export const set = (obj, callback) =>
   chrome.storage.sync.set(obj, callback && callback());
 
 export const get = (keys, callback) => chrome.storage.sync.get(keys, callback);
 
-
-export const filterDisabledFuncs = (func) => {
-  if (func.role == "function") {
-    return func.enabled;
-  }
-  return true;
+/** Style for the popup based on transition state:
+ *  [entering, entered, exiting, exited] */
+export const styleByState = (state, fade, fadeOutTime) => {
+  const opacityValue = state === "exiting" ? 0 : 1;
+  const transitionTime = fadeOutTime * 1000;
+  const transitionArgs =
+    state === "exiting" && fade ? `opacity ${transitionTime}ms ease-out` : "";
+  return {
+    opacity: opacityValue,
+    transition: transitionArgs,
+  };
 };
 
+export const applyTheme = (theme, element = null) => {
+  const html = document.querySelector("html");
+  if (element) {
+    element.dataset.theme = `theme-${theme}`;
+  } else {
+    html.dataset.theme = `theme-${theme}`;
+  }
+};

@@ -7,16 +7,20 @@ body {
   width: @app-width;
   height: @app-height;
   //overflow: hidden;
+  background-color: var(--bg);
 
   * {
     font-family: @font-family;
   }
 
   h1 {
-    .h1();
+    font-weight: 700;
+    font-size: 1.2rem;
   }
+
   h2 {
-    .h2();
+    font-weight: 700;
+    font-size: 1.1rem;
   }
 
   label,
@@ -24,14 +28,21 @@ body {
   li,
   input,
   h1,
-  h2 {
+  h2,
+  h3 {
     color: @text-color;
+  }
+
+  input {
+    background-color: var(--bg);
   }
 
   input:focus,
   select:focus {
     outline: none;
+    background-color: var(--bg);
   }
+
   button {
     border: none;
   }

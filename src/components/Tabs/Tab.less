@@ -1,8 +1,7 @@
 @import "/src/less/_variables.less";
 
 .tab {
-  background-color: #fff;
-
+  background-color: var(--bg);
   &.right {
     border-right: solid 5px transparent;
   }
@@ -18,7 +17,7 @@
 
   // transition: all 300ms ease;
 
-  color: @D1;
+  color: var(--D1);
 
   cursor: pointer;
   user-select: none;
@@ -30,12 +29,12 @@
   &.selected {
     // flex: 2;
     font-weight: 700;
-    border-color: @P1;
-    background-color: @L3;
-    color: @P1;
+    border-color: var(--P1);
+    background-color: var(--L3);
+    color: var(--P1);
   }
   &:hover:not(.selected) {
-    color: @D2;
-    background-color: @L4;
+    color: var(--D2);
+    background-color: var(--L4);
   }
 }

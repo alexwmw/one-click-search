@@ -1,17 +1,19 @@
 import { createRoot } from "react-dom/client";
 import React, { useState } from "react";
-import ProvidersPage from "/src/pages/ProvidersPage/ProvidersPage";
+import clsx from "clsx";
+import ProvidersPage from "./pages/ProvidersPage/ProvidersPage";
 import HelpModal from "./components/Modals/HelpModal";
 import IconTrigger from "./components/Icons/IconTrigger";
 import IconAnchor from "./components/Icons/IconAnchor";
 import ChromeContext from "./contexts/ChromeContext";
 import AlertsContext from "./contexts/AlertsContext";
-import ChromeDispatcher from "./modules/ChromeDispatcher";
 import useChromeListener from "./hooks/useChromeListener";
 import useChromeGet from "./hooks/useChromeGet";
-import { filterDisabledFuncs } from "./modules/Utilities";
+import ChromeDispatcher from "./modules/ChromeDispatcher";
+import { applyTheme } from "./modules/Utilities";
 import "./App.less";
-import "/src/less/flex.less";
+import "./less/flex.less";
+import "./less/theme.less";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -22,8 +24,15 @@ const App = () => {
   /** Context States */
   const [showHelp, setShowHelp] = useState(false);
   const [providers, setProviders] = useState([]);
-  const [options, setOptions] = useState({});
   const dispatchChrome = ChromeDispatcher;
+
+  /** Get theme on first render */
+  useChromeGet(
+    (result) => {
+      applyTheme(result.options.theme.value.toLowerCase());
+    },
+    ["options"]
+  );
 
   const alertHandler = {
     error: ({ title, messages }) => {
@@ -34,26 +43,32 @@ const App = () => {
     },
   };
 
+  /** Get providers on first render */
   useChromeGet(
     (result) => {
-      setProviders(result.providers.filter(filterDisabledFuncs));
+      setProviders(result.providers);
     },
     ["providers"]
   );
 
+  /** Update providers when changes occur elsewhere in the extension */
   useChromeListener(
     ({ oldValue, newValue }) => {
       setProviders(newValue);
     },
-    ["options"]
+    ["providers"]
   );
 
-  useChromeListener(({ oldValue, newValue }) => {
-    setOptions(newValue);
-  });
-
   return (
-    <div className={"app flex-container height-app width-100 column"}>
+    <div
+      className={clsx(
+        "app",
+        "flex-container",
+        "height-app",
+        "width-100",
+        "column"
+      )}
+    >
       <div className="title-bar flex-container row space-between center">
         <div className="flex-container row center">
           <img src={"/icons/icon16.png"}></img>
@@ -70,7 +85,7 @@ const App = () => {
         </div>
         <AlertsContext.Provider value={alertHandler}>
           <ChromeContext.Provider value={{ providers, dispatchChrome }}>
-            {providers && <ProvidersPage />}
+            <ProvidersPage />
           </ChromeContext.Provider>
         </AlertsContext.Provider>
       </div>

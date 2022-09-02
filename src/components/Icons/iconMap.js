@@ -3,6 +3,7 @@ import {
   faCheckCircle,
   faCog,
   faEllipsisVertical,
+  faQuestion,
   faQuestionCircle,
   faSort,
   faTimes,
@@ -12,6 +13,7 @@ import {
   faEye,
   faRecycle,
   faExclamationCircle,
+  faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = (type) => {
@@ -23,6 +25,8 @@ const iconMap = (type) => {
       edit: { iconClass: faEllipsisVertical, iconTitle: "Edit icon" },
       more: { iconClass: faEllipsisVertical, iconTitle: "More icon" },
       help: { iconClass: faQuestionCircle, iconTitle: "Help icon" },
+      information: { iconClass: faCircleInfo, iconTitle: "Info icon" },
+      faq: { iconClass: faQuestion, iconTitle: "Help icon" },
       settings: { iconClass: faCog, iconTitle: "Settings icon" },
       sort: { iconClass: faSort, iconTitle: "Sort icon" },
       reset: { iconClass: faRecycle, iconTitle: "Reset icon" },

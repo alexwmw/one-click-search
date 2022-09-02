@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import TabContainer from "./components/Tabs/TabContainer";
 import ToastsContainer from "./components/Modals/ToastsContainer";
 import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
@@ -8,6 +8,7 @@ import tabs from "./data/tabs.json";
 import Card from "./components/Cards/Card";
 import ChromeContext from "./contexts/ChromeContext";
 import ChromeDispatcher from "./modules/ChromeDispatcher";
+import { applyTheme } from "./modules/Utilities";
 import useChromeListener from "./hooks/useChromeListener";
 import useChromeGet from "./hooks/useChromeGet";
 import { ToastsContext, ToastsReducer } from "./reducers/ToastsReducer";
@@ -15,6 +16,7 @@ import { ToastsContext, ToastsReducer } from "./reducers/ToastsReducer";
 import "./App.less";
 import "./Options.less";
 import "./less/flex.less";
+import "./less/theme.less";
 
 /** Define root */
 const rootElement = document.getElementById("options");
@@ -24,8 +26,8 @@ const root = createRoot(rootElement);
 const Options = () => {
   /** Context States */
   const [options, setOptions] = useState({});
-  const dispatchChrome = ChromeDispatcher;
   const [toasts, dispatchToasts] = useReducer(ToastsReducer, []);
+  const dispatchChrome = ChromeDispatcher;
 
   /** Define tabs */
   const defaultTab = tabs.appearance;
@@ -45,6 +47,11 @@ const Options = () => {
     },
     ["options"]
   );
+
+  useEffect(() => {
+    const theme = options.theme?.value.toLowerCase();
+    applyTheme(theme);
+  }, [options.theme]);
 
   return (
     <ChromeContext.Provider value={{ options, dispatchChrome }}>

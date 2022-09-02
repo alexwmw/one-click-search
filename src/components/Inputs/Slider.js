@@ -31,11 +31,11 @@ const Slider = ({ settingId }) => {
         min={min}
         step={step}
       ></input>
-      <span className="indicator">
+      <p className="indicator">
         {value}
         {step == 0.5 && value % 1 == 0 && ".0"}
         {unit}
-      </span>
+      </p>
     </>
   );
 };

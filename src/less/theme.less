@@ -1,0 +1,72 @@
+:root[data-theme="theme-light"],
+#OneClickSearch {
+  --bg: #fff;
+
+  --P1: hsl(212, 100%, 50%);
+  --P2: hsl(212, 75%, 33%);
+  --P3: hsl(212, 75%, 90%);
+  --PA: hsl(212, 60%, 95%);
+
+  /* Accent color */
+  --A1: hsl(350, 75%, 60%);
+  --A2: hsl(350, 100%, 60%);
+  --A3: hsl(350, 75%, 90%);
+
+  @P1: hsl(212, 100%, 50%);
+  @P2: hsl(212, 75%, 33%);
+  @P3: hsl(212, 75%, 90%);
+  @PA: hsl(212, 60%, 95%);
+
+  /* Accent color */
+  @A1: hsl(350, 75%, 60%);
+  @A2: hsl(350, 100%, 60%);
+  @A3: hsl(350, 75%, 90%);
+
+  /* Dark neutrals */
+  --D1: hsl(212, 20%, 30%); //desaturate(darken(@P1, 20%), 80%);
+  --D2: hsl(212, 20%, 20%); //desaturate(darken(@P1, 30%), 80%);
+  --D3: hsl(212, 20%, 10%); //desaturate(darken(@P1, 40%), 80%);
+
+  /* Light neutrals */
+  --L1: hsl(212, 20%, 75%); //desaturate(lighten(@P1, 25%), 80%);
+  --L2: hsl(212, 20%, 85%); //desaturate(lighten(@P1, 35%), 80%);
+  --L2-5: hsl(212, 20%, 90%); // desaturate(lighten(@P1, 40%), 80%);
+  --L3: hsl(212, 20%, 95%); //desaturate(lighten(@P1, 45%), 80%);
+  --L4: hsl(212, 20%, 99%); //desaturate(lighten(@P1, 49%), 80%);
+}
+
+:root[data-theme="theme-dark"] {
+  --bg: hsl(212, 20%, 8%);
+
+  --P1: hsl(212, 100%, 60%);
+  --P2: hsl(212, 75%, 40%);
+  --P3: hsl(212, 75%, 20%);
+  --PA: hsl(212, 50%, 15%);
+
+  /* Accent color */
+  --A1: hsl(350, 90%, 60%);
+  --A2: hsl(350, 100%, 70%);
+  --A3: hsl(350, 75%, 20%);
+
+  @P1: hsl(212, 75%, 33%);
+  @P2: hsl(212, 100%, 50%);
+  @P3: hsl(212, 75%, 20%);
+  @PA: hsl(212, 60%, 15%);
+
+  /* Accent color */
+  @A1: hsl(350, 75%, 60%);
+  @A2: hsl(350, 100%, 60%);
+  @A3: hsl(350, 75%, 15%);
+
+  /* Dark neutrals */
+  --D1: hsl(212, 20%, 75%); //desaturate(darken(@P1, 20%), 80%);
+  --D2: hsl(212, 20%, 85%); //desaturate(darken(@P1, 30%), 80%);
+  --D3: hsl(212, 20%, 95%); //desaturate(darken(@P1, 40%), 80%);
+
+  /* Light neutrals */
+  --L1: hsl(212, 20%, 50%); //desaturate(lighten(@P1, 25%), 80%);
+  --L2: hsl(212, 20%, 32%); //desaturate(lighten(@P1, 35%), 80%);
+  --L2-5: hsl(212, 20%, 25%); // desaturate(lighten(@P1, 40%), 80%);
+  --L3: hsl(212, 20%, 20%); //desaturate(lighten(@P1, 45%), 80%);
+  --L4: hsl(212, 20%, 12%); //desaturate(lighten(@P1, 49%), 80%);
+}

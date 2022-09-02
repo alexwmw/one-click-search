@@ -1,18 +1,10 @@
 [
   {
-    "name": "Copy",
-    "role": "function",
-    "faviconUrl": "/icons/copy.ico",
-    "visibility": "hidden",
-    "enabled": true
-  },
-  {
     "name": "GoTo",
     "role": "function",
     "faviconUrl": "/icons/goto.ico",
     "visibility": "conditional",
     "position": 0,
-    "enabled": true,
     "regex": "^(((https?:(?:\\/\\/)?)(?:[-;:&=\\+\\$,\\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\\+\\$,\\w]+@)[A-Za-z0-9.-]+)((?:\\/[\\+~%\\/.\\w-_]*)?\\??(?:[-\\+=&;%@.\\w_]*)#?(?:[\\w]*))?)"
   }
 ]

@@ -16,9 +16,9 @@ li.sortable-item {
   padding: @row-padding;
   padding-left: @row-padding * 4;
 
-  border: solid 1px @P3;
+  border: solid 1px var(--P3);
   border-radius: 10px;
-  background-color: @L3;
+  background-color: var(--L3);
 
   list-style-type: none;
   list-style-position: inside;
@@ -34,7 +34,7 @@ li.sortable-item {
     user-select: none;
     font-weight: 600;
     .sort.icon {
-      color: @L2;
+      color: var(--L2);
       font-size: 14px;
       transition: all 200ms;
       padding-right: 10px;
@@ -60,7 +60,7 @@ li.sortable-item {
     right: 4px;
     top: 4px;
     display: block;
-    color: @D1;
+    color: var(--D1);
     padding: 5px;
     border-radius: 50%;
     text-align: center;
@@ -126,7 +126,7 @@ li.sortable-item {
       background-color: transparent;
       font-size: 10pt;
       .svg-inline--fa {
-        color: @D1;
+        color: var(--D1);
       }
 
       span {
@@ -138,16 +138,16 @@ li.sortable-item {
         font-weight: 700;
 
         span {
-          color: @A1;
+          color: var(--A1);
         }
         .svg-inline--fa {
-          color: @A1;
+          color: var(--A1);
         }
         &:hover {
           background-color: white;
           span,
           .svg-inline--fa {
-            color: @A2;
+            color: var(--A2);
           }
         }
       }
@@ -168,10 +168,10 @@ li.sortable-item {
   }
 
   #visible & {
-    background-color: @PA;
+    background-color: var(--PA);
 
     .sortIcon {
-      color: @L1;
+      color: var(--L1);
     }
     &:hover {
       .sortIcon {
@@ -180,13 +180,13 @@ li.sortable-item {
     }
     &.sortable-ghost {
       .sortIcon {
-        color: @A2;
+        color: var(--A2);
       }
     }
   }
 
   #disabled & {
-    background-color: @L4;
+    background-color: var(--L4);
     img {
       filter: grayscale(1);
     }
@@ -206,11 +206,11 @@ li.sortable-item {
     &.sortable-chosen,
     &.sortable-ghost {
       border: @accent-border;
-      background-color: @L2;
-      box-shadow: 0 0 3px @L1;
+      background-color: var(--L2);
+      box-shadow: 0 0 3px var(--L1);
 
       .sort.icon {
-        color: @A2;
+        color: var(--A2);
       }
     }
   }

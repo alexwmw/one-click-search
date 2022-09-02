@@ -45,7 +45,7 @@ body,
   height: 100%;
 }
 body {
-  background-color: @L4;
+  background-color: var(--L4);
 }
 
 #options {
@@ -56,15 +56,15 @@ body {
       display: flex;
       align-items: center;
       //box-shadow: 0 0 10px 0px #809b9e;
-      border-bottom: 1px solid @L1;
+      border-bottom: 1px solid var(--L1);
       padding: 0 @padding;
-      background-color: @L3;
+      background-color: var(--L3);
       gap: 10px;
       img {
         height: 26px;
       }
       h1 {
-        color: @A2;
+        color: var(--A2);
       }
       button {
         margin-left: auto;
@@ -83,11 +83,11 @@ body {
       .tabs-column {
         h1 {
           margin-bottom: 30px;
-          color: @D1;
+          color: var(--D1);
         }
       }
       .main-column {
-        background: white;
+        background: var(--bg);
         overflow: scroll;
       }
     }

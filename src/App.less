@@ -4,6 +4,9 @@
 .app {
   font-size: @font-size;
 
+  &:not(.ready) {
+    //display: none !important;
+  }
 
   .title-bar {
     position: sticky;
@@ -12,8 +15,8 @@
     box-sizing: border-box;
     padding: 0 10px;
 
-    background-color: @L4;
-    box-shadow: 0 0 20px 0px @L3;
+    background-color: var(--L4);
+    box-shadow: 0 0 20px 0px var(--L3);
 
     z-index: 1;
 
@@ -29,7 +32,7 @@
       height: 22px;
     }
     h2 {
-      color: @A2;
+      color: var(--A2);
     }
 
     &.hide {
@@ -41,16 +44,16 @@
     font-size: 18px;
 
     &.settings {
-      color: @D1;
+      color: var(--D1);
       &:hover {
-        color: @P2;
+        color: var(--P2);
       }
     }
 
     &.help {
-      color: @P1;
+      color: var(--P1);
       &:hover {
-        color: @P2;
+        color: var(--P2);
       }
     }
   }
