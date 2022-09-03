@@ -1,16 +1,11 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
+import Icon from "../Icons/Icon";
 import "./Button.less";
 
 function Button({ icon, children, onClick, classes }) {
-  let Icon;
-  if (icon) {
-    Icon = <FontAwesomeIcon icon={icon} />;
-  }
-
   return (
     <button onClick={onClick} className={clsx("Button", classes)}>
-      {Icon}
+      {icon && <Icon icon={icon} />}
       {children}
     </button>
   );

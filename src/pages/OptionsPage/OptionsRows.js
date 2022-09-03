@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import Number from "/src/components/Inputs/Number";
-import Select from "/src/components/Inputs/Select";
-import Slider from "/src/components/Inputs/Slider";
-import Switch from "/src/components/Inputs/Switch";
+import Number from "../../components/Inputs/Number";
+import Select from "../../components/Inputs/Select";
+import Slider from "../../components/Inputs/Slider";
+import Switch from "../../components/Inputs/Switch";
+import ThemeButton from "../../components/Buttons/ThemeButton";
 
 import "./OptionsRows.less";
 import ChromeContext from "../../contexts/ChromeContext";
-
 const OptionRows = ({ selectedTab }) => {
   const { options } = useContext(ChromeContext);
 
@@ -40,6 +40,12 @@ const OptionRows = ({ selectedTab }) => {
         return (
           <div className="control number-control">
             <Number settingId={id} />
+          </div>
+        );
+      case "theme":
+        return (
+          <div className="control theme-control">
+            <ThemeButton settingId={id} />
           </div>
         );
       default:

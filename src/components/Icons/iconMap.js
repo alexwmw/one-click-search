@@ -15,6 +15,8 @@ import {
   faExclamationCircle,
   faCircleInfo,
   faTrash,
+  faSun,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = (type) => {
@@ -37,6 +39,8 @@ const iconMap = (type) => {
       function: { iconClass: faPlug, iconTitle: "Function settings icon" },
       advanced: { iconClass: faFlask, iconTitle: "Advanced settings icon" },
       warning: { iconClass: faExclamationCircle, iconTitle: "Warning icon" },
+      lightMode: { iconClass: faSun, iconTitle: "Light mode icon" },
+      darkMode: { iconClass: faMoon, iconTitle: "Dark mode icon" },
     }[type] ?? {}
   );
 };

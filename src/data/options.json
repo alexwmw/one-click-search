@@ -40,7 +40,7 @@
     "label": "Menu theme",
     "description": "Choose light or dark theme for the extension menus",
     "value": "Light",
-    "type": "select",
+    "type": "theme",
     "options": ["Light", "Dark"],
     "pos": 4
   },
