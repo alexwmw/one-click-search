@@ -3,85 +3,20 @@
 /* Semantic colors */
 @Danger: hsl(350, 75%, 33%);
 @DangerLight: desaturate(lighten(@Danger, 60%), 15%);
-.Danger,
-.danger {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    color: @Danger;
-  }
-  background-color: @DangerLight;
-  .border(@Danger);
-}
 @Warning: hsl(50, 75%, 33%);
 @WarningLight: desaturate(lighten(@Warning, 60%), 15%);
-.Warning,
-.warning {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    color: @Warning;
-  }
-  background-color: @WarningLight;
-  .border(@Warning);
-}
 @Success: hsl(150, 75%, 33%);
 @SuccessLight: desaturate(lighten(@Success, 60%), 15%);
-.Success,
-.success {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    color: @Success;
-  }
-  background-color: @SuccessLight;
-  .border(@Success);
-}
 @Info: hsl(190, 75%, 33%);
 @InfoLight: desaturate(lighten(@Info, 60%), 15%);
-.Info,
-.info {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    color: @Info;
-  }
-  background-color: @InfoLight;
-  .border(@Info);
-}
 
-.border(@color) {
-  border: 1px solid @color;
-}
+@shadow-color: hsla(210, 50%, 30%, 30%);
 
 /* Text */
 @text-color: var(--D2);
 @text-disabled: var(--L1);
 
 @disabled: var(--L3);
-.disabled() {
-  color: @text-disabled;
-  * {
-    color: @text-disabled;
-  }
-  background-color: @disabled;
-}
 
 @control: var(--P2);
 @control-active: var(--A1);
@@ -89,7 +24,7 @@
 @control-off: var(--L1);
 @control-bg: var(--L3);
 @control-border: solid 1px var(--L2);
-@control-shadow: 0 0 3px var(--L1);
+@control-shadow: 0 0 3px @shadow-color;
 @control-transition: 100ms all ease;
 
 /* Borders */
@@ -112,72 +47,5 @@
   to {
     transform: translateY(0);
     opacity: 1;
-  }
-}
-
-//========================
-
-#colorPage {
-  padding: 0;
-  li {
-    display: flex;
-    list-style: none;
-    height: 90px;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 18px;
-    &:nth-child(1) {
-      background-color: var(--P1);
-    }
-    &:nth-child(2) {
-      background-color: var(--P2);
-      color: white;
-    }
-    &:nth-child(3) {
-      background-color: var(--P3);
-    }
-    &:nth-child(4) {
-      background-color: var(--A1);
-    }
-    &:nth-child(5) {
-      background-color: var(--A2);
-      color: white;
-    }
-    &:nth-child(6) {
-      background-color: var(--A3);
-    }
-    &:nth-child(7) {
-      background-color: var(--D1);
-      color: white;
-    }
-    &:nth-child(8) {
-      background-color: var(--D2);
-      color: white;
-    }
-    &:nth-child(9) {
-      background-color: var(--D3);
-      color: white;
-    }
-    &:nth-child(10) {
-      background-color: var(--L1);
-    }
-    &:nth-child(11) {
-      background-color: var(--L2);
-    }
-    &:nth-child(12) {
-      background-color: var(--L3);
-    }
-    &:nth-child(13) {
-      .Success();
-    }
-    &:nth-child(14) {
-      .Danger();
-    }
-    &:nth-child(15) {
-      .Warning();
-    }
-    &:nth-child(16) {
-      .Info();
-    }
   }
 }

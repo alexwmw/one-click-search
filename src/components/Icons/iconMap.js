@@ -9,11 +9,12 @@ import {
   faTimes,
   faSliders,
   faPlug,
-  faPlusMinus,
+  faFlask,
   faEye,
   faRecycle,
   faExclamationCircle,
   faCircleInfo,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = (type) => {
@@ -21,6 +22,7 @@ const iconMap = (type) => {
     {
       check: { iconClass: faCheck, iconTitle: "Tick icon" },
       checkCircle: { iconClass: faCheckCircle, iconTitle: "Tick icon" },
+      delete: { iconClass: faTrash, iconTitle: "Close icon" },
       close: { iconClass: faTimes, iconTitle: "Close icon" },
       edit: { iconClass: faEllipsisVertical, iconTitle: "Edit icon" },
       more: { iconClass: faEllipsisVertical, iconTitle: "More icon" },
@@ -33,7 +35,7 @@ const iconMap = (type) => {
       appearance: { iconClass: faEye, iconTitle: "Appearance settings icon" },
       behaviour: { iconClass: faSliders, iconTitle: "Behaviour settings icon" },
       function: { iconClass: faPlug, iconTitle: "Function settings icon" },
-      advanced: { iconClass: faPlusMinus, iconTitle: "Advanced settings icon" },
+      advanced: { iconClass: faFlask, iconTitle: "Advanced settings icon" },
       warning: { iconClass: faExclamationCircle, iconTitle: "Warning icon" },
     }[type] ?? {}
   );

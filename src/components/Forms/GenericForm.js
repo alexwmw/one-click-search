@@ -14,20 +14,20 @@ function GenericForm(props) {
     <form onClick={(e) => e.stopPropagation()} onSubmit={submitHandler}>
       {children}
       <div className={"flex-container row width-100 right"}>
-        {deleteHandler && (
-          <FormButton
-            type={"delete"}
-            label={labels.delete}
-            onClick={deleteHandler}
-            classes={classes.delete}
-          />
-        )}
         {closeHandler && (
           <FormButton
             type={"close"}
             label={labels.close}
             onClick={closeHandler}
             classes={classes.close}
+          />
+        )}
+        {deleteHandler && (
+          <FormButton
+            type={"delete"}
+            label={labels.delete}
+            onClick={deleteHandler}
+            classes={classes.delete}
           />
         )}
         <FormButton

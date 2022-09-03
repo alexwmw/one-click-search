@@ -1,0 +1,62 @@
+@import "./_variables.less";
+
+.border(@color) {
+  border: 1px solid @color;
+}
+
+.Danger,
+.danger {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Danger;
+  }
+  background-color: @DangerLight;
+  .border(@Danger);
+}
+.Warning,
+.warning {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Warning;
+  }
+  background-color: @WarningLight;
+  .border(@Warning);
+}
+.Success,
+.success {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Success;
+  }
+  background-color: @SuccessLight;
+  .border(@Success);
+}
+.Info,
+.info {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    color: @Info;
+  }
+  background-color: @InfoLight;
+  .border(@Info);
+}

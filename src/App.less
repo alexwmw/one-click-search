@@ -1,9 +1,7 @@
-@import "/src/less/_variables.less";
 @import "/src/less/body.less";
+@import "/src/less/_variables.less";
 
 .app {
-  font-size: @font-size;
-
   &:not(.ready) {
     //display: none !important;
   }
@@ -16,7 +14,7 @@
     padding: 0 10px;
 
     background-color: var(--L4);
-    box-shadow: 0 0 20px 0px var(--L3);
+    box-shadow: 0 0 20px 0px @shadow-color;
 
     z-index: 1;
 

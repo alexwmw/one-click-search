@@ -8,7 +8,7 @@ function ButtonArea(props) {
     proceedText = "OK",
     closeText = "Cancel",
     align = "right",
-    closeOnSubmit = true
+    closeOnSubmit = true,
   } = props;
 
   const proceedAndClose = () => {
@@ -19,7 +19,11 @@ function ButtonArea(props) {
   return (
     <div className={clsx("btn-area", "flex-container", "row", align)}>
       {onClose && <Button onClick={onClose}>{closeText}</Button>}
-      {onProceed && <Button onClick={closeOnSubmit ? proceedAndClose : onProceed}>{proceedText}</Button>}
+      {onProceed && (
+        <Button onClick={closeOnSubmit ? proceedAndClose : onProceed}>
+          {proceedText}
+        </Button>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useReducer, createContext } from "react";
+import { createContext } from "react";
 
 export function ToastsReducer(state, action) {
   switch (action.type) {
@@ -9,7 +9,7 @@ export function ToastsReducer(state, action) {
       return [
         ...state,
         {
-          icon: "checkCircle",
+          icon: "check",
           title: "New provider added!",
           category: "success",
         },
@@ -18,17 +18,26 @@ export function ToastsReducer(state, action) {
       return [
         ...state,
         {
-          icon: "checkCircle",
+          icon: "check",
           title: "Providers reset!",
           category: "success",
+        },
+      ];
+    case "PROVIDER_DELETED":
+      return [
+        ...state,
+        {
+          icon: "delete",
+          title: "Provider deleted!",
+          category: "danger",
         },
       ];
     case "SETTING_UPDATED":
       return [
         ...state,
         {
-          icon: "checkCircle",
-          title: "Changes Saved!",
+          icon: "check",
+          title: "Changes saved!",
           category: "success",
         },
       ];

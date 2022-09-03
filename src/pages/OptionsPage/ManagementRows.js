@@ -10,7 +10,7 @@ import Confirm from "../../components/Modals/Confirm";
 import AddProviderModal from "../../components/Modals/AddProviderModal";
 import ChromeContext from "../../contexts/ChromeContext";
 import { ToastsContext } from "../../reducers/ToastsReducer";
-import "./ManagementRows.less";
+import "./OptionsRows.less";
 
 const ManagementRows = ({ selectedTab }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -74,7 +74,7 @@ const ManagementRows = ({ selectedTab }) => {
               </p>
               <div className="control">
                 <Button onClick={onAddProvClick} icon={addIcon}>
-                  Add new provider
+                  Add new provider...
                 </Button>
               </div>
             </div>

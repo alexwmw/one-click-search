@@ -72,7 +72,7 @@ li.sortable-item {
       height: 12px;
     }
     &:hover {
-      background-color: white;
+      background-color: var(--bg);
       color: @text-color;
     }
   }
@@ -134,8 +134,9 @@ li.sortable-item {
       }
 
       &.submitBtn.hasChanges {
-        background-color: #f8f8f8;
+        //background-color: white;
         font-weight: 700;
+        border-color: var(--A1);
 
         span {
           color: var(--A1);
@@ -144,7 +145,7 @@ li.sortable-item {
           color: var(--A1);
         }
         &:hover {
-          background-color: white;
+          border-color: var(--A1);
           span,
           .svg-inline--fa {
             color: var(--A2);
@@ -153,7 +154,7 @@ li.sortable-item {
       }
       &:hover {
         font-weight: 700;
-        background-color: #f8f8f8;
+        //background-color: var(--L3);
       }
       &:active {
         border: @accent-border;
@@ -207,7 +208,7 @@ li.sortable-item {
     &.sortable-ghost {
       border: @accent-border;
       background-color: var(--L2);
-      box-shadow: 0 0 3px var(--L1);
+      box-shadow: 0 0 3px @shadow-color;
 
       .sort.icon {
         color: var(--A2);

@@ -1,22 +1,17 @@
-@import "/src/less/_variables.less";
-
 .main-content {
   margin: 0;
   &.flex-container.row {
     flex-direction: column;
   }
-  .main-column {
-    width: 100%;
-  }
   .tabs-column {
-    max-width: unset;
+    max-width: 400px;
     .tab {
       width: 100%;
     }
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 750px) {
   .main-content {
     margin: auto;
     width: 100%;
@@ -31,7 +26,7 @@
     }
     .tabs-column {
       flex: 1;
-      min-width: 170px;
+      min-width: 200px;
       max-width: 300px;
     }
   }
@@ -55,7 +50,6 @@ body {
     > .header {
       display: flex;
       align-items: center;
-      //box-shadow: 0 0 10px 0px #809b9e;
       border-bottom: 1px solid var(--L1);
       padding: 0 @padding;
       background-color: var(--L3);
@@ -88,7 +82,7 @@ body {
       }
       .main-column {
         background: var(--bg);
-        overflow: scroll;
+        // overflow: scroll;
       }
     }
   }

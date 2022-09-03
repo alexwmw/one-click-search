@@ -1,3 +1,5 @@
+@import "./_variables.less";
+
 html {
   height: 100%;
 }
@@ -34,13 +36,17 @@ body {
   }
 
   input {
-    background-color: var(--bg);
+    //background-color: var(--bg);
   }
 
-  input:focus,
+  input,
   select:focus {
     outline: none;
-    background-color: var(--bg);
+
+    &[type="text"]:focus,
+    &[type="number"]:focus {
+      background-color: var(--bg);
+    }
   }
 
   button {

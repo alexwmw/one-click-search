@@ -15,17 +15,17 @@ const FormButton = (props) => {
       icon: submitIcon,
       classes: "submitBtn " + classes.join(" "),
     },
-    close: {
-      label: label || "Close",
-      type: "button",
-      icon: closeIcon,
-      classes: "closeBtn " + classes.join(" "),
-    },
     delete: {
       label: label || "Delete",
       type: "button",
       icon: deleteIcon,
       classes: "deleteBtn " + classes.join(" "),
+    },
+    close: {
+      label: label || "Close",
+      type: "button",
+      icon: closeIcon,
+      classes: "closeBtn " + classes.join(" "),
     },
   }[type];
 
@@ -36,7 +36,7 @@ const FormButton = (props) => {
       onClick={onClick}
     >
       <FontAwesomeIcon icon={btnProps.icon} />
-      {btnProps.label}
+      <span>{btnProps.label}</span>
     </button>
   );
 };

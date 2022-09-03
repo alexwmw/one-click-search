@@ -4,6 +4,7 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 import Icon from "../Icons/Icon";
 import IconTrigger from "../Icons/IconTrigger";
 import "./Modal.less";
+import "../../less/modalColors.less";
 
 function Modal(props) {
   const {

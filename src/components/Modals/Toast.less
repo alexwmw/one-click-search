@@ -1,10 +1,8 @@
-@import "/src/less/_variables.less";
-
 @trans-duration: 0.33s;
 
 .toast-wrapper {
   transition: height @trans-duration * 2 ease;
-  height: 50px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,17 +16,20 @@
     min-width: 100px;
     padding: 2px 10px;
     position: relative;
-    border-width: 2px;
+    border-width: 1px;
+    border-radius: 10px;
+    box-shadow: none;
+    background-color: whitesmoke;
     .title-area {
-      height: 34px;
+      height: 30px;
       justify-content: center;
       h2 {
         text-align: center;
         font-size: 1rem;
       }
-      .modal-title-text {
-        filter: brightness(0.5);
-      }
+      // .modal-title-text {
+      //   filter: brightness(0.5);
+      // }
     }
 
     // Transition & State
