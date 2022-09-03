@@ -1,6 +1,7 @@
 import Tab from "./Tab";
 import "./TabContainer.less";
 import Icon from "../Icons/Icon";
+import clsx from "clsx";
 
 const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
   const Tabs = Object.values(tabs).map((tab) => (
@@ -11,18 +12,11 @@ const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
       border={"left"}
     >
       <Icon type={tab.icon} />
-      {tab.name}
+      <span className="tab-name">{tab.name}</span>
     </Tab>
   ));
 
-  return (
-    <div
-      id={"tabContainer"}
-      className={"tab-container flex-container column left"}
-    >
-      {Tabs}
-    </div>
-  );
+  return <div className={clsx("tab-container", "flex-container ")}>{Tabs}</div>;
 };
 
 export default TabContainer;

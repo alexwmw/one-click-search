@@ -28,7 +28,9 @@ function SortableSection({
 
   return (
     <div>
-      <h3>{`${name} Icons${maxLength ? ` (max. ${maxLength})` : ""}`}</h3>
+      <h3 className="section-name">{`${name} Icons${
+        maxLength ? ` (max. ${maxLength})` : ""
+      }`}</h3>
       <ReactSortable
         id={id}
         list={list}

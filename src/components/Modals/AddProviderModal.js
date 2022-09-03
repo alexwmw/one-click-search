@@ -42,8 +42,8 @@ function AddProviderModal({ isOpen, setIsOpen }) {
         dispatchToasts({ type: "PROVIDER_ADDED" });
         setIsOpen(false);
       } else {
-        //alertHandler.error({ title: "x", messages: validator.messages });
-        alert(validator.messages.join("\n"));
+        alertHandler.error({ title: "Error", messages: validator.messages });
+        //alert(validator.messages.join("\n"));
       }
     });
   };

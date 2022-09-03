@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import clsx from "clsx";
 import Transition from "react-transition-group/Transition";
 import OCSicon from "./OCSicon";
 import PopUp from "./OCSPopUp";
@@ -10,6 +11,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** State and local data */
   const [providers, setProviders] = useState(storedProviders);
   const [options, setOptions] = useState(storedOptions);
+  const [darkMode, setDarkMode] = useState(options.theme.value == "Dark");
   const [{ text, x, y, position, isVisible, showHidden, fade }, dispatch] =
     useReducer(OCSReducer, {
       isVisible: false,
@@ -49,6 +51,15 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     ["providers", "options"]
   );
 
+  useChromeListener(
+    ({ oldValue, newValue }) => {
+      if (oldValue.theme !== newValue.theme) {
+        setDarkMode(newValue.theme.value == "Dark");
+      }
+    },
+    ["options"]
+  );
+
   /** Add mouseup/down event listeners to document */
   useEffect(() => {
     document.addEventListener("mouseup", clickHandler);
@@ -78,7 +89,10 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   });
 
   return (
-    <div id={"OneClickSearch"} className={"OneClickSearch"}>
+    <div
+      id={"OneClickSearch"}
+      className={clsx("OneClickSearch", darkMode && "dark-theme")}
+    >
       <Transition
         in={isVisible}
         timeout={fade ? options.fadeOutTime.value * 1000 - 250 : 0}

@@ -36,20 +36,30 @@ body {
   }
 
   input {
-    //background-color: var(--bg);
+    background-color: var(--white);
   }
 
   input,
   select:focus {
     outline: none;
 
-    &[type="text"]:focus,
-    &[type="number"]:focus {
-      background-color: var(--bg);
+    &[type="text"],
+    &[type="number"] {
+      background-color: var(--white);
+      &:focus {
+        border-color: var(--A2);
+      }
     }
   }
 
   button {
     border: none;
+  }
+
+  &.expanded-open {
+    h3,
+    .sortable-item:not(.expanded) {
+      filter: opacity(0.6);
+    }
   }
 }

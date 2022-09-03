@@ -27,8 +27,8 @@ const help = {
         </li>
       </ul>
       <p>
-        Click the <Icon type={"more"} /> <strong>more</strong> icon to change
-        each search provider's settings.
+        Click the <Icon type={"expand"} /> <strong>expand</strong> icon to
+        change each search provider's settings.
       </p>
     </>
   ),

@@ -2,7 +2,8 @@ import Modal from "./Modal";
 import "./Alert.less";
 import { useState } from "react";
 import ButtonArea from "../Buttons/ButtonArea";
-
+import "./Alert.less";
+import clsx from "clsx";
 function Alert(props) {
   let isOpen, setIsOpen, onClose;
 
@@ -15,9 +16,14 @@ function Alert(props) {
   }
 
   return (
-    <Modal {...props} isOpen={isOpen} onClose={onClose}>
+    <Modal
+      {...props}
+      classes={clsx(props.classes, "alert")}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       {props.children}
-      <ButtonArea onClose={onClose} closeText={"OK"} />
+      <ButtonArea onClose={onClose} closeText={"OK"} align={"justify-center"} />
     </Modal>
   );
 }

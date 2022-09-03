@@ -1,6 +1,7 @@
 :root[data-theme="theme-light"],
 #OneClickSearch {
   --bg: #fff;
+  --white: #fff;
 
   --P1: hsl(212, 100%, 50%);
   --P2: hsl(212, 75%, 33%);
@@ -33,10 +34,15 @@
   --L2-5: hsl(212, 20%, 90%); // desaturate(lighten(@P1, 40%), 80%);
   --L3: hsl(212, 20%, 95%); //desaturate(lighten(@P1, 45%), 80%);
   --L4: hsl(212, 20%, 99%); //desaturate(lighten(@P1, 49%), 80%);
+
+  body.modal-open {
+    filter: opacity(0.3) grayscale(1) blur(1px);
+  }
 }
 
 :root[data-theme="theme-dark"] {
   --bg: hsl(212, 20%, 8%);
+  --white: #000;
 
   --P1: hsl(212, 100%, 60%);
   --P2: hsl(212, 75%, 40%);
@@ -69,4 +75,8 @@
   --L2-5: hsl(212, 20%, 25%); // desaturate(lighten(@P1, 40%), 80%);
   --L3: hsl(213, 20%, 20%); //desaturate(lighten(@P1, 45%), 80%);
   --L4: hsl(212, 20%, 12%); //desaturate(lighten(@P1, 49%), 80%);
+
+  body.modal-open {
+    filter: brightness(0.3) grayscale(1) blur(1px);
+  }
 }

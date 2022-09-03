@@ -4,7 +4,6 @@
     flex-direction: column;
   }
   .tabs-column {
-    max-width: 400px;
     .tab {
       width: 100%;
     }
@@ -23,8 +22,13 @@
     }
     .main-column {
       width: 460px;
+      overflow: auto;
+      h2 {
+        position: relative;
+      }
     }
     .tabs-column {
+      position: sticky;
       flex: 1;
       min-width: 200px;
       max-width: 300px;
@@ -82,7 +86,7 @@ body {
       }
       .main-column {
         background: var(--bg);
-        // overflow: scroll;
+        overflow: scroll;
       }
     }
   }

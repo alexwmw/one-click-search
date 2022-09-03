@@ -17,12 +17,19 @@ import {
   faTrash,
   faSun,
   faMoon,
+  faEllipsisH,
+  faChevronUp,
+  faChevronDown,
+  faPlus,
+  faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = (type) => {
   return (
     {
       check: { iconClass: faCheck, iconTitle: "Tick icon" },
+      expand: { iconClass: faPlus, iconTitle: "Expand icon" },
+      collapse: { iconClass: faMinus, iconTitle: "Collapse icon" },
       checkCircle: { iconClass: faCheckCircle, iconTitle: "Tick icon" },
       delete: { iconClass: faTrash, iconTitle: "Close icon" },
       close: { iconClass: faTimes, iconTitle: "Close icon" },

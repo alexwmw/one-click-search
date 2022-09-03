@@ -1,9 +1,14 @@
 @import "/src/less/_variables.less";
 
 @row-height: 24px;
-@row-height_expanded: 140px;
+@row-height_expanded: 148px;
 @row-padding: 2px;
 @favicon-height: 16px;
+@transition-time: 300ms;
+
+.section-name {
+  transition: filter @transition-time;
+}
 
 li.sortable-item {
   position: relative;
@@ -12,7 +17,7 @@ li.sortable-item {
 
   height: @row-height;
   width: 96%;
-  margin: 4px auto;
+  margin: 6px auto;
   padding: @row-padding;
   padding-left: @row-padding * 4;
 
@@ -23,11 +28,14 @@ li.sortable-item {
   list-style-type: none;
   list-style-position: inside;
 
-  transition: border 200ms, height 200ms;
+  transition: border @transition-time, height @transition-time,
+    filter @transition-time;
 
   cursor: grab;
 
-  > span:nth-child(1) {
+  .li-sort-icon {
+    transition: left @transition-time, right @transition-time,
+      transform @transition-time;
     position: relative;
     bottom: 6px;
     left: 4px;
@@ -36,26 +44,31 @@ li.sortable-item {
     .sort.icon {
       color: var(--L2);
       font-size: 14px;
-      transition: all 200ms;
+      transition: all @transition-time;
       padding-right: 10px;
     }
   }
 
-  > img:nth-child(2) {
+  .li-favicon {
+    transition: left @transition-time, right @transition-time,
+      transform @transition-time;
     height: @favicon-height;
     margin: 4px 10px;
     user-select: none;
   }
 
-  > span:nth-child(3) {
+  .li-provider-name {
+    transition: left @transition-time, right @transition-time,
+      transform @transition-time;
     position: relative;
     bottom: 8px;
     left: 8px;
     user-select: none;
     font-weight: 600;
+    display: inline-block;
   }
 
-  > .more-btn:nth-child(4) {
+  .li-expand-btn {
     position: absolute;
     right: 4px;
     top: 4px;
@@ -79,8 +92,17 @@ li.sortable-item {
 
   &.expanded {
     height: @row-height_expanded;
-    .more-btn {
-      background-color: rgb(255 255 255 / 0.5);
+    cursor: default;
+    filter: none;
+    .li-expand-btn {
+      background-color: var(--white);
+    }
+    .sort.icon {
+      transform: scale(0);
+    }
+    .li-favicon,
+    .li-provider-name {
+      transform: translate(-20px, 4px) scale(1.2);
     }
   }
 
@@ -88,6 +110,7 @@ li.sortable-item {
     text-align: right;
     font-size: 7pt;
     font-weight: 700;
+    margin-top: 8px;
 
     > div {
       //width: unset;
@@ -192,7 +215,8 @@ li.sortable-item {
       filter: grayscale(1);
     }
   }
-  &:hover {
+  &:hover,
+  &.expanded {
     border: @accent-border;
   }
 

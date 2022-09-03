@@ -10,36 +10,51 @@ import AlertsContext from "./contexts/AlertsContext";
 import useChromeListener from "./hooks/useChromeListener";
 import useChromeGet from "./hooks/useChromeGet";
 import ChromeDispatcher from "./modules/ChromeDispatcher";
-import { applyTheme } from "./modules/Utilities";
+import { applyTheme, get } from "./modules/Utilities";
 import "./App.less";
 import "./less/flex.less";
 import "./less/theme.less";
+import Confirm from "./components/Modals/Confirm";
+import Alert from "./components/Modals/Alert";
+import { useEffect } from "react";
 
 /** Define root */
 const rootElement = document.getElementById("app");
 const root = createRoot(rootElement);
 
 /** Define App */
-const App = () => {
+const App = ({ theme }) => {
+  /** Immediately set theme */
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.dataset.theme = `theme-${theme}`;
+  }, []);
+
   /** Context States */
   const [showHelp, setShowHelp] = useState(false);
   const [providers, setProviders] = useState([]);
+  const [confirmData, setConfirmData] = useState({ isOpen: false });
+  const [alertData, setAlertData] = useState({ isOpen: false });
   const dispatchChrome = ChromeDispatcher;
-
-  /** Get theme on first render */
-  useChromeGet(
-    (result) => {
-      applyTheme(result.options.theme.value.toLowerCase());
-    },
-    ["options"]
-  );
 
   const alertHandler = {
     error: ({ title, messages }) => {
-      alert(title);
+      setAlertData({
+        isOpen: true,
+        title: title,
+        children: messages.map((p) => <p>{p}</p>),
+      });
     },
-    confirm: ({ title, question }) => {
-      return confirm(question);
+    confirm: ({ title, question, onProceed }) => {
+      setConfirmData({
+        isOpen: true,
+        title: title,
+        body: question,
+        onProceed: () => {
+          onProceed();
+          setConfirmData({ isOpen: false });
+        },
+      });
     },
   };
 
@@ -69,6 +84,22 @@ const App = () => {
         "column"
       )}
     >
+      <div className="alerts-container">
+        <Confirm
+          {...confirmData}
+          hasTitleBar={true}
+          openAsModal={true}
+          onClose={() => setConfirmData({ isOpen: false })}
+        />
+        <Alert
+          {...alertData}
+          hasTitleBar={true}
+          onClose={() => setAlertData({ isOpen: false })}
+          isModal={true}
+          classes={"error-alert"}
+          openAsModal={true}
+        />
+      </div>
       <div className="title-bar flex-container row space-between center">
         <div className="flex-container row center">
           <img src={"/icons/icon16.png"}></img>
@@ -94,4 +125,6 @@ const App = () => {
 };
 
 //** Get data from storage and pass to App for render */
-root.render(<App />);
+get(["options"], ({ options }) => {
+  root.render(<App theme={options.theme.value.toLowerCase()} />);
+});

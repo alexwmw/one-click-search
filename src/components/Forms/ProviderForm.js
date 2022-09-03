@@ -31,7 +31,7 @@ function ProviderForm({ provider, closeForm }) {
       });
       closeForm();
     } else {
-      alertHandler.error({ title: "x", messages: validator.messages });
+      alertHandler.error({ title: "Error", messages: validator.messages });
     }
   };
 
@@ -42,24 +42,28 @@ function ProviderForm({ provider, closeForm }) {
       visible(provider) && providers.filter((p) => visible(p)).length < 2;
 
     if (isOnlyVisibleItem) {
-      alertHandler.error({ title: "title", messages: [] });
+      alertHandler.error({
+        title: "Single Visible Item Error",
+        messages: [
+          "Cannot delete the only visible provider.",
+          "Add another provider to the visible list first.",
+        ],
+      });
     } else {
-      alertHandler.confirm({ question: "Are you sure you want to delete?" }) &&
-        dispatchChrome({
-          type: "DELETE_PROVIDER",
-          provider: provider,
-        });
+      alertHandler.confirm({
+        title: "Confirm delete",
+        question: `Are you sure you want to delete \"${provider.name}\"?`,
+        onProceed: () =>
+          dispatchChrome({
+            type: "DELETE_PROVIDER",
+            provider: provider,
+          }),
+      });
     }
   };
 
   const closeHandler = (e) => {
-    e.preventDefault();
-    if (
-      !hasChanges ||
-      alertHandler.confirm({ question: "Your changes will be lost" })
-    ) {
-      closeForm();
-    }
+    closeForm();
   };
 
   useEffect(() => {

@@ -13,14 +13,18 @@
     box-sizing: border-box;
     padding: 0 10px;
 
-    background-color: var(--L4);
+    background-color: var(--L3);
     box-shadow: 0 0 20px 0px @shadow-color;
+    border-bottom: 1px solid var(--L1);
 
     z-index: 1;
 
-    transition: 500ms all cubic-bezier(0.4, 0, 0.2, 1);
-
     gap: 10px;
+
+    :root[data-theme="theme-dark"] & {
+      background-color: black;
+      box-shadow: none;
+    }
 
     > * {
       gap: 10px;
@@ -57,7 +61,7 @@
   }
 
   .page-container {
-    padding: 15px;
+    padding: 24px;
     height: 530px;
     overflow: scroll;
     position: fixed;
@@ -67,7 +71,7 @@
     z-index: 0;
   }
 
-  .modal {
+  .help-modal {
     width: 100%;
     height: 100%;
     border-radius: 0;
@@ -76,6 +80,26 @@
       position: relative;
       top: 2px;
       padding-inline: 2px;
+    }
+  }
+
+  .modal.error-alert,
+  .modal.confirm {
+    position: absolute;
+    top: 25%;
+    bottom: unset;
+    // margin-inline: 5%;
+    // width: unset;
+    :root[data-theme="theme-dark"] & {
+      box-shadow: 0 0 30px 10px rgb(255 255 255 / 17%);
+    }
+    p {
+      font-size: 14px;
+    }
+    &.error-alert {
+      button {
+        flex: 0.4;
+      }
     }
   }
 }

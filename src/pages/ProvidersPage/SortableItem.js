@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import {
-  faEllipsisVertical as editIcon,
-  faMinus as closeIcon,
-} from "@fortawesome/free-solid-svg-icons";
 import ProviderForm from "../../components/Forms/ProviderForm";
-import "./SortableItem.less";
 import Icon from "../../components/Icons/Icon";
 import IconTrigger from "../../components/Icons/IconTrigger";
+import "./SortableItem.less";
+
 
 function SortableItem({ provider, openItem, setOpenItem }) {
   /** State and local data */
@@ -21,6 +18,14 @@ function SortableItem({ provider, openItem, setOpenItem }) {
   };
 
   useEffect(() => {
+    if (isExpanded) {
+      document.body.classList.add("expanded-open");
+    } else {
+      document.body.classList.remove("expanded-open");
+    }
+  }, [isExpanded]);
+
+  useEffect(() => {
     if (openItem !== provider.name) {
       setIsExpanded(false);
     }
@@ -29,28 +34,26 @@ function SortableItem({ provider, openItem, setOpenItem }) {
   return (
     <li
       data-id={provider.name}
-      className={clsx("sortable-item", isExpanded && "expanded")}
+      className={clsx(
+        "sortable-item",
+        isExpanded && ["expanded", "undraggable"]
+      )}
       onClick={(e) => setOpenItem(provider.name)}
       onDragStart={(e) => setOpenItem(null)}
     >
-      <Icon type={"sort"} />
-      <img src={faviconUrl}></img>
-      <span>{provider.name}</span>
-      {provider.role === "provider" && (
-        <>
-          <IconTrigger
-            className={clsx("more-btn")}
-            onClick={toggleExpanded}
-            icon={!isExpanded ? editIcon : closeIcon}
-          />
-
-          {isExpanded && (
-            <ProviderForm
-              provider={provider}
-              closeForm={() => setIsExpanded(false)}
-            ></ProviderForm>
-          )}
-        </>
+      <Icon className={"li-sort-icon"} type={"sort"} />
+      <img className="li-favicon" src={faviconUrl}></img>
+      <span className="li-provider-name">{provider.name}</span>
+      <IconTrigger
+        className={clsx("li-expand-btn")}
+        onClick={toggleExpanded}
+        type={!isExpanded ? "expand" : "collapse"}
+      />
+      {isExpanded && (
+        <ProviderForm
+          provider={provider}
+          closeForm={() => setIsExpanded(false)}
+        ></ProviderForm>
       )}
     </li>
   );

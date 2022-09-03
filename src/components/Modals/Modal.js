@@ -8,7 +8,7 @@ import "../../less/modalColors.less";
 
 function Modal(props) {
   const {
-    classes = [],
+    classes,
     isOpen,
     title,
     body,

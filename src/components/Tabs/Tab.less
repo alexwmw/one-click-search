@@ -1,17 +1,5 @@
 .tab {
   background-color: var(--bg);
-  &.right {
-    border-right: solid 5px transparent;
-  }
-  &.bottom {
-    border-bottom: solid 5px transparent;
-  }
-  &.left {
-    border-left: solid 5px transparent;
-  }
-  &.top {
-    border-top: solid 5px transparent;
-  }
 
   // transition: all 300ms ease;
 
@@ -19,6 +7,12 @@
 
   cursor: pointer;
   user-select: none;
+
+  :root[data-theme="theme-dark"] & {
+    &.selected {
+      color: white;
+    }
+  }
 
   .svg-inline--fa {
     margin-right: 10px;

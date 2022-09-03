@@ -15,7 +15,7 @@
   "borderRadius": {
     "class": "appearance",
     "id": "borderRadius",
-    "label": "Border radius",
+    "label": "Corner radius",
     "description": "Curvature of the poup's corners",
     "value": "10",
     "type": "slider",
