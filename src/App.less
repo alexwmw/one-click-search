@@ -6,39 +6,27 @@
     //display: none !important;
   }
 
-  .title-bar {
+  .ocs-header {
     position: sticky;
-    top: 0px;
-    width: 100%;
     box-sizing: border-box;
-    padding: 0 10px;
-
-    background-color: var(--L3);
     box-shadow: 0 0 20px 0px @shadow-color;
-    border-bottom: 1px solid var(--L1);
-
     z-index: 1;
 
-    gap: 10px;
+    img {
+      height: 22px;
+    }
 
+    h1 {
+      font-size: 1.1rem;
+    }
     :root[data-theme="theme-dark"] & {
       background-color: black;
       box-shadow: none;
     }
 
-    > * {
+    .icons-group {
+      margin-left: auto;
       gap: 10px;
-    }
-
-    img {
-      height: 22px;
-    }
-    h2 {
-      color: var(--A2);
-    }
-
-    &.hide {
-      top: -50px;
     }
   }
 

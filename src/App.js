@@ -1,7 +1,8 @@
 import { createRoot } from "react-dom/client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import ProvidersPage from "./pages/ProvidersPage/ProvidersPage";
+import AppAlerts from "./pages/ProvidersPage/AppAlerts";
 import HelpModal from "./components/Modals/HelpModal";
 import IconTrigger from "./components/Icons/IconTrigger";
 import IconAnchor from "./components/Icons/IconAnchor";
@@ -10,13 +11,11 @@ import AlertsContext from "./contexts/AlertsContext";
 import useChromeListener from "./hooks/useChromeListener";
 import useChromeGet from "./hooks/useChromeGet";
 import ChromeDispatcher from "./modules/ChromeDispatcher";
-import { applyTheme, get } from "./modules/Utilities";
+import { get } from "./modules/Utilities";
 import "./App.less";
 import "./less/flex.less";
 import "./less/theme.less";
-import Confirm from "./components/Modals/Confirm";
-import Alert from "./components/Modals/Alert";
-import { useEffect } from "react";
+import Header from "./pages/OptionsPage/OcsHeader";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -75,43 +74,21 @@ const App = ({ theme }) => {
   );
 
   return (
-    <div
-      className={clsx(
-        "app",
-        "flex-container",
-        "height-app",
-        "width-100",
-        "column"
-      )}
-    >
-      <div className="alerts-container">
-        <Confirm
-          {...confirmData}
-          hasTitleBar={true}
-          openAsModal={true}
-          onClose={() => setConfirmData({ isOpen: false })}
-        />
-        <Alert
-          {...alertData}
-          hasTitleBar={true}
-          onClose={() => setAlertData({ isOpen: false })}
-          isModal={true}
-          classes={"error-alert"}
-          openAsModal={true}
-        />
-      </div>
-      <div className="title-bar flex-container row space-between center">
-        <div className="flex-container row center">
-          <img src={"/icons/icon16.png"}></img>
-          <h2>One Click Search</h2>
-        </div>
-        <div className="flex-container row center">
+    <div className={clsx("app", "flex-container", "column")}>
+      <AppAlerts
+        confirmData={confirmData}
+        setConfirmData={setConfirmData}
+        alertData={alertData}
+        setAlertData={setAlertData}
+      />
+      <Header>
+        <div className="icons-group flex-container row center">
           <IconTrigger onClick={() => setShowHelp(true)} type={"help"} />
           <IconAnchor href={"options.html"} newTab type={"settings"} />
         </div>
-      </div>
+      </Header>
       <div className="page-container">
-        <div className="flex-container width-100 right">
+        <div className="flex-container right">
           <HelpModal show={showHelp} close={() => setShowHelp(false)} />
         </div>
         <AlertsContext.Provider value={alertHandler}>
