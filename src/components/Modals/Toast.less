@@ -20,6 +20,8 @@
     border-width: 1px;
     border-radius: 10px;
     box-shadow: none;
+    background-color: transparent;
+    border-color: transparent;
     .title-area {
       height: 30px;
       justify-content: center;
@@ -30,16 +32,6 @@
       // .modal-title-text {
       //   filter: brightness(0.5);
       // }
-    }
-
-    :root[data-theme="theme-dark"] & {
-      background-color: var(--L4);
-      &.success {
-        box-shadow: 0 0 5px lighten(@Success, 50%);
-      }
-      &.danger {
-        box-shadow: 0 0 5px lighten(@Danger, 50%);
-      }
     }
 
     // Transition & State

@@ -79,7 +79,7 @@
     // margin-inline: 5%;
     // width: unset;
     :root[data-theme="theme-dark"] & {
-      box-shadow: 0 0 30px 10px rgb(255 255 255 / 17%);
+      box-shadow: 0 -10px 76px 20px rgb(255 255 255 / 6%);
     }
     p {
       font-size: 14px;
@@ -87,6 +87,20 @@
     &.error-alert {
       button {
         flex: 0.4;
+      }
+    }
+  }
+
+  .expanded-open & {
+    h3,
+    .sortable-item:not(.expanded) {
+      filter: opacity(0.75);
+      cursor: default;
+      .expand-btn {
+        cursor: pointer;
+      }
+      &:hover {
+        border-color: transparent;
       }
     }
   }

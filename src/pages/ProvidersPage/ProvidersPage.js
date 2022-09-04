@@ -38,46 +38,48 @@ const ProvidersPage = () => {
   }, [sortables]);
 
   return (
-    <div
-      className={clsx("flex-container", "page")}
-      id={"providersPage"}
-      direction={"column"}
-    >
-      {sortables && (
-        <>
-          <SortableSection
-            openItem={openItem}
-            setOpenItem={setOpenItem}
-            id={"visible"}
-            name={"Visible"}
-            maxLength={4}
-            list={sortables.visible}
-            setList={(list) =>
-              dispatchSortables({ type: "SET_VISIBLE", list: list })
-            }
-          />
-          <SortableSection
-            openItem={openItem}
-            setOpenItem={setOpenItem}
-            id={"hidden"}
-            name={"Hidden"}
-            list={sortables.hidden}
-            setList={(list) =>
-              dispatchSortables({ type: "SET_HIDDEN", list: list })
-            }
-          />
-          <SortableSection
-            openItem={openItem}
-            setOpenItem={setOpenItem}
-            id={"disabled"}
-            name={"Disabled"}
-            list={sortables.disabled}
-            setList={(list) =>
-              dispatchSortables({ type: "SET_DISABLED", list: list })
-            }
-          />
-        </>
-      )}
+    <div className="page-container">
+      <div
+        className={clsx("flex-container", "page")}
+        id={"providersPage"}
+        direction={"column"}
+      >
+        {sortables && (
+          <>
+            <SortableSection
+              openItem={openItem}
+              setOpenItem={setOpenItem}
+              id={"visible"}
+              name={"Visible"}
+              maxLength={4}
+              list={sortables.visible}
+              setList={(list) =>
+                dispatchSortables({ type: "SET_VISIBLE", list: list })
+              }
+            />
+            <SortableSection
+              openItem={openItem}
+              setOpenItem={setOpenItem}
+              id={"hidden"}
+              name={"Hidden"}
+              list={sortables.hidden}
+              setList={(list) =>
+                dispatchSortables({ type: "SET_HIDDEN", list: list })
+              }
+            />
+            <SortableSection
+              openItem={openItem}
+              setOpenItem={setOpenItem}
+              id={"disabled"}
+              name={"Disabled"}
+              list={sortables.disabled}
+              setList={(list) =>
+                dispatchSortables({ type: "SET_DISABLED", list: list })
+              }
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };

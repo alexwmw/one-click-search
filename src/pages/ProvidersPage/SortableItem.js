@@ -5,7 +5,6 @@ import Icon from "../../components/Icons/Icon";
 import IconTrigger from "../../components/Icons/IconTrigger";
 import "./SortableItem.less";
 
-
 function SortableItem({ provider, openItem, setOpenItem }) {
   /** State and local data */
   const [isExpanded, setIsExpanded] = useState(false);
@@ -18,7 +17,7 @@ function SortableItem({ provider, openItem, setOpenItem }) {
   };
 
   useEffect(() => {
-    if (isExpanded) {
+    if (document.getElementsByClassName("expanded").length > 0) {
       document.body.classList.add("expanded-open");
     } else {
       document.body.classList.remove("expanded-open");
