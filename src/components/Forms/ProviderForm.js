@@ -77,7 +77,7 @@ function ProviderForm({ provider, closeForm }) {
   return (
     <GenericForm
       classes={{ submit: [hasChanges ? "hasChanges" : ""] }}
-      labels={{ submit: "Save" }}
+      labels={{ submit: "Save", close: "Cancel" }}
       deleteHandler={deleteHandler}
       closeHandler={closeHandler}
       submitHandler={submitHandler}

@@ -1,22 +1,12 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import SortableItem from "./SortableItem";
 
-function SortableSection({
-  name,
-  id,
-  maxLength,
-  list,
-  setList,
-  openItem,
-  setOpenItem,
-}) {
-  /** Visible list must be at least 1 item */
-  const pullHandler = (to, from) => {
-    if (id == "visible") {
-      return from.el.children.length > 1;
-    }
-    return true;
-  };
+function SortableSection(props) {
+  const { name, id, maxLength, list, setList, openItem, setOpenItem } = props;
+
+  const [undraggable, setUndraggable] = useState(false);
 
   /** Visible list must be at most {maxLength} items */
   const putHandler = (to, from) => {
@@ -25,6 +15,13 @@ function SortableSection({
     }
     return true;
   };
+
+  useEffect(() => {
+    if (id == "visible") {
+      const bool = list.length < 2;
+      setUndraggable(bool);
+    }
+  }, [list]);
 
   return (
     <div>
@@ -35,11 +32,13 @@ function SortableSection({
         id={id}
         list={list}
         setList={setList}
-        group={{ name: "iconsList", put: putHandler, pull: pullHandler }}
+        group={{ name: "iconsList", put: putHandler }}
         tag={"ul"}
         animation={150}
         filter={".undraggable"}
         preventOnFilter={false}
+        forceFallback={true}
+        fallbackClass={"sortable-drag"}
       >
         {list.map((p) => (
           <SortableItem
@@ -47,6 +46,7 @@ function SortableSection({
             key={p.name}
             openItem={openItem}
             setOpenItem={setOpenItem}
+            isUndraggable={undraggable}
           ></SortableItem>
         ))}
       </ReactSortable>

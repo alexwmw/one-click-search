@@ -5,12 +5,12 @@ import Icon from "../../components/Icons/Icon";
 import IconTrigger from "../../components/Icons/IconTrigger";
 import "./SortableItem.less";
 
-function SortableItem({ provider, openItem, setOpenItem }) {
+function SortableItem({ provider, openItem, setOpenItem, isUndraggable }) {
   /** State and local data */
   const [isExpanded, setIsExpanded] = useState(false);
 
   const faviconUrl =
-    provider.faviconUrl || `https://${provider.hostname}/favicon.ico`;
+    provider.faviconUrl || `http://${provider.hostname}/favicon.ico`;
 
   const toggleExpanded = () => {
     setIsExpanded((expanded) => !expanded);
@@ -30,12 +30,18 @@ function SortableItem({ provider, openItem, setOpenItem }) {
     }
   }, [openItem]);
 
+  /** on Unmount  */
+  useEffect(() => () => {
+    document.body.classList.remove("expanded-open");
+  });
+
   return (
     <li
       data-id={provider.name}
       className={clsx(
         "sortable-item",
-        isExpanded && ["expanded", "undraggable"]
+        isExpanded && ["expanded", "undraggable"],
+        isUndraggable && "undraggable"
       )}
       onClick={(e) => setOpenItem(provider.name)}
       onDragStart={(e) => setOpenItem(null)}
@@ -44,7 +50,7 @@ function SortableItem({ provider, openItem, setOpenItem }) {
       <img className="li-favicon" src={faviconUrl}></img>
       <span className="li-provider-name">{provider.name}</span>
       <IconTrigger
-        className={clsx("li-expand-btn")}
+        className={clsx("li-expand-btn", "undraggable")}
         onClick={toggleExpanded}
         type={!isExpanded ? "expand" : "collapse"}
       />

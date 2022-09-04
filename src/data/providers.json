@@ -32,14 +32,6 @@
     "visibility": "hidden"
   },
   {
-    "name": "Wiktionary",
-    "role": "provider",
-    "hostname": "www.wiktionary.org",
-    "queryPath": "w/index.php?search=$TEXT$",
-    "faviconUrl": "",
-    "visibility": "hidden"
-  },
-  {
     "name": "Gmail",
     "role": "provider",
     "hostname": "mail.google.com",
@@ -76,6 +68,14 @@
     "role": "provider",
     "hostname": "www.facebook.com",
     "queryPath": "search/top?q=$TEXT$",
+    "faviconUrl": "",
+    "visibility": "disabled"
+  },
+  {
+    "name": "Stack Overflow",
+    "role": "provider",
+    "hostname": "stackoverflow.com",
+    "queryPath": "search/?q=$TEXT$",
     "faviconUrl": "",
     "visibility": "disabled"
   }
