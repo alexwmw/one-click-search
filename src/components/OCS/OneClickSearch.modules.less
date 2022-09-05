@@ -1,12 +1,12 @@
 @import "/src/less/_variables.less";
 
-@padding: 2px;
-@br: 12px;
-
 .popup {
   @OCSsize: 20px;
-  @OCSoffsetX: -10px;
+  @OCSoffsetX: 10px;
   @OCSoffsetY: 26px;
+
+  @padding: 2px;
+  @br: 12px;
 
   @keyframes grow {
     from {
@@ -37,7 +37,7 @@
 
   opacity: 1;
 
-  transform: translate(@OCSoffsetX, -(@OCSsize + @OCSoffsetY));
+  transform: translate(-(@OCSoffsetX), -(@OCSsize + @OCSoffsetY));
 
   :global(.dark-theme) & {
     //background-color: var(--D3);
@@ -55,10 +55,6 @@
     transition: 0.3s all ease;
     animation: 0.15s ease grow;
     animation-fill-mode: forwards;
-    // &.hidden {
-    //   animation: 0.15s ease grow;
-    //   animation-fill-mode: forwards;
-    // }
     &:hover {
       img {
         transform: scale(1.1);
@@ -83,13 +79,12 @@
       display: table;
       margin: 0 auto;
     }
+
     img {
       display: block;
-      //border-radius: @br;
       height: @OCSsize;
       width: @OCSsize;
       padding: 3px;
-      //margin-inline: (@padding / 2) - 1px;
       opacity: 0.9;
       cursor: pointer;
       transition: 0.3s all ease;
@@ -100,7 +95,6 @@
     &:hover img {
       background-color: var(--L2-5);
       opacity: 1;
-      //outline: 1px solid var(--P1);
     }
 
     &.hidden {

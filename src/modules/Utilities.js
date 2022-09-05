@@ -1,30 +1,3 @@
-/**  */
-export function adaptLegacyProvider(oldProvider) {
-  const newProvider = {};
-
-  try {
-    newProvider.name = oldProvider.name;
-    newProvider.role = "provider";
-    newProvider.hostname = oldProvider.url
-      .replace(/http:\/\/|https:\/\//, "")
-      .replace(/\//, "");
-    newProvider.queryPath = oldProvider.queryKey + "$TEXT$";
-    newProvider.visibility = oldProvider.visibility;
-
-    if (oldProvider.faviconUrl) {
-      newProvider.faviconUrl = oldProvider.faviconUrl;
-    } else {
-      newProvider.faviconUrl = "";
-    }
-    //todo: use the validator before returning the provider
-    return newProvider;
-  } catch (e) {
-    console.log("Adapt Legacy Provider did not work for " + oldProvider.name);
-    console.table(e);
-    return null;
-  }
-}
-
 /** Return an array where each item with a 'position' property
  * is at the front according to its position property */
 export function sortByPosition(array) {
@@ -72,8 +45,11 @@ export const isValidSelection = (selection) => {
   }
   return false;
 };
+
 export const visible = (obj) => obj.visibility === "visible";
+
 export const hidden = (obj) => obj.visibility === "hidden";
+
 export const disabled = (obj) => obj.visibility === "disabled";
 
 export const isValidText = (text) => {
@@ -133,22 +109,6 @@ export const placesHaveChanged = (array, providers) =>
       a[i].visibility !== providers[i].visibility
   );
 
-// export const getChangedSettings = (changes) => {
-//   const changedSettings = {};
-//   const { oldValue, newValue } = changes["options"] ?? {};
-//   if (oldValue && newValue) {
-//     for (const setting of Object.keys(newValue)) {
-//       if (newValue[setting].value !== oldValue[setting].value) {
-//         changedSettings[setting] = {
-//           old: oldValue[setting].value,
-//           new: newValue[setting].value,
-//         };
-//       }
-//     }
-//   }
-//   return changedSettings;
-// };
-
 export const set = (obj, callback) =>
   chrome.storage.sync.set(obj, callback && callback());
 
@@ -168,10 +128,10 @@ export const styleByState = (state, fade, fadeOutTime) => {
 };
 
 export const applyTheme = (theme, element = null) => {
-  const html = document.querySelector("html");
   if (element) {
     element.dataset.theme = `theme-${theme}`;
   } else {
+    const html = document.querySelector("html");
     html.dataset.theme = `theme-${theme}`;
   }
 };
