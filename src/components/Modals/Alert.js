@@ -23,7 +23,14 @@ function Alert(props) {
       onClose={onClose}
     >
       {props.children}
-      <ButtonArea onClose={onClose} closeText={"OK"} align={"justify-center"} />
+      <ButtonArea
+        onClose={() => {
+          props.callback && props.callback();
+          onClose();
+        }}
+        closeText={"OK"}
+        align={"justify-center"}
+      />
     </Modal>
   );
 }

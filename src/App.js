@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import ProvidersPage from "./pages/ProvidersPage/ProvidersPage";
-import AppAlerts from "./pages/ProvidersPage/AppAlerts";
+import useAlerts from "./hooks/useAlerts";
 import Header from "./pages/OptionsPage/OcsHeader";
 import HelpModal from "./components/Modals/HelpModal";
 import IconTrigger from "./components/Icons/IconTrigger";
@@ -27,7 +27,7 @@ const App = () => {
   const [showHelp, setShowHelp] = useState(false);
   const [providers, setProviders] = useState([]);
   const dispatchChrome = ChromeDispatcher;
-  const { alertHandler, AlertProvider } = AppAlerts();
+  const { alertHandler, AlertProvider } = useAlerts();
 
   /** Get providers on first render */
   useChromeGet(

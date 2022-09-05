@@ -49,7 +49,7 @@ const ProviderValidator = (provider, providers = null) => {
 
   report.queryPath =
     validQueryPath ||
-    `\"${provider.queryPath}\" is not a valid query path. (Must contain \'$TEXT$\').`;
+    `\"${provider.queryPath}\" is not a valid query path. The query path must contain the placeholder \'$TEXT$\'.`;
 
   report.faviconUrl =
     validFaviconUrl || `\"${provider.faviconUrl}\" is not a valid favicon URL.`;

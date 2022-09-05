@@ -11,16 +11,19 @@ function ButtonArea(props) {
     closeOnSubmit = true,
   } = props;
 
-  const proceedAndClose = () => {
-    onProceed();
-    onClose();
+  const proceedAndClose = (e) => {
+    onProceed(e);
+    onClose(e);
   };
 
   return (
     <div className={clsx("btn-area", "flex-container", "row", align)}>
       {onClose && <Button onClick={onClose}>{closeText}</Button>}
       {onProceed && (
-        <Button onClick={closeOnSubmit ? proceedAndClose : onProceed}>
+        <Button
+          type={"button"}
+          onClick={closeOnSubmit ? proceedAndClose : onProceed}
+        >
           {proceedText}
         </Button>
       )}

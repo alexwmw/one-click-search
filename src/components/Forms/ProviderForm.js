@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useReducer } from "react";
-import GenericForm from "/src/components/Forms/GenericForm";
+import GenericForm from "./GenericForm";
 import ProviderFormReducer from "/src/reducers/ProviderFormReducer";
 import ProviderFormFields from "./ProviderFormFields";
 import ChromeContext from "../../contexts/ChromeContext";
@@ -31,7 +31,7 @@ function ProviderForm({ provider, closeForm }) {
       });
       closeForm();
     } else {
-      alertHandler.error({ title: "Error", messages: validator.messages });
+      alertHandler.invalidProviderError({ messages: validator.messages });
     }
   };
 

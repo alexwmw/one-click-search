@@ -1,3 +1,4 @@
+@import "../../less/_variables.less";
 .modal {
   .body-area {
     .form-row {
@@ -9,7 +10,18 @@
       }
       input {
         flex: 2;
+        border: solid 1px var(--L2);
+        background-color: var(--L4);
+        padding: 4px 6px;
+        border-radius: 4px;
+        &:focus {
+          background-color: var(--white);
+          border: @accent-border;
+        }
       }
+    }
+    .Button {
+      width: 120px;
     }
   }
 }
@@ -18,4 +30,10 @@
   width: 350px;
   max-width: 76vw;
   overflow: hidden;
+  transition: 0.3s all;
+
+  &.hidden {
+    translate: 0 20px;
+    opacity: 0;
+  }
 }

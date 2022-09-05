@@ -1,9 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import {
-  faPlus as addIcon,
-  faRecycle as resetIcon,
-} from "@fortawesome/free-solid-svg-icons";
-
 import OptionRows from "./OptionsRows";
 import Button from "../../components/Buttons/Button";
 import Confirm from "../../components/Modals/Confirm";
@@ -40,8 +35,10 @@ const ManagementRows = ({ selectedTab }) => {
       <AddProviderModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
       <Confirm
         isOpen={confirmIsOpen}
-        title={"Are you sure?"}
-        body={"Are you sure?"}
+        title={"Confirm reset"}
+        body={
+          "Any providers you have added will be lost. Do you want to proceed?"
+        }
         onClose={() => setConfirmIsOpen(false)}
         onProceed={() => setConfirmReset(true)}
         hasTitleBar={true}
@@ -59,7 +56,7 @@ const ManagementRows = ({ selectedTab }) => {
                 }
               </p>
               <div className="control">
-                <Button onClick={onResetClick} icon={resetIcon}>
+                <Button onClick={onResetClick} icon={"reset"}>
                   Reset to defaults
                 </Button>
               </div>
@@ -73,7 +70,7 @@ const ManagementRows = ({ selectedTab }) => {
                 {"Add a new search provider to the pop-up."}
               </p>
               <div className="control">
-                <Button onClick={onAddProvClick} icon={addIcon}>
+                <Button onClick={onAddProvClick} icon={"add"}>
                   Add new provider...
                 </Button>
               </div>

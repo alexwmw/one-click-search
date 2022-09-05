@@ -20,19 +20,19 @@ function Modal(props) {
   } = props;
 
   const ref = useRef(null);
-  const clickRef = isClosable
-    ? useOutsideClick(onClose, ref.current)
-    : useRef(null);
+  const clickRef = useOutsideClick(onClose, ref.current);
 
   useEffect(() => {
     if (isOpen && openAsModal) {
       ref.current?.showModal();
       document.body.classList.add("modal-open");
-    } else if (isOpen && !openAsModal) {
+    } else if (isOpen) {
       ref.current?.show();
     } else {
       ref.current?.close();
-      document.body.classList.remove("modal-open");
+      if (document.getElementsByClassName("modal").length == 0) {
+        document.body.classList.remove("modal-open");
+      }
     }
   }, [isOpen]);
 
@@ -48,7 +48,7 @@ function Modal(props) {
           ref={ref}
           onCancel={onClose}
         >
-          <div ref={clickRef}>
+          <div ref={isClosable && clickRef}>
             <div className={"title-area flex-container row"}>
               <h2>
                 <div className="modal-title">

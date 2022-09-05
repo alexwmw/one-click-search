@@ -1,19 +1,19 @@
-import { useState, useEffect, useMemo, useReducer } from "react";
-import ProviderFormReducer from "/src/reducers/ProviderFormReducer";
+import { useState, useContext, useMemo, useReducer } from "react";
+import ProviderFormReducer from "../../reducers/ProviderFormReducer";
 import Modal from "./Modal";
-import ButtonArea from "../Buttons/ButtonArea";
 import ProviderFormFields from "../Forms/ProviderFormFields";
+import GenericForm from "../Forms/GenericForm";
+import useAlerts from "../../hooks/useAlerts";
 import ProviderValidator from "../../modules/ProviderValidator";
 import ChromeDispatcher from "../../modules/ChromeDispatcher";
-import { compareObjs } from "../../modules/Utilities";
-import "./AddProviderModal.less";
-import { useContext } from "react";
 import { ToastsContext } from "../../reducers/ToastsReducer";
+import { get } from "../../modules/Utilities";
+import "./AddProviderModal.less";
 
 function AddProviderModal({ isOpen, setIsOpen }) {
-  //const alertHandler = useContext(AlertsContext);
-  const [hasChanges, setHasChanges] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const { dispatchToasts } = useContext(ToastsContext);
+  const { alertHandler, AlertProvider } = useAlerts();
   const defaults = useMemo(() => ({
     name: "",
     hostname: "",
@@ -30,8 +30,9 @@ function AddProviderModal({ isOpen, setIsOpen }) {
 
   const dispatchChrome = ChromeDispatcher;
 
-  const onSubmit = () => {
-    chrome.storage.sync.get(["providers"], (result) => {
+  const onSubmit = (e) => {
+    e.preventDefault();
+    get(["providers"], (result) => {
       const validator = ProviderValidator(formValues, result.providers);
       if (validator.decision) {
         dispatchChrome({
@@ -42,48 +43,43 @@ function AddProviderModal({ isOpen, setIsOpen }) {
         dispatchToasts({ type: "PROVIDER_ADDED" });
         setIsOpen(false);
       } else {
-        alertHandler.error({ title: "Error", messages: validator.messages });
-        //alert(validator.messages.join("\n"));
+        setIsVisible(false);
+        alertHandler.invalidProviderError({
+          messages: validator.messages,
+          onClick: () => setIsVisible(true),
+        });
       }
     });
   };
 
-  const onClose = () => {
-    if (!hasChanges || confirm("Your changes will be lost")) {
-      setIsOpen(false);
-      dispatchFormValues({ type: "CLEAR_FORM", defaults: defaults });
-    }
+  const onClose = (e) => {
+    setIsOpen(false);
+    dispatchFormValues({ type: "CLEAR_FORM", defaults: defaults });
   };
-
-  useEffect(() => {
-    const areDifferent = compareObjs(defaults, formValues, {
-      type: "different",
-    });
-    setHasChanges(areDifferent);
-  }, [formValues]);
 
   return (
     <Modal
-      classes={["new-provider-modal"]}
+      classes={["new-provider-modal", !isVisible && "hidden"]}
       title={"Add New Provider"}
       hasTitleBar={true}
       onClose={onClose}
       onProceed={onSubmit}
       isOpen={isOpen}
     >
-      <ProviderFormFields
-        addNew={true}
-        dispatch={dispatchFormValues}
-        values={formValues}
-        tooltips={true}
-        setHasChanges={setHasChanges}
-      />
-      <ButtonArea
-        onClose={onClose}
-        onProceed={() => onSubmit()}
-        proceedText={"Submit"}
-        closeOnSubmit={false}
-      />
+      <AlertProvider />
+      <GenericForm
+        labels={{ submit: "Save", close: "Cancel" }}
+        closeHandler={onClose}
+        submitHandler={onSubmit}
+      >
+        <ProviderFormFields
+          addNew={true}
+          dispatch={dispatchFormValues}
+          values={formValues}
+          tooltips={true}
+          //setHasChanges={setHasChanges}
+        />
+      </GenericForm>
     </Modal>
   );
 }

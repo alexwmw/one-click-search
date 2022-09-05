@@ -1,9 +1,4 @@
-import {
-  faTrashAlt as deleteIcon,
-  faFloppyDisk as submitIcon,
-  faClose as closeIcon,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from "../Buttons/Button";
 
 const FormButton = (props) => {
   const { type, onClick, label, classes = [] } = props;
@@ -12,32 +7,32 @@ const FormButton = (props) => {
     submit: {
       label: label || "Submit",
       type: "submit",
-      icon: submitIcon,
-      classes: "submitBtn " + classes.join(" "),
+      icon: "save",
+      classes: [...classes, "submitBtn"],
     },
     delete: {
       label: label || "Delete",
       type: "button",
-      icon: deleteIcon,
-      classes: "deleteBtn " + classes.join(" "),
+      icon: "delete",
+      classes: [...classes, "deleteBtn"],
     },
     close: {
       label: label || "Close",
       type: "button",
-      icon: closeIcon,
-      classes: "closeBtn " + classes.join(" "),
+      icon: "close",
+      classes: [...classes, "closeBtn"],
     },
   }[type];
 
   return (
-    <button
-      className={`btn formBtn ${btnProps.classes}`}
+    <Button
+      classes={["btn", "formBtn", btnProps.classes]}
       type={btnProps.type}
       onClick={onClick}
+      icon={btnProps.icon}
     >
-      <FontAwesomeIcon icon={btnProps.icon} />
       <span>{btnProps.label}</span>
-    </button>
+    </Button>
   );
 };
 export default FormButton;

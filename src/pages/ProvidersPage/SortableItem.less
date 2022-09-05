@@ -193,10 +193,11 @@ li.sortable-item form {
   .btn {
     cursor: pointer;
     width: 76px;
-    padding: 6px 4px !important;
+    padding: 3px 4px !important;
     margin: 3px 10px;
     border-radius: 6px;
     border: @invisible-border;
+    gap: 8px;
 
     display: flex;
     align-items: center;
@@ -204,7 +205,8 @@ li.sortable-item form {
 
     background-color: transparent;
     font-size: 10pt;
-    .svg-inline--fa {
+    .icon {
+      font-size: 15px;
       color: var(--D1);
     }
 
@@ -232,17 +234,14 @@ li.sortable-item form {
       }
     }
     &:hover {
-      font-weight: 700;
-      //background-color: var(--L3);
+      //border: solid 1px @text-color;
+      background-color: var(--L2);
     }
     &:active {
       border: @accent-border;
     }
     &.hidden {
       display: none;
-    }
-    .svg-inline--fa {
-      margin-right: 6px;
     }
   }
 }

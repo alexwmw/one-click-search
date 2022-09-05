@@ -1,24 +1,53 @@
-import "./TooltipProvider.less";
-import { Transition } from "react-transition-group";
+import { CSSTransition, Transition } from "react-transition-group";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 import "./Tooltip.less";
+import clsx from "clsx";
 
+const Tooltip = ({ text }) => {
+  const [isVisible, setIsVisible] = useState(false);
 
-const Tooltip = ({ description, isVisible }) => (
-  <Transition in={isVisible} timeout={400}>
-    {(state) => {
-      const style = {
-        transition: "opacity 200ms ease",
-        opacity: state == "entered" ? 1 : 0,
-      };
-      return (
-        state !== "exited" && (
-          <div style={style} className={"infoBubble"}>
-            <p>{description}</p>
-          </div>
-        )
-      );
-    }}
-  </Transition>
-);
+  const duration = 200;
+
+  const defaultStyle = {
+    transition: `opacity ${duration}ms ease-in-out`,
+    opacity: 0,
+  };
+
+  const transitionStyles = {
+    entering: { opacity: 1 },
+    entered: { opacity: 1 },
+    exiting: { opacity: 0 },
+    exited: { opacity: 0, display: "none" },
+  };
+
+  return (
+    <>
+      <div
+        className="tooltip-icon-container"
+        onMouseEnter={() => setIsVisible(true)}
+        onMouseLeave={() => setIsVisible(false)}
+      >
+        <Icon icon={faInfoCircle} />
+      </div>
+
+      <div className="tooltip-wrapper">
+        <Transition in={isVisible} timeout={200 + duration}>
+          {(state) => (
+            <div
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state],
+              }}
+              className={clsx("tooltip")}
+            >
+              <p>{text}</p>
+            </div>
+          )}
+        </Transition>
+      </div>
+    </>
+  );
+};
 
 export default Tooltip;

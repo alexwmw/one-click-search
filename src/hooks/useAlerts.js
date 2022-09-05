@@ -1,19 +1,29 @@
-import { useEffect } from "react";
 import { useState } from "react";
-import Alert from "../../components/Modals/Alert";
-import Confirm from "../../components/Modals/Confirm";
+import Alert from "../components/Modals/Alert";
+import Confirm from "../components/Modals/Confirm";
 
-const AppAlerts = () => {
+const useAlerts = () => {
   const [confirmData, setConfirmData] = useState({ isOpen: false });
   const [alertData, setAlertData] = useState({ isOpen: false });
+
   let key = 0;
 
   const alertHandler = {
-    error: ({ title, messages }) => {
+    invalidProviderError: ({ messages, onClick }) => {
       setAlertData({
         isOpen: true,
-        title: title,
-        children: messages.map((p) => <p key={key++}>{p}</p>),
+        title: "Invalid Form Data",
+        children: (
+          <>
+            <p>Please address the following errors:</p>
+            <ul>
+              {messages.map((p) => (
+                <li key={key++}>{p}</li>
+              ))}
+            </ul>
+          </>
+        ),
+        callback: onClick,
       });
     },
     confirm: ({ title, question, onProceed }) => {
@@ -53,4 +63,4 @@ const AppAlerts = () => {
   return { alertHandler, AlertProvider };
 };
 
-export default AppAlerts;
+export default useAlerts;

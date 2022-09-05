@@ -1,3 +1,5 @@
+import Tooltip from "../Tooltips/Tooltip";
+
 const FormField = (props) => {
   const {
     value,
@@ -7,11 +9,14 @@ const FormField = (props) => {
     formatField,
     classes = [],
     required,
+    showTooltip,
+    tooltipText,
   } = props;
 
   return (
     <div className="flex-container row form-row center">
       <label>{label}</label>
+      {showTooltip && <Tooltip text={tooltipText} />}
       <input
         type={"text"}
         className={classes.join(" ")}
