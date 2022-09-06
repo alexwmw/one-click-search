@@ -42,8 +42,7 @@ function ProviderForm({ provider, closeForm }) {
       visible(provider) && providers.filter((p) => visible(p)).length < 2;
 
     if (isOnlyVisibleItem) {
-      alertHandler.error({
-        title: "Single Visible Item Error",
+      alertHandler.onlyVisibleError({
         messages: [
           "Cannot delete the only visible provider.",
           "Add another provider to the visible list first.",

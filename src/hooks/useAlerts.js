@@ -6,21 +6,35 @@ const useAlerts = () => {
   const [confirmData, setConfirmData] = useState({ isOpen: false });
   const [alertData, setAlertData] = useState({ isOpen: false });
 
-  let key = 0;
+  let msgKey = 0;
 
   const alertHandler = {
     invalidProviderError: ({ messages, onClick }) => {
       setAlertData({
         isOpen: true,
-        title: "Invalid Form Data",
+        title: "Single Visible Item Error",
         children: (
           <>
             <p>Please address the following errors:</p>
             <ul>
-              {messages.map((p) => (
-                <li key={key++}>{p}</li>
+              {messages.map((message) => (
+                <li key={msgKey++}>{message}</li>
               ))}
             </ul>
+          </>
+        ),
+        callback: onClick,
+      });
+    },
+    onlyVisibleError: ({ messages, onClick }) => {
+      setAlertData({
+        isOpen: true,
+        title: "Invalid Form Data",
+        children: (
+          <>
+            {messages.map((message) => (
+              <p key={msgKey++}>{message}</p>
+            ))}
           </>
         ),
         callback: onClick,
