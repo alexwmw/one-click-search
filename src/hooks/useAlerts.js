@@ -12,7 +12,7 @@ const useAlerts = () => {
     invalidProviderError: ({ messages, onClick }) => {
       setAlertData({
         isOpen: true,
-        title: "Single Visible Item Error",
+        title: "Invalid Form Data",
         children: (
           <>
             <p>Please address the following errors:</p>
@@ -26,18 +26,16 @@ const useAlerts = () => {
         callback: onClick,
       });
     },
-    onlyVisibleError: ({ messages, onClick }) => {
+    onlyVisibleError: () => {
       setAlertData({
         isOpen: true,
-        title: "Invalid Form Data",
+        title: "Single Visible Item Error",
         children: (
           <>
-            {messages.map((message) => (
-              <p key={msgKey++}>{message}</p>
-            ))}
+            <p>Cannot delete the only visible provider.</p>
+            <p>Add another provider to the visible list first.</p>
           </>
         ),
-        callback: onClick,
       });
     },
     confirm: ({ title, question, onProceed }) => {

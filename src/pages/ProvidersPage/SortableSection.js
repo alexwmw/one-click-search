@@ -6,33 +6,23 @@ import SortableItem from "./SortableItem";
 function SortableSection(props) {
   const { name, id, maxLength, list, setList, openItem, setOpenItem } = props;
 
-  const [undraggable, setUndraggable] = useState(false);
-
-  /** Visible list must be at most {maxLength} items */
-  const putHandler = (to, from) => {
-    if (id == "visible") {
-      return to.el.children.length < maxLength;
-    }
-    return true;
-  };
-
-  useEffect(() => {
-    if (id == "visible") {
-      const bool = list.length < 2;
-      setUndraggable(bool);
-    }
-  }, [list]);
+  // /** Visible list must be at most {maxLength} items */
+  // const putHandler = (to, from) => {
+  //   if (id == "visible") {
+  //     return to.el.children.length < maxLength;
+  //   }
+  //   return true;
+  // };
 
   return (
     <div>
-      <h3 className="section-name">{`${name} Icons${
-        maxLength ? ` (max. ${maxLength})` : ""
-      }`}</h3>
+      <h3 className="section-name">{`${name} Icons`}</h3>
       <ReactSortable
         id={id}
         list={list}
         setList={setList}
-        group={{ name: "iconsList", put: putHandler }}
+        // group={{ name: "iconsList", put: putHandler }}
+        group={{ name: "iconsList" }}
         tag={"ul"}
         animation={150}
         filter={".undraggable"}
@@ -46,7 +36,6 @@ function SortableSection(props) {
             key={p.name}
             openItem={openItem}
             setOpenItem={setOpenItem}
-            isUndraggable={undraggable}
           ></SortableItem>
         ))}
       </ReactSortable>

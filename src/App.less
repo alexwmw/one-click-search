@@ -9,7 +9,8 @@
   .ocs-header {
     position: sticky;
     box-sizing: border-box;
-    box-shadow: 0 0 20px 0px @shadow-color;
+    box-shadow: 0 0 30px 0px rgb(50 50 100/ 0.2);
+    border-bottom-width: 0.5px;
     z-index: 1;
 
     img {
@@ -64,6 +65,13 @@
     height: 100%;
     border-radius: 0;
 
+    &.title-bar-modal .title-area h2 {
+      margin: -12px -12px -2px -12px;
+    }
+    a:focus {
+      outline: none;
+    }
+
     .icon {
       position: relative;
       top: 2px;
@@ -92,17 +100,17 @@
     }
   }
 
-  .expanded-open & {
-    h3,
-    .sortable-item:not(.expanded) {
-      filter: opacity(0.75);
-      cursor: default;
-      .expand-btn {
-        cursor: pointer;
-      }
-      &:hover {
-        border-color: transparent;
-      }
-    }
-  }
+  // .expanded-open & {
+  //   h3,
+  //   .sortable-item:not(.expanded) {
+  //     filter: opacity(0.75);
+  //     cursor: default;
+  //     .expand-btn {
+  //       cursor: pointer;
+  //     }
+  //     &:hover {
+  //       border-color: transparent;
+  //     }
+  //   }
+  // }
 }

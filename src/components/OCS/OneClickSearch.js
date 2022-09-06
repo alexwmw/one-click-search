@@ -20,6 +20,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     });
 
   const clickHandler = (evt) => {
+    console.log(evt);
     const selection = window.getSelection();
     const OCS = document.getElementById("OneClickSearch");
     const checks = [

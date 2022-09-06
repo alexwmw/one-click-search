@@ -37,11 +37,14 @@ li.sortable-item {
     cursor: grab;
   }
   &.undraggable {
-    cursor: no-drop;
+    cursor: default;
   }
 
   &:hover:not(.undraggable) {
     border: solid 1px var(--A1);
+    .sort.icon {
+      color: var(--A2);
+    }
   }
 
   &.expanded {
@@ -49,9 +52,6 @@ li.sortable-item {
     cursor: default;
     border: solid 1px var(--A1);
 
-    .li-expand-btn {
-      background-color: var(--white);
-    }
     .sort.icon {
       transform: scale(0);
     }
@@ -140,14 +140,13 @@ li.sortable-item {
 
     &.li-expand-btn {
       position: absolute;
-      right: 4px;
-      top: 4px;
+      right: 5px;
+      top: 5px;
       display: block;
-      color: var(--D1);
-      padding: 5px;
-      border-radius: 50%;
+      padding: 4px;
+      border-radius: 6px;
+
       text-align: center;
-      background-color: transparent;
       cursor: pointer;
       .icon {
         display: block;
@@ -155,8 +154,8 @@ li.sortable-item {
         height: 12px;
       }
       &:hover {
-        background-color: var(--bg);
-        color: @text-color;
+        background-color: var(--white);
+        color: var(--P1);
       }
     }
   }
@@ -193,7 +192,7 @@ li.sortable-item form {
   .btn {
     cursor: pointer;
     width: 76px;
-    padding: 3px 4px !important;
+    padding: 4px 3px !important;
     margin: 3px 10px;
     border-radius: 6px;
     border: @invisible-border;
@@ -203,42 +202,31 @@ li.sortable-item form {
     align-items: center;
     justify-content: center;
 
+    color: @text-color;
     background-color: transparent;
+
     font-size: 10pt;
+
     .icon {
       font-size: 15px;
-      color: var(--D1);
-    }
-
-    span {
-      color: @text-color;
     }
 
     &.submitBtn.hasChanges {
       //background-color: white;
       font-weight: 700;
-      border-color: var(--A1);
-
-      span {
+      // border-color: var(--A2);
+      color: var(--A2);
+      background-color: var(--L4);
+      &:active {
         color: var(--A1);
-      }
-      .svg-inline--fa {
-        color: var(--A1);
-      }
-      &:hover {
-        border-color: var(--A1);
-        span,
-        .svg-inline--fa {
-          color: var(--A2);
-        }
       }
     }
     &:hover {
-      //border: solid 1px @text-color;
-      background-color: var(--L2);
+      background-color: var(--white);
+      color: var(--P1);
     }
     &:active {
-      border: @accent-border;
+      color: var(--P2);
     }
     &.hidden {
       display: none;

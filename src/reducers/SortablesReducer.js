@@ -7,17 +7,29 @@ const SortablesReducer = (state, action) => {
     case "SET_VISIBLE":
       return {
         ...state,
-        visible: action.list.map((p) => ({ ...p, visibility: "visible" })),
+        visible: action.list.map((p) => ({
+          ...p,
+          visibility: "visible",
+          onlyVisible: action.list.length == 1,
+        })),
       };
     case "SET_HIDDEN":
       return {
         ...state,
-        hidden: action.list.map((p) => ({ ...p, visibility: "hidden" })),
+        hidden: action.list.map((p) => ({
+          ...p,
+          visibility: "hidden",
+          onlyVisible: false,
+        })),
       };
     case "SET_DISABLED":
       return {
         ...state,
-        disabled: action.list.map((p) => ({ ...p, visibility: "disabled" })),
+        disabled: action.list.map((p) => ({
+          ...p,
+          visibility: "disabled",
+          onlyVisible: false,
+        })),
       };
   }
 };

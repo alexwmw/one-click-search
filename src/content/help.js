@@ -30,6 +30,13 @@ const help = {
         Click the <Icon type={"expand"} /> <strong>expand</strong> icon to
         change each search provider's settings.
       </p>
+      <p>
+        To add your own custom search providers, go to{" "}
+        <a href="options.html" target="_blank" tabIndex={0}>
+          advanced settings
+        </a>
+        .
+      </p>
     </>
   ),
 };

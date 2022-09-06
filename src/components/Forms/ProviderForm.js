@@ -8,7 +8,7 @@ import ProviderValidator from "../../modules/ProviderValidator";
 import { compareObjs, visible } from "../../modules/Utilities";
 
 function ProviderForm({ provider, closeForm }) {
-  const { providers, dispatchChrome } = useContext(ChromeContext);
+  const { dispatchChrome } = useContext(ChromeContext);
   const alertHandler = useContext(AlertsContext);
   const [hasChanges, setHasChanges] = useState(false);
   const [formValues, dispatchFormValues] = useReducer(
@@ -38,16 +38,8 @@ function ProviderForm({ provider, closeForm }) {
   const deleteHandler = (e) => {
     e.preventDefault();
 
-    const isOnlyVisibleItem =
-      visible(provider) && providers.filter((p) => visible(p)).length < 2;
-
-    if (isOnlyVisibleItem) {
-      alertHandler.onlyVisibleError({
-        messages: [
-          "Cannot delete the only visible provider.",
-          "Add another provider to the visible list first.",
-        ],
-      });
+    if (provider.onlyVisible) {
+      alertHandler.onlyVisibleError();
     } else {
       alertHandler.confirm({
         title: "Confirm delete",
