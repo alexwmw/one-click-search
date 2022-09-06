@@ -1,0 +1,44 @@
+.accordion {
+  .accordion-section {
+    margin-block: 2px;
+    .title-area {
+      background-color: var(--L3);
+      transition: background-color 200ms;
+      border-radius: 1px;
+      &:hover {
+        background-color: var(--L2);
+        .icon {
+          color: var(--P1);
+        }
+      }
+      cursor: pointer;
+      h3 {
+        color: var(--D2);
+
+        margin: 12px;
+        margin-bottom: 15px;
+      }
+      .icon {
+        color: var(--D2);
+        margin: 12px;
+        margin-bottom: 15px;
+
+        font-size: 14px;
+      }
+    }
+    .content-area {
+      background-color: var(--L4);
+      overflow: hidden;
+      transition: all 200ms ease;
+      max-height: 0;
+      .content-inner {
+        padding: 12px;
+      }
+
+      &.expanded {
+        transition: all 500ms ease;
+        max-height: 300px;
+      }
+    }
+  }
+}
