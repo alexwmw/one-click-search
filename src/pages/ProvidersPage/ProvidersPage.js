@@ -1,4 +1,5 @@
 import { useContext, useEffect, useReducer, useState } from "react";
+import clsx from "clsx";
 import SortableSection from "./SortableSection";
 import SortablesReducer from "../../reducers/SortablesReducer";
 import ChromeContext from "../../contexts/ChromeContext";
@@ -8,8 +9,6 @@ import {
   sortablesFromProviders,
   sortIsFinished,
 } from "../../modules/Utilities";
-import clsx from "clsx";
-import "./ProvidersPage.less";
 
 const ProvidersPage = () => {
   /** State and contexts */

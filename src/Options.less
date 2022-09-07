@@ -1,81 +1,84 @@
-.main-content {
-  margin: 0;
-  &.flex-container.row {
-    flex-direction: column;
-  }
-  .tabs-column {
-    .tab {
-      width: 100%;
-    }
-  }
-}
+:root {
+  overflow: hidden;
 
-@media only screen and (min-width: 750px) {
   .main-content {
-    margin: auto;
-    width: 100%;
-    overflow: hidden;
-    justify-content: center;
-
+    margin: 0;
     &.flex-container.row {
-      flex-direction: row;
-    }
-    .main-column {
-      width: 460px;
-      overflow: auto;
-      h2 {
-        position: relative;
-      }
+      flex-direction: column;
     }
     .tabs-column {
-      position: sticky;
-      flex: 1;
-      min-width: 200px;
-      max-width: 300px;
+      .tab {
+        width: 100%;
+      }
     }
   }
-}
 
-@padding: 15px;
-html,
-body,
-#options {
-  width: 100%;
-  height: 100%;
-}
-body {
-  background-color: var(--L4);
-  background-color: #e5e5f7;
-  //opacity: 0.8;
-  background-image: repeating-radial-gradient(
-      circle at 0 0,
-      transparent 0,
-      var(--L4) 6px
-    ),
-    repeating-linear-gradient(var(--L4), var(--L3));
-}
-
-#options {
-  .options {
-    height: 100%;
-
+  @media only screen and (min-width: 750px) {
     .main-content {
-      height: 100%;
-      flex: 1;
+      margin: auto;
+      width: 100%;
+      justify-content: center;
 
-      > div {
-        //height: 100%;
-        padding: @padding @padding * 3;
-      }
-      .tabs-column {
-        h1 {
-          margin-bottom: 30px;
-          color: var(--D1);
-        }
+      &.flex-container.row {
+        flex-direction: row;
       }
       .main-column {
-        background: var(--bg);
-        overflow: scroll;
+        width: 460px;
+        overflow: auto;
+        h2 {
+          position: relative;
+        }
+      }
+      .tabs-column {
+        position: sticky;
+        flex: 1;
+        min-width: 200px;
+        max-width: 300px;
+      }
+    }
+  }
+
+  @padding: 15px;
+  html,
+  body,
+  #options {
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    background-color: var(--L4);
+    background-color: #e5e5f7;
+    //opacity: 0.8;
+    background-image: repeating-radial-gradient(
+        circle at 0 0,
+        transparent 0,
+        var(--L4) 6px
+      ),
+      repeating-linear-gradient(var(--L4), var(--L3));
+  }
+
+  #options {
+    .options {
+      height: 100%;
+
+      .main-content {
+        height: 100%;
+        flex: 1;
+
+        > div {
+          //height: 100%;
+          padding: @padding @padding * 3;
+        }
+        .tabs-column {
+          h1 {
+            margin-bottom: 30px;
+            color: var(--D1);
+          }
+        }
+        .main-column {
+          background: var(--bg);
+          overflow: scroll;
+        }
       }
     }
   }

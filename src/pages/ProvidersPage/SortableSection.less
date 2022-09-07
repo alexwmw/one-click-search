@@ -1,0 +1,44 @@
+@import "/src/less/_variables.less";
+
+@row-height: 24px;
+@row-height_expanded: 130px;
+@row-padding: 3px;
+@favicon-height: 20px;
+
+.sortable-section {
+  h3 {
+    margin-block: 6px 2px;
+  }
+
+  ul {
+    padding-inline-start: 0;
+    min-height: 30px;
+    position: relative;
+    &:before {
+      content: "Drop items here";
+      position: absolute;
+      height: 28px;
+      width: 99%;
+      z-index: -1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      border: 1px dashed transparent;
+      color: transparent;
+
+      transition: all ease 250ms;
+      transition-delay: 250ms;
+    }
+  }
+
+  &.empty {
+    ul:before {
+      border: 1px dashed var(--L1);
+      color: var(--L1);
+    }
+  }
+}

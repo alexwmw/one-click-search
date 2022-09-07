@@ -1,6 +1,6 @@
 import isValidHostname from "is-valid-hostname";
 import { isValidURL } from "./Utilities";
-import schema from "/src/data/providersSchema.json";
+import schema from "../schemas/providersSchema.json";
 
 const ProviderValidator = (provider, providers = null) => {
   /** Validate each of the providers properties */
@@ -49,7 +49,7 @@ const ProviderValidator = (provider, providers = null) => {
 
   report.queryPath =
     validQueryPath ||
-    `\"${provider.queryPath}\" is not a valid query path. The query path must contain the placeholder \'$TEXT$\'.`;
+    `\"${provider.queryPath}\" is not a valid query path. The query path must contain the placeholder $TEXT$.`;
 
   report.faviconUrl =
     validFaviconUrl || `\"${provider.faviconUrl}\" is not a valid favicon URL.`;

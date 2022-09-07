@@ -12,7 +12,7 @@ const useAlerts = () => {
     invalidProviderError: ({ messages, onClick }) => {
       setAlertData({
         isOpen: true,
-        title: "Invalid Form Data",
+        title: "Invalid form data",
         children: (
           <>
             <p>Please address the following errors:</p>
@@ -29,7 +29,7 @@ const useAlerts = () => {
     onlyVisibleError: () => {
       setAlertData({
         isOpen: true,
-        title: "Single Visible Item Error",
+        title: "Unable to delete",
         children: (
           <>
             <p>Cannot delete the only visible provider.</p>

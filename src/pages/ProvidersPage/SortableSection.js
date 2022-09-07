@@ -1,7 +1,9 @@
+import clsx from "clsx";
 import { useEffect } from "react";
 import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import SortableItem from "./SortableItem";
+import "./SortableSection.less";
 
 function SortableSection(props) {
   const { name, id, maxLength, list, setList, openItem, setOpenItem } = props;
@@ -15,7 +17,7 @@ function SortableSection(props) {
   // };
 
   return (
-    <div>
+    <div className={clsx("sortable-section", list.length == 0 && "empty")}>
       <h3 className="section-name">{`${name} Icons`}</h3>
       <ReactSortable
         id={id}

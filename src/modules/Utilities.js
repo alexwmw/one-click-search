@@ -83,12 +83,20 @@ export const compareObjs = (
 };
 
 export const sortablesFromProviders = (providers) => {
-  return {
+  providers = providers.map((p) => ({ ...p, onlyVisible: false }));
+
+  const sortables = {
     visible: providers.filter((p) => visible(p)),
     hidden: providers.filter((p) => hidden(p)),
     disabled: providers.filter((p) => disabled(p)),
     none: providers.filter((p) => !visible(p) && !hidden(p) && !disabled(p)),
   };
+
+  if (sortables.visible.length == 1) {
+    sortables.visible[0].onlyVisible = true;
+  }
+
+  return sortables;
 };
 
 export const arrayFromSortables = (sortables) => {

@@ -108,7 +108,7 @@
     "id": "maxChars",
     "label": "Max. characters",
     "description": "Maximum number of characters that will trigger the popup when selected. Set to 0 for unlimited.",
-    "value": "1000",
+    "value": 1000,
     "type": "number",
     "pos": 0
   }

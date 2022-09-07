@@ -1,7 +1,7 @@
 import Icon from "../components/Icons/Icon";
 
 const help = {
-  title: "How To Use",
+  title: "How to use",
   body: (
     <>
       <p>

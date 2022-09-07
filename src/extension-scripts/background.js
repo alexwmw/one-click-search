@@ -1,8 +1,7 @@
-import OCSproviders from "/src/data/providers.json";
-import OCSfunctions from "/src/data/functions.json";
-import OCSoptions from "/src/data/options.json";
-import { sortByPosition } from "../modules/Utilities";
-import { get, set } from "../modules/Utilities";
+import OCSproviders from "../data/providers.json";
+import OCSfunctions from "../data/functions.json";
+import OCSoptions from "../data/options.json";
+import { sortByPosition, get, set } from "../modules/Utilities";
 import legacyData from "../data/legacyData.js";
 import { adaptLegacyObject, isLegacyData } from "../modules/AdaptLegacyData";
 
