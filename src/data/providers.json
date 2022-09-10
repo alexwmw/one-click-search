@@ -24,20 +24,20 @@
     "visibility": "visible"
   },
   {
-    "name": "Google Translate",
-    "role": "provider",
-    "hostname": "translate.google.com",
-    "queryPath": "?text=$TEXT$",
-    "faviconUrl": "",
-    "visibility": "hidden"
-  },
-  {
     "name": "Gmail",
     "role": "provider",
     "hostname": "mail.google.com",
     "queryPath": "mail/u/0/#search/$TEXT$",
     "faviconUrl": "",
-    "visibility": "hidden"
+    "visibility": "disabled"
+  },
+  {
+    "name": "Google Drive",
+    "role": "provider",
+    "hostname": "drive.google.com",
+    "queryPath": "drive/search?q=$TEXT$",
+    "faviconUrl": "",
+    "visibility": "disabled"
   },
   {
     "name": "Amazon",
@@ -45,20 +45,28 @@
     "hostname": "www.amazon.co.uk",
     "queryPath": "s?k=$TEXT$",
     "faviconUrl": "",
-    "visibility": "disabled"
+    "visibility": "hidden"
   },
   {
-    "name": "Twitter",
+    "name": "DuckDuckGo",
     "role": "provider",
-    "hostname": "www.twitter.com",
-    "queryPath": "search?q=$TEXT$",
+    "hostname": "duckduckgo.com",
+    "queryPath": "?q=$TEXT$",
     "faviconUrl": "",
-    "visibility": "disabled"
+    "visibility": "hidden"
   },
   {
     "name": "Reddit",
     "role": "provider",
     "hostname": "www.reddit.com",
+    "queryPath": "search?q=$TEXT$",
+    "faviconUrl": "",
+    "visibility": "hidden"
+  },
+  {
+    "name": "Twitter",
+    "role": "provider",
+    "hostname": "www.twitter.com",
     "queryPath": "search?q=$TEXT$",
     "faviconUrl": "",
     "visibility": "disabled"
@@ -72,11 +80,35 @@
     "visibility": "disabled"
   },
   {
-    "name": "Stack Overflow",
+    "name": "Translate to English",
     "role": "provider",
-    "hostname": "stackoverflow.com",
-    "queryPath": "search/?q=$TEXT$",
-    "faviconUrl": "",
+    "hostname": "translate.google.com",
+    "queryPath": "?sl=auto&tl=en&text=$TEXT$",
+    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/GB-United-Kingdom-Flag-icon.png",
+    "visibility": "disabled"
+  },
+  {
+    "name": "Translate to French",
+    "role": "provider",
+    "hostname": "translate.google.com",
+    "queryPath": "?sl=auto&tl=fr&text=$TEXT$",
+    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/FR-France-Flag-icon.png",
+    "visibility": "disabled"
+  },
+  {
+    "name": "Translate to German",
+    "role": "provider",
+    "hostname": "translate.google.com",
+    "queryPath": "?sl=auto&tl=de&text=$TEXT$",
+    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/DE-Germany-Flag-icon.png",
+    "visibility": "disabled"
+  },
+  {
+    "name": "Translate to Spanish",
+    "role": "provider",
+    "hostname": "translate.google.com",
+    "queryPath": "?sl=auto&tl=es&text=$TEXT$",
+    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/ES-Spain-Flag-icon.png",
     "visibility": "disabled"
   }
 ]
