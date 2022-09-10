@@ -18,7 +18,7 @@ function SortableSection(props) {
 
   return (
     <div className={clsx("sortable-section", list.length == 0 && "empty")}>
-      <h3 className="section-name">{`${name} Icons`}</h3>
+      <h3 className="section-name">{`${name} search icons`}</h3>
       <ReactSortable
         id={id}
         list={list}

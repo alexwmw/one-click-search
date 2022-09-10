@@ -24,7 +24,7 @@ li.sortable-item {
 
   border: solid 1px var(--P3);
   border-radius: 10px;
-  background-color: var(--L3);
+  background-color: var(--L4);
 
   list-style-type: none;
   list-style-position: inside;
@@ -40,17 +40,18 @@ li.sortable-item {
     cursor: default;
   }
 
-  &:hover:not(.undraggable) {
-    border: solid 1px var(--A1);
+  &:hover:not(.undraggable),
+  &:hover.expanded {
+    border: solid 1px var(--P1);
     .sort.icon {
-      color: var(--A2);
+      color: var(--P1);
     }
   }
 
   &.expanded {
     height: @row-height_expanded;
     cursor: default;
-    border: solid 1px var(--A1);
+    // border: solid 1px var(--P2);
 
     .sort.icon {
       transform: scale(0);
@@ -64,11 +65,11 @@ li.sortable-item {
   }
 
   #visible & {
-    background-color: var(--PA);
+    //background-color: var(--PA);
   }
 
   #disabled & {
-    background-color: var(--L4);
+    //background-color: var(--L4);
     img {
       filter: grayscale(1);
     }
@@ -84,7 +85,8 @@ li.sortable-item {
     #visible &,
     #hidden &,
     #disabled & {
-      background-color: var(--P3);
+      background-color: var(--L2);
+      box-shadow: none;
       .sort.icon {
         color: var(--A1);
       }
@@ -181,13 +183,14 @@ li.sortable-item form {
     padding-right: 5px;
   }
   input {
-    flex: 0.7;
+    flex: 1;
     border: none;
     font-size: 8pt;
     outline: none;
     height: 18px;
-    width: 160px;
+    max-width: 360px;
     margin: 3px 10px;
+    justify-self: right;
   }
   .btn {
     cursor: pointer;

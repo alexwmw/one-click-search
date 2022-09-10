@@ -1,9 +1,9 @@
-import { CSSTransition, Transition } from "react-transition-group";
+import { Transition } from "react-transition-group";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import "./Tooltip.less";
 import clsx from "clsx";
 import Icon from "../Icons/Icon";
+import "./Tooltip.less";
 
 const Tooltip = ({ text }) => {
   const [isVisible, setIsVisible] = useState(false);

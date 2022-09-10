@@ -7,7 +7,7 @@ export function ToastsReducer(state, action) {
         ...state,
         {
           icon: "check",
-          title: "Provider details updated!",
+          title: "Provider details updated",
           category: "success",
         },
       ];
@@ -16,7 +16,7 @@ export function ToastsReducer(state, action) {
         ...state,
         {
           icon: "check",
-          title: "Order saved!",
+          title: "Order saved",
           category: "success",
         },
       ];
@@ -25,7 +25,7 @@ export function ToastsReducer(state, action) {
         ...state,
         {
           icon: "check",
-          title: "New provider added!",
+          title: "New provider added",
           category: "success",
         },
       ];
@@ -33,8 +33,8 @@ export function ToastsReducer(state, action) {
       return [
         ...state,
         {
-          icon: "check",
-          title: "Providers reset!",
+          icon: "reset",
+          title: "Providers reset",
           category: "success",
         },
       ];
@@ -43,7 +43,7 @@ export function ToastsReducer(state, action) {
         ...state,
         {
           icon: "delete",
-          title: "Provider deleted!",
+          title: "Provider deleted",
           category: "danger",
         },
       ];
@@ -52,7 +52,7 @@ export function ToastsReducer(state, action) {
         ...state,
         {
           icon: "check",
-          title: "Changes saved!",
+          title: "Change saved",
           category: "success",
         },
       ];

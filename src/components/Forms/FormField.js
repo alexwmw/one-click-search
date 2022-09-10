@@ -14,7 +14,7 @@ const FormField = (props) => {
   } = props;
 
   return (
-    <div className="flex-container row form-row center">
+    <div className="flex-container row form-row center right">
       <label>{label}</label>
       {showTooltip && <Tooltip text={tooltipText} />}
       <input

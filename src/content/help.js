@@ -1,7 +1,7 @@
 import Icon from "../components/Icons/Icon";
 
 const help = {
-  title: "How to use",
+  title: "About this list",
   body: (
     <>
       <p>
@@ -27,13 +27,13 @@ const help = {
         </li>
       </ul>
       <p>
-        Click the <Icon type={"expand"} /> <strong>expand</strong> icon to
-        change each search provider's settings.
+        Click the <Icon type={"more"} /> <strong>more</strong> icon to change
+        each search provider's settings.
       </p>
       <p>
         To add your own custom search providers, go to{" "}
         <a href="options.html" target="_blank" tabIndex={0}>
-          advanced settings
+          advanced options.
         </a>
         .
       </p>

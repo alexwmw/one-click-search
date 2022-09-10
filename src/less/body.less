@@ -18,6 +18,16 @@ body {
   li {
     font-family: @p-family;
     font-size: @font-size;
+
+    a {
+      color: var(--P1);
+      &:focus {
+        outline: none;
+      }
+      &:visited {
+        color: var(--P1);
+      }
+    }
   }
 
   h1 {
