@@ -1,4 +1,11 @@
 {
+  "search": {
+    "id": "search",
+    "name": "Search providers",
+    "nameLong": "Manage search providers",
+    "icon": "list",
+    "isOptionsTab": false
+  },
   "appearance": {
     "id": "appearance",
     "name": "Appearance",

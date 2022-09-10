@@ -1,10 +1,10 @@
 import { createRoot } from "react-dom/client";
 import { useState, useReducer, useEffect } from "react";
+import tabs from "./data/tabs.json";
 import TabContainer from "./components/Tabs/TabContainer";
 import ToastsContainer from "./components/Modals/ToastsContainer";
 import OptionsContainer from "./pages/OptionsPage/OptionsContainer";
 import OcsHeader from "./pages/OptionsPage/OcsHeader";
-import tabs from "./data/tabs.json";
 import Card from "./components/Cards/Card";
 import ChromeContext from "./contexts/ChromeContext";
 import ChromeDispatcher from "./modules/ChromeDispatcher";
@@ -30,7 +30,7 @@ const Options = () => {
   const dispatchChrome = ChromeDispatcher;
 
   /** Define tabs */
-  const defaultTab = tabs.appearance;
+  const defaultTab = tabs.search;
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
   useChromeGet(

@@ -12,25 +12,21 @@
 
     text-align: center;
 
+    span {
+      display: block;
+      .svg-inline--fa {
+        margin: initial;
+      }
+      &.tab-name {
+        display: none;
+      }
+    }
+
     &.selected {
       border-color: var(--P1);
     }
     &:hover:not(.selected) {
       background-color: var(--L4);
-    }
-  }
-
-  @media screen and(max-width: 575px) {
-    .tab {
-      span {
-        display: block;
-        .svg-inline--fa {
-          margin: 0;
-        }
-        &.tab-name {
-          display: none;
-        }
-      }
     }
   }
 
@@ -43,6 +39,16 @@
       text-align: unset;
       border-left: solid 5px transparent;
       border-bottom: unset;
+
+      span {
+        display: inline-block;
+        .svg-inline--fa {
+          margin-right: 10px;
+        }
+        &.tab-name {
+          display: inline-block;
+        }
+      }
     }
   }
 }
