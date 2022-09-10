@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Icon from "../Icons/Icon";
 
-const AccordionSection = ({ title, children, openItem, setOpenItem }) => {
+const AccordionSection = ({ title, children }) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpanded = () => {
-    setOpenItem(title);
+    //setOpenItem(title);
     setExpanded((val) => !val);
   };
 
