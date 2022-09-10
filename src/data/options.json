@@ -1,4 +1,24 @@
 {
+  "color": {
+    "class": "appearance",
+    "id": "color",
+    "label": "Popup colour",
+    "description": "Colour of the popup",
+    "value": "f0f2f5",
+    "type": "color-picker",
+    "options": ["f0f2f5", "d1d8e0", "b3becc", "ebf2fa"],
+    "pos": 0
+  },
+  "theme": {
+    "class": "appearance",
+    "id": "theme",
+    "label": "Menu theme",
+    "description": "Choose light or dark theme for the extension menus",
+    "value": "Light",
+    "type": "theme",
+    "options": ["Light", "Dark"],
+    "pos": 1
+  },
   "padding": {
     "class": "appearance",
     "id": "padding",
@@ -10,38 +30,28 @@
     "min": 1,
     "max": 4,
     "step": 1,
-    "pos": 0
+    "pos": 2
   },
   "borderRadius": {
     "class": "appearance",
     "id": "borderRadius",
     "label": "Corner radius",
-    "description": "Curvature of the poup's corners",
+    "description": "Curvature of the popup's corners",
     "value": "10",
     "type": "slider",
     "unit": "px",
     "min": 5,
     "max": 15,
     "step": 1,
-    "pos": 1
+    "pos": 3
   },
   "shadow": {
     "class": "appearance",
     "id": "shadow",
     "label": "Popup shadow",
-    "description": "Add a subtle shadow behind the popup.",
+    "description": "Add a subtle shadow behind the popup",
     "value": true,
     "type": "switch",
-    "pos": 2
-  },
-  "theme": {
-    "class": "appearance",
-    "id": "theme",
-    "label": "Menu theme",
-    "description": "Choose light or dark theme for the extension menus",
-    "value": "Light",
-    "type": "theme",
-    "options": ["Light", "Dark"],
     "pos": 4
   },
   "animations": {
@@ -51,7 +61,8 @@
     "description": "Enable animations in the popup",
     "value": true,
     "type": "switch",
-    "pos": 3
+    "pos": 5
+  },
   },
   "fadeOutTime": {
     "class": "behaviour",

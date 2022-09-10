@@ -3,10 +3,18 @@ import useOutsideClick from "/src/hooks/useOutsideClick";
 import useTimeout from "/src/hooks/useTimeout";
 import styles from "./OneClickSearch.modules.less";
 import "../../less/theme.less";
-import {applyTheme } from "../../modules/Utilities";
+import { applyTheme } from "../../modules/Utilities";
 
 const OCSPopUp = ({
-  options: { borderRadius, padding, shadow, fadeDelay, showDelay, animations },
+  options: {
+    borderRadius,
+    padding,
+    shadow,
+    fadeDelay,
+    showDelay,
+    animations,
+    color,
+  },
   style,
   dispatch,
   showHidden,
@@ -67,9 +75,9 @@ const OCSPopUp = ({
   return (
     <div
       ref={ref}
-      style={style}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      style={{ ...style, backgroundColor: `#${color.value}` }}
       className={[
         styles.popup,
         styles[`br-${borderRadius.value}`],

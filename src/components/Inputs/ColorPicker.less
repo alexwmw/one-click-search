@@ -1,0 +1,33 @@
+.color-picker {
+  display: flex;
+  gap: 0px;
+  input {
+    display: none;
+  }
+  .color-square {
+    @border-width: 1.5px;
+
+    height: 26px;
+    width: 26px;
+    display: block;
+    border-radius: 2px;
+    border: solid @border-width transparent;
+    padding: @border-width;
+
+    cursor: pointer;
+    transition: all 150ms;
+    .inner-square {
+      height: 100%;
+      width: 100%;
+    }
+    &.selected {
+      border-color: var(--P2);
+      &:hover {
+        border-color: var(--P1);
+      }
+      &:active {
+        border-color: var(--A1);
+      }
+    }
+  }
+}

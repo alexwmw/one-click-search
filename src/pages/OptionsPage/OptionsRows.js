@@ -3,6 +3,7 @@ import Number from "../../components/Inputs/Number";
 import Select from "../../components/Inputs/Select";
 import Slider from "../../components/Inputs/Slider";
 import Switch from "../../components/Inputs/Switch";
+import ColorPicker from "../../components/Inputs/ColorPicker";
 import ThemeButton from "../../components/Buttons/ThemeButton";
 
 import "./OptionsRows.less";
@@ -22,6 +23,12 @@ const OptionRows = ({ selectedTab }) => {
         return (
           <div className="control switch-control">
             <Switch settingId={id} />
+          </div>
+        );
+      case "color-picker":
+        return (
+          <div className="control color-picker">
+            <ColorPicker settingId={id} />
           </div>
         );
       case "slider":
