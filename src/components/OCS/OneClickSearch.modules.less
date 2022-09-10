@@ -55,9 +55,36 @@
     transition: 0.3s all ease;
     animation: 0.15s ease grow;
     animation-fill-mode: forwards;
+    img {
+      transition: 0.3s all ease;
+    }
     &:hover {
       img {
         transform: scale(1.1);
+      }
+    }
+    &.functionIcon {
+      &.pulsing {
+        @keyframes pulse {
+          0% {
+            scale: 1;
+          }
+          50% {
+            scale: 1.15;
+            box-shadow: 0 0 0 1px var(--P1);
+          }
+          100% {
+            scale: 1;
+          }
+        }
+
+        img {
+          box-shadow: 0 0 0 transparent;
+          animation: pulse 0.5s ease-in-out 1;
+        }
+        &:hover img {
+          animation: none;
+        }
       }
     }
   }
@@ -80,6 +107,17 @@
       margin: 0 auto;
     }
 
+    &.functionIcon {
+      img {
+        background-color: var(--L4);
+        opacity: 1;
+      }
+      &:hover img {
+        background-color: white;
+        outline: solid 1px var(--P1);
+      }
+    }
+
     img {
       display: block;
       height: @OCSsize;
@@ -87,13 +125,14 @@
       padding: 3px;
       opacity: 0.9;
       cursor: pointer;
-      transition: 0.3s all ease;
+
       user-select: none;
       outline: 1px solid transparent;
       object-fit: contain;
     }
     &:hover img {
-      background-color: var(--L2-5);
+      box-shadow: 0 0 2px rgb(0 0 0 / 0.25);
+
       opacity: 1;
     }
 

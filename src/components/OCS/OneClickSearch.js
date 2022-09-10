@@ -1,11 +1,11 @@
 import { useEffect, useReducer, useState } from "react";
 import clsx from "clsx";
 import Transition from "react-transition-group/Transition";
-import OCSicon from "./OCSicon";
-import PopUp from "./OCSPopUp";
 import useChromeListener from "../../hooks/useChromeListener";
 import OCSReducer from "../../reducers/OCSReducer";
 import { isValidSelection, isValidText } from "../../modules/Utilities";
+import PopUp from "./OCSPopUp";
+import OCSIconMap from "./OCSIconMap";
 
 const OneClickSearch = ({ storedProviders, storedOptions }) => {
   /** State and local data */
@@ -18,6 +18,24 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
       fade: false,
       isHovered: false,
     });
+
+  /** Updated state when stored values change */
+  useChromeListener(
+    ({ newValue }, key) => {
+      key === "providers" && setProviders(newValue);
+      key === "options" && setOptions(newValue);
+    },
+    ["providers", "options"]
+  );
+
+  useChromeListener(
+    ({ oldValue, newValue }) => {
+      if (oldValue.theme !== newValue.theme) {
+        setDarkMode(newValue.theme.value == "Dark");
+      }
+    },
+    ["options"]
+  );
 
   const clickHandler = (evt) => {
     console.log(evt);
@@ -43,24 +61,6 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     }
   };
 
-  /** Updated state when stored values change */
-  useChromeListener(
-    ({ newValue }, key) => {
-      key === "providers" && setProviders(newValue);
-      key === "options" && setOptions(newValue);
-    },
-    ["providers", "options"]
-  );
-
-  useChromeListener(
-    ({ oldValue, newValue }) => {
-      if (oldValue.theme !== newValue.theme) {
-        setDarkMode(newValue.theme.value == "Dark");
-      }
-    },
-    ["options"]
-  );
-
   /** Add mouseup/down event listeners to document */
   useEffect(() => {
     document.addEventListener("mouseup", clickHandler);
@@ -75,19 +75,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     }
   }, [text, x, y]);
 
-  /** Component lists */
-  const providerIcons = providers.map((provider) => {
-    return (
-      <OCSicon
-        onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
-        key={provider.name}
-        text={text}
-        provider={provider}
-        visibility={provider.visibility}
-        linkTarget={options.linkTarget.dictionary[options.linkTarget.value]}
-      />
-    );
-  });
+  console.log(options.linkTarget);
 
   return (
     <div
@@ -113,7 +101,15 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
             showHidden={showHidden}
             options={options}
           >
-            {providerIcons}
+            <OCSIconMap
+              providers={providers}
+              text={text}
+              onIconClick={() => dispatch({ type: "CLICK_OCS_ICON" })}
+              linkTarget={
+                options.linkTarget.dictionary[options.linkTarget.value]
+              }
+              allowTitles={options.allowTitles.value}
+            />
           </PopUp>
         )}
       </Transition>

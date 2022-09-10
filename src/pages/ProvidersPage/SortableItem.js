@@ -4,6 +4,7 @@ import ProviderForm from "../../components/Forms/ProviderForm";
 import Icon from "../../components/Icons/Icon";
 import IconTrigger from "../../components/Icons/IconTrigger";
 import "./SortableItem.less";
+import Img from "../../components/Images/Img";
 
 function SortableItem({ provider, openItem, setOpenItem }) {
   /** State and local data */
@@ -52,7 +53,7 @@ function SortableItem({ provider, openItem, setOpenItem }) {
       onDragStart={(e) => setOpenItem(null)}
     >
       <Icon className={"li-sort-icon"} type={"sort"} />
-      <img className="li-favicon" src={faviconUrl}></img>
+      <Img className="li-favicon" src={faviconUrl}></Img>
       <span className="li-provider-name">{provider.name}</span>
       <IconTrigger
         className={clsx("li-expand-btn", "undraggable")}

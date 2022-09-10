@@ -63,6 +63,14 @@
     "type": "switch",
     "pos": 5
   },
+  "allowTitles": {
+    "class": "appearance",
+    "id": "allowTitles",
+    "label": "Show names",
+    "description": "Show the search provider's name when hovering on the icons",
+    "value": true,
+    "type": "switch",
+    "pos": 6
   },
   "fadeOutTime": {
     "class": "behaviour",
@@ -72,7 +80,7 @@
     "value": "5",
     "type": "slider",
     "unit": "s",
-    "min": 1,
+    "min": 3,
     "max": 10,
     "step": 0.5,
     "pos": 0
@@ -85,7 +93,7 @@
     "value": "5",
     "type": "slider",
     "unit": "s",
-    "min": 1,
+    "min": 3,
     "max": 10,
     "step": 0.5,
     "pos": 1
@@ -98,7 +106,7 @@
     "value": "1",
     "type": "slider",
     "unit": "s",
-    "min": 1,
+    "min": 0,
     "max": 5,
     "step": 0.5,
     "pos": 2
