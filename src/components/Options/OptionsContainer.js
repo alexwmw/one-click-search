@@ -1,10 +1,10 @@
 import ManagementRows from "./ManagementRows";
 import OptionRows from "./OptionsRows";
 import information from "../../content/information.js";
-import MarkdownMapper from "../../components/Markdown/MarkdownMapper";
-import ProvidersPage from "../ProvidersPage/ProvidersPage";
+import MarkdownMapper from "../Markdown/MarkdownMapper";
+import ProvidersSorter from "../ProvidersSorter/ProvidersSorter";
 import clsx from "clsx";
-import HelpIcon from "../../components/Tooltips/HelpIcon";
+import HelpIcon from "../Tooltips/HelpIcon";
 import "./OptionsContainer.less";
 
 function OptionsContainer({ selectedTab, tabs }) {
@@ -20,7 +20,7 @@ function OptionsContainer({ selectedTab, tabs }) {
       <div className={"flex-container page options-container-inner"}>
         {selectedTab == tabs.search && (
           <div className="providers-page-wrap">
-            <ProvidersPage />
+            <ProvidersSorter />
           </div>
         )}
         {selectedTab.isOptionsTab && <OptionRows selectedTab={selectedTab} />}

@@ -1,4 +1,4 @@
-import "./OcsHeader.less";
+import "./Header.less";
 
 function Header(props) {
   return (

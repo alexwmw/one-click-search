@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-import ProviderForm from "../../components/Forms/ProviderForm";
-import Icon from "../../components/Icons/Icon";
-import IconTrigger from "../../components/Icons/IconTrigger";
+import ProviderForm from "../Forms/ProviderForm";
+import Icon from "../Icons/Icon";
+import IconTrigger from "../Icons/IconTrigger";
 import "./SortableItem.less";
-import Img from "../../components/Images/Img";
+import Img from "../Images/Img";
 
 function SortableItem({ provider, openItem, setOpenItem }) {
   /** State and local data */

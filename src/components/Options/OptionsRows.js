@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import Number from "../../components/Inputs/Number";
-import Select from "../../components/Inputs/Select";
-import Slider from "../../components/Inputs/Slider";
-import Switch from "../../components/Inputs/Switch";
-import ColorPicker from "../../components/Inputs/ColorPicker";
-import ThemeButton from "../../components/Buttons/ThemeButton";
+import Number from "../Inputs/Number";
+import Select from "../Inputs/Select";
+import Slider from "../Inputs/Slider";
+import Switch from "../Inputs/Switch";
+import ColorPicker from "../Inputs/ColorPicker";
+import ThemeButton from "../Buttons/ThemeButton";
 
 import "./OptionsRows.less";
 import ChromeContext from "../../contexts/ChromeContext";

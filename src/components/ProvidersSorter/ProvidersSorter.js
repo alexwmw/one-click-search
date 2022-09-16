@@ -15,7 +15,7 @@ import {
 import AlertsContext from "../../contexts/AlertsContext";
 import useAlerts from "../../hooks/useAlerts";
 
-const ProvidersPage = (props) => {
+const ProvidersSorter = (props) => {
   /** State and contexts */
   const [openItem, setOpenItem] = useState(null);
   const [providers, setProviders] = useState([]);
@@ -112,4 +112,4 @@ const ProvidersPage = (props) => {
   );
 };
 
-export default ProvidersPage;
+export default ProvidersSorter;

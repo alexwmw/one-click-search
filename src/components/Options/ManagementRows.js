@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import OptionRows from "./OptionsRows";
-import Button from "../../components/Buttons/Button";
-import Confirm from "../../components/Modals/Confirm";
-import AddProviderModal from "../../components/Modals/AddProviderModal";
+import Button from "../Buttons/Button";
+import Confirm from "../Modals/Confirm";
+import AddProviderModal from "../Modals/AddProviderModal";
 import ChromeContext from "../../contexts/ChromeContext";
 import { ToastsContext } from "../../reducers/ToastsReducer";
 import "./OptionsRows.less";

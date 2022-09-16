@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 import React from "react";
 import clsx from "clsx";
-import ProvidersPage from "./pages/ProvidersPage/ProvidersPage";
-import Header from "./pages/OptionsPage/OcsHeader";
+import ProvidersSorter from "./components/ProvidersSorter/ProvidersSorter";
+import Header from "./components/Headers/Header";
 import IconAnchor from "./components/Icons/IconAnchor";
 import HelpIcon from "./components/Tooltips/HelpIcon";
 import { get } from "./modules/Utilities";
@@ -26,7 +26,7 @@ const App = () => {
           <IconAnchor href={"options.html"} newTab type={"settings"} />
         </div>
       </Header>
-      <ProvidersPage>
+      <ProvidersSorter>
         <h2
           style={{ marginTop: "0" }}
           className="flex-container row center space-between"
@@ -34,7 +34,7 @@ const App = () => {
           Manage search engines
           <HelpIcon />
         </h2>
-      </ProvidersPage>
+      </ProvidersSorter>
     </div>
   );
 };

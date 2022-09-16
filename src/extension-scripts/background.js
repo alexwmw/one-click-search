@@ -6,8 +6,8 @@ import legacyData from "../data/legacyData.js";
 import { adaptLegacyObject, isLegacyData } from "../modules/AdaptLegacyData";
 
 const devConfig = {
-  setLegacy: false,
-  clear: true,
+  setLegacyData: false,
+  clearStoredData: true,
 };
 
 const sw_log = (...args) => {
@@ -20,11 +20,11 @@ const defaults = {
   options: OCSoptions,
 };
 
-if (devConfig.clear) {
+if (devConfig.clearStoredData) {
   chrome.storage.sync.clear(() => sw_log("Storage was cleared"));
 }
 
-if (devConfig.setLegacy) {
+if (devConfig.setLegacyData) {
   set(legacyData, () => sw_log("Storage was set to legacyData"));
 } else {
   // Check data in storage
@@ -32,9 +32,9 @@ if (devConfig.setLegacy) {
     // If data existed in storage, stored data is returned.
     // If no data existed, defaults are returned
 
-    let dataToStore = result;
+    let dataToStore;
 
-    // Check is the data is legacy data and needs to be converted
+    // Check if the data is legacy data and needs to be converted
     const isLegacy = isLegacyData(result);
 
     if (isLegacy) {
@@ -45,6 +45,8 @@ if (devConfig.setLegacy) {
         providers: sortByPosition([...newProvidersArray, ...OCSfunctions]),
         options: OCSoptions,
       };
+    } else {
+      dataToStore = result;
     }
 
     set(dataToStore, () => {
