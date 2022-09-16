@@ -5,18 +5,14 @@
  *
  */
 const TextFunctions = {
-  Copy: (text) => {
+  Copy: ({ text }) => {
     navigator.clipboard.writeText(text);
   },
 
-  GoTo: (text, newtab = true) => {
-    if (text.indexOf("www") == 0) {
-      newtab
-        ? window.open("http://" + text.trim())
-        : (window.location.href = "http://" + text.trim());
-    } else {
-      newtab ? window.open(text.trim()) : (window.location.href = text.trim());
-    }
+  GoTo: ({ text, target }) => {
+    console.log(target);
+    const https = text.indexOf("http") == 0 ? "" : "https://";
+    window.open(https + text.trim(), target);
   },
 };
 export default TextFunctions;

@@ -8,8 +8,11 @@ function OCSIcon({ provider, text, onIconClick, linkTarget, allowTitles }) {
   const [pulse, setPulse] = useState(true);
 
   /** Do not render if regex criteria are not met */
-  if (provider.regex && !RegExp(provider.regex).test(text)) {
-    return null;
+  if (provider.regex) {
+    const regex = new RegExp(provider.regex);
+    if (/\s/g.test(text) || !text.match(regex)) {
+      return null;
+    }
   }
 
   const isProvider = provider.role === "provider";
@@ -20,10 +23,12 @@ function OCSIcon({ provider, text, onIconClick, linkTarget, allowTitles }) {
 
   if (isProvider) {
     encodedText = encodeURIComponent(text);
-    url = `http://${provider.hostname}/`;
+    url = `https://${provider.hostname}/`;
     queryPath = provider.queryPath.replace("$TEXT$", encodedText);
     searchUrl = url + queryPath;
   }
+
+  const title = allowTitles ? provider.title ?? provider.name : "";
 
   const imgSrc = isProvider
     ? provider.faviconUrl || url + "favicon.ico"
@@ -33,7 +38,7 @@ function OCSIcon({ provider, text, onIconClick, linkTarget, allowTitles }) {
     if (isFunction) {
       const theFunction = Functions[provider.name];
       e.preventDefault();
-      theFunction(text);
+      theFunction({ text, linkTarget });
     }
     onIconClick();
   };
@@ -46,7 +51,7 @@ function OCSIcon({ provider, text, onIconClick, linkTarget, allowTitles }) {
         styles[`${provider.role}Icon`],
         isFunction && pulse && styles.pulsing
       )}
-      title={allowTitles ? provider.title ?? provider.name : ""}
+      title={title}
       onMouseEnter={(e) => setPulse(false)}
     >
       <a onClick={clickHandler} target={linkTarget} href={searchUrl ?? ""}>
