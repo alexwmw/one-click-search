@@ -14,9 +14,9 @@ const OCSReducer = (state, action) => {
       return { ...state, isVisible: true };
     case "MOUSEENTER_POPUP":
       return { ...state, isVisible: true };
-    case "HIDE_OCS":
     case "CLICK_OCS_ICON":
       window.getSelection().removeAllRanges();
+    case "HIDE_OCS":
       return { ...state, isVisible: false, fade: false };
     case "CLICK_OFF_OCS":
       return { ...state, isVisible: false, fade: false };

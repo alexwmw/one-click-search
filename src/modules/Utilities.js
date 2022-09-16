@@ -37,13 +37,10 @@ export const isValidURL = (url) => {
   return !x === false;
 };
 
-export const isValidSelection = (selection) => {
-  if (selection != "") {
-    const nodeType = selection.focusNode.nodeType;
-    const selectionLength = selection.toString().length;
-    return nodeType == Node.TEXT_NODE && selectionLength > 0;
-  }
-  return false;
+
+export const isValidText = (text) => {
+  const invalidStrings = ["", " "];
+  return text && text !== "" && text !== " ";
 };
 
 export const visible = (obj) => obj.visibility === "visible";
@@ -52,10 +49,6 @@ export const hidden = (obj) => obj.visibility === "hidden";
 
 export const disabled = (obj) => obj.visibility === "disabled";
 
-export const isValidText = (text) => {
-  const invalidStrings = ["", " "];
-  return text && text !== "" && text !== " ";
-};
 
 export const compareObjs = (
   A,

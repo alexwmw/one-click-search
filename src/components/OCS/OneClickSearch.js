@@ -48,7 +48,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   /** Add mouseup/down event listeners to document */
   useEffect(() => {
-    document.addEventListener("mouseup", pageClickHandler);
+    document.addEventListener("click", pageClickHandler);
   }, []);
 
   /** When click data changes, hide or display the popup */
@@ -58,7 +58,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     } else {
       dispatch({ type: "HIDE_OCS" });
     }
-  }, [text, x, y]);
+  }, [text]);
 
   /** Update state when stored values change */
   useChromeListener(
@@ -68,7 +68,6 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
     },
     ["providers", "options"]
   );
-
 
   return (
     <div id={"OneClickSearch"} className={clsx("OneClickSearch")}>
