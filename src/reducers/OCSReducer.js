@@ -14,14 +14,14 @@ const OCSReducer = (state, action) => {
       return { ...state, isVisible: true };
     case "MOUSEENTER_POPUP":
       return { ...state, isVisible: true };
-    case "CLICK_OCS_ICON":
+    case "CLICK_OFF_OCS":
       window.getSelection().removeAllRanges();
     case "HIDE_OCS":
-      return { ...state, isVisible: false, fade: false };
-    case "CLICK_OFF_OCS":
-      return { ...state, isVisible: false, fade: false };
+      return { ...state, isVisible: false, fade: false, text: "" };
+    case "CLICK_OCS_ICON":
+      return { ...state, isVisible: true, fade: false };
     case "FADE_POPUP":
-      return { ...state, isVisible: false, fade: true };
+      return { ...state, isVisible: false, fade: true, };
     case "SHOW_HIDDEN_ICONS":
       return { ...state, showHidden: true };
     case "HIDE_HIDDEN_ICONS":

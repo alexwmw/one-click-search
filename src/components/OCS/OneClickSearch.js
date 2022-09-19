@@ -12,7 +12,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   const [providers, setProviders] = useState(storedProviders);
   const [options, setOptions] = useState(storedOptions);
 
-  const [{ text, x, y, position, isVisible, showHidden, fade }, dispatch] =
+  const [{ text, position, isVisible, showHidden, fade }, dispatch] =
     useReducer(OCSReducer, {});
 
   const iconMapLinkTarget =
@@ -72,22 +72,24 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   return (
     <div id={"OneClickSearch"} className={clsx("OneClickSearch")}>
       <Transition in={isVisible} timeout={transitionTimeout} unmountOnExit>
-        {(state) => (
-          <OCSPopUp
-            style={popupStyle(state)}
-            dispatch={dispatch}
-            showHidden={showHidden}
-            options={options}
-          >
-            <OCSIconMap
-              providers={providers}
-              text={text}
-              onIconClick={iconClickHandler}
-              linkTarget={iconMapLinkTarget}
-              allowTitles={iconMapAllowTitles}
-            />
-          </OCSPopUp>
-        )}
+        {(state) => {
+          return (
+            <OCSPopUp
+              style={popupStyle(state)}
+              dispatch={dispatch}
+              showHidden={showHidden}
+              options={options}
+            >
+              <OCSIconMap
+                providers={providers}
+                text={text}
+                onIconClick={iconClickHandler}
+                linkTarget={iconMapLinkTarget}
+                allowTitles={iconMapAllowTitles}
+              />
+            </OCSPopUp>
+          );
+        }}
       </Transition>
     </div>
   );
