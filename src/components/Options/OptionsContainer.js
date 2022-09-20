@@ -29,7 +29,7 @@ function OptionsContainer({ selectedTab, tabs }) {
         )}
         {selectedTab == tabs.info && (
           <MarkdownMapper
-            classes={["flex-container", "width-100", "column"]}
+            classes={["flex-container", "width-100", "column", 'info-tab']}
             mdArray={information}
           />
         )}
