@@ -7,6 +7,7 @@ const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
   const Tabs = Object.values(tabs).map((tab) => (
     <Tab
       key={tab.id}
+      id={`${tab.id}-tab`}
       selected={selectedTab == tab}
       onClick={() => onTabSelect(tab.id)}
       border={"left"}
@@ -16,7 +17,7 @@ const TabContainer = ({ tabs, selectedTab, onTabSelect }) => {
     </Tab>
   ));
 
-  return <div className={clsx("tab-container", "flex-container ")}>{Tabs}</div>;
+  return <div className={clsx("tab-container", "flex-container")}>{Tabs}</div>;
 };
 
 export default TabContainer;

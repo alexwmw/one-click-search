@@ -1,5 +1,13 @@
 import Icon from "../components/Icons/Icon";
 
+const clickHandler = (e) => {
+  const target = document.getElementById("advanced-tab") ?? false;
+  if (target) {
+    e.preventDefault();
+    target.click();
+  }
+};
+
 const help = {
   title: "About this list",
   body: (
@@ -32,7 +40,12 @@ const help = {
       </p>
       <p>
         To add your own custom search providers, go to{" "}
-        <a href="options.html" target="_blank" tabIndex={0}>
+        <a
+          onClick={clickHandler}
+          href="options.html"
+          target="_blank"
+          tabIndex={0}
+        >
           advanced options.
         </a>
         .
