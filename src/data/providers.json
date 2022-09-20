@@ -76,7 +76,7 @@
     "role": "provider",
     "hostname": "www.facebook.com",
     "queryPath": "search/top?q=$TEXT$",
-    "faviconUrl": "",
+    "faviconUrl": "https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico",
     "visibility": "disabled"
   },
   {

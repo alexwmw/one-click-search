@@ -27,13 +27,15 @@ const App = () => {
         </div>
       </Header>
       <ProvidersSorter>
-        <h2
-          style={{ marginTop: "0" }}
-          className="flex-container row center space-between"
-        >
-          Manage search engines
+        <div className="flex-container row center space-between">
+          <h2
+            style={{ marginTop: "0" }}
+            className="flex-container row center space-between"
+          >
+            Manage search engines
+          </h2>
           <HelpIcon />
-        </h2>
+        </div>
       </ProvidersSorter>
     </div>
   );

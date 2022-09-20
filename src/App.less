@@ -1,6 +1,10 @@
 @import "/src/less/body.less";
 @import "/src/less/_variables.less";
 
+html,
+body {
+  overflow: hidden;
+}
 .app {
   &:not(.ready) {
     //display: none !important;
@@ -45,17 +49,19 @@
   .page-container {
     padding: 24px;
     height: 530px;
-    overflow: scroll;
+    overflow-y: overlay;
     position: fixed;
-    top: 42px;
+    top: 48px;
     right: 0;
     left: 0;
     z-index: 0;
+    height: 84%;
   }
 
   .help-modal {
     height: 100%;
     border-radius: 0;
+    overflow-x: hidden;
 
     &.title-bar-modal .title-area h2 {
       width: 120%;
