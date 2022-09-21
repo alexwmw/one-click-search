@@ -12,7 +12,7 @@
     "role": "provider",
     "hostname": "www.wikipedia.org",
     "queryPath": "w/index.php?search=$TEXT$",
-    "faviconUrl": "",
+    "faviconUrl": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
     "visibility": "visible"
   },
   {
