@@ -1,6 +1,6 @@
 # One Click Search
 ## Logo
-<img src="/images/icon128.png" width="128">
+<img src="src/icons/icon_text.png" width="300">
 
 ## Link
 <a target="_blank" href="https://chrome.google.com/webstore/detail/one-click-search/eaafadnjnjkpfeoghedeoadlnebaccbg/">View in the Chrome Web Store</a>
