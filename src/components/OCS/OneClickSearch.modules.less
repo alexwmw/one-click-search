@@ -56,13 +56,10 @@
     }
     &:hover {
       img {
+        transform: translate(0px, -1px);
         // Scale effect on 2k+ monitors only
-        @media screen and (min-width: 2501px) {
+        @media screen and (min-device-width: 2500px) {
           transform: scale(1.1);
-        }
-        // Translate effect on smaller monitors only
-        @media screen and (max-width: 2500px) {
-          transform: translate(0px, -1px);
         }
       }
     }
