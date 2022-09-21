@@ -1,19 +1,25 @@
-# One Click Search
-## Logo
-<img src="src/icons/icon_text.png" width="300">
+<img alt="One Click Search logo and title" title="One Click Search logo and title" src="src/icons/icon_text.png" width="350"> 
+
+### Version 2.0
 
 ## Link
 <a target="_blank" href="https://chrome.google.com/webstore/detail/one-click-search/eaafadnjnjkpfeoghedeoadlnebaccbg/">View in the Chrome Web Store</a>
 
 ## Description
-Search multiple sites with a single click.
-Make searching faster with One Click Search. Simply highlight any text on any webpage and a pop-up will appear, allowing you to search for that term via a range of search engines and websites.
+*One Click Search is the fastest way to search.*
+
+Search faster with One Click Search. Highlight any text and click the popup to search on any one of your favourite websites instantly.
 
 Highly customisable with an intuitive interface - allowing you to show as many or as few search icons as you like, in whatever order you like. 
 
-'Hidden Icons' appear when hovering over the pop-up - allowing more options while keeping a discrete interface.
-
-You can even add your own search engines.
+### NEW in Version 2.0
+- Written in ReactJS
+- New logo, design and colour scheme
+- Customisable appearance
+- Sophisticated alerts and dialogs 
+- New method of inserting search queries allows for longer and more complex query strings
+- Responsive options page design
+- Dark and light modes for options pages
 
 ## Screenshots
 
