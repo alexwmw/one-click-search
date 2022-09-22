@@ -23,9 +23,7 @@ Highly customisable with an intuitive interface - allowing you to show as many o
 
 ## Screenshots
 
-<kbd><img src="/screenshots/screenshot1.png" width="800"></kbd>
-
-<kbd><img src="/screenshots/screenshot2.png" width="800"></kbd>
-
-<kbd><img src="/screenshots/screenshot3.png" width="800"></kbd>
-
+| | |
+|:-------------------------:|:-------------------------:|
+|<kbd><img src="/screenshots/screenshot1.png"></kbd>|<kbd><img src="/screenshots/screenshot2.png"></kbd>|
+|<kbd><img src="/screenshots/screenshot3.png"></kbd>|<kbd><img src="/screenshots/screenshot4.png"></kbd>|
