@@ -6,9 +6,8 @@
 <a target="_blank" href="https://chrome.google.com/webstore/detail/one-click-search/eaafadnjnjkpfeoghedeoadlnebaccbg/">View in the Chrome Web Store</a>
 
 ## Description
-*One Click Search is the fastest way to search.*
 
-Search faster with One Click Search. Highlight any text and click the popup to search on any one of your favourite websites instantly.
+One Click Search is a faster and more convenient way to search. Highlight any text and click the popup to search on any one of your favourite websites instantly.
 
 Highly customisable with an intuitive interface - allowing you to show as many or as few search icons as you like, in whatever order you like. 
 

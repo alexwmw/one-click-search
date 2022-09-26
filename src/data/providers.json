@@ -80,35 +80,11 @@
     "visibility": "disabled"
   },
   {
-    "name": "Translate to English",
+    "name": "Google Translate",
     "role": "provider",
     "hostname": "translate.google.com",
-    "queryPath": "?sl=auto&tl=en&text=$TEXT$",
-    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/GB-United-Kingdom-Flag-icon.png",
-    "visibility": "disabled"
-  },
-  {
-    "name": "Translate to French",
-    "role": "provider",
-    "hostname": "translate.google.com",
-    "queryPath": "?sl=auto&tl=fr&text=$TEXT$",
-    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/FR-France-Flag-icon.png",
-    "visibility": "disabled"
-  },
-  {
-    "name": "Translate to German",
-    "role": "provider",
-    "hostname": "translate.google.com",
-    "queryPath": "?sl=auto&tl=de&text=$TEXT$",
-    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/DE-Germany-Flag-icon.png",
-    "visibility": "disabled"
-  },
-  {
-    "name": "Translate to Spanish",
-    "role": "provider",
-    "hostname": "translate.google.com",
-    "queryPath": "?sl=auto&tl=es&text=$TEXT$",
-    "faviconUrl": "https://icons.iconarchive.com/icons/wikipedia/flags/64/ES-Spain-Flag-icon.png",
-    "visibility": "disabled"
+    "queryPath": "?sl=auto&text=$TEXT$",
+    "faviconUrl": "",
+    "visibility": "hidden"
   }
 ]
