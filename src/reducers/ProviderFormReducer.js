@@ -1,5 +1,4 @@
 const ProviderFormReducer = (state, action) => {
-  console.log(state);
 
   const formatN = (str) => str.trim();
 

@@ -10,7 +10,6 @@ const TextFunctions = {
   },
 
   GoTo: ({ text, target }) => {
-    console.log(target);
     const https = text.indexOf("http") == 0 ? "" : "https://";
     window.open(https + text.trim(), target);
   },

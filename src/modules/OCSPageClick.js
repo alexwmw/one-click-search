@@ -26,7 +26,6 @@ function OCSPageClick(evt, maxChars, dispatchWithString) {
     } else if (!OCS.contains(evt.target)) {
       dispatchWithString("");
     }
-    console.log("checks: ", checks);
   }
 }
 
