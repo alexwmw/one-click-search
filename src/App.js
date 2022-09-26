@@ -23,7 +23,7 @@ const App = () => {
       <Header>
         <div className={clsx("icons-group", "flex-container", "row", "center")}>
           {/* <IconTrigger onClick={() => setShowHelp(true)} type={"help"} /> */}
-          <IconAnchor href={"options.html"} newTab type={"settings"} />
+          <IconAnchor href={"options.html"} newTab type={"options"} />
         </div>
       </Header>
       <ProvidersSorter>

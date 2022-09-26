@@ -30,12 +30,12 @@ const iconMap = (type) => {
   return (
     {
       add: { iconClass: faPlus, iconTitle: "Add icon" },
-      advanced: { iconClass: faFlask, iconTitle: "Advanced settings icon" },
+      advanced: { iconClass: faFlask, iconTitle: "Advanced options icon" },
       appearance: {
         iconClass: faPalette,
-        iconTitle: "Appearance settings icon",
+        iconTitle: "Appearance options icon",
       },
-      behaviour: { iconClass: faSliders, iconTitle: "Behaviour settings icon" },
+      settings: { iconClass: faSliders, iconTitle: "Settings options icon" },
       check: { iconClass: faCheck, iconTitle: "Tick icon" },
       checkCircle: { iconClass: faCheckCircle, iconTitle: "Tick icon" },
       close: { iconClass: faTimes, iconTitle: "Close icon" },
@@ -45,7 +45,7 @@ const iconMap = (type) => {
       edit: { iconClass: faEllipsisVertical, iconTitle: "Edit icon" },
       expand: { iconClass: faEllipsisVertical, iconTitle: "Expand icon" },
       faq: { iconClass: faQuestion, iconTitle: "Help icon" },
-      function: { iconClass: faPlug, iconTitle: "Function settings icon" },
+      function: { iconClass: faPlug, iconTitle: "Function options icon" },
       help: { iconClass: faQuestionCircle, iconTitle: "Help icon" },
       information: { iconClass: faCircleInfo, iconTitle: "Info icon" },
       lightMode: { iconClass: faSun, iconTitle: "Light mode icon" },
@@ -54,7 +54,7 @@ const iconMap = (type) => {
       reset: { iconClass: faArrowRotateLeft, iconTitle: "Reset icon" },
       save: { iconClass: faFloppyDisk, iconTitle: "Save icon" },
       search: { iconClass: faSearch, iconTitle: "Search icon" },
-      settings: { iconClass: faCog, iconTitle: "Settings icon" },
+      options: { iconClass: faCog, iconTitle: "Options icon" },
       sort: { iconClass: faSort, iconTitle: "Sort icon" },
       stop: { iconClass: faTimes, iconTitle: "Stop icon" },
       warning: { iconClass: faExclamationTriangle, iconTitle: "Warning icon" },

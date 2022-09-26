@@ -2,8 +2,8 @@
   "color": {
     "class": "appearance",
     "id": "color",
-    "label": "Popup colour",
-    "description": "Colour of the popup",
+    "label": "Popup color",
+    "description": "Color of the popup",
     "value": "f0f2f5",
     "type": "color-picker",
     "options": ["f0f2f5", "d1d8e0", "b3becc", "ebf2fa"],
@@ -73,7 +73,7 @@
     "pos": 6
   },
   "fadeOutTime": {
-    "class": "behaviour",
+    "class": "settings",
     "id": "fadeOutTime",
     "label": "Fade-out duration",
     "description": "Number of seconds to fade-out the pop-up",
@@ -86,7 +86,7 @@
     "pos": 0
   },
   "fadeDelay": {
-    "class": "behaviour",
+    "class": "settings",
     "id": "fadeDelay",
     "label": "Fade-out delay",
     "description": "Number of seconds of inactivity before fade-out begins",
@@ -99,7 +99,7 @@
     "pos": 1
   },
   "showDelay": {
-    "class": "behaviour",
+    "class": "settings",
     "id": "showDelay",
     "label": "Hover delay",
     "description": "Number of seconds to hover before showing hidden icons",
@@ -112,7 +112,7 @@
     "pos": 2
   },
   "linkTarget": {
-    "class": "behaviour",
+    "class": "settings",
     "id": "linkTarget",
     "label": "Open search in...",
     "description": "Open search in a new tab or the current tab",

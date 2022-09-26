@@ -12,10 +12,10 @@
     "icon": "appearance",
     "isOptionsTab": true
   },
-  "behaviour": {
-    "id": "behaviour",
-    "name": "Behaviour",
-    "icon": "behaviour",
+  "settings": {
+    "id": "settings",
+    "name": "Settings",
+    "icon": "settings",
     "isOptionsTab": true
   },
   "advanced": {

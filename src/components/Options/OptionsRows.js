@@ -11,7 +11,7 @@ import ChromeContext from "../../contexts/ChromeContext";
 const OptionRows = ({ selectedTab }) => {
   const { options } = useContext(ChromeContext);
 
-  const settingsToDisplay = Object.values(options)
+  const optionsToDisplay = Object.values(options)
     .filter((setting) => setting.class == selectedTab.id)
     .sort((a, b) => {
       return a.pos - b.pos;
@@ -63,7 +63,7 @@ const OptionRows = ({ selectedTab }) => {
 
   return (
     <div className={`options-rows ${selectedTab.id}`}>
-      {settingsToDisplay.map((setting) => {
+      {optionsToDisplay.map((setting) => {
         const { id, type, description, label, value, unit } = setting;
         const ControlElement = getControlOfType(type, id);
 
