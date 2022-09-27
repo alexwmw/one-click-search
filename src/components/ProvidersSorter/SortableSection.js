@@ -9,7 +9,7 @@ function SortableSection(props) {
 
   /** Visible list must be at most {maxLength} items */
   const putHandler = (to, from) => {
-    if (!id === "visible") {
+    if (id !== "visible") {
       return true;
     }
     return to.el.children.length < maxLength;
