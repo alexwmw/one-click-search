@@ -1,5 +1,5 @@
 {
-  "version": "2.0",
+  "version": "2.0.0",
   "manifest_version": 3,
   "name": "One Click Search",
   "description": "Search multiple sites with a single click.",

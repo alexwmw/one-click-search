@@ -7,7 +7,7 @@ import { adaptLegacyObject, isLegacyData } from "../modules/AdaptLegacyData";
 
 const devConfig = {
   setLegacyData: false,
-  clearStoredData: false,
+  clearStoredData: true,
 };
 
 const sw_log = (...args) => {
