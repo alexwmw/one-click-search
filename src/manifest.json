@@ -1,7 +1,7 @@
 {
   "version": "2.0.0",
   "manifest_version": 3,
-  "name": "One Click Search",
+  "name": "One Click Search - Search the web faster",
   "description": "Search multiple sites with a single click.",
   "permissions": ["storage"],
   "action": {
