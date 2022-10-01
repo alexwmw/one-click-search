@@ -1,6 +1,14 @@
-import OCSproviders from "/src/data/providers.json";
 import OCSfunctions from "/src/data/functions.json";
-import { replaceObjectInArray, set, get, sortByPosition } from "./Utilities";
+import {
+  replaceObjectInArray,
+  set,
+  get,
+  sortByPosition,
+  localizedProviders,
+} from "./Utilities";
+
+// Localize strings
+const OCSproviders = localizedProviders();
 
 const ChromeDispatcher = (action) => {
   console.log("ChromeDispatcher action: ", action);

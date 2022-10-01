@@ -16,6 +16,30 @@ export function sortByPosition(array) {
 }
 
 /** Helper function */
+export const localizedOptions = () => {
+  let opts = require("../data/options.json");
+
+  opts.color.label = `Popup ${chrome.i18n.getMessage("color")}`;
+  opts.color.description = `${chrome.i18n.getMessage(
+    "ColorCaps"
+  )} of the popup`;
+
+  return opts;
+};
+
+/** Helper function */
+export const localizedProviders = () => {
+  let providers = require("../data/providers.json");
+
+  providers = replaceObjectInArray(providers, {
+    ...getFromArray(providers, "Amazon"),
+    hostname: chrome.i18n.getMessage("amazonUrl"),
+  });
+
+  return providers;
+};
+
+/** Helper function */
 export const getFromArray = (array, key, matchKey = "name") => {
   return array.filter((obj) => obj[matchKey] === key)[0];
 };

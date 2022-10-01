@@ -1,19 +1,22 @@
-import OCSproviders from "../data/providers.json";
 import OCSfunctions from "../data/functions.json";
-import OCSoptions from "../data/options.json";
+import legacyData from "../data/legacyData.js";
 import {
   sortByPosition,
   get,
   set,
-  replaceObjectInArray,
-  getFromArray,
+  localizedOptions,
+  localizedProviders,
 } from "../modules/Utilities";
-import legacyData from "../data/legacyData.js";
 import { adaptLegacyObject, isLegacyData } from "../modules/AdaptLegacyData";
+
+// Localized objects
+const OCSoptions = localizedOptions();
+const OCSproviders = localizedProviders();
 
 const devConfig = {
   setLegacyData: false,
-  clearStoredData: true,
+  clearStoredData: false,
+  doNotFade: false,
 };
 
 const sw_log = (...args) => {
@@ -22,21 +25,15 @@ const sw_log = (...args) => {
 
 if (devConfig.clearStoredData) {
   chrome.storage.sync.clear(() => sw_log("Storage was cleared"));
-}
 
-// Localize strings
-OCSoptions.color.label = `Popup ${chrome.i18n.getMessage("color")}`;
-OCSoptions.color.description = `${chrome.i18n.getMessage(
-  "ColorCaps"
-)} of the popup`;
-OCSproviders = replaceObjectInArray(OCSproviders, {
-  ...getFromArray(OCSproviders, "Amazon"),
-  hostname: chrome.i18n.getMessage("amazonUrl"),
-});
+  if (devConfig.doNotFade) {
+    OCSoptions.fadeDelay.value = "9999999";
+  }
+}
 
 // Defaults for storage
 const defaults = {
-  providers: sortByPosition([...OCSproviders, ...OCSfunctions]),
+  providers: OCSproviders,
   options: OCSoptions,
 };
 
