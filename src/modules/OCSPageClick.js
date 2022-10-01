@@ -4,7 +4,7 @@ function OCSPageClick(evt, maxChars, dispatchWithString) {
     const OCS = document.getElementById("OneClickSearch");
     const checks = [
       // Check the click was outside of the popup
-      !OCS.contains(evt.target) ?? false,
+      !OCS?.contains(evt.target) ?? false,
 
       // Check selection is not empty
       selection != "",
@@ -23,7 +23,7 @@ function OCSPageClick(evt, maxChars, dispatchWithString) {
 
     if (checks.every((val) => val === true)) {
       dispatchWithString(selection.toString());
-    } else if (!OCS.contains(evt.target)) {
+    } else if (!OCS?.contains(evt.target) ?? false) {
       dispatchWithString("");
     }
   }
