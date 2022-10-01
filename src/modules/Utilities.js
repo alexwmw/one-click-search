@@ -16,6 +16,11 @@ export function sortByPosition(array) {
 }
 
 /** Helper function */
+export const getFromArray = (array, key, matchKey = "name") => {
+  return array.filter((obj) => obj[matchKey] === key)[0];
+};
+
+/** Helper function */
 export const replaceObjectInArray = (array, newObject, matchKey = "name") => {
   const itemIndex = array.findIndex(
     (object) => object[matchKey] === newObject[matchKey]
@@ -37,7 +42,6 @@ export const isValidURL = (url) => {
   return !x === false;
 };
 
-
 export const isValidText = (text) => {
   const invalidStrings = ["", " "];
   return text && text !== "" && text !== " ";
@@ -48,7 +52,6 @@ export const visible = (obj) => obj.visibility === "visible";
 export const hidden = (obj) => obj.visibility === "hidden";
 
 export const disabled = (obj) => obj.visibility === "disabled";
-
 
 export const compareObjs = (
   A,

@@ -42,7 +42,7 @@
   {
     "name": "Amazon",
     "role": "provider",
-    "hostname": "www.amazon.co.uk",
+    "hostname": "www.amazon.com",
     "queryPath": "s?k=$TEXT$",
     "faviconUrl": "",
     "visibility": "hidden"

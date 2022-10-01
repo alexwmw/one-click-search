@@ -1,7 +1,13 @@
 import OCSproviders from "../data/providers.json";
 import OCSfunctions from "../data/functions.json";
 import OCSoptions from "../data/options.json";
-import { sortByPosition, get, set } from "../modules/Utilities";
+import {
+  sortByPosition,
+  get,
+  set,
+  replaceObjectInArray,
+  getFromArray,
+} from "../modules/Utilities";
 import legacyData from "../data/legacyData.js";
 import { adaptLegacyObject, isLegacyData } from "../modules/AdaptLegacyData";
 
@@ -14,15 +20,25 @@ const sw_log = (...args) => {
   console.log("service worker:", ...args);
 };
 
+if (devConfig.clearStoredData) {
+  chrome.storage.sync.clear(() => sw_log("Storage was cleared"));
+}
+
+// Localize strings
+OCSoptions.color.label = `Popup ${chrome.i18n.getMessage("color")}`;
+OCSoptions.color.description = `${chrome.i18n.getMessage(
+  "ColorCaps"
+)} of the popup`;
+OCSproviders = replaceObjectInArray(OCSproviders, {
+  ...getFromArray(OCSproviders, "Amazon"),
+  hostname: chrome.i18n.getMessage("amazonUrl"),
+});
+
 // Defaults for storage
 const defaults = {
   providers: sortByPosition([...OCSproviders, ...OCSfunctions]),
   options: OCSoptions,
 };
-
-if (devConfig.clearStoredData) {
-  chrome.storage.sync.clear(() => sw_log("Storage was cleared"));
-}
 
 if (devConfig.setLegacyData) {
   set(legacyData, () => sw_log("Storage was set to legacyData"));
