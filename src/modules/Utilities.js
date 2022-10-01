@@ -19,10 +19,14 @@ export function sortByPosition(array) {
 export const localizedOptions = () => {
   let opts = require("../data/options.json");
 
-  opts.color.label = `Popup ${chrome.i18n.getMessage("color")}`;
-  opts.color.description = `${chrome.i18n.getMessage(
-    "ColorCaps"
-  )} of the popup`;
+  try {
+    opts.color.label = `Popup ${chrome.i18n.getMessage("color")}`;
+    opts.color.description = `${chrome.i18n.getMessage(
+      "ColorCaps"
+    )} of the popup`;
+  } catch (e) {
+    console.log("i18n not supported in this version of chrome", e);
+  }
 
   return opts;
 };
@@ -30,11 +34,14 @@ export const localizedOptions = () => {
 /** Helper function */
 export const localizedProviders = () => {
   let providers = require("../data/providers.json");
-
-  providers = replaceObjectInArray(providers, {
-    ...getFromArray(providers, "Amazon"),
-    hostname: chrome.i18n.getMessage("amazonUrl"),
-  });
+  try {
+    providers = replaceObjectInArray(providers, {
+      ...getFromArray(providers, "Amazon"),
+      hostname: chrome.i18n.getMessage("amazonUrl") ?? "www.amazon.co.uk",
+    });
+  } catch (e) {
+    console.log("i18n not supported in this version of chrome", e);
+  }
 
   return providers;
 };
