@@ -33,7 +33,7 @@ const useAlerts = () => {
         children: (
           <>
             <p>Cannot delete the only visible provider.</p>
-            <p>Add another provider to the visible list first.</p>
+            <p>Add another provider to the visible section first.</p>
           </>
         ),
       });

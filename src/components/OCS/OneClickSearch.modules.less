@@ -1,29 +1,15 @@
 @import "/src/less/_variables.less";
 
 .popup {
-  @OCSsize: 20px;
-  @OCSoffsetX: 10px;
-  @OCSoffsetY: 26px;
-
-  @padding: 2px;
-  @br: 12px;
-
-  @keyframes grow {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
+  //--iconSize
+  //--scale
+  //--br
 
   all: initial;
 
   position: absolute;
   z-index: 9999;
 
-  //padding: @padding;
-  //border-radius: @br;
 
   display: flex;
   flex-direction: row;
@@ -37,7 +23,7 @@
 
   opacity: 1;
 
-  transform: translate(-(@OCSoffsetX), -(@OCSsize + @OCSoffsetY));
+  transform: translate(-10px, calc(0px - calc(var(--iconSize) + 26px)));
 
   &.showHidden .OCSicon.hidden {
     display: block;
@@ -48,6 +34,15 @@
   }
 
   &.animations .OCSicon {
+    @keyframes grow {
+      from {
+        scale: 0;
+      }
+      to {
+        scale: 1;
+      }
+    }
+
     transition: 0.3s all ease;
     animation: 0.15s ease grow;
     animation-fill-mode: forwards;
@@ -56,10 +51,10 @@
     }
     &:hover {
       img {
-        transform: translate(0px, -1px);
+        translate: 0px -1px;
         // Scale effect on 2k+ monitors only
         @media screen and (min-device-width: 2500px) {
-          transform: scale(1.1);
+          scale: 1.1;
         }
       }
     }
@@ -120,12 +115,12 @@
 
     img {
       display: block;
-      height: @OCSsize;
-      width: @OCSsize;
-      padding: 3px;
+      height: var(--iconSize);
+      width: var(--iconSize);
+      padding: var(--iconPadding);
+      border-radius: var(--br);
       opacity: 0.9;
       cursor: pointer;
-
       user-select: none;
       outline: 1px solid transparent;
       object-fit: contain;
@@ -145,21 +140,21 @@
     }
   }
 
-  // Looped classes
-  each(range(10), {
-    &.pad-@{value} {
-      padding: @value * 1px;
-    }
-    &.pad-@{index} img {
-      margin-inline: ((@value * 1px) / 2) - 1px;
-    }
-  });
-  each(range(30), {
-    &.br-@{value} {
-      border-radius: @value * 1px;
-    }
-    &.br-@{index} img {
-      border-radius: @value * 1px;
-    }
-  });
+  // // Looped classes
+  // each(range(10), {
+  //   &.pad-@{value} {
+  //     padding: @value * 1px;
+  //   }
+  //   &.pad-@{index} img {
+  //     margin-inline: ((@value * 1px) / 2) - 1px;
+  //   }
+  // });
+  // each(range(30), {
+  //   &.br-@{value} {
+  //     border-radius: @value * 1px;
+  //   }
+  //   &.br-@{index} img {
+  //     border-radius: @value * 1px;
+  //   }
+  // });
 }

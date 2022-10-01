@@ -4,7 +4,7 @@ import "./Slider.less";
 
 const Slider = ({ settingId }) => {
   const { options, dispatchChrome } = useContext(ChromeContext);
-  const { min, max, step, unit } = options[settingId];
+  const { min, max, step, unit, dictionary } = options[settingId];
   const [value, setValue] = useState(options[settingId].value);
 
   const changeHandler = (e) => {
@@ -32,8 +32,8 @@ const Slider = ({ settingId }) => {
         step={step}
       ></input>
       <p className="indicator">
-        {value}
-        {step == 0.5 && value % 1 == 0 && ".0"}
+        {dictionary ? dictionary[value] : value}
+        {step > 1 && value % 1 == 0 && ".0"}
         {unit}
       </p>
     </>

@@ -8,7 +8,7 @@ import { applyTheme } from "../../modules/Utilities";
 const OCSPopUp = ({
   options: {
     borderRadius,
-    padding,
+    scale,
     shadow,
     fadeDelay,
     showDelay,
@@ -77,11 +77,17 @@ const OCSPopUp = ({
       ref={ref}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      style={{ ...style, backgroundColor: `#${color.value}` }}
+      style={{
+        ...style,
+        backgroundColor: `#${color.value}`,
+        borderRadius: `${scale.value * borderRadius.value * 10}px`,
+        "--br": `${scale.value * borderRadius.value * 10 - 2}px`,
+        "--iconSize": `${scale.value * 20}px`,
+        padding: `${scale.value * 2}px`,
+        "--iconPadding": `${scale.value * 3}px`,
+      }}
       className={[
         styles.popup,
-        styles[`br-${borderRadius.value}`],
-        styles[`pad-${padding.value}`],
         showHidden && styles.showHidden,
         shadow.value && styles.shadow,
         animations.value && styles.animations,
