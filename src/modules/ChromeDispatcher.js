@@ -11,7 +11,6 @@ import {
 const OCSproviders = localizedProviders();
 
 const ChromeDispatcher = (action) => {
-  console.log("ChromeDispatcher action: ", action);
 
   switch (action.type) {
     case "SET_PROVIDERS":
