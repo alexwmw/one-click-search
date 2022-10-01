@@ -22,14 +22,13 @@ const App = () => {
     <div className={clsx("app", "flex-container", "column")}>
       <Header>
         <div className={clsx("icons-group", "flex-container", "row", "center")}>
-          {/* <IconTrigger onClick={() => setShowHelp(true)} type={"help"} /> */}
           <IconAnchor href={"options.html"} newTab type={"options"} />
         </div>
       </Header>
       <ProvidersSorter>
-        <div className="flex-container row center space-between">
+        <div style={{ marginBottom: "0.83em" }} className="flex-container row center space-between">
           <h2
-            style={{ marginTop: "0" }}
+            style={{ margin: "0" }}
             className="flex-container row center space-between"
           >
             Manage search engines
