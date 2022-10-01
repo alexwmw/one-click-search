@@ -30,7 +30,7 @@
     "min": 0.9,
     "max": 1.1,
     "step": 0.1,
-    "dictionary": { "0.9": "Small", "1": "Regular", "1.1": "Large" },
+    "dictionary": { "0.9": "Sml", "1": "Med", "1.1": "Lrg" },
     "pos": 2
   },
   "borderRadius": {

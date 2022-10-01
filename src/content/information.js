@@ -27,7 +27,8 @@ const information = [
   `,
   `
   ### Adding a new search provider
-  You can  add your own custom search providers on the **advanced** tab. The easiest way to add your own search providers is to search within the website or search engine you want to use, and then follow these instructions. \n\n
+  You can  add your own custom search providers on the **advanced** tab. \n\n
+  The easiest way to add your own search providers is to search within the website or search engine you want to use, and then follow these instructions. \n\n
   Using 'bbc.co.uk' as an example:\n\n
   - Go to www.bbc.co.uk
   - Locate the search box and type a specific word such as 'text'
@@ -39,14 +40,16 @@ const information = [
   `,
   `
   ### Opening a search in the background
-  It is possible to open searches in a background tab so as not to interrupt your browsing experience. You can do so by pressing and holding the **${modKey(
+  It is possible to open searches in a background tab so as not to interrupt your browsing experience. \n\n
+  You can do so by pressing and holding the **${modKey(
     navigator.userAgent
   )} key** when clicking on the search icon; or if you have a mouse, clicking the icon using the scroll wheel/middle button. (This functionality is the same for all hyperlinks in Chrome.)
   `,
   `
   ### The 'go-to' function
-  Every time you highlight text on a web page, the extension will try to determine if the text you have selected is a valid website URL. 
-  If the selected text has the form of a URL or hostname (e.g., www.example.com, site.example.org, etc.), a **'go-to' icon** will appear as the first icon in the popup. Click the go-to icon to follow the link. This saves you from having to copy/paste the URl into your search bar in order to reach the website. 
+  Every time you highlight text on a web page, the extension will try to determine if the text you have selected is a valid website URL.\n\n 
+  If the selected text has the form of a URL or hostname (e.g., www.example.com, site.example.org, etc.), a **'go-to' icon** will appear as the first icon in the popup.\n\n
+  Click the go-to icon to follow the link. This saves you from having to copy/paste the URL into your search bar in order to reach the website. 
   `,
 ];
 
