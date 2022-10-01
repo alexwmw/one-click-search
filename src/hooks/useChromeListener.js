@@ -8,8 +8,8 @@ const useChromeListener = (callback, keyArray) => {
         keyArray.forEach((key) => {
           if (
             changes[key] !== undefined &&
-            Object.keys(changes[key].newValue).length !== 0 &&
-            Object.keys(changes[key].oldValue).length !== 0
+            Object.keys(changes[key].newValue ?? {}).length !== 0 &&
+            Object.keys(changes[key].oldValue ?? {}).length !== 0
           ) {
             console.log(`ChromeListener on ${key}; changes:`, changes[key]);
             /** callback is called for each key.
