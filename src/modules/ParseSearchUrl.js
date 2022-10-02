@@ -2,7 +2,8 @@ const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1);
 
 const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
   try {
-    const searchTerm = "%24TEXT%24";
+    searchString = searchString.toLowerCase().trim();
+    const searchTerm = "%24text%24";
     const hasHttp = searchString.indexOf("http") == 0;
     const hasQM = searchString.indexOf("?") > -1;
     const hasDot = searchString.indexOf(".") > -1;
