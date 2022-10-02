@@ -39,7 +39,8 @@ const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
     if (hasQM && removeParameters) {
       queryString = queryString
         .split("&")
-        .filter((part) => part.indexOf(searchTerm) >= 0)[0];
+        .filter((part) => part.indexOf(searchTerm) >= 0)
+        .join("&");
     }
 
     const hostname = urlParts[hasHttp ? 2 : 0];
