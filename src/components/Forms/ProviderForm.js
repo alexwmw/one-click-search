@@ -53,9 +53,6 @@ function ProviderForm({ provider, closeForm }) {
     }
   };
 
-  const closeHandler = (e) => {
-    closeForm();
-  };
 
   useEffect(() => {
     const areDifferent = compareObjs(provider, formValues, {
@@ -68,9 +65,8 @@ function ProviderForm({ provider, closeForm }) {
   return (
     <GenericForm
       classes={{ submit: [hasChanges ? "hasChanges" : ""] }}
-      labels={{ submit: "Save", close: "Cancel" }}
+      labels={{ submit: "Save" }}
       deleteHandler={deleteHandler}
-      closeHandler={closeHandler}
       submitHandler={submitHandler}
     >
       <ProviderFormFields dispatch={dispatchFormValues} values={formValues} />
