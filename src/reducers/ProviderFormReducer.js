@@ -1,5 +1,4 @@
 const ProviderFormReducer = (state, action) => {
-
   const formatN = (str) => str.trim();
 
   const formatHN = (str) =>
@@ -39,6 +38,21 @@ const ProviderFormReducer = (state, action) => {
       return { ...state, queryPath: formatQP(state.queryPath) };
     case "FORMAT_FAVICONURL":
       return { ...state, faviconUrl: formatFU(state.faviconUrl) };
+    case "SET_ALL":
+      return {
+        ...state,
+        name: action.name,
+        hostname: action.hostname,
+        queryPath: action.queryPath,
+        faviconUrl: action.faviconUrl,
+      };
+    case "FORMAT_ALL":
+      return {
+        ...state,
+        hostname: formatHN(state.hostname),
+        queryPath: formatQP(state.queryPath),
+        faviconUrl: formatFU(state.faviconUrl),
+      };
     case "CLEAR_FORM":
       return action.defaults;
   }

@@ -1,16 +1,19 @@
 import Modal from "./Modal";
 import help from "../../content/help";
 
-const HelpModal = ({ show, close }) => {
+const HelpModal = ({ show, close, notOpts }) => {
+  
+  const { title, body } = help(notOpts);
+
   return (
     <Modal
       classes={"help-modal"}
       isOpen={show}
-      title={help.title}
+      title={title}
       onClose={close}
       isClosable={true}
     >
-      {help.body}
+      {body}
     </Modal>
   );
 };

@@ -27,13 +27,40 @@
 }
 
 .new-provider-modal {
-  width: 350px;
+  width: 480px;
   max-width: 76vw;
   overflow: hidden;
   transition: 0.3s all;
 
+  .checkbox-row {
+    input {
+      position: relative;
+      top: 2.5px;
+      margin-right: 10px;
+      margin-left: 2px;
+      transform: scale(1.1);
+    }
+  }
+
+  hr {
+    margin-block: 30px;
+  }
+
+  .parse-btn {
+    &.parse-btn {
+      width: initial;
+      font-size: 0.9rem;
+      padding: 4px 8px;
+      border-radius: 5px;
+    }
+  }
+
   &.hidden {
     transform: translate(0, 20px);
     opacity: 0;
+  }
+
+  .new-provider-error-alert {
+    box-shadow: 0 0 0 1000px hsla(212, 20%, 15%, 90%);
   }
 }

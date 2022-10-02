@@ -8,7 +8,7 @@ const clickHandler = (e) => {
   }
 };
 
-const help = {
+const help = (notOpts) => ({
   title: "About this list",
   body: (
     <>
@@ -38,20 +38,22 @@ const help = {
         Click the <Icon type={"more"} /> <strong>more</strong> icon to change
         each search provider's settings.
       </p>
-      <p>
-        To add your own custom search providers, go to{" "}
-        <a
-          onClick={clickHandler}
-          href="options.html"
-          target="_blank"
-          tabIndex={0}
-        >
-          advanced options.
-        </a>
-        .
-      </p>
+      {notOpts && (
+        <p>
+          To add your own custom search providers, go to{" "}
+          <a
+            onClick={clickHandler}
+            href="options.html"
+            target="_blank"
+            tabIndex={0}
+          >
+            options.
+          </a>
+          .
+        </p>
+      )}
     </>
   ),
-};
+});
 
 export default help;

@@ -27,6 +27,7 @@ const FormField = (props) => {
         placeholder={placeholder}
         required={required}
       />
+      {props.children}
     </div>
   );
 };

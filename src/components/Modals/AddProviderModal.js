@@ -60,7 +60,7 @@ function AddProviderModal({ isOpen, setIsOpen }) {
   return (
     <Modal
       classes={["new-provider-modal", !isVisible && "hidden"]}
-      title={"Add New Provider"}
+      title={"Add new provider"}
       hasTitleBar={true}
       onClose={onClose}
       onProceed={onSubmit}

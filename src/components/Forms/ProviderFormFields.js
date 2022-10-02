@@ -1,22 +1,14 @@
 import FormField from "../../components/Forms/FormField";
+import AddNewFormFields from "./AddNewFormFields";
 
-function ProviderFormFields({ addNew, dispatch, values, tooltips }) {
-  const { name, hostname, queryPath, faviconUrl } = values;
+function ProviderFormFields(props) {
+  const { addNew, dispatch, values, tooltips } = props;
+
+  const { hostname, queryPath, faviconUrl } = values;
 
   return (
     <>
-      {addNew && (
-        <FormField
-          label={"Name"}
-          classes={["undraggable"]}
-          value={name}
-          required={true}
-          setValue={(value) => dispatch({ type: "SET_NAME", value: value })}
-          formatField={() => dispatch({ type: "FORMAT_NAME" })}
-          tooltipText={"A unique name for the search provider"}
-          showTooltip={tooltips}
-        />
-      )}
+      {addNew && <AddNewFormFields {...props} name={values.name} />}
       <FormField
         label={"Hostname"}
         classes={["undraggable"]}

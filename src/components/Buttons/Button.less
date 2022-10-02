@@ -28,4 +28,11 @@
     transition: unset;
     // outline: @accent-border;
   }
+
+  &.unchanged,
+  &.disabled {
+    pointer-events: none;
+    background-color: var(--L2);
+    color: var(--L1);
+  }
 }
