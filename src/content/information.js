@@ -27,8 +27,9 @@ const information = [
   `,
   `
   ### Adding a new search provider
-  You can  add your own custom search providers on the **advanced** tab. \n\n
-  The easiest way to add your own search providers is to search within the website or search engine you want to use, and then follow these instructions. \n\n
+  You can  add your own custom search providers by clicking the Add New Provider button. \n\n
+  The easiest way to add your own search provider is to use the auto-fill function by following the instructions in the new provider form. \n\n
+  Alternatively, follow these instructions. \n\n
   Using 'bbc.co.uk' as an example:\n\n
   - Go to www.bbc.co.uk
   - Locate the search box and type a specific word such as 'text'

@@ -24,7 +24,7 @@ const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
             The search term was not found in the string. Are you sure you
             searched for the word '$TEXT$'?{" "}
           </p>
-          <p>If so, the website may not be compatible.</p>
+          <p>Otherwise, you can try adding it manually.</p>
         </>
       );
       return;
