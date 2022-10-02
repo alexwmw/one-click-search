@@ -7,7 +7,7 @@ import ChromeContext from "../../contexts/ChromeContext";
 import { ToastsContext } from "../../reducers/ToastsReducer";
 import "./OptionsRows.less";
 
-const ManagementRows = ({ selectedTab }) => {
+const AdvancedRows = ({ selectedTab }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
@@ -82,4 +82,4 @@ const ManagementRows = ({ selectedTab }) => {
   );
 };
 
-export default ManagementRows;
+export default AdvancedRows;
