@@ -1,35 +1,37 @@
-import ManagementRows from "./ManagementRows";
+import clsx from "clsx";
+import AdvancedRows from "./AdvancedRows";
 import OptionRows from "./OptionsRows";
+import OptionsTitleArea from "./OptionstitleArea";
 import information from "../../content/information.js";
 import MarkdownMapper from "../Markdown/MarkdownMapper";
 import ProvidersSorter from "../ProvidersSorter/ProvidersSorter";
-import clsx from "clsx";
-import HelpIcon from "../Tooltips/HelpIcon";
 import "./OptionsContainer.less";
 
-function OptionsContainer({ selectedTab, tabs }) {
+function OptionsContainer(props) {
+  const isInfoTab = props.selectedTab == props.tabs.info;
+  const isSearchTab = props.selectedTab == props.tabs.search;
+  const isAdvancedTab = props.selectedTab == props.tabs.advanced;
+  const isOptionsTab = props.selectedTab.isOptionsTab;
+
   return (
-    <div className={"flex-container page options-container"}>
+    <div className={clsx("flex-container", "page", "options-container")}>
+      <OptionsTitleArea
+        selectedTab={props.selectedTab}
+        isSearch={isSearchTab}
+      />
       <div
-        style={{ gap: "10px" }}
-        className={clsx("flex-container", "row", "center", "gap-10")}
+        className={clsx("flex-container", "page", "options-container-inner")}
       >
-        <h2>{selectedTab.nameLong ?? selectedTab.name} </h2>
-        {selectedTab == tabs.search && <HelpIcon />}
-      </div>
-      <div className={"flex-container page options-container-inner"}>
-        {selectedTab == tabs.search && (
+        {isSearchTab && (
           <div className="providers-page-wrap">
             <ProvidersSorter />
           </div>
         )}
-        {selectedTab.isOptionsTab && <OptionRows selectedTab={selectedTab} />}
-        {selectedTab == tabs.advanced && (
-          <ManagementRows selectedTab={selectedTab} />
-        )}
-        {selectedTab == tabs.info && (
+        {isOptionsTab && <OptionRows selectedTab={props.selectedTab} />}
+        {isAdvancedTab && <AdvancedRows selectedTab={props.selectedTab} />}
+        {isInfoTab && (
           <MarkdownMapper
-            classes={["flex-container", "width-100", "column", 'info-tab']}
+            classes={["flex-container", "width-100", "column", "info-tab"]}
             mdArray={information}
           />
         )}
