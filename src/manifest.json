@@ -1,8 +1,8 @@
 {
-  "version": "2.0.0",
+  "version": "2.0.1",
   "manifest_version": 3,
   "name": "One Click Search - Select and search popup",
-  "description": "Select any text and click the links in the popup to search all of your favourite sites. Bring speed and efficiency to your web navigation.",
+  "description": "Select any text and click popup icons to search all of your favourite sites. Bring speed and efficiency to your web navigation.",
   "permissions": ["storage"],
   "default_locale": "en",
   "action": {
