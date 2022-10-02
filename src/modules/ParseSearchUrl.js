@@ -61,7 +61,7 @@ const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
       queryString,
     ]
       .join("")
-      .replace("%24TEXT%24", "$TEXT$");
+      .replace("%24text%24", "$TEXT$");
 
     onSuccess(name, hostname, queryPath);
   } catch (e) {
