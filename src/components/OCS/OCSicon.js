@@ -24,7 +24,7 @@ function OCSIcon({ provider, text, onIconClick, linkTarget, allowTitles }) {
   if (isProvider) {
     encodedText = encodeURIComponent(text.trim());
     url = `https://${provider.hostname}/`;
-    queryPath = provider.queryPath.replace("$TEXT$", encodedText);
+    queryPath = provider.queryPath.replaceAll("$TEXT$", encodedText);
     searchUrl = url + queryPath;
   }
 

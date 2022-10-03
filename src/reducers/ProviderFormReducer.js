@@ -13,7 +13,7 @@ const ProviderFormReducer = (state, action) => {
       .trim()
       .replace(/^\/+|\/+$/g, "")
       .toLowerCase()
-      .replace("$text$", "$TEXT$");
+      .replaceAll("$text$", "$TEXT$");
 
   const formatFU = (str) =>
     str
