@@ -61,7 +61,15 @@
     "hostname": "www.reddit.com",
     "queryPath": "search?q=$TEXT$",
     "faviconUrl": "",
-    "visibility": "hidden"
+    "visibility": "disabled"
+  },
+  {
+    "name": "Spotify",
+    "role": "provider",
+    "hostname": "open.spotify.com",
+    "queryPath": "search/$TEXT$",
+    "faviconUrl": "",
+    "visibility": "disabled"
   },
   {
     "name": "Twitter",
