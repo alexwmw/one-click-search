@@ -22,12 +22,12 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   const transitionTimeout = fade ? options.fadeOutTime.value * 1000 - 250 : 0;
 
-  /** Style by transition state */
-  const popupStyle = (ts) => ({
+
+  const styleByTransitionState = (tState) => ({
     ...position,
-    opacity: ts === "exiting" ? 0 : 1,
+    opacity: tState === "exiting" ? 0 : 1,
     transition:
-      ts === "exiting" && fade
+      tState === "exiting" && fade
         ? `opacity ${options.fadeOutTime.value * 1000}ms ease-out`
         : "",
   });
@@ -75,7 +75,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
         {(state) => {
           return (
             <OCSPopUp
-              style={popupStyle(state)}
+              style={styleByTransitionState(state)}
               dispatch={dispatch}
               showHidden={showHidden}
               options={options}

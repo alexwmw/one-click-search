@@ -37,6 +37,11 @@ const OCSPopUp = ({
   };
 
   /** Mouse events */
+  const onClick = (evt) => {
+    clearT_showHidden();
+  };
+
+  /** Mouse events */
   const onMouseLeave = (evt) => {
     setT_fadePopup(
       () => dispatch({ type: "FADE_POPUP" }),
@@ -77,6 +82,7 @@ const OCSPopUp = ({
       ref={ref}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={onClick}
       style={{
         ...style,
         backgroundColor: `#${color.value}`,
