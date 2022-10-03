@@ -47,7 +47,7 @@ const help = (notOpts) => ({
             target="_blank"
             tabIndex={0}
           >
-            options.
+            options
           </a>
           .
         </p>
