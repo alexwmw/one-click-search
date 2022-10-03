@@ -7,12 +7,11 @@ import OptionsContainer from "./components/Options/OptionsContainer";
 import OcsHeader from "./components/Headers/Header";
 import Card from "./components/Cards/Card";
 import ChromeContext from "./contexts/ChromeContext";
-import ChromeDispatcher from "./modules/ChromeDispatcher";
-import { applyTheme } from "./modules/Utilities";
 import useChromeListener from "./hooks/useChromeListener";
 import useChromeGet from "./hooks/useChromeGet";
 import { ToastsContext, ToastsReducer } from "./reducers/ToastsReducer";
-
+import ChromeDispatcher from "./modules/ChromeDispatcher";
+import { applyTheme } from "./modules/Utilities";
 import "./App.less";
 import "./Options.less";
 import "./less/flex.less";
@@ -24,15 +23,17 @@ const root = createRoot(rootElement);
 
 /** Define App */
 const Options = () => {
-  /** Context States */
   const [options, setOptions] = useState({});
   const [toasts, dispatchToasts] = useReducer(ToastsReducer, []);
+  
+  /** Custom dispatcher */
   const dispatchChrome = ChromeDispatcher;
 
   /** Define tabs */
   const defaultTab = tabs.search;
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
+  /** Custom hook; Set options on first render */
   useChromeGet(
     (result) => {
       setOptions(result.options);
@@ -40,6 +41,7 @@ const Options = () => {
     ["options"]
   );
 
+  /** Custom hook; when a stored option value changes */
   useChromeListener(
     ({ oldValue, newValue }) => {
       setOptions(newValue);
@@ -48,6 +50,7 @@ const Options = () => {
     ["options"]
   );
 
+  /** Apply theme styles when theme value is changed */
   useEffect(() => {
     const theme = options.theme?.value.toLowerCase();
     applyTheme(theme);
