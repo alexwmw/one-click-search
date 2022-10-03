@@ -22,7 +22,7 @@ function OCSIcon({ provider, text, onIconClick, linkTarget, allowTitles }) {
   let encodedText, url, queryPath, searchUrl;
 
   if (isProvider) {
-    encodedText = encodeURIComponent(text);
+    encodedText = encodeURIComponent(text.trim());
     url = `https://${provider.hostname}/`;
     queryPath = provider.queryPath.replace("$TEXT$", encodedText);
     searchUrl = url + queryPath;
