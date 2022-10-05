@@ -28,7 +28,9 @@ const OptionsTitleArea = ({ selectedTab, isSearch }) => {
         {isSearch && (
           <>
             <HelpIcon />
-            <Button onClick={onAddProvClick}>Add new provider</Button>
+            <Button icon={"add"} onClick={onAddProvClick}>
+              Add new provider
+            </Button>
           </>
         )}
       </div>
