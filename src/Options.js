@@ -25,7 +25,7 @@ const root = createRoot(rootElement);
 const Options = () => {
   const [options, setOptions] = useState({});
   const [toasts, dispatchToasts] = useReducer(ToastsReducer, []);
-  
+
   /** Custom dispatcher */
   const dispatchChrome = ChromeDispatcher;
 
@@ -85,5 +85,5 @@ const Options = () => {
   );
 };
 
-//** Get data from storage and pass to App for render */
+//** Render options page */
 root.render(<Options />);
