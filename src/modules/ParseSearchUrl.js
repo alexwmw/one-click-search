@@ -2,12 +2,16 @@ const capitalize = (word) => word.charAt(0).toUpperCase() + word.slice(1);
 
 const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
   try {
-    searchString = searchString.toLowerCase().trim();
-    const searchTerm = "%24text%24";
-    const hasHttp = searchString.indexOf("http") == 0;
+    searchString = searchString.trim();
+    const lowerCaseSearchString = searchString.toLowerCase();
+    const encodedSearchTerm = "%24text%24";
+    const plainSearchTerm = "$text$";
+    const hasHttp = lowerCaseSearchString.indexOf("http") == 0;
     const hasQM = searchString.indexOf("?") > -1;
     const hasDot = searchString.indexOf(".") > -1;
-    const hasSearchTerm = searchString.indexOf(searchTerm) > -1;
+    const hasSearchTerm =
+      lowerCaseSearchString.indexOf(encodedSearchTerm) > -1 ||
+      lowerCaseSearchString.indexOf(plainSearchTerm) > -1;
     const hasSpaces = searchString.indexOf(" ") > -1;
     const hasSlash = searchString.indexOf("/") > -1;
 
@@ -39,7 +43,11 @@ const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
     if (hasQM && removeParameters) {
       queryString = queryString
         .split("&")
-        .filter((part) => part.indexOf(searchTerm) >= 0)
+        .filter(
+          (part) =>
+            part.toLowerCase().indexOf(encodedSearchTerm) >= 0 ||
+            part.toLowerCase().indexOf(plainSearchTerm) >= 0
+        )
         .join("&");
     }
 
@@ -62,7 +70,8 @@ const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
       queryString,
     ]
       .join("")
-      .replaceAll("%24text%24", "$TEXT$");
+      .replaceAll(/%24text%24/gi, "$TEXT$")
+      .replaceAll(/\$text\$/gi, "$TEXT$");
 
     onSuccess(name, hostname, queryPath);
   } catch (e) {
