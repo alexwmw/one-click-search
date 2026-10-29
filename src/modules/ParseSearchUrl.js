@@ -1,10 +1,17 @@
+const decode = (value) => {
+  try {
+    return decodeURIComponent(value);
+  } catch (e) {
+    return value;
+  }
+};
+
 const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
   try {
     const input = searchString.trim();
     const url = new URL(input.includes("://") ? input : `https://${input}`);
     const hostname = url.hostname;
-    const queryToken = "$TEXT$";
-    const hasToken = decodeURIComponent(url.href).includes(queryToken);
+    const hasToken = decode(url.href).toLowerCase().includes("$text$");
 
     if (!hostname.includes(".") || !/[/?]/.test(input)) {
       onError(
@@ -36,12 +43,15 @@ const parseSearchUrl = (searchString, removeParameters, onSuccess, onError) => {
 
     let queryPath = `${url.pathname}${url.search}${url.hash}`;
     if (removeParameters && url.search) {
-      const kept = url.search.slice(1).split("&").filter((part) =>
-        decodeURIComponent(part).includes(queryToken)
-      );
+      const kept = url.search
+        .slice(1)
+        .split("&")
+        .filter((part) => decode(part).toLowerCase().includes("$text$"));
       queryPath = `${url.pathname}${kept.length ? `?${kept.join("&")}` : ""}${url.hash}`;
     }
-    queryPath = queryPath.replace(/%24text%24/gi, queryToken);
+    queryPath = queryPath
+      .replace(/%24text%24/gi, "$TEXT$")
+      .replace(/\$text\$/gi, "$TEXT$");
     onSuccess(name, hostname, queryPath);
   } catch (e) {
     onError(

@@ -8,8 +8,11 @@ const modKey = (userAgentStr) => {
   }
 };
 
+import { version } from "../manifest.json";
+
 const information = [
   `
+  ### Version ${version}
   ### Search provider settings
   You can edit the settings of each search provider by clicking on the **⋮ more** icons on the **search providers** tab. The requirements for each form field are:\n\n
   <div>
