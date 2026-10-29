@@ -4,10 +4,10 @@ function OCSPageClick(evt, maxChars, dispatchWithString) {
     const OCS = document.getElementById("OneClickSearch");
     const checks = [
       // Check the click was outside of the popup
-      !OCS?.contains(evt.target) ?? false,
+      !(OCS && OCS.contains(evt.target)),
 
       // Check selection is not empty
-      selection != "",
+      selection.toString().trim() !== "",
 
       // Check the selection is a range
       selection["type"] === "Range",

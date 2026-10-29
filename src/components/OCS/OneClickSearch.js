@@ -22,6 +22,13 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   const transitionTimeout = fade ? options.fadeOutTime.value * 1000 - 250 : 0;
 
+  const isExcludedSite = () => {
+    const host = window.location.hostname.toLowerCase().replace(/^www\./, "");
+    return (options.excludedSites?.value ?? []).some((site) => {
+      const domain = site.toLowerCase().replace(/^www\./, "");
+      return host === domain || host.endsWith(`.${domain}`);
+    });
+  };
 
   const styleByTransitionState = (tState) => ({
     ...position,
@@ -32,7 +39,22 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
         : "",
   });
 
-  const pageClickHandler = (evt) =>
+  const pageClickHandler = (evt) => {
+    const selectedText = window.getSelection()?.toString() ?? "";
+    const popup = document.getElementById("OneClickSearch");
+    if (isVisible && selectedText === text && !popup?.contains(evt.target)) {
+      dispatch({
+        type: "SET_CLICK_PROPERTIES",
+        text: "",
+        x: evt.pageX,
+        y: evt.pageY,
+      });
+      return;
+    }
+    if (isExcludedSite()) {
+      dispatch({ type: "HIDE_OCS" });
+      return;
+    }
     OCSPageClick(evt, options.maxChars.value, (selectionText) =>
       dispatch({
         type: "SET_CLICK_PROPERTIES",
@@ -41,15 +63,21 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
         y: evt.pageY,
       })
     );
+  };
 
   const iconClickHandler = () => {
     dispatch({ type: "CLICK_OCS_ICON" });
   };
 
-  /** Add mouseup/down event listeners to document */
+  /** Handle completed selections after mouseup. */
   useEffect(() => {
-    document.addEventListener("click", pageClickHandler);
-  }, []);
+    document.addEventListener("mouseup", pageClickHandler);
+    return () => document.removeEventListener("mouseup", pageClickHandler);
+  }, [pageClickHandler]);
+
+  useEffect(() => {
+    if (isExcludedSite()) dispatch({ type: "HIDE_OCS" });
+  }, [options.excludedSites]);
 
   /** When click data changes, hide or display the popup */
   useEffect(() => {
