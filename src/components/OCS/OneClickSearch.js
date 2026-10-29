@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import clsx from "clsx";
 import Transition from "react-transition-group/Transition";
 import OCSPopUp from "./OCSPopUp";
@@ -14,6 +14,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   const [{ text, position, isVisible, showHidden, fade }, dispatch] =
     useReducer(OCSReducer, {});
+  const lastSelectionRef = useRef(null);
 
   const iconMapLinkTarget =
     options.linkTarget.dictionary[options.linkTarget.value];
@@ -40,9 +41,30 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   });
 
   const pageClickHandler = (evt) => {
-    const selectedText = window.getSelection()?.toString() ?? "";
+    const selection = window.getSelection();
+    const selectedText = selection?.toString() ?? "";
+    const currentRange = selection && {
+      anchorNode: selection.anchorNode,
+      anchorOffset: selection.anchorOffset,
+      focusNode: selection.focusNode,
+      focusOffset: selection.focusOffset,
+    };
+    const previousRange = lastSelectionRef.current;
+    const selectionIsUnchanged =
+      currentRange &&
+      previousRange &&
+      currentRange.anchorNode === previousRange.anchorNode &&
+      currentRange.anchorOffset === previousRange.anchorOffset &&
+      currentRange.focusNode === previousRange.focusNode &&
+      currentRange.focusOffset === previousRange.focusOffset;
     const popup = document.getElementById("OneClickSearch");
-    if (isVisible && selectedText === text && !popup?.contains(evt.target)) {
+    if (
+      isVisible &&
+      selectedText === text &&
+      selectionIsUnchanged &&
+      !popup?.contains(evt.target)
+    ) {
+      lastSelectionRef.current = null;
       dispatch({
         type: "SET_CLICK_PROPERTIES",
         text: "",
@@ -55,14 +77,18 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
       dispatch({ type: "HIDE_OCS" });
       return;
     }
-    OCSPageClick(evt, options.maxChars.value, (selectionText) =>
+    OCSPageClick(evt, options.maxChars.value, (selectionText) => {
+      lastSelectionRef.current = selectionText ? currentRange : null;
       dispatch({
         type: "SET_CLICK_PROPERTIES",
         text: selectionText,
         x: evt.pageX,
         y: evt.pageY,
-      })
-    );
+      });
+      if (isVisible && selectionText === text) {
+        dispatch({ type: "DISPLAY_OCS" });
+      }
+    });
   };
 
   const iconClickHandler = () => {
