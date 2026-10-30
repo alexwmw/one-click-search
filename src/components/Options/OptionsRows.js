@@ -5,6 +5,7 @@ import Slider from "../Inputs/Slider";
 import Switch from "../Inputs/Switch";
 import ColorPicker from "../Inputs/ColorPicker";
 import ThemeButton from "../Buttons/ThemeButton";
+import SiteList from "./SiteList";
 
 import "./OptionsRows.less";
 import ChromeContext from "../../contexts/ChromeContext";
@@ -55,6 +56,8 @@ const OptionRows = ({ selectedTab }) => {
             <ThemeButton settingId={id} />
           </div>
         );
+      case "site-list":
+        return <div className="control site-list-control"><SiteList settingId={id} /></div>;
       default:
         () => console.error("no match");
         return;

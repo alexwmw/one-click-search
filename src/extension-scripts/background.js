@@ -59,7 +59,10 @@ if (devConfig.setLegacyData) {
         options: OCSoptions,
       };
     } else {
-      dataToStore = result;
+      dataToStore = {
+        ...result,
+        options: { ...OCSoptions, ...result.options },
+      };
     }
 
     set(dataToStore, () => {

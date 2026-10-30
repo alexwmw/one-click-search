@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import clsx from "clsx";
 import Transition from "react-transition-group/Transition";
 import OCSPopUp from "./OCSPopUp";
@@ -14,6 +14,7 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   const [{ text, position, isVisible, showHidden, fade }, dispatch] =
     useReducer(OCSReducer, {});
+  const lastSelectionRef = useRef(null);
 
   const iconMapLinkTarget =
     options.linkTarget.dictionary[options.linkTarget.value];
@@ -22,6 +23,13 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
 
   const transitionTimeout = fade ? options.fadeOutTime.value * 1000 - 250 : 0;
 
+  const isExcludedSite = () => {
+    const host = window.location.hostname.toLowerCase().replace(/^www\./, "");
+    return (options.excludedSites?.value ?? []).some((site) => {
+      const domain = site.toLowerCase().replace(/^www\./, "");
+      return host === domain || host.endsWith(`.${domain}`);
+    });
+  };
 
   const styleByTransitionState = (tState) => ({
     ...position,
@@ -32,24 +40,70 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
         : "",
   });
 
-  const pageClickHandler = (evt) =>
-    OCSPageClick(evt, options.maxChars.value, (selectionText) =>
+  const pageClickHandler = (evt) => {
+    const selection = window.getSelection();
+    const selectedText = selection?.toString() ?? "";
+    const currentRange = selection && {
+      anchorNode: selection.anchorNode,
+      anchorOffset: selection.anchorOffset,
+      focusNode: selection.focusNode,
+      focusOffset: selection.focusOffset,
+    };
+    const previousRange = lastSelectionRef.current;
+    const selectionIsUnchanged =
+      currentRange &&
+      previousRange &&
+      currentRange.anchorNode === previousRange.anchorNode &&
+      currentRange.anchorOffset === previousRange.anchorOffset &&
+      currentRange.focusNode === previousRange.focusNode &&
+      currentRange.focusOffset === previousRange.focusOffset;
+    const popup = document.getElementById("OneClickSearch");
+    if (
+      isVisible &&
+      selectedText === text &&
+      selectionIsUnchanged &&
+      !popup?.contains(evt.target)
+    ) {
+      lastSelectionRef.current = null;
+      dispatch({
+        type: "SET_CLICK_PROPERTIES",
+        text: "",
+        x: evt.pageX,
+        y: evt.pageY,
+      });
+      return;
+    }
+    if (isExcludedSite()) {
+      dispatch({ type: "HIDE_OCS" });
+      return;
+    }
+    OCSPageClick(evt, options.maxChars.value, (selectionText) => {
+      lastSelectionRef.current = selectionText ? currentRange : null;
       dispatch({
         type: "SET_CLICK_PROPERTIES",
         text: selectionText,
         x: evt.pageX,
         y: evt.pageY,
-      })
-    );
+      });
+      if (isVisible && selectionText === text) {
+        dispatch({ type: "DISPLAY_OCS" });
+      }
+    });
+  };
 
   const iconClickHandler = () => {
     dispatch({ type: "CLICK_OCS_ICON" });
   };
 
-  /** Add mouseup/down event listeners to document */
+  /** Handle completed selections after mouseup. */
   useEffect(() => {
-    document.addEventListener("click", pageClickHandler);
-  }, []);
+    document.addEventListener("mouseup", pageClickHandler);
+    return () => document.removeEventListener("mouseup", pageClickHandler);
+  }, [pageClickHandler]);
+
+  useEffect(() => {
+    if (isExcludedSite()) dispatch({ type: "HIDE_OCS" });
+  }, [options.excludedSites]);
 
   /** When click data changes, hide or display the popup */
   useEffect(() => {
