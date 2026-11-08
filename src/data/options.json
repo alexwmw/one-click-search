@@ -131,5 +131,14 @@
     "value": 1000,
     "type": "number",
     "pos": 0
+  },
+  "excludedSites": {
+    "class": "advanced",
+    "id": "excludedSites",
+    "label": "Disabled sites",
+    "description": "Do not show the search popup on these sites. Enter one domain per line (for example, example.com). Subdomains are included.",
+    "value": [],
+    "type": "site-list",
+    "pos": 1
   }
 }

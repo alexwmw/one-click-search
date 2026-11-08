@@ -163,6 +163,7 @@ export const styleByState = (state, fade, fadeOutTime) => {
 };
 
 export const applyTheme = (theme, element = null) => {
+  if (theme !== "light" && theme !== "dark") return;
   if (element) {
     element.dataset.theme = `theme-${theme}`;
   } else {

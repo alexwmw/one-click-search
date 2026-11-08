@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useOutsideClick from "/src/hooks/useOutsideClick";
 import useTimeout from "/src/hooks/useTimeout";
 import styles from "./OneClickSearch.modules.less";
@@ -14,6 +14,7 @@ const OCSPopUp = ({
     showDelay,
     animations,
     color,
+    theme,
   },
   style,
   dispatch,
@@ -22,7 +23,6 @@ const OCSPopUp = ({
 }) => {
   const [setT_showHidden, clearT_showHidden] = useTimeout();
   const [setT_fadePopup, clearT_fadePopup] = useTimeout();
-  const [theme, setTheme] = useState();
 
   /** Mouse events */
   const ref = useOutsideClick(() => dispatch({ type: "CLICK_OFF_OCS" }));
@@ -64,7 +64,10 @@ const OCSPopUp = ({
   );
 
   useEffect(() => {
-    applyTheme(theme);
+    applyTheme(
+      theme?.value?.toLowerCase(),
+      document.getElementById("OneClickSearch")
+    );
   }, [theme]);
 
   /** useEffect on unmount only */

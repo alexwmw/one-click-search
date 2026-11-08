@@ -11,11 +11,18 @@ One Click Search is a faster and more convenient way to search in Google Chrome.
 
 Highly customisable with an intuitive interface - allowing you to show as many or as few search icons as you like, in whatever order you like. 
 
-### NEW in Version 2.0
+### NEW in Version 2.1
+
+- Disable or re-enable One Click Search for the active site directly from the extension popup.
+- Manage disabled sites from Advanced Options; disabled domains also apply to their subdomains.
+- Style bug fixes
+
+
+### Version 2.0
 - Written in ReactJS
 - New logo, design and colour scheme
 - Customisable appearance
-- Sophisticated alerts and dialogs 
+- Sophisticated alerts and dialogs
 - New method of inserting search queries allows for longer and more complex query strings
 - Responsive options page design
 - Dark and light modes for options pages
