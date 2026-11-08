@@ -15,6 +15,8 @@ import "./App.less";
 import "./less/flex.less";
 import "./less/theme.less";
 import "./components/Inputs/Switch.less";
+import Icon from "./components/Icons/Icon";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 /** Define root */
 const rootElement = document.getElementById("app");
@@ -26,6 +28,8 @@ const CurrentSiteToggle = ({ hostname, options, onChange }) => {
     ? !isHostnameExcluded(hostname, options.excludedSites?.value ?? [])
     : false;
 
+  const iconClassName = `current-site-icon current-site-icon-${enabled ? 'enabled' : 'disabled'}`;
+
   return (
     <section className="current-site-toggle" aria-live="polite">
       {available ? (
@@ -34,13 +38,15 @@ const CurrentSiteToggle = ({ hostname, options, onChange }) => {
             <h2>One Click Search on {hostname}</h2>
             <p>{enabled ? "Enabled" : "Disabled"}</p>
           </div>
-          <label className="switch" aria-label={`One Click Search on ${hostname}`}>
+          <label className="switch current-site-switch" aria-label={`One Click Search on ${hostname}`}>
             <input
               type="checkbox"
               checked={enabled}
               onChange={(event) => onChange(event.target.checked)}
             />
-            <span className="handle" />
+            <span className="handle" >
+              <Icon className={iconClassName} icon={faCheck} />
+            </span>
           </label>
         </>
       ) : (
