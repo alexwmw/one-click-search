@@ -53,14 +53,44 @@ body {
 
   .page-container {
     padding: 24px;
-    height: 530px;
     overflow-y: overlay;
     position: fixed;
-    top: 48px;
+    top: 113px;
     right: 0;
     left: 0;
     z-index: 0;
-    height: 84%;
+    height: calc(100% - 113px);
+  }
+
+  .current-site-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 24px;
+    border-bottom: 1px solid var(--L3);
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 0.95rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: var(--D1);
+    }
+
+    .switch {
+      flex: 0 0 auto;
+    }
+
+    .current-site-unavailable {
+      color: var(--D1);
+    }
   }
 
   .help-modal {

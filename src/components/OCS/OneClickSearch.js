@@ -7,6 +7,7 @@ import OCSReducer from "../../reducers/OCSReducer";
 import OCSPageClick from "../../modules/OCSPageClick";
 import useChromeListener from "../../hooks/useChromeListener";
 import { isValidText } from "../../modules/Utilities";
+import { isHostnameExcluded } from "../../modules/SiteExclusions.mjs";
 
 const OneClickSearch = ({ storedProviders, storedOptions }) => {
   const [providers, setProviders] = useState(storedProviders);
@@ -24,11 +25,10 @@ const OneClickSearch = ({ storedProviders, storedOptions }) => {
   const transitionTimeout = fade ? options.fadeOutTime.value * 1000 - 250 : 0;
 
   const isExcludedSite = () => {
-    const host = window.location.hostname.toLowerCase().replace(/^www\./, "");
-    return (options.excludedSites?.value ?? []).some((site) => {
-      const domain = site.toLowerCase().replace(/^www\./, "");
-      return host === domain || host.endsWith(`.${domain}`);
-    });
+    return isHostnameExcluded(
+      window.location.hostname,
+      options.excludedSites?.value ?? []
+    );
   };
 
   const styleByTransitionState = (tState) => ({
